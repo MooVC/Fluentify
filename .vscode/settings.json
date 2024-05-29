@@ -1,0 +1,4 @@
+{
+    "dotnet-test-explorer.testProjectPath": "**/*.sln",
+    "editor.renderWhitespace": "all"
+}

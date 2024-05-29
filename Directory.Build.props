@@ -1,0 +1,50 @@
+﻿<Project>
+  <PropertyGroup>
+    <AnalysisMode>Recommended</AnalysisMode>
+    <Authors>Paul Martins</Authors>
+    <Company>MooVC</Company>
+    <Copyright>MooVC © 2024-$([System.DateTime]::Now.Year)</Copyright>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <NeutralLanguage>en</NeutralLanguage>
+    <NoWarn>$(NoWarn);CS0618;NU5105</NoWarn>
+    <Nullable>enable</Nullable>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/MooVC/fluentify</PackageProjectUrl>
+    <Product>Fluentify</Product>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/MooVC/fluentify.git</RepositoryUrl>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(CODESPACES)' == 'true'">
+    <IsCodespace>true</IsCodespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(MSBuildProjectName) == 'Fluentify' OR $(MSBuildProjectName.EndsWith('.Analyzers')) OR $(MSBuildProjectName.EndsWith('.Generators'))">
+    <IsRoslynProject>true</IsRoslynProject>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(IsRoslynProject)' != 'true' AND '$(IsTestProject)' != 'true'">
+    <IsLibraryProject>true</IsLibraryProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SonarAnalyzer.CSharp">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(IsLibraryProject)' == 'true' OR '$(IsRoslynProject)' == 'true'">
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>$(MSBuildProjectName).Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+  <Import Condition="'$(IsLibraryProject)' == 'true'" Project="build/Libraries.props" />
+  <Import Condition="'$(IsRoslynProject)' == 'true'" Project="build/Roslyn.props" />
+  <Import Condition="'$(IsTestProject)' == 'true'" Project="build/Tests.props" />
+</Project>

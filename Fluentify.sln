@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluentify", "src\Fluentify\Fluentify.csproj", "{22EEE0C5-9F8D-4709-BA2C-8AF5925FB341}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluentify.Console", "src\Fluentify.Console\Fluentify.Console.csproj", "{DB71C87A-00F7-4B8C-8D75-8EAAB4BD8E24}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{B20D23DA-1E08-4764-8172-B86128CA3416}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		build\Libraries.props = build\Libraries.props
+		build\Roslyn.props = build\Roslyn.props
+		build\Tests.props = build\Tests.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Actions", "Actions", "{A8DC330F-D9E7-4DD4-9FD8-84BE54EADA58}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\cd.yml = .github\workflows\cd.yml
+		.github\workflows\ci.yml = .github\workflows\ci.yml
+		.github\dependabot.yml = .github\dependabot.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analyzers", "Analyzers", "{31BD3E7B-7B11-4A83-ABA0-1561112F4896}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		analyzers\stylecop.code.ruleset = analyzers\stylecop.code.ruleset
+		analyzers\stylecop.tests.ruleset = analyzers\stylecop.tests.ruleset
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EDFD8FBD-CDAB-4EAE-986C-538E457515D0}"
+	ProjectSection(SolutionItems) = preProject
+		.filenesting.json = .filenesting.json
+		.gitignore = .gitignore
+		.runsettings = .runsettings
+		LICENSE = LICENSE
+		nuget.config = nuget.config
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluentify.Tests", "src\Fluentify.Tests\Fluentify.Tests.csproj", "{25FAA0FE-0B5A-489F-8145-DF74C9BADD81}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22EEE0C5-9F8D-4709-BA2C-8AF5925FB341}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22EEE0C5-9F8D-4709-BA2C-8AF5925FB341}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22EEE0C5-9F8D-4709-BA2C-8AF5925FB341}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22EEE0C5-9F8D-4709-BA2C-8AF5925FB341}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB71C87A-00F7-4B8C-8D75-8EAAB4BD8E24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB71C87A-00F7-4B8C-8D75-8EAAB4BD8E24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB71C87A-00F7-4B8C-8D75-8EAAB4BD8E24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB71C87A-00F7-4B8C-8D75-8EAAB4BD8E24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25FAA0FE-0B5A-489F-8145-DF74C9BADD81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25FAA0FE-0B5A-489F-8145-DF74C9BADD81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25FAA0FE-0B5A-489F-8145-DF74C9BADD81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25FAA0FE-0B5A-489F-8145-DF74C9BADD81}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {698943DC-F24D-493A-8E83-C1575E70561A}
+	EndGlobalSection
+EndGlobal
