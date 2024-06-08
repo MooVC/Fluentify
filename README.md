@@ -1,9 +1,9 @@
 
 # Fluentify [![NuGet](https://img.shields.io/nuget/v/Fluentify?logo=nuget)](https://www.nuget.org/packages/Fluentify/) [![GitHub](https://img.shields.io/github/license/MooVC/Fluentify)](LICENSE.md)
 
-Fluentify is a .NET Roslyn Source Generator designed to automate the creation of Fluent APIs. This tool enables engineers to rapidly develop rich, expressive, and maintainable APIs with ease.
+Fluentify is a .NET Roslyn Source Generator designed to automate the creation of Fluent APIs. This tool enables engineers to rapidly develop rich, expressive, and maintainable APIs with ease. Utilizing Fluentify allows for cleaner code, easier maintenance, and more expressive interactions within your C# .NET applications.
 
-# Installation
+## Installation
 
 To install Fluentify, use the following command in your package manager console:
 
@@ -11,11 +11,11 @@ To install Fluentify, use the following command in your package manager console:
 install-package Fluentify
 ```
 
-# Usage
+## Usage
 
-Fluentify automatically creates extension methods for each property on types that have the `Fluentify` attribute.
+Fluentify automatically creates extension methods for each property on types that have the `Fluentify` attribute, supporting both class and record types.
 
-For class types:
+### Class Type Usage
 
 ```csharp
 [Fluentify]
@@ -27,14 +27,14 @@ public class Person
 }
 ```
 
-For record types:
+### Record Type Usage
 
 ```csharp
 [Fluentify]
 public record Person(ushort Age, DateOnly DateOfBirth, Name Name);
 ```
 
-The generated Fluentify extension methods preserve immutabiility, providing a new instance with the specified value applied to the associated property. Using the provided `Builder<T>` delegate, Fluentify can also create an instance of the required value for the associated property on your behalf and allow you to configure it.
+The generated extension methods preserve immutability, providing a new instance with the specified value applied to the associated property. Using the `Builder<T>` delegate, Fluentify can also instantiate the value for the associated property, allowing for it to be configured.
 
 ```csharp
 var person = new Person(...);
@@ -51,7 +51,7 @@ _ = person
 
 Extension method names can be customized via the `Descriptor` attribute.
 
-For class types:
+### Class Type Usage
 
 ```csharp
 [Fluentify]
@@ -68,7 +68,7 @@ public class Person
 }
 ```
 
-For record types:
+### Record Type Usage
 
 ```csharp
 [Fluentify]
@@ -93,7 +93,7 @@ _ = person
 
 Specific properties can be excluded from generating Fluentify extension methods using the `Ignore` attribute:
 
-For class types:
+### Class Type Usage
 
 ```csharp
 [Fluentify]
@@ -106,7 +106,7 @@ public class Person
 }
 ```
 
-For record types:
+### Record Type Usage
 
 ```csharp
 [Fluentify]
@@ -124,10 +124,10 @@ _ = person
     .WithDateOfBirth(new DateOnly(1983, 7, 24));
 ```
 
-# Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit pull requests or open issues to suggest improvements or add new features.
 
-# License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
