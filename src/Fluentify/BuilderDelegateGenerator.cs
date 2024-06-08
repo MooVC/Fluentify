@@ -14,11 +14,12 @@ public sealed class BuilderDelegateGenerator
     /// <summary>
     /// The source code that will be output by the generator.
     /// </summary>
-    public const string Source = $$"""
-        namespace Fluentify;
-
-        internal delegate T Builder<T>(T subject)
-            where T : new();
+    internal const string Source = $$"""
+        namespace Fluentify
+        {
+            internal delegate T Builder<T>(T subject)
+                where T : new();
+        }
         """;
 
     private const string Hint = "Builder.g.cs";

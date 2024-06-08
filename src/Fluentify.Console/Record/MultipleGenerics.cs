@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Console.Fluentify;
+﻿namespace Fluentify.Console.Record;
 
 /// <summary>
 /// A record that demonstrates the libraries use with multiple generics.

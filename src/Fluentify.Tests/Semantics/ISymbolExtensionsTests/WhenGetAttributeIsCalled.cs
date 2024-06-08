@@ -10,7 +10,7 @@ public sealed class WhenGetAttributeIsCalled
     {
         // Arrange
         INamedTypeSymbol @class = Substitute.For<INamedTypeSymbol>();
-        _ = @class.ToDisplayString().Returns("Fluentify.TestAttribute");
+        _ = @class.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat).Returns("Fluentify.TestAttribute");
 
         AttributeData data = Substitute.For<AttributeData>();
         _ = data.AttributeClass.Returns(@class);

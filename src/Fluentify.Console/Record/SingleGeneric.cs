@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Console.Fluentify;
+﻿namespace Fluentify.Console.Record;
 
 using System.Collections;
 

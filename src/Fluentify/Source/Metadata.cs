@@ -5,7 +5,7 @@ using Fluentify.Model;
 /// <summary>
 /// Captures metadata used to support source generation.
 /// </summary>
-internal ref struct Metadata
+internal struct Metadata
 {
     /// <summary>
     /// Gets or sets a list of generic type constraints associated with the <see cref="Subject"/>, including the clause statement.

@@ -37,7 +37,7 @@ public sealed class WhenHasFluentifyIsCalled
     public void GivenFluentifyAttributeThenReturnsTrue()
     {
         // Arrange
-        AttributeData attribute = CreateAttributeData("Fluentify.FluentifyAttribute");
+        AttributeData attribute = CreateAttributeData("global::Fluentify.FluentifyAttribute");
         INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes(ImmutableArray.Create(attribute));
 
         // Act
@@ -52,7 +52,7 @@ public sealed class WhenHasFluentifyIsCalled
     {
         // Arrange
         AttributeData other = CreateAttributeData("SomeOtherAttribute");
-        AttributeData fluentify = CreateAttributeData("Fluentify.FluentifyAttribute");
+        AttributeData fluentify = CreateAttributeData("global::Fluentify.FluentifyAttribute");
         INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes(ImmutableArray.Create(other, fluentify));
 
         // Act

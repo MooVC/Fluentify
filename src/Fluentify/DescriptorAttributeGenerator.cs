@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Text;
 
 /// <summary>
 /// Generates the Descriptor attribute, used to denote the preferred name for the extension methods associated with
-/// a property of a record type is to be subjected to <see cref="FluentifyGenerator"/>.
+/// a property of a record type is to be subjected to <see cref="RecordGenerator"/>.
 /// </summary>
 [Generator]
 public sealed class DescriptorAttributeGenerator
@@ -15,14 +15,14 @@ public sealed class DescriptorAttributeGenerator
     /// <summary>
     /// The name of the attribute that will be output by the generator.
     /// </summary>
-    public const string Name = "Descriptor";
+    internal const string Name = "Descriptor";
 
     /// <summary>
     /// The source code that will be output by the generator.
     /// </summary>
-    public const string Source = $$"""
-            namespace Fluentify;
-
+    internal const string Source = $$"""
+        namespace Fluentify
+        {
             using System;
             using System.Diagnostics.CodeAnalysis;
 
@@ -37,7 +37,8 @@ public sealed class DescriptorAttributeGenerator
 
                 public string Value { get; }
             }
-            """;
+        }
+        """;
 
     /// <inheritdoc/>
     public void Initialize(IncrementalGeneratorInitializationContext context)

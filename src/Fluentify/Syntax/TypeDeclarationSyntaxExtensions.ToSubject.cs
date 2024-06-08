@@ -6,9 +6,9 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 /// <summary>
-/// Provides extensions relating to <see cref="RecordDeclarationSyntax"/>.
+/// Provides extensions relating to <see cref="TypeDeclarationSyntax"/>.
 /// </summary>
-internal static partial class RecordDeclarationSyntaxExtensions
+internal static partial class TypeDeclarationSyntaxExtensions
 {
     /// <summary>
     /// Maps the required Semantics from the <paramref name="syntax"/>, using the <paramref name="compilation"/>
@@ -23,29 +23,30 @@ internal static partial class RecordDeclarationSyntaxExtensions
     /// When the <paramref name="syntax"/> is annotated with the Fluentify attribute, the required semantics mapped from <paramref name="syntax"/>
     /// using <paramref name="compilation"/>, otherwise <see langword="null"/>.
     /// </returns>
-    public static Subject? ToSubject(this RecordDeclarationSyntax? syntax, Compilation compilation, CancellationToken cancellationToken)
+    public static Subject? ToSubject(this TypeDeclarationSyntax? syntax, Compilation compilation, CancellationToken cancellationToken)
     {
         if (syntax is not null)
         {
             SemanticModel model = compilation.GetSemanticModel(syntax.SyntaxTree);
             ISymbol? symbol = model.GetDeclaredSymbol(syntax);
 
-            if (symbol is INamedTypeSymbol record && record.HasFluentify())
+            if (symbol is INamedTypeSymbol type && type.HasFluentify())
             {
-                IReadOnlyList<Property> properties = record.GetProperties(compilation, cancellationToken);
+                IReadOnlyList<Property> properties = type.GetProperties(compilation, cancellationToken);
 
                 if (properties.Count > 0)
                 {
-                    bool hasDefaultConstructor = record.HasAccessibleParameterlessConstructor(compilation);
+                    bool hasDefaultConstructor = type.HasAccessibleParameterlessConstructor(compilation);
                     bool isPartial = syntax.IsPartial();
-                    IReadOnlyList<Generic> generics = record.GetGenerics();
+                    IReadOnlyList<Generic> generics = type.GetGenerics();
 
                     return new Subject
                     {
+                        Accessibility = type.DeclaredAccessibility,
                         Generics = generics,
                         HasDefaultConstructor = hasDefaultConstructor,
                         IsPartial = isPartial,
-                        Name = record.Name,
+                        Name = type.Name,
                         Namespace = symbol.ContainingNamespace.ToDisplayString(),
                         Properties = properties,
                     };

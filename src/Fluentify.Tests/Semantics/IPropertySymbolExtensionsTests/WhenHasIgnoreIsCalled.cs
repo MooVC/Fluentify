@@ -11,7 +11,7 @@ public sealed class WhenHasIgnoreIsCalled
     {
         // Arrange
         INamedTypeSymbol @class = Substitute.For<INamedTypeSymbol>();
-        _ = @class.ToDisplayString().Returns($"Fluentify.{Name}Attribute");
+        _ = @class.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat).Returns($"Fluentify.{Name}Attribute");
 
         AttributeData data = Substitute.For<AttributeData>();
         _ = data.AttributeClass.Returns(@class);

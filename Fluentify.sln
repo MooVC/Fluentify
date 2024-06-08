@@ -26,8 +26,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analyzers", "Analyzers", "{31BD3E7B-7B11-4A83-ABA0-1561112F4896}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		analyzers\stylecop.code.ruleset = analyzers\stylecop.code.ruleset
-		analyzers\stylecop.tests.ruleset = analyzers\stylecop.tests.ruleset
+		analyzers\code.ruleset = analyzers\code.ruleset
+		analyzers\tests.ruleset = analyzers\tests.ruleset
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EDFD8FBD-CDAB-4EAE-986C-538E457515D0}"
@@ -40,7 +40,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluentify.Tests", "src\Fluentify.Tests\Fluentify.Tests.csproj", "{25FAA0FE-0B5A-489F-8145-DF74C9BADD81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluentify.Tests", "src\Fluentify.Tests\Fluentify.Tests.csproj", "{25FAA0FE-0B5A-489F-8145-DF74C9BADD81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,16 +14,17 @@ internal static partial class PropertyExtensions
     /// </summary>
     /// <param name="property">The <see cref="Property"/> for which the extensions are to be generated.</param>
     /// <param name="metadata">Information relating to the subject to which the <paramref name="property"/> belongs.</param>
+    /// <param name="scalar">A function that enables the generation of the source associated with a scalar transform.</param>
     /// <returns>
     /// The source code needed to support the extensions relating the <paramref name="property"/> in the context of <paramref name="metadata"/>.
     /// </returns>
-    public static string GetExtensions(this Property property, ref Metadata metadata)
+    public static string GetExtensions(this Property property, ref Metadata metadata, Func<Property, string?> scalar)
     {
         string accessibility = metadata.Subject.Accessibility < Accessibility.Public || property.Accessibility < Accessibility.Public
             ? "internal"
             : "public";
 
-        string methods = property.GetExtensionMethods(ref metadata);
+        string methods = property.GetExtensionMethods(ref metadata, scalar);
 
         return $$"""
             using System;
@@ -35,7 +36,7 @@ internal static partial class PropertyExtensions
             """;
     }
 
-    private static string GetExtensionMethods(this Property property, ref Metadata metadata)
+    private static string GetExtensionMethods(this Property property, ref Metadata metadata, Func<Property, string?> scalar)
     {
         string nullability = property.IsNullable && !property.Type.EndsWith("?")
             ? "?"
@@ -45,7 +46,7 @@ internal static partial class PropertyExtensions
 
         (string? Body, string Parameter)[] extensions =
         [
-            (property.GetScalarExtensionMethodBody(), parameter),
+            (scalar(property), parameter),
             (property.GetScalarDelegateExtensionMethodBody(), $"global::Fluentify.Builder<{parameter}>"),
         ];
 
@@ -86,16 +87,6 @@ internal static partial class PropertyExtensions
             .ToArray();
 
         return string.Join("\r\n\r\n", methods);
-    }
-
-    private static string GetScalarExtensionMethodBody(this Property property)
-    {
-        return $$"""
-            return subject with
-            {
-                {{property.Name}} = value,
-            };
-            """;
     }
 
     private static string? GetScalarDelegateExtensionMethodBody(this Property property)

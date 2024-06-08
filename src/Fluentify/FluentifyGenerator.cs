@@ -11,14 +11,15 @@ using Microsoft.CodeAnalysis.Text;
 /// <summary>
 /// Generates extension methods that engineers to rapidly develop rich, expressive, and maintainable Fluent APIs with ease.
 /// </summary>
-[Generator(LanguageNames.CSharp)]
-public sealed class FluentifyGenerator
+/// <typeparam name="T">The type of syntax to which the generator applies.</typeparam>
+public abstract partial class FluentifyGenerator<T>
     : IIncrementalGenerator
+    where T : TypeDeclarationSyntax
 {
     /// <inheritdoc/>
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        IncrementalValuesProvider<RecordDeclarationSyntax?> records = context
+        IncrementalValuesProvider<T?> records = context
             .SyntaxProvider
             .CreateSyntaxProvider(predicate: IsMatch, transform: Transform)
             .Where(record => record is not null);
@@ -31,67 +32,81 @@ public sealed class FluentifyGenerator
         context.RegisterSourceOutput(subjects, Generate);
     }
 
-    private static void AddSource(SourceProductionContext context, string hint, string @namespace, string source)
+    /// <summary>
+    /// Allows for the customization of the transfrm generated for the specified property.
+    /// </summary>
+    /// <param name="property">The property for which the transform is to be generated.</param>
+    /// <param name="subject">The subject for which the transform is being applied.</param>
+    /// <returns>The source code associated with the property transform.</returns>
+    private protected abstract string? GetScalarExtensionMethodBody(Property property, Subject subject);
+
+    /// <summary>
+    /// Allows for the customization of source to be added to the <see cref="SourceProductionContext"/>.
+    /// </summary>
+    /// <param name="subject">The subject for which source is to be added to the <see cref="SourceProductionContext"/>.</param>
+    /// <returns>The source to be added to the <see cref="SourceProductionContext"/>.</returns>
+    private protected virtual IEnumerable<Source> GetSource(Subject subject)
     {
-        source = $$"""
+        var metadata = subject.ToMetadata();
+
+        foreach (Property property in subject.Properties)
+        {
+            string? GetScalar(Property property)
+            {
+                return GetScalarExtensionMethodBody(property, subject);
+            }
+
+            string content = property.GetExtensions(ref metadata, GetScalar);
+            string hint = $"{subject.Namespace}.{subject.Name}Extensions.{property.Descriptor}.g.cs";
+
+            yield return new Source
+            {
+                Content = content,
+                Hint = hint,
+            };
+        }
+    }
+
+    private static void AddSource(string content, SourceProductionContext context, string hint, string @namespace)
+    {
+        content = $$"""
             #nullable enable
             #pragma warning disable CS8625
 
             namespace {{@namespace}}
             {
-                {{source.Indent()}}
+                {{content.Indent()}}
             }
             
             #pragma warning restore CS8625
             #nullable restore
             """;
 
-        var text = SourceText.From(source, Encoding.UTF8);
+        var text = SourceText.From(content, Encoding.UTF8);
 
         context.AddSource(hint, text);
     }
 
-    private static void Generate(SourceProductionContext context, Subject? subject)
+    private static bool IsMatch(SyntaxNode node, CancellationToken cancellationToken)
+    {
+        return node is T type && type.AttributeLists.Count > 0;
+    }
+
+    private static T? Transform(GeneratorSyntaxContext context, CancellationToken cancellationToken)
+    {
+        return context.Node as T;
+    }
+
+    private void Generate(SourceProductionContext context, Subject? subject)
     {
         if (subject is not null)
         {
-            if (subject.IsPartial && !subject.HasDefaultConstructor)
+            IEnumerable<Source> source = GetSource(subject);
+
+            foreach (Source element in source)
             {
-                GenerateConstructor(context, subject);
+                AddSource(element.Content, context, element.Hint, subject.Namespace);
             }
-
-            GenerateExtensions(context, subject);
         }
-    }
-
-    private static void GenerateConstructor(SourceProductionContext context, Subject subject)
-    {
-        string source = subject.GetConstructor();
-        string hint = $"{subject.Namespace}.{subject.Name}.ctor.g.cs";
-
-        AddSource(context, hint, subject.Namespace, source);
-    }
-
-    private static void GenerateExtensions(SourceProductionContext context, Subject subject)
-    {
-        var metadata = subject.ToMetadata();
-
-        foreach (Property property in subject.Properties)
-        {
-            string source = property.GetExtensions(ref metadata);
-            string hint = $"{subject.Namespace}.{subject.Name}Extensions.{property.Descriptor}.g.cs";
-
-            AddSource(context, hint, subject.Namespace, source);
-        }
-    }
-
-    private static bool IsMatch(SyntaxNode node, CancellationToken cancellationToken)
-    {
-        return node is RecordDeclarationSyntax record && record.AttributeLists.Count > 0;
-    }
-
-    private static RecordDeclarationSyntax? Transform(GeneratorSyntaxContext context, CancellationToken cancellationToken)
-    {
-        return context.Node as RecordDeclarationSyntax;
     }
 }

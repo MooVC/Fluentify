@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Console.Descriptor;
+﻿namespace Fluentify.Console.Record.Descriptor;
 
 using System.Collections.Generic;
 
@@ -9,4 +9,4 @@ using System.Collections.Generic;
 /// <param name="Name">The second property to be subject to the extension generator.</param>
 /// <param name="Attributes">The third property to be subject to the extension generator.</param>
 [Fluentify]
-public sealed record OnOptional(int Age, string Name, [Descriptor("AttributedWith")] IReadOnlyList<object>? Attributes = default);
+internal sealed record OnIgnored(int Age, [Descriptor("Named"), Ignore] string Name, IReadOnlyList<object>? Attributes = default);

@@ -6,11 +6,13 @@ using Metadata = Fluentify.Source.Metadata;
 
 public sealed class WhenGetExtensionsIsCalled
 {
-    [Fact]
-    public void GivenPublicPropertyAndPublicSubjectThenGeneratesPublicExtension()
+    [Theory]
+    [InlineData("throw new NotImplementedException();")]
+    [InlineData("return new();")]
+    public void GivenPublicPropertyAndPublicSubjectThenGeneratesPublicExtension(string scalar)
     {
         // Arrange
-        const string Expected = """
+        string expected = $$"""
             using System;
 
             public static partial class TestSubjectExtensions
@@ -19,10 +21,7 @@ public sealed class WhenGetExtensionsIsCalled
                 {
                     ArgumentNullException.ThrowIfNull(subject);
 
-                    return subject with
-                    {
-                        TestProperty = value,
-                    };
+                    {{scalar}}
                 }
             }
             """;
@@ -53,17 +52,19 @@ public sealed class WhenGetExtensionsIsCalled
         };
 
         // Act
-        string result = property.GetExtensions(ref metadata);
+        string result = property.GetExtensions(ref metadata, _ => scalar);
 
         // Assert
-        _ = result.Should().Be(Expected);
+        _ = result.Should().Be(expected);
     }
 
-    [Fact]
-    public void GivenInternalPropertyAndPublicSubjectThenGeneratesInternalExtension()
+    [Theory]
+    [InlineData("throw new NotImplementedException();")]
+    [InlineData("return new();")]
+    public void GivenInternalPropertyAndPublicSubjectThenGeneratesInternalExtension(string scalar)
     {
         // Arrange
-        const string Expected = """
+        string expected = $$"""
             using System;
 
             internal static partial class TestSubjectExtensions
@@ -72,10 +73,7 @@ public sealed class WhenGetExtensionsIsCalled
                 {
                     ArgumentNullException.ThrowIfNull(subject);
 
-                    return subject with
-                    {
-                        TestProperty = value,
-                    };
+                    {{scalar}}
                 }
             }
             """;
@@ -106,16 +104,18 @@ public sealed class WhenGetExtensionsIsCalled
         };
 
         // Act
-        string result = property.GetExtensions(ref metadata);
+        string result = property.GetExtensions(ref metadata, _ => scalar);
 
         // Assert
-        _ = result.Should().Be(Expected);
+        _ = result.Should().Be(expected);
     }
 
-    [Fact]
-    public void GivenNullablePropertyThenGeneratesExtensionWithNullableType()
+    [Theory]
+    [InlineData("throw new NotImplementedException();")]
+    [InlineData("return new();")]
+    public void GivenNullablePropertyThenGeneratesExtensionWithNullableType(string scalar)
     {
-        const string Expected = """
+        string expected = $$"""
             using System;
 
             public static partial class TestSubjectExtensions
@@ -124,10 +124,7 @@ public sealed class WhenGetExtensionsIsCalled
                 {
                     ArgumentNullException.ThrowIfNull(subject);
 
-                    return subject with
-                    {
-                        TestProperty = value,
-                    };
+                    {{scalar}}
                 }
             }
             """;
@@ -159,17 +156,19 @@ public sealed class WhenGetExtensionsIsCalled
         };
 
         // Act
-        string result = property.GetExtensions(ref metadata);
+        string result = property.GetExtensions(ref metadata, _ => scalar);
 
         // Assert
-        _ = result.Should().Be(Expected);
+        _ = result.Should().Be(expected);
     }
 
-    [Fact]
-    public void GivenBuildablePropertyThenGeneratesDelegateExtension()
+    [Theory]
+    [InlineData("throw new NotImplementedException();")]
+    [InlineData("return new();")]
+    public void GivenBuildablePropertyThenGeneratesDelegateExtension(string scalar)
     {
         // Arrange
-        const string Expected = """
+        string expected = $$"""
             using System;
 
             public static partial class TestSubjectExtensions
@@ -178,10 +177,7 @@ public sealed class WhenGetExtensionsIsCalled
                 {
                     ArgumentNullException.ThrowIfNull(subject);
 
-                    return subject with
-                    {
-                        TestProperty = value,
-                    };
+                    {{scalar}}
                 }
 
                 public static TestSubject WithTestProperty(this TestSubject subject, global::Fluentify.Builder<TestType> value)
@@ -221,9 +217,9 @@ public sealed class WhenGetExtensionsIsCalled
         };
 
         // Act
-        string result = property.GetExtensions(ref metadata);
+        string result = property.GetExtensions(ref metadata, _ => scalar);
 
         // Assert
-        _ = result.Should().Be(Expected);
+        _ = result.Should().Be(expected);
     }
 }

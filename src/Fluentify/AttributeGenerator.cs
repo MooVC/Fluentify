@@ -33,14 +33,15 @@ public abstract class AttributeGenerator
     private void Generate(IncrementalGeneratorPostInitializationContext context)
     {
         string source = $$"""
-            namespace Fluentify;
-
-            using System;
-
-            [AttributeUsage({{GetTargets()}}, Inherited = false, AllowMultiple = false)]
-            internal sealed class {{name}}Attribute
-                : Attribute
+            namespace Fluentify
             {
+                using System;
+
+                [AttributeUsage({{GetTargets()}}, Inherited = false, AllowMultiple = false)]
+                internal sealed class {{name}}Attribute
+                    : Attribute
+                {
+                }
             }
             """;
 

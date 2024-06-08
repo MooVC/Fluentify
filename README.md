@@ -1,10 +1,9 @@
+
 # Fluentify [![NuGet](https://img.shields.io/nuget/v/Fluentify?logo=nuget)](https://www.nuget.org/packages/Fluentify/) [![GitHub](https://img.shields.io/github/license/MooVC/Fluentify)](LICENSE.md)
 
 Fluentify is a .NET Roslyn Source Generator designed to automate the creation of Fluent APIs. This tool enables engineers to rapidly develop rich, expressive, and maintainable APIs with ease.
 
-## Getting Started
-
-### Installation
+# Installation
 
 To install Fluentify, use the following command in your package manager console:
 
@@ -12,36 +11,64 @@ To install Fluentify, use the following command in your package manager console:
 install-package Fluentify
 ```
 
-### Usage
+# Usage
 
-Fluentify automatically creates extension methods for each property on a **record type** that has the `Fluentify` attribute. These extension methods facilitate the development of Fluent APIs by following the immutability patterns enabled by record types in C#.
+Fluentify automatically creates extension methods for each property on types that have the `Fluentify` attribute.
+
+For class types:
+
+```csharp
+[Fluentify]
+public class Person
+{
+    public ushort Age { get; init; }
+    public DateOnly DateOfBirth { get; init; }
+    public Name Name { get; init; }
+}
+```
+
+For record types:
 
 ```csharp
 [Fluentify]
 public record Person(ushort Age, DateOnly DateOfBirth, Name Name);
 ```
 
-The generated Fluentify extension methods allow for a specific instance to be applied to a given property. Alternatively, by using the `Builder<T>` delegate, Fluentify will create the instance on your behalf and allow you to configure it. Each extension method returns a new instance of the annotated type, using the **with-expression** feature of records. This approach preserves the immutability of the original instance.
+The generated Fluentify extension methods preserve immutabiility, providing a new instance with the specified value applied to the associated property. Using the provided `Builder<T>` delegate, Fluentify can also create an instance of the required value for the associated property on your behalf and allow you to configure it.
 
 ```csharp
 var person = new Person(...);
 
 _ = person
-    .WithAge(41)
-    .WithName(name => name
+    .WithAge(41)               // Apply 41 to the Age property
+    .WithName(name => name     // A Builder<T> delegate, creating a new instance of the Name type and allowing for it's configuration
         .WithGiven("Paul")
         .WithFamily("Martins"))
     .WithDateOfBirth(new DateOnly(1983, 7, 24));
 ```
 
-When the annotated record is marked as partial, an internal, parameterless constructor is created, avoiding the need to specify values upon construction when using the `Builder<T>` delegate.
+## Custom Descriptors
+
+Extension method names can be customized via the `Descriptor` attribute.
+
+For class types:
 
 ```csharp
 [Fluentify]
-public partial record Name(string Family, string Given);
+public class Person
+{
+    [Descriptor("Aged")]
+    public ushort Age { get; init; }
+
+    [Descriptor("BornOn")]
+    public DateOnly DateOfBirth { get; init; }
+
+    [Descriptor("Named")]
+    public Name Name { get; init; }
+}
 ```
 
-The name used for the generated Fluentify extension method can also be customized using the `Descriptor` attribute:
+For record types:
 
 ```csharp
 [Fluentify]
@@ -62,7 +89,24 @@ _ = person
     .BornOn(new DateOnly(1983, 7, 24));
 ```
 
+## Property Exclusion
+
 Specific properties can be excluded from generating Fluentify extension methods using the `Ignore` attribute:
+
+For class types:
+
+```csharp
+[Fluentify]
+public class Person
+{
+    [Ignore]
+    public ushort Age { get; init; }
+    public DateOnly DateOfBirth { get; init; }
+    public Name Name { get; init; }
+}
+```
+
+For record types:
 
 ```csharp
 [Fluentify]
@@ -80,10 +124,10 @@ _ = person
     .WithDateOfBirth(new DateOnly(1983, 7, 24));
 ```
 
-### Contributing
+# Contributing
 
 Contributions are welcome! Please feel free to submit pull requests or open issues to suggest improvements or add new features.
 
-## License
+# License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

@@ -28,9 +28,14 @@ internal static partial class INamedTypeSymbolExtensions
 
     private static bool IsMatch(this IPropertySymbol property)
     {
-        static bool IsAccessible(IPropertySymbol property)
+        static bool IsAccessible(Accessibility accessibility)
         {
-            return property.DeclaredAccessibility == Accessibility.Public || property.DeclaredAccessibility == Accessibility.Internal;
+            return accessibility == Accessibility.Public || accessibility == Accessibility.Internal;
+        }
+
+        static bool IsInitializable(IPropertySymbol property)
+        {
+            return property.SetMethod is not null && IsAccessible(property.SetMethod.DeclaredAccessibility);
         }
 
         static bool IsExplicitlyDeclaredInstanceProperty(IPropertySymbol property)
@@ -38,7 +43,10 @@ internal static partial class INamedTypeSymbolExtensions
             return !(property.IsStatic || property.IsImplicitlyDeclared);
         }
 
-        return IsExplicitlyDeclaredInstanceProperty(property) && IsAccessible(property) && !property.HasIgnore();
+        return IsExplicitlyDeclaredInstanceProperty(property)
+            && IsAccessible(property.DeclaredAccessibility)
+            && IsInitializable(property)
+            && !property.HasIgnore();
     }
 
     private static Property Map(this IPropertySymbol property, Compilation compilation, CancellationToken cancellationToken)

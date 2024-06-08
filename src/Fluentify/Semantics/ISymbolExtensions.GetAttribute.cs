@@ -17,7 +17,20 @@ internal static partial class ISymbolExtensions
     /// </returns>
     public static AttributeData? GetAttribute(this ISymbol symbol, string name)
     {
-        name = $"Fluentify.{name}Attribute";
+        string fullyQualifiedName = $"Fluentify.{name}Attribute";
+        string globalQualifiedName = $"global::{fullyQualifiedName}";
+
+        bool IsGlobal(INamedTypeSymbol attribute)
+        {
+            return attribute.ContainingNamespace.IsGlobalNamespace && attribute.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat) == name;
+        }
+
+        bool IsQualified(INamedTypeSymbol attribute)
+        {
+            string name = attribute.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+
+            return name == fullyQualifiedName || name == globalQualifiedName;
+        }
 
         return symbol
             .GetAttributes()
@@ -26,7 +39,7 @@ internal static partial class ISymbolExtensions
                 Class = attribute.AttributeClass,
                 Data = attribute,
             })
-            .Where(attribute => attribute.Class is not null && attribute.Class.ToDisplayString() == name)
+            .Where(attribute => attribute.Class is not null && (IsQualified(attribute.Class) || IsGlobal(attribute.Class)))
             .Select(attribute => attribute.Data)
             .FirstOrDefault();
     }

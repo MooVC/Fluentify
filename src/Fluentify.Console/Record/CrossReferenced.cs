@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Console.Fluentify;
+﻿namespace Fluentify.Console.Record;
 
 /// <summary>
 /// A record that demonstrates the libraries use with a cross referenced type that is also subject to Fluentify.
@@ -6,4 +6,4 @@
 /// <param name="Description">The first property to be subject to the extension generator.</param>
 /// <param name="Simple">The second property to be subject to the extension generator.</param>
 [Fluentify]
-public sealed record CrossReferenced(string Description, Simple Simple);
+internal sealed record CrossReferenced(string Description, Simple Simple);

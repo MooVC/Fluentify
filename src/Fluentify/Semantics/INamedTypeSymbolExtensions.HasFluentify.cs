@@ -10,12 +10,12 @@ using static Fluentify.FluentifyAttributeGenerator;
 internal static partial class INamedTypeSymbolExtensions
 {
     /// <summary>
-    /// Determines whether or not the <paramref name="record"/> provided is annotated with the Fluentify attribute.
+    /// Determines whether or not the <paramref name="symbol"/> provided is annotated with the Fluentify attribute.
     /// </summary>
-    /// <param name="record">The symbol for the record to be checked for the presence of the Fluentify attribute.</param>
-    /// <returns>True if the Fluentify attribute is present on the <paramref name="record"/>, otherwise False.</returns>
-    public static bool HasFluentify(this INamedTypeSymbol record)
+    /// <param name="symbol">The symbol for the record to be checked for the presence of the Fluentify attribute.</param>
+    /// <returns>True if the Fluentify attribute is present on the <paramref name="symbol"/>, otherwise False.</returns>
+    public static bool HasFluentify(this INamedTypeSymbol symbol)
     {
-        return record.HasAttribute(Name);
+        return symbol.HasAttribute(Name);
     }
 }

@@ -16,7 +16,7 @@ internal sealed class Property
     /// <value>
     /// The declared accessibility modifier for the property as defined within the subject.
     /// </value>
-    public Accessibility Accessibility { get; set; }
+    public Accessibility Accessibility { get; set; } = Accessibility.Public;
 
     /// <summary>
     /// Gets or sets the descriptor to use for the extensions associated with the <see cref="Property"/>.

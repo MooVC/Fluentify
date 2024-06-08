@@ -3,7 +3,7 @@
 using Microsoft.CodeAnalysis;
 
 /// <summary>
-/// Generates the Fluentify attribute, used to denote that a record type is to be subjected to <see cref="FluentifyGenerator"/>.
+/// Generates the Fluentify attribute, used to denote that a record type is to be subjected to <see cref="RecordGenerator"/>.
 /// </summary>
 [Generator]
 public sealed class FluentifyAttributeGenerator
@@ -12,7 +12,7 @@ public sealed class FluentifyAttributeGenerator
     /// <summary>
     /// The name of the Fluentify attribute.
     /// </summary>
-    public const string Name = "Fluentify";
+    internal const string Name = "Fluentify";
 
     /// <summary>
     /// Creates an instance of the <see cref="FluentifyAttributeGenerator"/>.

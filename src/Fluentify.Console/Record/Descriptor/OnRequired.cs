@@ -1,4 +1,6 @@
-﻿namespace Fluentify.Console;
+﻿namespace Fluentify.Console.Record.Descriptor;
+
+using System.Collections.Generic;
 
 /// <summary>
 /// A record that demonstrates the libraries use without generics.
@@ -7,4 +9,4 @@
 /// <param name="Name">The second property to be subject to the extension generator.</param>
 /// <param name="Attributes">The third property to be subject to the extension generator.</param>
 [Fluentify]
-public sealed partial record Simple(int Age, string Name, IReadOnlyList<object>? Attributes = default);
+internal sealed record OnRequired([Descriptor("Aged")] int Age, string Name, IReadOnlyList<object>? Attributes = default);
