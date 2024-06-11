@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Semantics.IPropertySymbolExtensionsTests;
+﻿namespace Fluentify.Semantics.ITypeSymbolExtensionsTests;
 
 using Microsoft.CodeAnalysis;
 
@@ -40,7 +40,7 @@ public sealed class WhenIsBuildableIsCalled
         IPropertySymbol symbol = type.GetProperty(property);
 
         // Act
-        bool isBuildable = symbol.IsBuildable(compilation, CancellationToken.None);
+        bool isBuildable = symbol.Type.IsBuildable(compilation, CancellationToken.None);
 
         // Assert
         _ = isBuildable.Should().BeTrue();
@@ -54,7 +54,7 @@ public sealed class WhenIsBuildableIsCalled
         IPropertySymbol symbol = type.GetProperty(property);
 
         // Act
-        bool isBuildable = symbol.IsBuildable(compilation, CancellationToken.None);
+        bool isBuildable = symbol.Type.IsBuildable(compilation, CancellationToken.None);
 
         // Assert
         _ = isBuildable.Should().BeFalse();

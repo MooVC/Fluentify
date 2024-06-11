@@ -50,8 +50,28 @@ public sealed class WhenGetConstructorIsCalled
             Name = "TestClass",
             Properties =
             [
-                new Property { Name = "Property1", Type = "string" },
-                new Property { Name = "Property2", Type = "int" },
+                new Property
+                {
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "string",
+                        },
+                    },
+                    Name = "Property1",
+                },
+                new Property
+                {
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "int",
+                        },
+                    },
+                    Name = "Property2",
+                },
             ],
         };
 

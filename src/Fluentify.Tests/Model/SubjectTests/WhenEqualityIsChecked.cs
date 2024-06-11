@@ -30,19 +30,28 @@ public abstract class WhenEqualityIsChecked
             {
                 Accessibility = Accessibility.Public,
                 Descriptor = "descriptor1",
-                IsBuildable = true,
-                IsNullable = false,
+                Kind = new()
+                {
+                    Type = new()
+                    {
+                        Name = "string",
+                    },
+                },
                 Name = "PropertyName1",
-                Type = "string",
             },
             new()
             {
                 Accessibility = Accessibility.Private,
                 Descriptor = "descriptor2",
-                IsBuildable = false,
-                IsNullable = true,
+                Kind = new()
+                {
+                    Type = new()
+                    {
+                        IsNullable = true,
+                        Name = "int",
+                    },
+                },
                 Name = "PropertyName2",
-                Type = "int",
             },
         };
         var instance1 = new Subject
@@ -80,7 +89,7 @@ public abstract class WhenEqualityIsChecked
         var instance1 = new Subject
         {
             Accessibility = Accessibility.Public,
-            Generics = new List<Generic>(),
+            Generics = [],
             HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
@@ -90,7 +99,7 @@ public abstract class WhenEqualityIsChecked
         var instance2 = new Subject
         {
             Accessibility = Accessibility.Private,
-            Generics = new List<Generic>(),
+            Generics = [],
             HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",

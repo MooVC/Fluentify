@@ -27,20 +27,12 @@ internal sealed class Property
     public string Descriptor { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets a value indicating whether or not the type of the property adheres to the new() constraint.
+    /// Gets or sets the property kind, based on the type defined within the subject.
     /// </summary>
     /// <value>
-    /// The value indicating whether or not the type of the property adheres to the new() constraint.
+    /// The property kind, based on the type defined within the subject.
     /// </value>
-    public bool IsBuildable { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether or not the property is deemed to be nullable.
-    /// </summary>
-    /// <value>
-    /// The value indicating whether or not the property is deemed to be nullable.
-    /// </value>
-    public bool IsNullable { get; set; }
+    public Kind Kind { get; set; } = Kind.Unspecified;
 
     /// <summary>
     /// Gets or sets the name of the property as defined within the subject.
@@ -50,22 +42,12 @@ internal sealed class Property
     /// </value>
     public string Name { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Gets or sets the name of the property type defined within the subject.
-    /// </summary>
-    /// <value>
-    /// The name of the property type defined within the subject.
-    /// </value>
-    public string Type { get; set; } = string.Empty;
-
     /// <inheritdoc/>
     protected override IEnumerable<object> GetProperties()
     {
         yield return Accessibility;
         yield return Descriptor;
-        yield return IsBuildable;
-        yield return IsNullable;
+        yield return Kind;
         yield return Name;
-        yield return Type;
     }
 }

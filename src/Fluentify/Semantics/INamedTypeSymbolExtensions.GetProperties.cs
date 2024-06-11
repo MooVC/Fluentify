@@ -51,13 +51,6 @@ internal static partial class INamedTypeSymbolExtensions
 
     private static Property Map(this IPropertySymbol property, Compilation compilation, CancellationToken cancellationToken)
     {
-        static bool IsNullable(IPropertySymbol property)
-        {
-            return property.Type.NullableAnnotation == NullableAnnotation.Annotated
-                 || property.Type.SpecialType == SpecialType.System_Nullable_T
-                 || property.Type.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T;
-        }
-
         string? descriptor = property.GetDescriptor();
 
         descriptor ??= $"With{property.Name}";
@@ -66,10 +59,8 @@ internal static partial class INamedTypeSymbolExtensions
         {
             Accessibility = property.DeclaredAccessibility,
             Descriptor = descriptor,
-            IsBuildable = property.IsBuildable(compilation, cancellationToken),
-            IsNullable = IsNullable(property),
             Name = property.Name,
-            Type = property.Type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
+            Kind = property.GetKind(compilation, cancellationToken),
         };
     }
 }

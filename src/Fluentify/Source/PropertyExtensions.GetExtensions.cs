@@ -38,16 +38,18 @@ internal static partial class PropertyExtensions
 
     private static string GetExtensionMethods(this Property property, ref Metadata metadata, Func<Property, string?> scalar)
     {
-        string nullability = property.IsNullable && !property.Type.EndsWith("?")
-            ? "?"
-            : string.Empty;
+        string parameter = property.Kind.ToString();
+        string member = property.Kind.Member.ToString();
 
-        string parameter = string.Concat(property.Type, nullability);
+        Type type = property.Kind.Pattern == Pattern.Scalar
+            ? property.Kind.Type
+            : property.Kind.Member;
 
         (string? Body, string Parameter)[] extensions =
         [
-            (scalar(property), parameter),
-            (property.GetScalarDelegateExtensionMethodBody(), $"global::Fluentify.Builder<{parameter}>"),
+            (property.GetArrayExtensionMethodBody(scalar), $"params {member}[] values"),
+            (property.GetScalarDelegateExtensionMethodBody(type), $"global::Fluentify.Builder<{type.Name}> builder"),
+            (property.GetScalarExtensionMethodBody(scalar), $"{parameter} value"),
         ];
 
         return property.GetExtensionMethods(extensions, ref metadata);
@@ -61,7 +63,7 @@ internal static partial class PropertyExtensions
 
         string GetMethod(string body, string parameter)
         {
-            string signature = $"public static {type} {method}(this {type} subject, {parameter} value)";
+            string signature = $"public static {type} {method}(this {type} subject, {parameter})";
 
             if (!string.IsNullOrWhiteSpace(constraints))
             {
@@ -87,19 +89,5 @@ internal static partial class PropertyExtensions
             .ToArray();
 
         return string.Join("\r\n\r\n", methods);
-    }
-
-    private static string? GetScalarDelegateExtensionMethodBody(this Property property)
-    {
-        if (property.IsBuildable)
-        {
-            return $$"""
-            var instance = new {{property.Type}}();
-
-            return subject.{{property.Descriptor}}(instance);
-            """;
-        }
-
-        return default;
     }
 }

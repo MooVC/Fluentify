@@ -2,6 +2,7 @@
 
 using Fluentify.Model;
 using Microsoft.CodeAnalysis;
+using Type = Fluentify.Type;
 
 public sealed class WhenToSubjectIsCalled
 {
@@ -45,15 +46,27 @@ public sealed class WhenToSubjectIsCalled
                 new Property
                 {
                     Descriptor = "WithDescription",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "string",
+                        },
+                    },
                     Name = "Description",
-                    Type = "string",
                 },
                 new Property
                 {
                     Descriptor = "WithSimple",
-                    IsBuildable = true,
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            IsBuildable = true,
+                            Name = "global::Fluentify.Tests.Compilation.Simple",
+                        },
+                    },
                     Name = "Simple",
-                    Type = "global::Fluentify.Tests.Compilation.Simple",
                 },
             ],
         };
@@ -99,23 +112,41 @@ public sealed class WhenToSubjectIsCalled
                 new Property
                 {
                     Descriptor = "WithAge",
-                    IsNullable = true,
                     Name = "Age",
-                    Type = "T1?",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            IsNullable = true,
+                            Name = "T1?",
+                        },
+                    },
                 },
                 new Property
                 {
                     Descriptor = "WithName",
-                    IsBuildable = true,
-                    IsNullable = true,
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            IsBuildable = true,
+                            IsNullable = true,
+                            Name = "T2",
+                        },
+                    },
                     Name = "Name",
-                    Type = "T2",
                 },
                 new Property
                 {
                     Descriptor = "WithAttributes",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "T3",
+                        },
+                    },
                     Name = "Attributes",
-                    Type = "T3",
                 },
             ],
         };
@@ -144,21 +175,39 @@ public sealed class WhenToSubjectIsCalled
                 new Property
                 {
                     Descriptor = "WithAge",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "int",
+                        },
+                    },
                     Name = "Age",
-                    Type = "int",
                 },
                 new Property
                 {
                     Descriptor = "WithName",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "string",
+                        },
+                    },
                     Name = "Name",
-                    Type = "string",
                 },
                 new Property
                 {
                     Descriptor = "WithAttributes",
-                    IsNullable = true,
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            IsNullable = true,
+                            Name = "IReadOnlyList<object>?",
+                        },
+                    },
                     Name = "Attributes",
-                    Type = "IReadOnlyList<object>?",
                 },
             ],
         };
@@ -194,21 +243,39 @@ public sealed class WhenToSubjectIsCalled
                 new Property
                 {
                     Descriptor = "WithAge",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "int",
+                        },
+                    },
                     Name = "Age",
-                    Type = "int",
                 },
                 new Property
                 {
                     Descriptor = "WithName",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "string",
+                        },
+                    },
                     Name = "Name",
-                    Type = "string",
                 },
                 new Property
                 {
                     Descriptor = "WithAttributes",
-                    IsNullable = true,
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            IsNullable = true,
+                            Name = "T",
+                        },
+                    },
                     Name = "Attributes",
-                    Type = "T",
                 },
             ],
         };

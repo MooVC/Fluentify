@@ -3,6 +3,7 @@
 using Fluentify.Model;
 using Fluentify.Semantics;
 using Microsoft.CodeAnalysis;
+using Type = Fluentify.Type;
 
 public sealed class WhenGetPropertiesIsCalled
 {
@@ -69,23 +70,41 @@ public sealed class WhenGetPropertiesIsCalled
     private static readonly Property age = new()
     {
         Descriptor = "WithAge",
+        Kind = new()
+        {
+            Type = new()
+            {
+                Name = "int",
+            },
+        },
         Name = "Age",
-        Type = "int",
     };
 
     private static readonly Property attributes = new()
     {
         Descriptor = "WithAttributes",
+        Kind = new()
+        {
+            Type = new()
+            {
+                IsNullable = true,
+                Name = "IReadOnlyList<object>?",
+            },
+        },
         Name = "Attributes",
-        Type = "IReadOnlyList<object>?",
-        IsNullable = true,
     };
 
     private static readonly Property name = new()
     {
         Descriptor = "WithName",
+        Kind = new()
+        {
+            Type = new()
+            {
+                Name = "string",
+            },
+        },
         Name = "Name",
-        Type = "string",
     };
 
     [Theory]
@@ -96,25 +115,32 @@ public sealed class WhenGetPropertiesIsCalled
         var description = new Property
         {
             Descriptor = "WithDescription",
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "Description",
-            Type = "string",
         };
 
         var simple = new Property
         {
             Descriptor = "WithSimple",
-            IsBuildable = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    IsBuildable = true,
+                    Name = "global::Fluentify.Tests.Compilation.Simple",
+                },
+            },
             Name = "Simple",
-            Type = "global::Fluentify.Tests.Compilation.Simple",
         };
 
-        // Act
-        IReadOnlyList<Property> properties = type.Symbol.GetProperties(compilation, CancellationToken.None);
-
-        // Assert
-        _ = properties.Should().HaveCount(2);
-        _ = properties.Should().Contain(description);
-        _ = properties.Should().Contain(simple);
+        // Act & Assert
+        ActAndAssert(compilation, type, description, simple);
     }
 
     [Theory]
@@ -125,49 +151,55 @@ public sealed class WhenGetPropertiesIsCalled
         var age = new Property
         {
             Descriptor = "WithAge",
-            IsNullable = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    IsNullable = true,
+                    Name = "T1?",
+                },
+            },
             Name = "Age",
-            Type = "T1?",
         };
 
         var attributes = new Property
         {
             Descriptor = "WithAttributes",
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "T3",
+                },
+            },
             Name = "Attributes",
-            Type = "T3",
         };
 
         var name = new Property
         {
             Descriptor = "WithName",
-            IsBuildable = true,
-            IsNullable = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    IsBuildable = true,
+                    IsNullable = true,
+                    Name = "T2",
+                },
+            },
             Name = "Name",
-            Type = "T2",
         };
 
-        // Act
-        IReadOnlyList<Property> properties = type.Symbol.GetProperties(compilation, CancellationToken.None);
-
-        // Assert
-        _ = properties.Should().HaveCount(3);
-        _ = properties.Should().Contain(age);
-        _ = properties.Should().Contain(attributes);
-        _ = properties.Should().Contain(name);
+        // Act & Assert
+        ActAndAssert(compilation, type, age, attributes, name);
     }
 
     [Theory]
     [MemberData(nameof(GivenSimpleThenTheExpectedPropertiesAreReturnedData))]
     public void GivenSimpleThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
     {
-        // Act
-        IReadOnlyList<Property> properties = type.Symbol.GetProperties(compilation, CancellationToken.None);
-
-        // Assert
-        _ = properties.Should().HaveCount(3);
-        _ = properties.Should().Contain(age);
-        _ = properties.Should().Contain(attributes);
-        _ = properties.Should().Contain(name);
+        // Act & Assert
+        ActAndAssert(compilation, type, age, attributes, name);
     }
 
     [Theory]
@@ -178,44 +210,35 @@ public sealed class WhenGetPropertiesIsCalled
         var attributes = new Property
         {
             Descriptor = "WithAttributes",
-            IsNullable = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    IsNullable = true,
+                    Name = "T",
+                },
+            },
             Name = "Attributes",
-            Type = "T",
         };
 
-        // Act
-        IReadOnlyList<Property> properties = type.Symbol.GetProperties(compilation, CancellationToken.None);
-
-        // Assert
-        _ = properties.Should().HaveCount(3);
-        _ = properties.Should().Contain(age);
-        _ = properties.Should().Contain(attributes);
-        _ = properties.Should().Contain(name);
+        // Act & Assert
+        ActAndAssert(compilation, type, age, attributes, name);
     }
 
     [Theory]
     [MemberData(nameof(GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
     {
-        // Act
-        IReadOnlyList<Property> properties = type.Symbol.GetProperties(compilation, CancellationToken.None);
-
-        // Assert
-        _ = properties.Should().HaveCount(2);
-        _ = properties.Should().Contain(age);
-        _ = properties.Should().Contain(attributes);
+        // Act & Assert
+        ActAndAssert(compilation, type, age, attributes);
     }
 
     [Theory]
     [MemberData(nameof(GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
     {
-        // Act
-        IReadOnlyList<Property> properties = type.Symbol.GetProperties(compilation, CancellationToken.None);
-
-        // Assert
-        _ = properties.Should().HaveCount(1);
-        _ = properties.Should().Contain(attributes);
+        // Act & Assert
+        ActAndAssert(compilation, type, attributes);
     }
 
     [Theory]
@@ -237,18 +260,18 @@ public sealed class WhenGetPropertiesIsCalled
         var age = new Property
         {
             Descriptor = "Aged",
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "int",
+                },
+            },
             Name = "Age",
-            Type = "int",
         };
 
-        // Act
-        IReadOnlyList<Property> properties = type.Symbol.GetProperties(compilation, CancellationToken.None);
-
-        // Assert
-        _ = properties.Should().HaveCount(3);
-        _ = properties.Should().Contain(age);
-        _ = properties.Should().Contain(attributes);
-        _ = properties.Should().Contain(name);
+        // Act & Assert
+        ActAndAssert(compilation, type, age, attributes, name);
     }
 
     [Theory]
@@ -259,31 +282,35 @@ public sealed class WhenGetPropertiesIsCalled
         var attributes = new Property
         {
             Descriptor = "AttributedWith",
+            Kind = new()
+            {
+                Type = new()
+                {
+                    IsNullable = true,
+                    Name = "IReadOnlyList<object>?",
+                },
+            },
             Name = "Attributes",
-            Type = "IReadOnlyList<object>?",
-            IsNullable = true,
         };
 
-        // Act
-        IReadOnlyList<Property> properties = type.Symbol.GetProperties(compilation, CancellationToken.None);
-
-        // Assert
-        _ = properties.Should().HaveCount(3);
-        _ = properties.Should().Contain(age);
-        _ = properties.Should().Contain(attributes);
-        _ = properties.Should().Contain(name);
+        // Act & Assert
+        ActAndAssert(compilation, type, age, attributes, name);
     }
 
     [Theory]
     [MemberData(nameof(GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
     {
+        ActAndAssert(compilation, type, age, attributes);
+    }
+
+    private static void ActAndAssert(Compilation compilation, Type type, params Property[] expected)
+    {
         // Act
-        IReadOnlyList<Property> properties = type.Symbol.GetProperties(compilation, CancellationToken.None);
+        IReadOnlyList<Property> actual = type.Symbol.GetProperties(compilation, CancellationToken.None);
 
         // Assert
-        _ = properties.Should().HaveCount(2);
-        _ = properties.Should().Contain(age);
-        _ = properties.Should().Contain(attributes);
+        _ = actual.Should().HaveCount(expected.Length);
+        _ = actual.Should().Contain(expected);
     }
 }

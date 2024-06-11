@@ -14,19 +14,27 @@ public abstract class WhenInequalityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = false,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "PropertyName",
-            Type = "string",
         };
         var instance2 = new Property
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = false,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "PropertyName",
-            Type = "string",
         };
 
         // Act
@@ -44,19 +52,27 @@ public abstract class WhenInequalityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = false,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "PropertyName",
-            Type = "string",
         };
         var instance2 = new Property
         {
             Accessibility = Accessibility.Private,
             Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = false,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "PropertyName",
-            Type = "string",
         };
 
         // Act
@@ -74,19 +90,27 @@ public abstract class WhenInequalityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor1",
-            IsBuildable = true,
-            IsNullable = false,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "PropertyName",
-            Type = "string",
         };
         var instance2 = new Property
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor2",
-            IsBuildable = true,
-            IsNullable = false,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "PropertyName",
-            Type = "string",
         };
 
         // Act
@@ -97,56 +121,34 @@ public abstract class WhenInequalityIsChecked
     }
 
     [Fact]
-    public void GivenDifferentIsBuildableThenTheyAreNotEqual()
+    public void GivenDifferentKindThenTheyAreNotEqual()
     {
         // Arrange
         var instance1 = new Property
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = false,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "PropertyName",
-            Type = "string",
         };
         var instance2 = new Property
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
-            IsBuildable = false,
-            IsNullable = false,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "int",
+                },
+            },
             Name = "PropertyName",
-            Type = "string",
-        };
-
-        // Act
-        bool areNotEqual = AreNotEqual(instance1, instance2);
-
-        // Assert
-        _ = areNotEqual.Should().BeTrue();
-    }
-
-    [Fact]
-    public void GivenDifferentIsNullableThenTheyAreNotEqual()
-    {
-        // Arrange
-        var instance1 = new Property
-        {
-            Accessibility = Accessibility.Public,
-            Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = false,
-            Name = "PropertyName",
-            Type = "string",
-        };
-        var instance2 = new Property
-        {
-            Accessibility = Accessibility.Public,
-            Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = true,
-            Name = "PropertyName",
-            Type = "string",
         };
 
         // Act
@@ -164,49 +166,27 @@ public abstract class WhenInequalityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = false,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "PropertyName1",
-            Type = "string",
         };
         var instance2 = new Property
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = false,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "PropertyName2",
-            Type = "string",
-        };
-
-        // Act
-        bool areNotEqual = AreNotEqual(instance1, instance2);
-
-        // Assert
-        _ = areNotEqual.Should().BeTrue();
-    }
-
-    [Fact]
-    public void GivenDifferentTypeThenTheyAreNotEqual()
-    {
-        // Arrange
-        var instance1 = new Property
-        {
-            Accessibility = Accessibility.Public,
-            Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = false,
-            Name = "PropertyName",
-            Type = "string",
-        };
-        var instance2 = new Property
-        {
-            Accessibility = Accessibility.Public,
-            Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = false,
-            Name = "PropertyName",
-            Type = "int",
         };
 
         // Act
@@ -224,10 +204,14 @@ public abstract class WhenInequalityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = false,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "PropertyName",
-            Type = "string",
         };
 
         // Act
@@ -259,10 +243,14 @@ public abstract class WhenInequalityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
-            IsBuildable = true,
-            IsNullable = false,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "PropertyName",
-            Type = "string",
         };
 
         // Act

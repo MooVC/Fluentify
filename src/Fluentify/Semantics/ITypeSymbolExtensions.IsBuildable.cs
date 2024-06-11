@@ -7,36 +7,32 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 /// <summary>
 /// Provides extensions relating to <see cref="ITypeSymbol"/>.
 /// </summary>
-internal static partial class IPropertySymbolExtensions
+internal static partial class ITypeSymbolExtensions
 {
     /// <summary>
-    /// Determines if the type associated with <paramref name="property"/> adheres to the new() constraint.
+    /// Determines if the <paramref name="type"/> adheres to the new() constraint.
     /// </summary>
-    /// <param name="property">The <see cref="IPropertySymbol"/> for which the determination is to be carried out.</param>
+    /// <param name="type">The <see cref="ITypeSymbol"/> for which the determination is to be carried out.</param>
     /// <param name="compilation">The <see cref="Compilation"/> used to determine if the constraint allows for internal construction.</param>
     /// <param name="cancellationToken">A <see cref="CancellationToken" /> that can be used to cancel the operation.</param>
-    /// <returns>True if the <paramref name="property"/> adheres to the new() constraint, otherwise False.</returns>
-    public static bool IsBuildable(this IPropertySymbol property, Compilation compilation, CancellationToken cancellationToken)
+    /// <returns>True if the <paramref name="type"/> adheres to the new() constraint, otherwise False.</returns>
+    public static bool IsBuildable(this ITypeSymbol type, Compilation compilation, CancellationToken cancellationToken)
     {
-        if (property.Type is ITypeParameterSymbol generic)
+        if (type is ITypeParameterSymbol generic)
         {
             return generic.HasConstructorConstraint;
         }
 
-        bool isInternal = property
-            .Type
-            .ContainingAssembly
-            .Equals(compilation.Assembly, SymbolEqualityComparer.Default);
+        bool isInternal = compilation.Assembly.Equals(type.ContainingAssembly, SymbolEqualityComparer.Default);
 
-        if (property.Type.HasAccessibleParameterlessConstructor(isInternal))
+        if (type.HasAccessibleParameterlessConstructor(isInternal))
         {
             return true;
         }
 
-        if (isInternal && property.Type is INamedTypeSymbol type && type.HasFluentify())
+        if (isInternal && type is INamedTypeSymbol symbol && symbol.HasFluentify())
         {
-            return property
-                .Type
+            return type
                 .DeclaringSyntaxReferences
                 .Select(syntax => syntax.GetSyntax(cancellationToken: cancellationToken))
                 .OfType<RecordDeclarationSyntax>()
