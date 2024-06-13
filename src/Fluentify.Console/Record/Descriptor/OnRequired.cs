@@ -9,4 +9,4 @@ using System.Collections.Generic;
 /// <param name="Name">The second property to be subject to the extension generator.</param>
 /// <param name="Attributes">The third property to be subject to the extension generator.</param>
 [Fluentify]
-internal sealed record OnRequired([Descriptor("Aged")] int Age, string Name, IReadOnlyList<object>? Attributes = default);
+internal sealed partial record OnRequired([Descriptor("Aged")] int Age, string Name, IReadOnlyList<object>? Attributes = default);

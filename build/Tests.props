@@ -12,7 +12,6 @@
     <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Bogus" />
     <PackageReference Include="coverlet.msbuild">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -30,7 +29,6 @@
     <ProjectReference Include="..\$(RootNamespace)\$(RootNamespace).csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Using Include="Bogus"/>
     <Using Include="FluentAssertions"/>
     <Using Include="NSubstitute"/>
     <Using Include="Xunit"/>

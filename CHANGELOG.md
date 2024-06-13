@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Class** instance **initialization** now correctly sets each member, including properties annotated with **Ignore**.
+- The **generated constructor** for **partial record** types now correctly accounts for generic type parameters.
+
 ## [1.0.0-alpha0003] - 2024-06-11
 
 ### Added

@@ -229,16 +229,36 @@ public sealed class WhenGetPropertiesIsCalled
     [MemberData(nameof(GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
     {
+        // Arrange
+        var name = new Property
+        {
+            Descriptor = "WithName",
+            Name = "Name",
+        };
+
         // Act & Assert
-        ActAndAssert(compilation, type, age, attributes);
+        ActAndAssert(compilation, type, age, attributes, name);
     }
 
     [Theory]
     [MemberData(nameof(GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
     {
+        // Arrange
+        var age = new Property
+        {
+            Descriptor = "WithAge",
+            Name = "Age",
+        };
+
+        var name = new Property
+        {
+            Descriptor = "WithName",
+            Name = "Name",
+        };
+
         // Act & Assert
-        ActAndAssert(compilation, type, attributes);
+        ActAndAssert(compilation, type, age, attributes, name);
     }
 
     [Theory]
@@ -249,7 +269,8 @@ public sealed class WhenGetPropertiesIsCalled
         IReadOnlyList<Property> properties = type.Symbol.GetProperties(compilation, CancellationToken.None);
 
         // Assert
-        _ = properties.Should().BeEmpty();
+        _ = properties.Should().HaveCount(3);
+        _ = properties.Should().OnlyContain(property => property.IsIgnored);
     }
 
     [Theory]
@@ -301,7 +322,7 @@ public sealed class WhenGetPropertiesIsCalled
     [MemberData(nameof(GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
     {
-        ActAndAssert(compilation, type, age, attributes);
+        GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturned(compilation, type);
     }
 
     private static void ActAndAssert(Compilation compilation, Type type, params Property[] expected)

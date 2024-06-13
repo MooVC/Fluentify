@@ -20,8 +20,11 @@ internal static partial class SubjectExtensions
         string parameters = string.Join(", ", initializers);
 
         return $$"""
-            partial record {{subject.Name}}
+            using System.Diagnostics.CodeAnalysis;
+
+            partial record {{subject}}
             {
+                [SetsRequiredMembers]
                 public {{subject.Name}}()
                     : this({{parameters}})
                 {

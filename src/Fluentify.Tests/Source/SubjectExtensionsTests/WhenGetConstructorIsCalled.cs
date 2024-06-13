@@ -9,8 +9,11 @@ public sealed class WhenGetConstructorIsCalled
     {
         // Arrange
         const string Expected = """
+            using System.Diagnostics.CodeAnalysis;
+
             partial record TestClass
             {
+                [SetsRequiredMembers]
                 public TestClass()
                     : this()
                 {
@@ -36,8 +39,11 @@ public sealed class WhenGetConstructorIsCalled
     {
         // Arrange
         const string Expected = """
+            using System.Diagnostics.CodeAnalysis;
+            
             partial record TestClass
             {
+                [SetsRequiredMembers]
                 public TestClass()
                     : this(default, default)
                 {

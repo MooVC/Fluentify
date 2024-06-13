@@ -45,13 +45,19 @@ internal static partial class INamedTypeSymbolExtensions
 
         return IsExplicitlyDeclaredInstanceProperty(property)
             && IsAccessible(property.DeclaredAccessibility)
-            && IsInitializable(property)
-            && !property.HasIgnore();
+            && IsInitializable(property);
     }
 
     private static Property Map(this IPropertySymbol property, Compilation compilation, CancellationToken cancellationToken)
     {
-        string? descriptor = property.GetDescriptor();
+        string? descriptor = default;
+        Kind kind = Kind.Unspecified;
+
+        if (!property.HasIgnore())
+        {
+            descriptor = property.GetDescriptor();
+            kind = property.GetKind(compilation, cancellationToken);
+        }
 
         descriptor ??= $"With{property.Name}";
 
@@ -60,7 +66,7 @@ internal static partial class INamedTypeSymbolExtensions
             Accessibility = property.DeclaredAccessibility,
             Descriptor = descriptor,
             Name = property.Name,
-            Kind = property.GetKind(compilation, cancellationToken),
+            Kind = kind,
         };
     }
 }

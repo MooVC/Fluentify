@@ -27,7 +27,7 @@ public sealed class ClassGenerator
         string initializers = GetInitializers(property, subject);
 
         return $$"""
-            return new {{subject.Name}}
+            return new {{subject}}
             {
                 {{initializers.Indent()}}
             };
@@ -41,10 +41,10 @@ public sealed class ClassGenerator
         foreach (Property member in subject.Properties)
         {
             string initializer = member == property
-                ? $"{property.Name} = value"
-                : $"{property.Name} = subject.{property.Name}";
+                ? $"{member.Name} = value"
+                : $"{member.Name} = subject.{member.Name}";
 
-            initializers = initializers.AppendLine(initializer);
+            initializers = initializers.AppendLine($"{initializer},");
         }
 
         return initializers.ToString();

@@ -1,5 +1,7 @@
 ﻿namespace Fluentify.Model;
 
+using System.Reflection.Metadata;
+using Fluentify.Source;
 using Microsoft.CodeAnalysis;
 
 /// <summary>
@@ -64,6 +66,14 @@ internal sealed class Subject
     /// The properties associated with the subject.
     /// </value>
     public IReadOnlyList<Property> Properties { get; set; } = [];
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        string parameters = Generics.ToParameters();
+
+        return string.Concat(Name, parameters);
+    }
 
     /// <inheritdoc/>
     protected override IEnumerable<object> GetProperties()

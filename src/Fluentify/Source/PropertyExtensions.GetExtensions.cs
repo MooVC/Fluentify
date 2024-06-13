@@ -69,7 +69,7 @@ internal static partial class PropertyExtensions
             {
                 signature = $$"""
                     {{signature}}
-                        {{constraints}}
+                        {{constraints.Indent()}}
                     """;
             }
 

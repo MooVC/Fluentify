@@ -10,7 +10,7 @@
 /// <param name="Name">The second property to be subject to the extension generator.</param>
 /// <param name="Attributes">The third property to be subject to the extension generator.</param>
 [Fluentify]
-internal sealed record MultipleGenerics<T1, T2, T3>(T1? Age, T2? Name, T3 Attributes)
+internal sealed partial record MultipleGenerics<T1, T2, T3>(T1? Age, T2? Name, T3 Attributes)
     where T1 : struct
     where T2 : class, new()
     where T3 : IEnumerable<string>;

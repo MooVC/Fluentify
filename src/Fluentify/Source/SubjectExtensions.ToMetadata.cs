@@ -14,21 +14,8 @@ internal static partial class SubjectExtensions
     /// <returns>The <see cref="Metadata"/> for <paramref name="subject"/>.</returns>
     public static Metadata ToMetadata(this Subject subject)
     {
-        IReadOnlyList<string> constraints = [];
-        string parameters = string.Empty;
-
-        if (subject.Generics.Count > 0)
-        {
-            constraints = subject
-                .Generics
-                .Select(generic => $"where {generic.Name} : {string.Join(", ", generic.Constraints)}")
-                .ToArray();
-
-            IEnumerable<string> generics = subject.Generics.Select(generic => generic.Name);
-
-            parameters = string.Join(", ", generics);
-            parameters = $"<{parameters}>";
-        }
+        IReadOnlyList<string> constraints = subject.Generics.ToConstraints();
+        string parameters = subject.Generics.ToParameters();
 
         return new Metadata
         {

@@ -6,4 +6,4 @@
 /// <param name="Description">The first property to be subject to the extension generator.</param>
 /// <param name="Simple">The second property to be subject to the extension generator.</param>
 [Fluentify]
-internal sealed record CrossReferenced(string Description, Simple Simple);
+internal sealed partial record CrossReferenced(string Description, Simple Simple);

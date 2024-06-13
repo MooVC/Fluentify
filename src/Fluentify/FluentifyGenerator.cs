@@ -49,7 +49,7 @@ public abstract partial class FluentifyGenerator<T>
     {
         var metadata = subject.ToMetadata();
 
-        foreach (Property property in subject.Properties)
+        foreach (Property property in subject.Properties.Where(property => !property.IsIgnored))
         {
             string? GetScalar(Property property)
             {

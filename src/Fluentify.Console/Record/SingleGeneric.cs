@@ -10,5 +10,5 @@ using System.Collections;
 /// <param name="Name">The second property to be subject to the extension generator.</param>
 /// <param name="Attributes">The third property to be subject to the extension generator.</param>
 [Fluentify]
-internal sealed record SingleGeneric<T>(int Age, string Name, T? Attributes = default)
+internal sealed partial record SingleGeneric<T>(int Age, string Name, T? Attributes = default)
     where T : IEnumerable;
