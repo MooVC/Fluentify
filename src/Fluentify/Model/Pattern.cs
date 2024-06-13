@@ -2,7 +2,8 @@
 
 internal enum Pattern
 {
-    Scalar,
     Array,
+    Collection,
     Enumerable,
+    Scalar,
 }

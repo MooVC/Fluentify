@@ -1,5 +1,6 @@
 ﻿namespace Fluentify.Source;
 
+using System.Reflection.Metadata.Ecma335;
 using Fluentify.Model;
 
 /// <summary>
@@ -7,9 +8,9 @@ using Fluentify.Model;
 /// </summary>
 internal static partial class PropertyExtensions
 {
-    private static string? GetArrayExtensionMethodBody(this Property property, Func<Property, string?> scalar)
+    private static string? GetCollectionExtensionMethodBody(this Property property, Func<Property, string?> scalar)
     {
-        if (property.Kind.Pattern != Pattern.Array)
+        if (property.Kind.Pattern != Pattern.Collection)
         {
             return default;
         }
@@ -24,14 +25,19 @@ internal static partial class PropertyExtensions
         Kind kind = property.Kind;
 
         return $$"""
-            {{kind}} value = values;
+            {{kind}} value = new();
 
             if (subject.{{property.Name}} is not null)
             {
-                value = new {{kind.Member}}[value.Length + subject.{{property.Name}}.Length];
+                foreach (var element in subject.{{property.Name}})
+                {
+                    value.Add(element);
+                }
+            }
 
-                subject.{{property.Name}}.CopyTo(value, 0);
-                values.CopyTo(value, subject.{{property.Name}}.Length);
+            foreach (var element in values)
+            {
+                value.Add(element);
             }
 
             {{body}}

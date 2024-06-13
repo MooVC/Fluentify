@@ -48,6 +48,7 @@ internal static partial class PropertyExtensions
         (string? Body, string Parameter)[] extensions =
         [
             (property.GetArrayExtensionMethodBody(scalar), $"params {member}[] values"),
+            (property.GetCollectionExtensionMethodBody(scalar), $"params {member}[] values"),
             (property.GetScalarDelegateExtensionMethodBody(type), $"global::Fluentify.Builder<{type.Name}> builder"),
             (property.GetScalarExtensionMethodBody(scalar), $"{parameter} value"),
         ];

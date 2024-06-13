@@ -9,19 +9,19 @@ internal static partial class PropertyExtensions
 {
     private static string? GetScalarDelegateExtensionMethodBody(this Property property, Type type)
     {
-        if (type.IsBuildable)
+        if (!type.IsBuildable)
         {
-            return $$"""
-                ArgumentNullException.ThrowIfNull(builder);
-
-                var instance = new {{type.Name}}();
-
-                instance = builder(instance);
-
-                return subject.{{property.Descriptor}}(instance);
-                """;
+            return default;
         }
 
-        return default;
+        return $$"""
+            ArgumentNullException.ThrowIfNull(builder);
+
+            var instance = new {{type.Name}}();
+
+            instance = builder(instance);
+
+            return subject.{{property.Descriptor}}(instance);
+            """;
     }
 }

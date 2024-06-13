@@ -11,6 +11,7 @@ internal static partial class IPropertySymbolExtensions
     private static readonly IsMatch[] strategies =
     [
         IsArray,
+        IsCollection,
     ];
 
     private delegate bool IsMatch(Compilation compilation, Kind kind, IPropertySymbol property, CancellationToken cancellationToken);
@@ -45,6 +46,26 @@ internal static partial class IPropertySymbolExtensions
             kind.Member = GetType(compilation, array.ElementType, cancellationToken);
 
             return true;
+        }
+
+        return false;
+    }
+
+    private static bool IsCollection(Compilation compilation, Kind kind, IPropertySymbol property, CancellationToken cancellationToken)
+    {
+        const string name = "global::System.Collections.Generic.ICollection<T>";
+        Lazy<bool> isBuildable = new(() => property.Type.IsBuildable(compilation, cancellationToken));
+
+        foreach (INamedTypeSymbol @interface in property.Type.AllInterfaces.Where(@interface => @interface.TypeArguments.Length == 1))
+        {
+            if (@interface.OriginalDefinition.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat) == name
+             && isBuildable.Value)
+            {
+                kind.Pattern = Pattern.Collection;
+                kind.Member = GetType(compilation, @interface.TypeArguments[0], cancellationToken);
+
+                return true;
+            }
         }
 
         return false;

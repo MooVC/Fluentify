@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-alpha0004] - 2024-06-13
+
+### Added
+
+- Params based extension generation for types deriving from **ICollection<T>** that adhere to the **new()** constraint, supporting additive operations.
+
 ### Fixed
 
 - **Class** instance **initialization** now correctly sets each member, including properties annotated with **Ignore**.
