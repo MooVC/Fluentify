@@ -9,7 +9,7 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
-    public void GivenPublicPropertyAndPublicSubjectThenGeneratesPublicExtension(string scalar)
+    public void GivenPublicPropertyAndPublicSubjectWhenArrayThenGeneratesPublicExtension(string scalar)
     {
         // Arrange
         string expected = $$"""
@@ -19,9 +19,19 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, int value)
+                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
+
+                    int[] value = values;
+
+                    if (subject.TestProperty is not null)
+                    {
+                        value = new int[value.Length + subject.TestProperty.Length];
+
+                        subject.TestProperty.CopyTo(value, 0);
+                        values.CopyTo(value, subject.TestProperty.Length);
+                    }
 
                     {{scalar}}
                 }
@@ -41,9 +51,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             Descriptor = "WithTestProperty",
             Kind = new()
             {
-                Type = new()
+                Member = new()
                 {
                     Name = "int",
+                },
+                Pattern = Pattern.Array,
+                Type = new()
+                {
+                    Name = "int[]",
                 },
             },
             Name = "TestProperty",
@@ -67,7 +82,7 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
-    public void GivenInternalPropertyAndPublicSubjectThenGeneratesInternalExtension(string scalar)
+    public void GivenInternalPropertyAndPublicSubjectWhenArrayThenGeneratesInternalExtension(string scalar)
     {
         // Arrange
         string expected = $$"""
@@ -77,9 +92,19 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             internal static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, int value)
+                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
+
+                    int[] value = values;
+
+                    if (subject.TestProperty is not null)
+                    {
+                        value = new int[value.Length + subject.TestProperty.Length];
+
+                        subject.TestProperty.CopyTo(value, 0);
+                        values.CopyTo(value, subject.TestProperty.Length);
+                    }
 
                     {{scalar}}
                 }
@@ -99,9 +124,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             Descriptor = "WithTestProperty",
             Kind = new()
             {
-                Type = new()
+                Member = new()
                 {
                     Name = "int",
+                },
+                Pattern = Pattern.Array,
+                Type = new()
+                {
+                    Name = "int[]",
                 },
             },
             Name = "TestProperty",
@@ -125,7 +155,7 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
-    public void GivenNullablePropertyThenGeneratesExtensionWithNullableType(string scalar)
+    public void GivenNullablePropertyWhenArrayThenGeneratesExtensionWithNullableType(string scalar)
     {
         string expected = $$"""
             using System;
@@ -134,9 +164,19 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, int? value)
+                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
+            
+                    int[]? value = values;
+
+                    if (subject.TestProperty is not null)
+                    {
+                        value = new int[value.Length + subject.TestProperty.Length];
+
+                        subject.TestProperty.CopyTo(value, 0);
+                        values.CopyTo(value, subject.TestProperty.Length);
+                    }
 
                     {{scalar}}
                 }
@@ -157,10 +197,15 @@ public sealed partial class WhenGetExtensionsIsCalled
             Descriptor = "WithTestProperty",
             Kind = new()
             {
+                Member = new()
+                {
+                    Name = "int",
+                },
+                Pattern = Pattern.Array,
                 Type = new()
                 {
                     IsNullable = true,
-                    Name = "int",
+                    Name = "int[]",
                 },
             },
             Name = "TestProperty",
@@ -184,7 +229,7 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
-    public void GivenBuildablePropertyThenGeneratesDelegateExtension(string scalar)
+    public void GivenBuildablePropertyWhenArrayThenGeneratesDelegateExtension(string scalar)
     {
         // Arrange
         string expected = $$"""
@@ -194,6 +239,23 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
+                public static TestSubject WithTestProperty(this TestSubject subject, params TestType[] values)
+                {
+                    ArgumentNullException.ThrowIfNull(subject);
+            
+                    TestType[] value = values;
+            
+                    if (subject.TestProperty is not null)
+                    {
+                        value = new TestType[value.Length + subject.TestProperty.Length];
+            
+                        subject.TestProperty.CopyTo(value, 0);
+                        values.CopyTo(value, subject.TestProperty.Length);
+                    }
+            
+                    {{scalar}}
+                }
+
                 public static TestSubject WithTestProperty(this TestSubject subject, global::Fluentify.Builder<TestType> builder)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
@@ -206,13 +268,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             
                     return subject.WithTestProperty(instance);
                 }
-
-                public static TestSubject WithTestProperty(this TestSubject subject, TestType value)
-                {
-                    ArgumentNullException.ThrowIfNull(subject);
-
-                    {{scalar}}
-                }
             }
             """;
 
@@ -229,10 +284,15 @@ public sealed partial class WhenGetExtensionsIsCalled
             Descriptor = "WithTestProperty",
             Kind = new()
             {
-                Type = new()
+                Member = new()
                 {
                     IsBuildable = true,
                     Name = "TestType",
+                },
+                Pattern = Pattern.Array,
+                Type = new()
+                {
+                    Name = "TestType[]",
                 },
             },
             Name = "TestProperty",

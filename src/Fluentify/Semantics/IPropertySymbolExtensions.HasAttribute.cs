@@ -22,11 +22,11 @@ internal static partial class IPropertySymbolExtensions
 
         IParameterSymbol? parameter = property.GetParameter();
 
-        if (parameter is not null)
+        if (parameter is null)
         {
-            return parameter.HasAttribute(name);
+            return false;
         }
 
-        return false;
+        return parameter.HasAttribute(name);
     }
 }

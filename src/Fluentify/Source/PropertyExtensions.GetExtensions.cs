@@ -28,6 +28,8 @@ internal static partial class PropertyExtensions
 
         return $$"""
             using System;
+            using System.Collections.Generic;
+            using System.Linq;
 
             {{accessibility}} static partial class {{metadata.Subject.Name}}Extensions
             {
@@ -49,6 +51,7 @@ internal static partial class PropertyExtensions
         [
             (property.GetArrayExtensionMethodBody(scalar), $"params {member}[] values"),
             (property.GetCollectionExtensionMethodBody(scalar), $"params {member}[] values"),
+            (property.GetEnumerableExtensionMethodBody(scalar), $"params {member}[] values"),
             (property.GetScalarDelegateExtensionMethodBody(type), $"global::Fluentify.Builder<{type.Name}> builder"),
             (property.GetScalarExtensionMethodBody(scalar), $"{parameter} value"),
         ];

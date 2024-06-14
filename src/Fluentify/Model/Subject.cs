@@ -1,6 +1,5 @@
 ﻿namespace Fluentify.Model;
 
-using System.Reflection.Metadata;
 using Fluentify.Source;
 using Microsoft.CodeAnalysis;
 

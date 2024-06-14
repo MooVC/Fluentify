@@ -9,7 +9,7 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
-    public void GivenPublicPropertyAndPublicSubjectThenGeneratesPublicExtension(string scalar)
+    public void GivenPublicPropertyAndPublicSubjectWhenCollectionThenGeneratesPublicExtension(string scalar)
     {
         // Arrange
         string expected = $$"""
@@ -19,9 +19,24 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, int value)
+                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
+
+                    List<int> value = new();
+            
+                    if (subject.TestProperty is not null)
+                    {
+                        foreach (var element in subject.TestProperty)
+                        {
+                            value.Add(element);
+                        }
+                    }
+            
+                    foreach (var element in values)
+                    {
+                        value.Add(element);
+                    }
 
                     {{scalar}}
                 }
@@ -41,9 +56,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             Descriptor = "WithTestProperty",
             Kind = new()
             {
-                Type = new()
+                Member = new()
                 {
                     Name = "int",
+                },
+                Pattern = Pattern.Collection,
+                Type = new()
+                {
+                    Name = "List<int>",
                 },
             },
             Name = "TestProperty",
@@ -67,7 +87,7 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
-    public void GivenInternalPropertyAndPublicSubjectThenGeneratesInternalExtension(string scalar)
+    public void GivenInternalPropertyAndPublicSubjectWhenCollectionThenGeneratesInternalExtension(string scalar)
     {
         // Arrange
         string expected = $$"""
@@ -77,9 +97,24 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             internal static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, int value)
+                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
+
+                    List<int> value = new();
+            
+                    if (subject.TestProperty is not null)
+                    {
+                        foreach (var element in subject.TestProperty)
+                        {
+                            value.Add(element);
+                        }
+                    }
+            
+                    foreach (var element in values)
+                    {
+                        value.Add(element);
+                    }
 
                     {{scalar}}
                 }
@@ -99,9 +134,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             Descriptor = "WithTestProperty",
             Kind = new()
             {
-                Type = new()
+                Member = new()
                 {
                     Name = "int",
+                },
+                Pattern = Pattern.Collection,
+                Type = new()
+                {
+                    Name = "List<int>",
                 },
             },
             Name = "TestProperty",
@@ -125,7 +165,7 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
-    public void GivenNullablePropertyThenGeneratesExtensionWithNullableType(string scalar)
+    public void GivenNullablePropertyWhenCollectionThenGeneratesExtensionWithNullableType(string scalar)
     {
         string expected = $$"""
             using System;
@@ -134,9 +174,24 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, int? value)
+                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
+            
+                    List<int>? value = new();
+            
+                    if (subject.TestProperty is not null)
+                    {
+                        foreach (var element in subject.TestProperty)
+                        {
+                            value.Add(element);
+                        }
+                    }
+            
+                    foreach (var element in values)
+                    {
+                        value.Add(element);
+                    }
 
                     {{scalar}}
                 }
@@ -157,10 +212,15 @@ public sealed partial class WhenGetExtensionsIsCalled
             Descriptor = "WithTestProperty",
             Kind = new()
             {
+                Member = new()
+                {
+                    Name = "int",
+                },
+                Pattern = Pattern.Collection,
                 Type = new()
                 {
                     IsNullable = true,
-                    Name = "int",
+                    Name = "List<int>",
                 },
             },
             Name = "TestProperty",
@@ -184,7 +244,7 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
-    public void GivenBuildablePropertyThenGeneratesDelegateExtension(string scalar)
+    public void GivenBuildablePropertyWhenCollectionThenGeneratesDelegateExtension(string scalar)
     {
         // Arrange
         string expected = $$"""
@@ -194,6 +254,28 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
+                public static TestSubject WithTestProperty(this TestSubject subject, params TestType[] values)
+                {
+                    ArgumentNullException.ThrowIfNull(subject);
+            
+                    List<TestType> value = new();
+            
+                    if (subject.TestProperty is not null)
+                    {
+                        foreach (var element in subject.TestProperty)
+                        {
+                            value.Add(element);
+                        }
+                    }
+            
+                    foreach (var element in values)
+                    {
+                        value.Add(element);
+                    }
+
+                    {{scalar}}
+                }
+
                 public static TestSubject WithTestProperty(this TestSubject subject, global::Fluentify.Builder<TestType> builder)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
@@ -206,13 +288,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             
                     return subject.WithTestProperty(instance);
                 }
-
-                public static TestSubject WithTestProperty(this TestSubject subject, TestType value)
-                {
-                    ArgumentNullException.ThrowIfNull(subject);
-
-                    {{scalar}}
-                }
             }
             """;
 
@@ -229,10 +304,15 @@ public sealed partial class WhenGetExtensionsIsCalled
             Descriptor = "WithTestProperty",
             Kind = new()
             {
-                Type = new()
+                Member = new()
                 {
                     IsBuildable = true,
                     Name = "TestType",
+                },
+                Pattern = Pattern.Collection,
+                Type = new()
+                {
+                    Name = "List<TestType>",
                 },
             },
             Name = "TestProperty",

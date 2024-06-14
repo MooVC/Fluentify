@@ -1,7 +1,5 @@
 ﻿namespace Fluentify.Model;
 
-using System.Xml.Linq;
-
 /// <summary>
 /// The definition of the <see cref="Value"/> type, serving as a base for any type that is deemed equal based on its properties.
 /// It is effectively a .NET Standard 2.0 version of a record.

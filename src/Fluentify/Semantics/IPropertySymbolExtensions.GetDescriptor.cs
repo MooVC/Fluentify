@@ -49,19 +49,21 @@ internal static partial class IPropertySymbolExtensions
 
     private static bool HasDescriptorOnConstuctorArguments(this AttributeData attribute, out string value)
     {
-        if (attribute.ConstructorArguments.Length > 0)
+        value = string.Empty;
+
+        if (attribute.ConstructorArguments.Length == 0)
         {
-            TypedConstant argument = attribute.ConstructorArguments.First();
-
-            if (argument.Value is string descriptor)
-            {
-                value = descriptor;
-
-                return true;
-            }
+            return false;
         }
 
-        value = string.Empty;
+        TypedConstant argument = attribute.ConstructorArguments.First();
+
+        if (argument.Value is string descriptor)
+        {
+            value = descriptor;
+
+            return true;
+        }
 
         return false;
     }

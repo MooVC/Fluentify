@@ -18,14 +18,14 @@ internal static partial class IPropertySymbolExtensions
     {
         INamedTypeSymbol containingType = property.ContainingType;
 
-        if (containingType.IsRecord)
+        if (!containingType.IsRecord)
         {
-            return containingType
-                .InstanceConstructors
-                .SelectMany(constructor => constructor.Parameters)
-                .FirstOrDefault(parameter => parameter.Name == property.Name);
+            return default;
         }
 
-        return default;
+        return containingType
+            .InstanceConstructors
+            .SelectMany(constructor => constructor.Parameters)
+            .FirstOrDefault(parameter => parameter.Name == property.Name);
     }
 }

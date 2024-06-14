@@ -7,9 +7,9 @@ using Fluentify.Model;
 /// </summary>
 internal static partial class PropertyExtensions
 {
-    private static string? GetCollectionExtensionMethodBody(this Property property, Func<Property, string?> scalar)
+    private static string? GetEnumerableExtensionMethodBody(this Property property, Func<Property, string?> scalar)
     {
-        if (property.Kind.Pattern != Pattern.Collection)
+        if (property.Kind.Pattern != Pattern.Enumerable)
         {
             return default;
         }
@@ -24,19 +24,13 @@ internal static partial class PropertyExtensions
         Kind kind = property.Kind;
 
         return $$"""
-            {{kind}} value = new();
+            {{kind}} value = values;
 
             if (subject.{{property.Name}} is not null)
             {
-                foreach (var element in subject.{{property.Name}})
-                {
-                    value.Add(element);
-                }
-            }
-
-            foreach (var element in values)
-            {
-                value.Add(element);
+                value = subject.{{property.Name}}
+                    .Union(values)
+                    .ToArray();
             }
 
             {{body}}

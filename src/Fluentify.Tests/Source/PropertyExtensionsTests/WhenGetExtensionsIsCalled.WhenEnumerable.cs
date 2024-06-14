@@ -7,9 +7,13 @@ using Metadata = Fluentify.Source.Metadata;
 public sealed partial class WhenGetExtensionsIsCalled
 {
     [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
-    public void GivenPublicPropertyAndPublicSubjectThenGeneratesPublicExtension(string scalar)
+    [InlineData("throw new NotImplementedException();", "IEnumerable<int>")]
+    [InlineData("return new();", "IEnumerable<int>")]
+    [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<int>")]
+    [InlineData("return new();", "IReadOnlyCollection<int>")]
+    [InlineData("throw new NotImplementedException();", "IReadOnlyList<int>")]
+    [InlineData("return new();", "IReadOnlyList<int>")]
+    public void GivenPublicPropertyAndPublicSubjectWhenEnumerableThenGeneratesPublicExtension(string scalar, string type)
     {
         // Arrange
         string expected = $$"""
@@ -19,9 +23,18 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, int value)
+                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
+
+                    {{type}} value = values;
+            
+                    if (subject.TestProperty is not null)
+                    {
+                        value = subject.TestProperty
+                            .Union(values)
+                            .ToArray();
+                    }
 
                     {{scalar}}
                 }
@@ -41,9 +54,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             Descriptor = "WithTestProperty",
             Kind = new()
             {
-                Type = new()
+                Member = new()
                 {
                     Name = "int",
+                },
+                Pattern = Pattern.Enumerable,
+                Type = new()
+                {
+                    Name = type,
                 },
             },
             Name = "TestProperty",
@@ -65,9 +83,13 @@ public sealed partial class WhenGetExtensionsIsCalled
     }
 
     [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
-    public void GivenInternalPropertyAndPublicSubjectThenGeneratesInternalExtension(string scalar)
+    [InlineData("throw new NotImplementedException();", "IEnumerable<int>")]
+    [InlineData("return new();", "IEnumerable<int>")]
+    [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<int>")]
+    [InlineData("return new();", "IReadOnlyCollection<int>")]
+    [InlineData("throw new NotImplementedException();", "IReadOnlyList<int>")]
+    [InlineData("return new();", "IReadOnlyList<int>")]
+    public void GivenInternalPropertyAndPublicSubjectWhenEnumerableThenGeneratesInternalExtension(string scalar, string type)
     {
         // Arrange
         string expected = $$"""
@@ -77,9 +99,18 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             internal static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, int value)
+                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
+
+                    {{type}} value = values;
+
+                    if (subject.TestProperty is not null)
+                    {
+                        value = subject.TestProperty
+                            .Union(values)
+                            .ToArray();
+                    }
 
                     {{scalar}}
                 }
@@ -99,9 +130,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             Descriptor = "WithTestProperty",
             Kind = new()
             {
-                Type = new()
+                Member = new()
                 {
                     Name = "int",
+                },
+                Pattern = Pattern.Enumerable,
+                Type = new()
+                {
+                    Name = type,
                 },
             },
             Name = "TestProperty",
@@ -123,9 +159,13 @@ public sealed partial class WhenGetExtensionsIsCalled
     }
 
     [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
-    public void GivenNullablePropertyThenGeneratesExtensionWithNullableType(string scalar)
+    [InlineData("throw new NotImplementedException();", "IEnumerable<int>")]
+    [InlineData("return new();", "IEnumerable<int>")]
+    [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<int>")]
+    [InlineData("return new();", "IReadOnlyCollection<int>")]
+    [InlineData("throw new NotImplementedException();", "IReadOnlyList<int>")]
+    [InlineData("return new();", "IReadOnlyList<int>")]
+    public void GivenNullablePropertyWhenEnumerableThenGeneratesExtensionWithNullableType(string scalar, string type)
     {
         string expected = $$"""
             using System;
@@ -134,9 +174,18 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, int? value)
+                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
+
+                    {{type}}? value = values;
+
+                    if (subject.TestProperty is not null)
+                    {
+                        value = subject.TestProperty
+                            .Union(values)
+                            .ToArray();
+                    }
 
                     {{scalar}}
                 }
@@ -157,10 +206,15 @@ public sealed partial class WhenGetExtensionsIsCalled
             Descriptor = "WithTestProperty",
             Kind = new()
             {
+                Member = new()
+                {
+                    Name = "int",
+                },
+                Pattern = Pattern.Enumerable,
                 Type = new()
                 {
                     IsNullable = true,
-                    Name = "int",
+                    Name = type,
                 },
             },
             Name = "TestProperty",
@@ -182,9 +236,13 @@ public sealed partial class WhenGetExtensionsIsCalled
     }
 
     [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
-    public void GivenBuildablePropertyThenGeneratesDelegateExtension(string scalar)
+    [InlineData("throw new NotImplementedException();", "IEnumerable<TestType>")]
+    [InlineData("return new();", "IEnumerable<TestType>")]
+    [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<TestType>")]
+    [InlineData("return new();", "IReadOnlyCollection<TestType>")]
+    [InlineData("throw new NotImplementedException();", "IReadOnlyList<TestType>")]
+    [InlineData("return new();", "IReadOnlyList<TestType>")]
+    public void GivenBuildablePropertyWhenEnumerableThenGeneratesDelegateExtension(string scalar, string type)
     {
         // Arrange
         string expected = $$"""
@@ -194,6 +252,22 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
+                public static TestSubject WithTestProperty(this TestSubject subject, params TestType[] values)
+                {
+                    ArgumentNullException.ThrowIfNull(subject);
+
+                    {{type}} value = values;
+            
+                    if (subject.TestProperty is not null)
+                    {
+                        value = subject.TestProperty
+                            .Union(values)
+                            .ToArray();
+                    }
+
+                    {{scalar}}
+                }
+
                 public static TestSubject WithTestProperty(this TestSubject subject, global::Fluentify.Builder<TestType> builder)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
@@ -206,13 +280,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             
                     return subject.WithTestProperty(instance);
                 }
-
-                public static TestSubject WithTestProperty(this TestSubject subject, TestType value)
-                {
-                    ArgumentNullException.ThrowIfNull(subject);
-
-                    {{scalar}}
-                }
             }
             """;
 
@@ -229,10 +296,15 @@ public sealed partial class WhenGetExtensionsIsCalled
             Descriptor = "WithTestProperty",
             Kind = new()
             {
-                Type = new()
+                Member = new()
                 {
                     IsBuildable = true,
                     Name = "TestType",
+                },
+                Pattern = Pattern.Enumerable,
+                Type = new()
+                {
+                    Name = type,
                 },
             },
             Name = "TestProperty",
