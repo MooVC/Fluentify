@@ -7,6 +7,54 @@ using Metadata = Fluentify.Source.Metadata;
 public sealed partial class WhenGetExtensionsIsCalled
 {
     [Theory]
+    [InlineData("IEnumerable<int>")]
+    [InlineData("IReadOnlyCollection<int>")]
+    [InlineData("IReadOnlyList<int>")]
+    public void GivenAScalarThenYieldsNullWhenEnumerableThenNoExtensionIsGenerated(string type)
+    {
+        // Arrange
+        var subject = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Name = "TestSubject",
+            Properties = [],
+        };
+
+        var property = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "WithTestProperty",
+            Kind = new()
+            {
+                Member = new()
+                {
+                    Name = "int",
+                },
+                Pattern = Pattern.Enumerable,
+                Type = new()
+                {
+                    Name = type,
+                },
+            },
+            Name = "TestProperty",
+        };
+
+        var metadata = new Metadata
+        {
+            Constraints = [],
+            Parameters = string.Empty,
+            Subject = subject,
+            Type = "TestSubject",
+        };
+
+        // Act
+        string result = property.GetExtensions(ref metadata, _ => default);
+
+        // Assert
+        _ = result.Should().BeEmpty();
+    }
+
+    [Theory]
     [InlineData("throw new NotImplementedException();", "IEnumerable<int>")]
     [InlineData("return new();", "IEnumerable<int>")]
     [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<int>")]

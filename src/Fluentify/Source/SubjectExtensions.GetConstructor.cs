@@ -24,11 +24,15 @@ internal static partial class SubjectExtensions
 
             partial record {{subject}}
             {
+                #pragma warning disable CS8604
+
                 [SetsRequiredMembers]
                 public {{subject.Name}}()
                     : this({{parameters}})
                 {
                 }
+
+                #pragma warning restore CS8604
             }
             """;
     }

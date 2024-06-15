@@ -22,6 +22,7 @@ Fluentify automatically creates extension methods for each property on types tha
 public class Person
 {
     public ushort Age { get; init; }
+    public string[] Aliases { get; init; }
     public DateOnly DateOfBirth { get; init; }
     public Name Name { get; init; }
 }
@@ -31,20 +32,25 @@ public class Person
 
 ```csharp
 [Fluentify]
-public record Person(ushort Age, DateOnly DateOfBirth, Name Name);
+public record Person(ushort Age, string[] Aliases, DateOnly DateOfBirth, Name Name);
 ```
 
-The generated extension methods preserve immutability, providing a new instance with the specified value applied to the associated property. Using the `Builder<T>` delegate, Fluentify can also instantiate the value for the associated property, allowing for it to be configured.
+The generated extension methods preserve immutability, providing a new instance with the specified value applied to the associated property.
+
+Fluentify also provides a `Builder<T>` delegate for types that adhere to the ``new()`` constraint, allowing for the value to be automatically instantiated and configured through the generated extension.
+
+When applied to a property that is an ``Array``, ``IEnumerable<T>``, ``IReadOnlyCollection<T>``, ``IReadOnlyList<T>``, or if it derives from ``ICollection<T>`` and adheres to the ``new()`` constraint, then the generated extension allows for individual values to be appended to the existing collection, without modifying the original instance.
 
 ```csharp
 var person = new Person(...);
 
 _ = person
-    .WithAge(41)               // Apply 41 to the Age property
-    .WithName(name => name     // A Builder<T> delegate, creating a new instance of the Name type and allowing for it's configuration
-        .WithGiven("Paul")
-        .WithFamily("Martins"))
-    .WithDateOfBirth(new DateOnly(1983, 7, 24));
+    .WithAge(75)                                     // Apply 75 to the Age property
+    .WithAliases("Avery Franklin", "Benjamin Sisko") // Copies the existing values within the Aliases property to a new array and appends the two new alias values
+    .WithName(name => name                           // A Builder<T> delegate, creating a new instance of the Name type and allowing for it's configuration
+        .WithGiven("Avery")
+        .WithFamily("Brooks"))
+    .WithDateOfBirth(new DateOnly(1948, 10, 2));
 ```
 
 ## Custom Descriptors
@@ -82,11 +88,11 @@ This allows for greater alignment with domain semantics:
 
 ```csharp
 _ = person
-    .Aged(41)
+    .Aged(75)
     .Named(name => name
-        .WithGiven("Paul")
-        .WithFamily("Martins"))
-    .BornOn(new DateOnly(1983, 7, 24));
+        .WithGiven("Avery")
+        .WithFamily("Brooks"))
+    .BornOn(new DateOnly(1948, 10, 2));
 ```
 
 ## Property Exclusion
@@ -117,11 +123,11 @@ This will result in an error if you try to use the ignored property in the fluen
 
 ```csharp
 _ = person
-    .WithAge(41) // IntelliSense Error: 'Person' does not contain a definition for 'WithAge'
+    .WithAge(75) // IntelliSense Error: 'Person' does not contain a definition for 'WithAge'
     .WithName(name => name
-        .WithGiven("Paul")
-        .WithFamily("Martins"))
-    .WithDateOfBirth(new DateOnly(1983, 7, 24));
+        .WithGiven("Avery")
+        .WithFamily("Brooks"))
+    .WithDateOfBirth(new DateOnly(1948, 10, 2));
 ```
 
 ## Contributing

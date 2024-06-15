@@ -6,6 +6,46 @@ using Metadata = Fluentify.Source.Metadata;
 
 public sealed partial class WhenGetExtensionsIsCalled
 {
+    [Fact]
+    public void GivenAScalarThenYieldsNullThenNoExtensionIsGenerated()
+    {
+        // Arrange
+        var subject = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Name = "TestSubject",
+            Properties = [],
+        };
+
+        var property = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "WithTestProperty",
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "int",
+                },
+            },
+            Name = "TestProperty",
+        };
+
+        var metadata = new Metadata
+        {
+            Constraints = [],
+            Parameters = string.Empty,
+            Subject = subject,
+            Type = "TestSubject",
+        };
+
+        // Act
+        string result = property.GetExtensions(ref metadata, _ => default);
+
+        // Assert
+        _ = result.Should().BeEmpty();
+    }
+
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]

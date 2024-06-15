@@ -65,6 +65,11 @@ internal sealed class Records
         internal sealed record Unannotated(int Age, string Name, IReadOnlyList<object>? Attributes = default);
         """;
 
+    private const string UnsupportedSource = """
+        [Fluentify]
+        internal sealed record Unsupported();
+        """;
+
     private Records()
         : base(
             CrossReferencedSource,
@@ -77,7 +82,8 @@ internal sealed class Records
             DescriptorOnRequiredSource,
             DescriptorOnOptionalSource,
             DescriptorOnIgnoredSource,
-            UnannotatedSource)
+            UnannotatedSource,
+            UnsupportedSource)
     {
     }
 }

@@ -13,11 +13,15 @@ public sealed class WhenGetConstructorIsCalled
 
             partial record TestClass
             {
+                #pragma warning disable CS8604
+
                 [SetsRequiredMembers]
                 public TestClass()
                     : this()
                 {
                 }
+
+                #pragma warning restore CS8604
             }
             """;
 
@@ -43,11 +47,15 @@ public sealed class WhenGetConstructorIsCalled
             
             partial record TestClass
             {
+                #pragma warning disable CS8604
+
                 [SetsRequiredMembers]
                 public TestClass()
                     : this(default, default)
                 {
                 }
+
+                #pragma warning restore CS8604
             }
             """;
 

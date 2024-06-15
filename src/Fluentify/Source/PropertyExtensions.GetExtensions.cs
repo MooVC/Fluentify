@@ -26,6 +26,11 @@ internal static partial class PropertyExtensions
 
         string methods = property.GetExtensionMethods(ref metadata, scalar);
 
+        if (string.IsNullOrEmpty(methods))
+        {
+            return string.Empty;
+        }
+
         return $$"""
             using System;
             using System.Collections.Generic;

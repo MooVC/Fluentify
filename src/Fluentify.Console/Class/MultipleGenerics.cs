@@ -14,9 +14,27 @@ internal sealed class MultipleGenerics<T1, T2, T3>
     where T2 : class, new()
     where T3 : IEnumerable<string>
 {
+    /// <summary>
+    /// Gets or sets the first property to be subject to the extension generator.
+    /// </summary>
+    /// <value>
+    /// The first property to be subject to the extension generator.
+    /// </value>
     public required T1? Age { get; init; }
 
+    /// <summary>
+    /// Gets or sets the second property to be subject to the extension generator.
+    /// </summary>
+    /// <value>
+    /// The second property to be subject to the extension generator.
+    /// </value>
     public required T2? Name { get; init; }
 
+    /// <summary>
+    /// Gets or sets the third property to be subject to the extension generator.
+    /// </summary>
+    /// <value>
+    /// The third property to be subject to the extension generator.
+    /// </value>
     public required T3 Attributes { get; init; }
 }

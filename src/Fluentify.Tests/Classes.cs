@@ -118,6 +118,13 @@ internal sealed class Classes
         }
         """;
 
+    private const string UnsupportedSource = """
+        [Fluentify]
+        internal sealed class Unsupported
+        {
+        };
+        """;
+
     private Classes()
         : base(
             CrossReferencedSource,
@@ -130,7 +137,8 @@ internal sealed class Classes
             DescriptorOnRequiredSource,
             DescriptorOnOptionalSource,
             DescriptorOnIgnoredSource,
-            UnannotatedSource)
+            UnannotatedSource,
+            UnsupportedSource)
     {
     }
 }

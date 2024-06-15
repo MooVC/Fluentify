@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-alpha0005] - 2024-06-15
+
 ### Added
 
 - Params based extension generation for **IEnumerable<T>**, **IReadOnlyCollection<T>** and **IReadOnlyList<T>**, supporting additive operations.

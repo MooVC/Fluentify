@@ -2,37 +2,59 @@
 
 using Fluentify.Model;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Type = Fluentify.Type;
 
 public sealed class WhenToSubjectIsCalled
 {
-    public static readonly TheoryData<Compilation, bool, Type> GivenACrossReferencedTypeTheTheExpectedSubjectIsReturnedData = new()
+    public static readonly TheoryData<Compilation, bool, Type> GivenACrossReferencedTypeThenTheExpectedSubjectIsReturnedData = new()
     {
         { Classes.Instance.Compilation, true, Classes.Instance.CrossReferenced },
         { Records.Instance.Compilation, false, Records.Instance.CrossReferenced },
     };
 
-    public static readonly TheoryData<Compilation, bool, Type> GivenAMultipleGenericTypeTheTheExpectedSubjectIsReturnedData = new()
+    public static readonly TheoryData<Compilation, bool, Type> GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturnedData = new()
     {
         { Classes.Instance.Compilation, true, Classes.Instance.MultipleGenerics },
         { Records.Instance.Compilation, false, Records.Instance.MultipleGenerics },
     };
 
-    public static readonly TheoryData<Compilation, bool, Type> GivenASimpleTypeTheTheExpectedSubjectIsReturnedData = new()
+    public static readonly TheoryData<Compilation, bool, Type> GivenASimpleTypeThenTheExpectedSubjectIsReturnedData = new()
     {
         { Classes.Instance.Compilation, true, Classes.Instance.Simple },
         { Records.Instance.Compilation, false, Records.Instance.Simple },
     };
 
-    public static readonly TheoryData<Compilation, bool, Type> GivenASingleGenericTypeTheTheExpectedSubjectIsReturnedData = new()
+    public static readonly TheoryData<Compilation, bool, Type> GivenASingleGenericTypeThenTheExpectedSubjectIsReturnedData = new()
     {
         { Classes.Instance.Compilation, true, Classes.Instance.SingleGeneric },
         { Records.Instance.Compilation, false, Records.Instance.SingleGeneric },
     };
 
+    public static readonly TheoryData<Compilation, Type> GivenUnannotatedOrUnsupportedThenNoSubjectIsReturnedData = new()
+    {
+        { Classes.Instance.Compilation, Classes.Instance.Unannotated },
+        { Records.Instance.Compilation, Records.Instance.Unannotated },
+        { Classes.Instance.Compilation, Classes.Instance.Unsupported },
+        { Records.Instance.Compilation, Records.Instance.Unsupported },
+    };
+
+    [Fact]
+    public void GivenNullSyntaxThenNoSubjectIsReturned()
+    {
+        // Arrange
+        TypeDeclarationSyntax? syntax = default;
+
+        // Act
+        var subject = syntax.ToSubject(Classes.Instance.Compilation, CancellationToken.None);
+
+        // Assert
+        _ = subject.Should().BeNull();
+    }
+
     [Theory]
-    [MemberData(nameof(GivenACrossReferencedTypeTheTheExpectedSubjectIsReturnedData))]
-    public void GivenACrossReferencedTypeTheTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Type type)
+    [MemberData(nameof(GivenACrossReferencedTypeThenTheExpectedSubjectIsReturnedData))]
+    public void GivenACrossReferencedTypeThenTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Type type)
     {
         // Arrange
         var expected = new Subject
@@ -79,8 +101,8 @@ public sealed class WhenToSubjectIsCalled
     }
 
     [Theory]
-    [MemberData(nameof(GivenAMultipleGenericTypeTheTheExpectedSubjectIsReturnedData))]
-    public void GivenAMultipleGenericTypeTheTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Type type)
+    [MemberData(nameof(GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturnedData))]
+    public void GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Type type)
     {
         // Arrange
         var expected = new Subject
@@ -159,8 +181,8 @@ public sealed class WhenToSubjectIsCalled
     }
 
     [Theory]
-    [MemberData(nameof(GivenASimpleTypeTheTheExpectedSubjectIsReturnedData))]
-    public void GivenASimpleTypeTheTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Type type)
+    [MemberData(nameof(GivenASimpleTypeThenTheExpectedSubjectIsReturnedData))]
+    public void GivenASimpleTypeThenTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Type type)
     {
         // Arrange
         var expected = new Subject
@@ -220,8 +242,8 @@ public sealed class WhenToSubjectIsCalled
     }
 
     [Theory]
-    [MemberData(nameof(GivenASingleGenericTypeTheTheExpectedSubjectIsReturnedData))]
-    public void GivenASingleGenericTypeTheTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Type type)
+    [MemberData(nameof(GivenASingleGenericTypeThenTheExpectedSubjectIsReturnedData))]
+    public void GivenASingleGenericTypeThenTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Type type)
     {
         // Arrange
         var expected = new Subject
@@ -285,5 +307,16 @@ public sealed class WhenToSubjectIsCalled
 
         // Assert
         _ = actual.Should().BeEquivalentTo(expected);
+    }
+
+    [Theory]
+    [MemberData(nameof(GivenUnannotatedOrUnsupportedThenNoSubjectIsReturnedData))]
+    public void GivenUnannotatedOrUnsupportedThenNoSubjectIsReturned(Compilation compilation, Type type)
+    {
+        // Act
+        var subject = type.Syntax.ToSubject(compilation, CancellationToken.None);
+
+        // Assert
+        _ = subject.Should().BeNull();
     }
 }

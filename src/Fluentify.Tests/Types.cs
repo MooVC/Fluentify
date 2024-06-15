@@ -3,10 +3,6 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Attribute = Fluentify.FluentifyAttributeGeneratorTests.WhenExecuted;
-using Builder = Fluentify.BuilderDelegateGenerator;
-using Descriptor = Fluentify.DescriptorAttributeGenerator;
-using Ignore = Fluentify.IgnoreAttributeGeneratorTests.WhenExecuted;
 
 internal abstract partial class Types<T>
     where T : TypeDeclarationSyntax
@@ -22,7 +18,8 @@ internal abstract partial class Types<T>
         string descriptorOnRequired,
         string descriptorOnOptional,
         string descriptorOnIgnored,
-        string unannotated)
+        string unannotated,
+        string unsupported)
     {
         string code = GetCode(
             crossReferenced,
@@ -35,7 +32,8 @@ internal abstract partial class Types<T>
             descriptorOnRequired,
             descriptorOnOptional,
             descriptorOnIgnored,
-            unannotated);
+            unannotated,
+            unsupported);
 
         T[] declarations = GetDeclarations(code, out Compilation compilation, out SemanticModel model);
 
@@ -53,6 +51,7 @@ internal abstract partial class Types<T>
         DescriptorOnOptional = GetType(declarations, nameof(DescriptorOnOptional));
         DescriptorOnIgnored = GetType(declarations, nameof(DescriptorOnIgnored));
         Unannotated = GetType(declarations, nameof(Unannotated));
+        Unsupported = GetType(declarations, nameof(Unsupported));
     }
 
     public Compilation Compilation { get; }
@@ -81,6 +80,8 @@ internal abstract partial class Types<T>
 
     public Type Unannotated { get; }
 
+    public Type Unsupported { get; }
+
     private static string GetCode(
         string crossReferenced,
         string multipeGenerics,
@@ -92,7 +93,8 @@ internal abstract partial class Types<T>
         string descriptorOnRequired,
         string descriptorOnOptional,
         string descriptorOnIgnored,
-        string unannotated)
+        string unannotated,
+        string unsupported)
     {
         return $$"""
             namespace Fluentify.Tests.Compilation
@@ -121,6 +123,8 @@ internal abstract partial class Types<T>
                 {{descriptorOnIgnored.Indent()}}
 
                 {{unannotated.Indent()}}
+
+                {{unsupported.Indent()}}
             }
             """;
     }

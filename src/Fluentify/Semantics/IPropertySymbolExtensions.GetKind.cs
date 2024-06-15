@@ -10,8 +10,8 @@ internal static partial class IPropertySymbolExtensions
 {
     private const string Collection = "global::System.Collections.Generic.ICollection<T>";
     private const string Enumerable = "global::System.Collections.Generic.IEnumerable<T>";
-    private const string ReadOnlyList = "global::System.Collections.Generic.IReadOnlyList<T>";
     private const string ReadOnlyCollection = "global::System.Collections.Generic.IReadOnlyCollection<T>";
+    private const string ReadOnlyList = "global::System.Collections.Generic.IReadOnlyList<T>";
 
     private static readonly IsMatch[] strategies =
     [
@@ -71,7 +71,7 @@ internal static partial class IPropertySymbolExtensions
     {
         if (property.Type is not INamedTypeSymbol type
          || type.TypeArguments.Length != 1
-         || !type.IsType(Enumerable, ReadOnlyCollection, ReadOnlyList))
+         || !type.OriginalDefinition.IsType(Enumerable, ReadOnlyCollection, ReadOnlyList))
         {
             return false;
         }

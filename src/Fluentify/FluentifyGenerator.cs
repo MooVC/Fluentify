@@ -57,13 +57,17 @@ public abstract partial class FluentifyGenerator<T>
             }
 
             string content = property.GetExtensions(ref metadata, GetScalar);
-            string hint = $"{subject.Namespace}.{subject.Name}Extensions.{property.Descriptor}.g.cs";
 
-            yield return new Source
+            if (!string.IsNullOrEmpty(content))
             {
-                Content = content,
-                Hint = hint,
-            };
+                string hint = $"{subject.Namespace}.{subject.Name}Extensions.{property.Descriptor}.g.cs";
+
+                yield return new Source
+                {
+                    Content = content,
+                    Hint = hint,
+                };
+            }
         }
     }
 
