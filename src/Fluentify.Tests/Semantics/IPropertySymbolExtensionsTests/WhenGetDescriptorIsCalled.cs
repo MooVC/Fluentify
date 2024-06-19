@@ -17,6 +17,7 @@ public sealed class WhenGetDescriptorIsCalled
 
     public static readonly TheoryData<Type> GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturnedData = new()
     {
+        { Classes.Instance.Boolean },
         { Classes.Instance.CrossReferenced },
         { Classes.Instance.MultipleGenerics },
         { Classes.Instance.Simple },
@@ -25,6 +26,7 @@ public sealed class WhenGetDescriptorIsCalled
         { Classes.Instance.TwoOfThreeIgnored },
         { Classes.Instance.AllThreeIgnored },
         { Classes.Instance.Unannotated },
+        { Records.Instance.Boolean },
         { Records.Instance.CrossReferenced },
         { Records.Instance.MultipleGenerics },
         { Records.Instance.Simple },

@@ -7,15 +7,14 @@ internal sealed class Records
 {
     public static readonly Records Instance = new();
 
-    private const string SimpleSource = """
+    private const string BooleanSource = """
         [Fluentify]
-        internal sealed partial record Simple(int Age, string Name, IReadOnlyList<object>? Attributes = default);
+        internal sealed partial record Boolean(int Age, bool IsRetired, string Name);
         """;
 
-    private const string SingleGenericSource = """
+    private const string CrossReferencedSource = """
         [Fluentify]
-        internal sealed record SingleGeneric<T>(int Age, string Name, T? Attributes = default)
-            where T : IEnumerable;
+        internal sealed record CrossReferenced(string Description, Simple Simple);
         """;
 
     private const string MultipleGenericsSource = """
@@ -26,9 +25,15 @@ internal sealed class Records
             where T3 : IEnumerable<string>;
         """;
 
-    private const string CrossReferencedSource = """
+    private const string SimpleSource = """
         [Fluentify]
-        internal sealed record CrossReferenced(string Description, Simple Simple);
+        internal sealed partial record Simple(int Age, string Name, IReadOnlyList<object>? Attributes = default);
+        """;
+
+    private const string SingleGenericSource = """
+        [Fluentify]
+        internal sealed record SingleGeneric<T>(int Age, string Name, T? Attributes = default)
+            where T : IEnumerable;
         """;
 
     private const string OneOfThreeIgnoredSource = """
@@ -72,6 +77,7 @@ internal sealed class Records
 
     private Records()
         : base(
+            BooleanSource,
             CrossReferencedSource,
             MultipleGenericsSource,
             SimpleSource,

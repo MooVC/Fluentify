@@ -7,6 +7,38 @@ internal sealed class Classes
 {
     public static readonly Classes Instance = new();
 
+    private const string BooleanSource = """
+        [Fluentify]
+        internal sealed partial class Boolean
+        {
+            public int Age { get; init; }
+            public bool IsRetired { get; init; }
+            public string Name { get; init; }
+        }
+        """;
+
+    private const string CrossReferencedSource = """
+        [Fluentify]
+        internal sealed class CrossReferenced
+        {
+            public string Description { get; init; }
+            public Simple Simple { get; init; }
+        }
+        """;
+
+    private const string MultipleGenericsSource = """
+        [Fluentify]
+        internal sealed class MultipleGenerics<T1, T2, T3>
+            where T1 : struct
+            where T2 : class, new()
+            where T3 : IEnumerable<string>
+        {
+            public T1? Age { get; init; }
+            public T2? Name { get; init; }
+            public T3 Attributes { get; init; }
+        }
+        """;
+
     private const string SimpleSource = """
         [Fluentify]
         internal sealed partial class Simple
@@ -25,28 +57,6 @@ internal sealed class Classes
             public int Age { get; init; }
             public string Name { get; init; }
             public T? Attributes { get; init; }
-        }
-        """;
-
-    private const string MultipleGenericsSource = """
-        [Fluentify]
-        internal sealed class MultipleGenerics<T1, T2, T3>
-            where T1 : struct
-            where T2 : class, new()
-            where T3 : IEnumerable<string>
-        {
-            public T1? Age { get; init; }
-            public T2? Name { get; init; }
-            public T3 Attributes { get; init; }
-        }
-        """;
-
-    private const string CrossReferencedSource = """
-        [Fluentify]
-        internal sealed class CrossReferenced
-        {
-            public string Description { get; init; }
-            public Simple Simple { get; init; }
         }
         """;
 
@@ -127,6 +137,7 @@ internal sealed class Classes
 
     private Classes()
         : base(
+            BooleanSource,
             CrossReferencedSource,
             MultipleGenericsSource,
             SimpleSource,

@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-alpha0006] - 2024-06-19
+
+### Changed
+
+- The default descriptor for properties of type ``bool`` or ``bool?`` will now be the same name as the property, instead of ``With{PropertyName}``.
+
+### Fixed
+
+- An extension accepting a ``Builder<T>`` parameter is no longer generated for value types.
+
 ## [1.0.0-alpha0005] - 2024-06-15
 
 ### Added

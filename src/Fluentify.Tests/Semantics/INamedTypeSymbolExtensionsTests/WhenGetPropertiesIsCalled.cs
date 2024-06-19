@@ -7,6 +7,12 @@ using Type = Fluentify.Type;
 
 public sealed class WhenGetPropertiesIsCalled
 {
+    public static readonly TheoryData<Compilation, Type> GivenBooleanThenTheExpectedPropertiesAreReturnedData = new()
+    {
+        { Classes.Instance.Compilation, Classes.Instance.Boolean },
+        { Records.Instance.Compilation, Records.Instance.Boolean },
+    };
+
     public static readonly TheoryData<Compilation, Type> GivenCrossReferencedThenTheExpectedPropertiesAreReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.CrossReferenced },
@@ -106,6 +112,28 @@ public sealed class WhenGetPropertiesIsCalled
         },
         Name = "Name",
     };
+
+    [Theory]
+    [MemberData(nameof(GivenBooleanThenTheExpectedPropertiesAreReturnedData))]
+    public void GivenBooleanThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
+    {
+        // Arrange
+        var isRetired = new Property
+        {
+            Descriptor = "IsRetired",
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "bool",
+                },
+            },
+            Name = "IsRetired",
+        };
+
+        // Act & Assert
+        ActAndAssert(compilation, type, age, isRetired, name);
+    }
 
     [Theory]
     [MemberData(nameof(GivenCrossReferencedThenTheExpectedPropertiesAreReturnedData))]

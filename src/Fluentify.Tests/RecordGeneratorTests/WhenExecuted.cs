@@ -16,6 +16,9 @@ public sealed class WhenExecuted
     {
         GivenCompilationThenTheExpectedSourceIsGenerated(
             Records.Instance.Compilation,
+            (Class: "Boolean", Descriptor: "WithAge"),
+            (Class: "Boolean", Descriptor: "IsRetired"),
+            (Class: "Boolean", Descriptor: "WithName"),
             (Class: "CrossReferenced", Descriptor: "WithDescription"),
             (Class: "CrossReferenced", Descriptor: "WithSimple"),
             (Class: "MultipleGenerics", Descriptor: "WithAge"),

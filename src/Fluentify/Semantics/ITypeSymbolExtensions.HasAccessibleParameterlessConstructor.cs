@@ -30,6 +30,11 @@ internal static partial class ITypeSymbolExtensions
     /// <returns>True if the <paramref name="type"/> adheres to the new() constraint, otherwise False.</returns>
     public static bool HasAccessibleParameterlessConstructor(this ITypeSymbol type, bool isInternal)
     {
+        if (type.IsValueType)
+        {
+            return false;
+        }
+
         IMethodSymbol[] constructors = type
             .GetMembers()
             .OfType<IMethodSymbol>()
@@ -45,17 +50,7 @@ internal static partial class ITypeSymbolExtensions
         {
             return constructor.Parameters.IsEmpty && IsAccessible(constructor.DeclaredAccessibility);
         }
-
-        bool HasAccessibleParameterlessConstructor()
-        {
-            return Array.Exists(constructors, IsConstructable);
-        }
-
-        if (type.IsReferenceType)
-        {
-            return HasAccessibleParameterlessConstructor();
-        }
-
-        return constructors.Length == 0 || HasAccessibleParameterlessConstructor();
+ 
+        return constructors.Length == 0 || Array.Exists(constructors, IsConstructable);
     }
 }

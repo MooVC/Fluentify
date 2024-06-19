@@ -7,6 +7,12 @@ using Type = Fluentify.Type;
 
 public sealed class WhenToSubjectIsCalled
 {
+    public static readonly TheoryData<Compilation, bool, Type> GivenABooleanTypeThenTheExpectedSubjectIsReturnedData = new()
+    {
+        { Classes.Instance.Compilation, true, Classes.Instance.Boolean },
+        { Records.Instance.Compilation, false, Records.Instance.Boolean },
+    };
+
     public static readonly TheoryData<Compilation, bool, Type> GivenACrossReferencedTypeThenTheExpectedSubjectIsReturnedData = new()
     {
         { Classes.Instance.Compilation, true, Classes.Instance.CrossReferenced },
@@ -50,6 +56,66 @@ public sealed class WhenToSubjectIsCalled
 
         // Assert
         _ = subject.Should().BeNull();
+    }
+
+    [Theory]
+    [MemberData(nameof(GivenABooleanTypeThenTheExpectedSubjectIsReturnedData))]
+    public void GivenABooleanTypeThenTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Type type)
+    {
+        // Arrange
+        var expected = new Subject
+        {
+            Accessibility = Accessibility.Internal,
+            HasDefaultConstructor = hasDefaultConstructor,
+            IsPartial = true,
+            Name = "Boolean",
+            Namespace = "Fluentify.Tests.Compilation",
+            Properties =
+            [
+                new Property
+                {
+                    Descriptor = "WithAge",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "int",
+                        },
+                    },
+                    Name = "Age",
+                },
+                new Property
+                {
+                    Descriptor = "IsRetired",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "bool",
+                        },
+                    },
+                    Name = "IsRetired",
+                },
+                new Property
+                {
+                    Descriptor = "WithName",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "string",
+                        },
+                    },
+                    Name = "Name",
+                },
+            ],
+        };
+
+        // Act
+        var actual = type.Syntax.ToSubject(compilation, CancellationToken.None);
+
+        // Assert
+        _ = actual.Should().BeEquivalentTo(expected);
     }
 
     [Theory]

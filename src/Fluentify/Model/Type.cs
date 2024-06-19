@@ -14,6 +14,14 @@ internal sealed class Type
     public static readonly Type Unspecified = new();
 
     /// <summary>
+    /// Gets a value indicating whether or not the type is a boolean.
+    /// </summary>
+    /// <value>
+    /// The value indicating whether or not the type is a boolean.
+    /// </value>
+    public bool IsBoolean => Name.Length <= 5 && Name.StartsWith("bool", StringComparison.InvariantCulture);
+
+    /// <summary>
     /// Gets or sets a value indicating whether or not the type adheres to the new() constraint.
     /// </summary>
     /// <value>

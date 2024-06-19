@@ -7,39 +7,16 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 internal abstract partial class Types<T>
     where T : TypeDeclarationSyntax
 {
-    protected Types(
-        string crossReferenced,
-        string multipeGenerics,
-        string simple,
-        string singleGeneric,
-        string oneOfThreeIgnored,
-        string twoOfThreeIgnored,
-        string allThreeIgnored,
-        string descriptorOnRequired,
-        string descriptorOnOptional,
-        string descriptorOnIgnored,
-        string unannotated,
-        string unsupported)
+    protected Types(params string[] types)
     {
-        string code = GetCode(
-            crossReferenced,
-            multipeGenerics,
-            simple,
-            singleGeneric,
-            oneOfThreeIgnored,
-            twoOfThreeIgnored,
-            allThreeIgnored,
-            descriptorOnRequired,
-            descriptorOnOptional,
-            descriptorOnIgnored,
-            unannotated,
-            unsupported);
+        string code = GetCode(types);
 
         T[] declarations = GetDeclarations(code, out Compilation compilation, out SemanticModel model);
 
         Compilation = compilation;
         Model = model;
 
+        Boolean = GetType(declarations, nameof(Boolean));
         CrossReferenced = GetType(declarations, nameof(CrossReferenced));
         MultipleGenerics = GetType(declarations, nameof(MultipleGenerics));
         Simple = GetType(declarations, nameof(Simple));
@@ -55,6 +32,8 @@ internal abstract partial class Types<T>
     }
 
     public Compilation Compilation { get; }
+
+    public Type Boolean { get; }
 
     public Type CrossReferenced { get; }
 
@@ -82,49 +61,17 @@ internal abstract partial class Types<T>
 
     public Type Unsupported { get; }
 
-    private static string GetCode(
-        string crossReferenced,
-        string multipeGenerics,
-        string simple,
-        string singleGeneric,
-        string oneOfThreeIgnored,
-        string twoOfThreeIgnored,
-        string allThreeIgnored,
-        string descriptorOnRequired,
-        string descriptorOnOptional,
-        string descriptorOnIgnored,
-        string unannotated,
-        string unsupported)
+    private static string GetCode(string[] types)
     {
+        string code = string.Join("\r\n\r\n", types);
+
         return $$"""
             namespace Fluentify.Tests.Compilation
             {
                 using System;
                 using System.Collections.Generic;
 
-                {{crossReferenced.Indent()}}
-
-                {{multipeGenerics.Indent()}}
-
-                {{simple.Indent()}}
-
-                {{singleGeneric.Indent()}}
-
-                {{oneOfThreeIgnored.Indent()}}
-
-                {{twoOfThreeIgnored.Indent()}}
-
-                {{allThreeIgnored.Indent()}}
-
-                {{descriptorOnRequired.Indent()}}
-
-                {{descriptorOnOptional.Indent()}}
-
-                {{descriptorOnIgnored.Indent()}}
-
-                {{unannotated.Indent()}}
-
-                {{unsupported.Indent()}}
+                {{code.Indent()}}
             }
             """;
     }

@@ -14,6 +14,9 @@ public sealed class WhenIsBuildableIsCalled
 
     public static readonly TheoryData<Compilation, string, Type> GivenANonBuildablePropertyThenFalseIsReturnedData = new()
     {
+        { Classes.Instance.Compilation, "Age", Classes.Instance.Boolean },
+        { Classes.Instance.Compilation, "IsRetired", Classes.Instance.Boolean },
+        { Classes.Instance.Compilation, "Name", Classes.Instance.Boolean },
         { Classes.Instance.Compilation, "Age", Classes.Instance.MultipleGenerics },
         { Classes.Instance.Compilation, "Attributes", Classes.Instance.MultipleGenerics },
         { Classes.Instance.Compilation, "Age", Classes.Instance.Simple },
@@ -22,6 +25,9 @@ public sealed class WhenIsBuildableIsCalled
         { Classes.Instance.Compilation, "Age", Classes.Instance.SingleGeneric },
         { Classes.Instance.Compilation, "Attributes", Classes.Instance.SingleGeneric },
         { Classes.Instance.Compilation, "Name", Classes.Instance.SingleGeneric },
+        { Records.Instance.Compilation, "Age", Records.Instance.Boolean },
+        { Records.Instance.Compilation, "IsRetired", Records.Instance.Boolean },
+        { Records.Instance.Compilation, "Name", Records.Instance.Boolean },
         { Records.Instance.Compilation, "Age", Records.Instance.MultipleGenerics },
         { Records.Instance.Compilation, "Attributes", Records.Instance.MultipleGenerics },
         { Records.Instance.Compilation, "Age", Records.Instance.Simple },
