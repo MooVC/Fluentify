@@ -50,7 +50,7 @@ internal static partial class ITypeSymbolExtensions
         {
             return constructor.Parameters.IsEmpty && IsAccessible(constructor.DeclaredAccessibility);
         }
- 
+
         return constructors.Length == 0 || Array.Exists(constructors, IsConstructable);
     }
 }
