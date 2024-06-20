@@ -23,9 +23,7 @@ internal static partial class ITypeSymbolExtensions
             return generic.HasConstructorConstraint;
         }
 
-        bool isInternal = compilation.Assembly.Equals(type.ContainingAssembly, SymbolEqualityComparer.Default);
-
-        if (type.HasAccessibleParameterlessConstructor(isInternal))
+        if (type.HasAccessibleParameterlessConstructor(compilation, out bool isInternal))
         {
             return true;
         }

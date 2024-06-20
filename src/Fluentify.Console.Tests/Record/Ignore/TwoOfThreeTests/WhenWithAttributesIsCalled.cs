@@ -9,7 +9,7 @@ public sealed class WhenWithAttributesIsCalled
         TwoOfThree? subject = default;
 
         // Act
-        Func<TwoOfThree> act = () => subject!.WithAttributes([new()]);
+        Func<TwoOfThree> act = () => subject!.WithAttributes(new object());
 
         // Assert
         _ = act.Should().Throw<ArgumentNullException>()

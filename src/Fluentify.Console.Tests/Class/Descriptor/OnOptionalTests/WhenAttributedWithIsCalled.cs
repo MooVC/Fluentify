@@ -9,7 +9,7 @@ public sealed class WhenAttributedWithIsCalled
         OnOptional? subject = default;
 
         // Act
-        Func<OnOptional> act = () => subject!.AttributedWith([new()]);
+        Func<OnOptional> act = () => subject!.AttributedWith(new object());
 
         // Assert
         _ = act.Should().Throw<ArgumentNullException>()

@@ -9,7 +9,7 @@ public sealed class WhenWithAttributesIsCalled
         Simple? subject = default;
 
         // Act
-        Func<Simple> act = () => subject!.WithAttributes([new()]);
+        Func<Simple> act = () => subject!.WithAttributes(new object());
 
         // Assert
         _ = act.Should().Throw<ArgumentNullException>()

@@ -9,7 +9,7 @@ public sealed class WhenWithAttributesIsCalled
         OnIgnored? subject = default;
 
         // Act
-        Func<OnIgnored> act = () => subject!.WithAttributes([new()]);
+        Func<OnIgnored> act = () => subject!.WithAttributes(new object());
 
         // Assert
         _ = act.Should().Throw<ArgumentNullException>()

@@ -9,7 +9,7 @@ public sealed class WhenWithAttributesIsCalled
         OnRequired? subject = default;
 
         // Act
-        Func<OnRequired> act = () => subject!.WithAttributes([new()]);
+        Func<OnRequired> act = () => subject!.WithAttributes(new object());
 
         // Assert
         _ = act.Should().Throw<ArgumentNullException>()
