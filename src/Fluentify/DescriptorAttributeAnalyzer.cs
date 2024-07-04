@@ -1,6 +1,5 @@
 ﻿namespace Fluentify;
 
-using System.Collections.Immutable;
 using Fluentify.Semantics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -39,9 +38,6 @@ public sealed class DescriptorAttributeAnalyzer
         : base(SyntaxKind.Attribute, rule)
     {
     }
-
-    /// <inheritdoc/>
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => [rule];
 
     /// <inheritdoc/>
     protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, AttributeSyntax syntax)

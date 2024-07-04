@@ -21,31 +21,9 @@ internal static partial class INamedTypeSymbolExtensions
         return symbol
             .GetMembers()
             .OfType<IPropertySymbol>()
-            .Where(IsMatch)
+            .Where(property => property.IsMutable())
             .Select(property => property.Map(compilation, cancellationToken))
             .ToArray();
-    }
-
-    private static bool IsMatch(this IPropertySymbol property)
-    {
-        static bool IsAccessible(Accessibility accessibility)
-        {
-            return accessibility == Accessibility.Public || accessibility == Accessibility.Internal;
-        }
-
-        static bool IsInitializable(IPropertySymbol property)
-        {
-            return property.SetMethod is not null && IsAccessible(property.SetMethod.DeclaredAccessibility);
-        }
-
-        static bool IsExplicitlyDeclaredInstanceProperty(IPropertySymbol property)
-        {
-            return !(property.IsStatic || property.IsImplicitlyDeclared);
-        }
-
-        return IsExplicitlyDeclaredInstanceProperty(property)
-            && IsAccessible(property.DeclaredAccessibility)
-            && IsInitializable(property);
     }
 
     private static Property Map(this IPropertySymbol property, Compilation compilation, CancellationToken cancellationToken)
