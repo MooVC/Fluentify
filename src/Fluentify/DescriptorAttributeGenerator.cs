@@ -1,6 +1,7 @@
 ﻿namespace Fluentify;
 
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
@@ -39,6 +40,11 @@ public sealed class DescriptorAttributeGenerator
             }
         }
         """;
+
+    /// <summary>
+    /// The pattern applied to the value supplied to the Descriptor, ensuring the value specified is suitable for use as an extension method name.
+    /// </summary>
+    internal static readonly Regex Pattern = new("^[A-Z][a-zA-Z0-9]*$", RegexOptions.Compiled);
 
     /// <inheritdoc/>
     public void Initialize(IncrementalGeneratorInitializationContext context)

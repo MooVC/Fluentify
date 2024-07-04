@@ -1,6 +1,5 @@
 ﻿namespace Fluentify.Semantics.ISymbolExtensionsTests;
 
-using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 
 public sealed class WhenGetAttributeIsCalled
@@ -16,7 +15,7 @@ public sealed class WhenGetAttributeIsCalled
         _ = data.AttributeClass.Returns(@class);
 
         ISymbol symbol = Substitute.For<ISymbol>();
-        _ = symbol.GetAttributes().Returns(ImmutableArray.Create(data));
+        _ = symbol.GetAttributes().Returns([data]);
 
         // Act
         AttributeData? result = symbol.GetAttribute("Test");
@@ -36,7 +35,7 @@ public sealed class WhenGetAttributeIsCalled
         _ = data.AttributeClass.Returns(@class);
 
         ISymbol symbol = Substitute.For<ISymbol>();
-        _ = symbol.GetAttributes().Returns(ImmutableArray.Create(data));
+        _ = symbol.GetAttributes().Returns([data]);
 
         // Act
         AttributeData? result = symbol.GetAttribute("Test");
@@ -50,7 +49,7 @@ public sealed class WhenGetAttributeIsCalled
     {
         // Arrange
         ISymbol symbol = Substitute.For<ISymbol>();
-        _ = symbol.GetAttributes().Returns(ImmutableArray<AttributeData>.Empty);
+        _ = symbol.GetAttributes().Returns([]);
 
         // Act
         AttributeData? result = symbol.GetAttribute("Test");

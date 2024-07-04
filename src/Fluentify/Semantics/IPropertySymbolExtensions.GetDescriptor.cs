@@ -11,8 +11,6 @@ using static Fluentify.DescriptorAttributeGenerator;
 /// </summary>
 internal static partial class IPropertySymbolExtensions
 {
-    private static readonly Regex pattern = new("^[A-Z][a-zA-Z0-9]*$", RegexOptions.Compiled);
-
     /// <summary>
     /// Gets the descriptor associated with the <paramref name="property"/> when declared within a record.
     /// </summary>
@@ -27,7 +25,7 @@ internal static partial class IPropertySymbolExtensions
 
         if (attribute is not null
             && (attribute.HasDescriptorOnConstuctorArguments(out string descriptor) || attribute.HasDescriptorOnSyntax(out descriptor))
-            && pattern.IsMatch(descriptor))
+            && Pattern.IsMatch(descriptor))
         {
             return descriptor;
         }

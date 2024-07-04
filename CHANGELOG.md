@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Analyzer FY0002 that issues a Warning whenever the value provided for the Descriptor attribute is deemed unsuitable for use as a method name. 
+- README.md to Nuget package.
+- Security Policy.
+
 ## [1.0.0-alpha0006] - 2024-06-20
 
 ### Changed

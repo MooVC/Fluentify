@@ -5,4 +5,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
     <CodeAnalysisRuleSet />
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="AttributeAnalyzer.Resources.Designer.cs">
+      <DependentUpon>AttributeAnalyzer.Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="DescriptorAttributeAnalyzer.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DescriptorAttributeAnalyzer.Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="AttributeAnalyzer.Resources.resx">
+      <LastGenOutput>AttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="DescriptorAttributeAnalyzer.Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DescriptorAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
