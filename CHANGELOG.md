@@ -8,7 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Analyzer FY0002 that issues a Warning whenever the value provided for the Descriptor attribute is deemed unsuitable for use as a method name. 
+- Analyzer FY0001 that issues a Warning whenever the Fluentify attribute is attached to a class that does not have an accessible default constructor.
+- Analyzer FY0002 that issues a Warning whenever the value provided for the Descriptor attribute is deemed unsuitable for use as a method name.
 - README.md to Nuget package.
 - Security Policy.
 

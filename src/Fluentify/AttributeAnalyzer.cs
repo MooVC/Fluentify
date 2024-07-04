@@ -1,45 +1,78 @@
 ﻿namespace Fluentify;
 
 using System.Collections.Immutable;
-using Fluentify.Semantics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using static Fluentify.DescriptorAttributeGenerator;
 
-public abstract class AttributeAnalyzer
+/// <summary>
+/// Supports the impelmentation of analyzers relating to the specified <typeparamref name="TSyntax"/>.
+/// </summary>
+/// <typeparam name="TSyntax">The type of syntax upon which the analyzer will be applied.</typeparam>
+public abstract class AttributeAnalyzer<TSyntax>
     : DiagnosticAnalyzer
+    where TSyntax : CSharpSyntaxNode
 {
-    private protected AttributeAnalyzer(params DiagnosticDescriptor[] diagnostics)
+    private readonly SyntaxKind kind;
+
+    /// <summary>
+    /// Facilitates construction of an analyzer that matches for the specified <paramref name="kind"/> and
+    /// may raise the specified <paramref name="diagnostics"/> if the conditions in the derived class are met.
+    /// </summary>
+    /// <param name="kind">The type of syntax to match.</param>
+    /// <param name="diagnostics">The rules that are applied and potentially raised by the analyzer.</param>
+    private protected AttributeAnalyzer(SyntaxKind kind, params DiagnosticDescriptor[] diagnostics)
     {
+        this.kind = kind;
         SupportedDiagnostics = ImmutableArray.Create(diagnostics);
     }
 
+    /// <inheritdoc/>
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; }
 
+    /// <inheritdoc/>
     public sealed override void Initialize(AnalysisContext context)
     {
         context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
         context.EnableConcurrentExecution();
-        context.RegisterSyntaxNodeAction(AnalyzeNode, SyntaxKind.Attribute);
+        context.RegisterSyntaxNodeAction(AnalyzeNode, kind);
     }
 
-    protected abstract void AnalyzeNode(SyntaxNodeAnalysisContext context, IMethodSymbol symbol, AttributeSyntax syntax);
+    /// <summary>
+    /// Performs analysis upon the <paramref name="syntax"/>, which is deemed to have matched the
+    /// <typeparamref name="TSyntax"/> and <see cref="kind"/> values.
+    /// </summary>
+    /// <param name="context">
+    /// Context for a syntax node action. A syntax node action can use a Microsoft.CodeAnalysis.Diagnostics.SyntaxNodeAnalysisContext
+    /// to report Microsoft.CodeAnalysis.Diagnostics for a Microsoft.CodeAnalysis.SyntaxNode.
+    /// </param>
+    /// <param name="syntax">
+    /// The <typeparamref name="TSyntax"/> matched within the <paramref name="context"/> to which the analysis is to be applied.
+    /// </param>
+    protected abstract void AnalyzeNode(SyntaxNodeAnalysisContext context, TSyntax syntax);
+
+    /// <summary>
+    /// Raises a <see cref="Diagnostic"/> instance within the specified <paramref name="context"/>.
+    /// </summary>
+    /// <param name="context">
+    /// Context for a syntax node action. A syntax node action can use a Microsoft.CodeAnalysis.Diagnostics.SyntaxNodeAnalysisContext
+    /// to report Microsoft.CodeAnalysis.Diagnostics for a Microsoft.CodeAnalysis.SyntaxNode.
+    /// </param>
+    /// <param name="descriptor">A <see cref="DiagnosticDescriptor"/> describing the diagnostic</param>
+    /// <param name="location">An location of the diagnostic.</param>
+    /// <param name="arguments">Arguments to the message of the diagnostic</param>
+    protected void Raise(SyntaxNodeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, params object[] arguments)
+    {
+        var diagnostic = Diagnostic.Create(descriptor, location, arguments);
+
+        context.ReportDiagnostic(diagnostic);
+    }
 
     private void AnalyzeNode(SyntaxNodeAnalysisContext context)
     {
-        var syntax = (AttributeSyntax)context.Node;
-
-        if (context.SemanticModel.GetSymbolInfo(syntax).Symbol is not IMethodSymbol symbol
-         || symbol.ContainingType is null)
+        if (context.Node is TSyntax syntax)
         {
-            return;
-        }
-
-        if (symbol.ContainingType.IsAttribute(Name))
-        {
-            AnalyzeNode(context, symbol, syntax);
+            AnalyzeNode(context, syntax);
         }
     }
 }

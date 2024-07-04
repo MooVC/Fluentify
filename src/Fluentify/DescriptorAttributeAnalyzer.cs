@@ -1,15 +1,20 @@
 ﻿namespace Fluentify;
 
 using System.Collections.Immutable;
+using Fluentify.Semantics;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using static Fluentify.DescriptorAttributeAnalyzer_Resources;
 using static Fluentify.DescriptorAttributeGenerator;
 
+/// <summary>
+/// Analyzes usage of the DescriptorAttribute to ensure the value specified is suitable for use as a method name.
+/// </summary>
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public sealed class DescriptorAttributeAnalyzer
-    : AttributeAnalyzer
+    : AttributeAnalyzer<AttributeSyntax>
 {
     internal const string DiagnosticId = "FY0002";
     internal const string Category = "Naming";
@@ -27,16 +32,24 @@ public sealed class DescriptorAttributeAnalyzer
         isEnabledByDefault: true,
         description: description);
 
+    /// <summary>
+    /// Facilitates construction of the analyzer.
+    /// </summary>
     public DescriptorAttributeAnalyzer()
-        : base(rule)
+        : base(SyntaxKind.Attribute, rule)
     {
     }
 
+    /// <inheritdoc/>
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => [rule];
 
-    protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, IMethodSymbol symbol, AttributeSyntax syntax)
+    /// <inheritdoc/>
+    protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, AttributeSyntax syntax)
     {
-        if (syntax.ArgumentList is null)
+        if (syntax.ArgumentList is null
+         || context.SemanticModel.GetSymbolInfo(syntax, cancellationToken: context.CancellationToken).Symbol is not IMethodSymbol symbol
+         || symbol.ContainingType is null
+         || !symbol.ContainingType.IsAttribute(Name))
         {
             return;
         }
@@ -48,7 +61,7 @@ public sealed class DescriptorAttributeAnalyzer
             return;
         }
 
-        Optional<object?> constant = context.SemanticModel.GetConstantValue(argument.Expression);
+        Optional<object?> constant = context.SemanticModel.GetConstantValue(argument.Expression, cancellationToken: context.CancellationToken);
 
         if (!constant.HasValue || constant.Value is null)
         {
@@ -59,8 +72,7 @@ public sealed class DescriptorAttributeAnalyzer
 
         if (!Pattern.IsMatch(value))
         {
-            var diagnostic = Diagnostic.Create(rule, argument.GetLocation(), value);
-            context.ReportDiagnostic(diagnostic);
+            Raise(context, rule, argument.GetLocation(), value);
         }
     }
 
