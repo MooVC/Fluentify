@@ -14,45 +14,46 @@ using static Fluentify.IgnoreAttributeAnalyzer_Resources;
 public sealed class IgnoreAttributeAnalyzer
     : AttributeAnalyzer<PropertyDeclarationSyntax>
 {
-    internal const string DiagnosticId = "FY0003";
-    internal const string Category = "Design";
-
-    private static readonly LocalizableString description = GetResourceString(nameof(Description));
-    private static readonly LocalizableString messageFormat = GetResourceString(nameof(MessageFormat));
-    private static readonly LocalizableString title = GetResourceString(nameof(Title));
-
-    private static readonly DiagnosticDescriptor rule = new(
-        DiagnosticId,
-        title,
-        messageFormat,
-        Category,
-        DiagnosticSeverity.Info,
-        isEnabledByDefault: true,
-        description: description);
-
     /// <summary>
     /// Facilitates construction of the analyzer.
     /// </summary>
     public IgnoreAttributeAnalyzer()
-        : base(SyntaxKind.PropertyDeclaration, rule)
+        : base(SyntaxKind.PropertyDeclaration, RedundantUsageRule)
     {
     }
+
+    /// <summary>
+    /// Gets the descriptor associated with the redundant usage rule (FY0003).
+    /// </summary>
+    internal static DiagnosticDescriptor RedundantUsageRule { get; } = new(
+        "FY0003",
+        GetResourceString(nameof(Title)),
+        GetResourceString(nameof(MessageFormat)),
+        "Design",
+        DiagnosticSeverity.Info,
+        isEnabledByDefault: true,
+        description: GetResourceString(nameof(Description)));
 
     /// <inheritdoc/>
     protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, PropertyDeclarationSyntax syntax)
     {
         IPropertySymbol? property = context.SemanticModel.GetDeclaredSymbol(syntax);
 
-        if (property is null || property.IsMutable())
+        if (property is null || !property.HasIgnore() || IsValidUsageOfIgnoreAttribute(property))
         {
             return;
         }
 
-        Raise(context, rule, syntax.Identifier.GetLocation(), syntax.Identifier.Text);
+        Raise(context, RedundantUsageRule, syntax.Identifier.GetLocation(), syntax.Identifier.Text);
     }
 
     private static LocalizableResourceString GetResourceString(string name)
     {
         return new(name, ResourceManager, typeof(IgnoreAttributeAnalyzer_Resources));
+    }
+
+    private static bool IsValidUsageOfIgnoreAttribute(IPropertySymbol property)
+    {
+        return property.IsMutable() && property.ContainingType.HasFluentify();
     }
 }

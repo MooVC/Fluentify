@@ -15,29 +15,25 @@ using static Fluentify.DescriptorAttributeGenerator;
 public sealed class DescriptorAttributeAnalyzer
     : AttributeAnalyzer<AttributeSyntax>
 {
-    internal const string DiagnosticId = "FY0002";
-    internal const string Category = "Naming";
-
-    private static readonly LocalizableString description = GetResourceString(nameof(Description));
-    private static readonly LocalizableString messageFormat = GetResourceString(nameof(MessageFormat));
-    private static readonly LocalizableString title = GetResourceString(nameof(Title));
-
-    private static readonly DiagnosticDescriptor rule = new(
-        DiagnosticId,
-        title,
-        messageFormat,
-        Category,
-        DiagnosticSeverity.Warning,
-        isEnabledByDefault: true,
-        description: description);
-
     /// <summary>
     /// Facilitates construction of the analyzer.
     /// </summary>
     public DescriptorAttributeAnalyzer()
-        : base(SyntaxKind.Attribute, rule)
+        : base(SyntaxKind.Attribute, ValidNamingRule)
     {
     }
+
+    /// <summary>
+    /// Gets the descriptor associated with the naming rule (FY0002).
+    /// </summary>
+    internal static DiagnosticDescriptor ValidNamingRule { get; } = new(
+        "FY0002",
+        GetResourceString(nameof(Title)),
+        GetResourceString(nameof(MessageFormat)),
+        "Naming",
+        DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: GetResourceString(nameof(Description)));
 
     /// <inheritdoc/>
     protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, AttributeSyntax syntax)
@@ -68,7 +64,7 @@ public sealed class DescriptorAttributeAnalyzer
 
         if (!Pattern.IsMatch(value))
         {
-            Raise(context, rule, argument.GetLocation(), value);
+            Raise(context, ValidNamingRule, argument.GetLocation(), value);
         }
     }
 

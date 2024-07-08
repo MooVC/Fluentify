@@ -14,29 +14,25 @@ using static Fluentify.ClassAnalyzer_Resources;
 public sealed class ClassAnalyzer
     : AttributeAnalyzer<ClassDeclarationSyntax>
 {
-    internal const string DiagnosticId = "FY0001";
-    internal const string Category = "Design";
-
-    private static readonly LocalizableString description = GetResourceString(nameof(Description));
-    private static readonly LocalizableString messageFormat = GetResourceString(nameof(MessageFormat));
-    private static readonly LocalizableString title = GetResourceString(nameof(Title));
-
-    private static readonly DiagnosticDescriptor rule = new(
-        DiagnosticId,
-        title,
-        messageFormat,
-        Category,
-        DiagnosticSeverity.Warning,
-        isEnabledByDefault: true,
-        description: description);
-
     /// <summary>
     /// Facilitates construction of the analyzer.
     /// </summary>
     public ClassAnalyzer()
-        : base(SyntaxKind.ClassDeclaration, rule)
+        : base(SyntaxKind.ClassDeclaration, AccessibleDefaultConstructorRule)
     {
     }
+
+    /// <summary>
+    /// Gets the descriptor associated with accessible default constructor rule (FY0001).
+    /// </summary>
+    internal static DiagnosticDescriptor AccessibleDefaultConstructorRule { get; } = new(
+        "FY0001",
+        GetResourceString(nameof(Title)),
+        GetResourceString(nameof(MessageFormat)),
+        "Design",
+        DiagnosticSeverity.Warning,
+        isEnabledByDefault: true,
+        description: GetResourceString(nameof(Description)));
 
     /// <inheritdoc/>
     protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, ClassDeclarationSyntax syntax)
@@ -48,7 +44,7 @@ public sealed class ClassAnalyzer
             return;
         }
 
-        Raise(context, rule, syntax.Identifier.GetLocation(), syntax.Identifier.Text);
+        Raise(context, AccessibleDefaultConstructorRule, syntax.Identifier.GetLocation(), syntax.Identifier.Text);
     }
 
     private static LocalizableResourceString GetResourceString(string name)
