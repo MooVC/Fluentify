@@ -23,10 +23,10 @@ public sealed class IgnoreAttributeAnalyzer
     }
 
     /// <summary>
-    /// Gets the descriptor associated with the redundant usage rule (FY0003).
+    /// Gets the descriptor associated with the redundant usage rule (Fluentify03).
     /// </summary>
     internal static DiagnosticDescriptor RedundantUsageRule { get; } = new(
-        "FY0003",
+        "Fluentify03",
         GetResourceString(nameof(Title)),
         GetResourceString(nameof(MessageFormat)),
         "Design",

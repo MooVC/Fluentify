@@ -23,10 +23,10 @@ public sealed class ClassAnalyzer
     }
 
     /// <summary>
-    /// Gets the descriptor associated with accessible default constructor rule (FY0001).
+    /// Gets the descriptor associated with accessible default constructor rule (Fluentify01).
     /// </summary>
     internal static DiagnosticDescriptor AccessibleDefaultConstructorRule { get; } = new(
-        "FY0001",
+        "Fluentify01",
         GetResourceString(nameof(Title)),
         GetResourceString(nameof(MessageFormat)),
         "Design",

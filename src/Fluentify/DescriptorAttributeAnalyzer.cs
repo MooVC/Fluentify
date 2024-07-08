@@ -24,10 +24,10 @@ public sealed class DescriptorAttributeAnalyzer
     }
 
     /// <summary>
-    /// Gets the descriptor associated with the naming rule (FY0002).
+    /// Gets the descriptor associated with the naming rule (Fluentify02).
     /// </summary>
     internal static DiagnosticDescriptor ValidNamingRule { get; } = new(
-        "FY0002",
+        "Fluentify02",
         GetResourceString(nameof(Title)),
         GetResourceString(nameof(MessageFormat)),
         "Naming",
