@@ -117,13 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Description" xml:space="preserve">
-    <value>Classes with the Fluentify attribute must have a public or internal parameterless constructor.</value>
+  <data name="AccessibleDefaultConstructorRuleDescription" xml:space="preserve">
+    <value>Classes with the Fluentify attribute must have a public or internal parameterless constructor to facilitate projection.</value>
   </data>
-  <data name="MessageFormat" xml:space="preserve">
+  <data name="AccessibleDefaultConstructorRuleMessageFormat" xml:space="preserve">
     <value>Class '{0}' has the Fluentify attribute but does not have a public or internal parameterless constructor.</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>The Fluentify attribute requires a parameterless constructor when applied to a class</value>
+  <data name="AccessibleDefaultConstructorRuleTitle" xml:space="preserve">
+    <value>Class must have an accessible parameterless constructor to use Fluentify</value>
   </data>
 </root>

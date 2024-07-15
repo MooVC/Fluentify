@@ -117,22 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MissingFluentifyRuleDescription" xml:space="preserve">
-    <value>This property is not considered by Fluentify because the Fluentify attribute has not been applied to the type, so the usage of the Ignore attribute is redundant.</value>
+  <data name="Description" xml:space="preserve">
+    <value>The value provided for the Descriptor must adhere to the standard C# .NET method naming conventions.</value>
   </data>
-  <data name="MissingFluentifyRuleMessageFormat" xml:space="preserve">
-    <value>Property '{0}' is not considered by Fluentify, making the usage of the Ignore attribute redundant.</value>
+  <data name="MessageFormat" xml:space="preserve">
+    <value>The value '{0}' is not suitable for use as a method name.</value>
   </data>
-  <data name="MissingFluentifyRuleTitle" xml:space="preserve">
-    <value>Type does not utilize Fluentify</value>
-  </data>
-  <data name="RedundantUsageRuleDescription" xml:space="preserve">
-    <value>This property is not considered by Fluentify, so the usage of the Ignore attribute is redundant.</value>
-  </data>
-  <data name="RedundantUsageRuleMessageFormat" xml:space="preserve">
-    <value>Property '{0}' is not considered by Fluentify, making the usage of the Ignore attribute redundant.</value>
-  </data>
-  <data name="RedundantUsageRuleTitle" xml:space="preserve">
-    <value>Property is already disregarded from consideration by Fluentify</value>
+  <data name="Title" xml:space="preserve">
+    <value>The value provided for the Descriptor is not suitable for use as a method name</value>
   </data>
 </root>

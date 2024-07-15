@@ -12,7 +12,7 @@ using static Fluentify.ClassAnalyzer_Resources;
 /// </summary>
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public sealed class ClassAnalyzer
-    : AttributeAnalyzer<ClassDeclarationSyntax>
+    : Analyzer<ClassDeclarationSyntax>
 {
     /// <summary>
     /// Facilitates construction of the analyzer.
@@ -23,16 +23,17 @@ public sealed class ClassAnalyzer
     }
 
     /// <summary>
-    /// Gets the descriptor associated with accessible default constructor rule (Fluentify01).
+    /// Gets the descriptor associated with accessible default constructor rule (FLTFY01).
     /// </summary>
     internal static DiagnosticDescriptor AccessibleDefaultConstructorRule { get; } = new(
-        "Fluentify01",
-        GetResourceString(nameof(Title)),
-        GetResourceString(nameof(MessageFormat)),
+        "FLTFY01",
+        GetResourceString(nameof(AccessibleDefaultConstructorRuleTitle)),
+        GetResourceString(nameof(AccessibleDefaultConstructorRuleMessageFormat)),
         "Design",
         DiagnosticSeverity.Warning,
         isEnabledByDefault: true,
-        description: GetResourceString(nameof(Description)));
+        description: GetResourceString(nameof(AccessibleDefaultConstructorRuleDescription)),
+        helpLinkUri: GetHelpLinkUri("FLTFY01"));
 
     /// <inheritdoc/>
     protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, ClassDeclarationSyntax syntax)

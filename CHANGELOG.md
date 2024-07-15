@@ -8,9 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Analyzer Fluentify01 that issues a Warning whenever the Fluentify attribute is attached to a class that does not have an accessible default constructor.
-- Analyzer Fluentify02 that issues a Warning whenever the value provided for the Descriptor attribute is deemed unsuitable for use as a method name.
-- Analyzer Fluentify03 that issues a Suggestion whenever the Ignore attribute is attached to a property that is already disregarded by Fluentify.
+- Analyzer FLTFY01 that issues a Warning whenever the Fluentify attribute is attached to a class that does not have an accessible default constructor.
+- Analyzer FLTFY02 that issues a Suggestion whenever the Descriptor attribute is attached to a property that is disregarded by Fluentify.
+- Analyzer FLTFY03 that issues a Suggestion whenever the Descriptor attribute is attached to a property on a type that is not annotated with Fluentify.
+- Analyzer FLTFY04 that issues a Warning whenever the value provided for the Descriptor attribute is deemed unsuitable for use as a method name.
+- Analyzer FLTFY05 that issues a Suggestion whenever the Ignore attribute is attached to a property on a type that is not annotated with Fluentify.
+- Analyzer FLTFY06 that issues a Suggestion whenever the Ignore attribute is attached to a property that is already disregarded by Fluentify.
 - README.md to Nuget package.
 - Security Policy.
 

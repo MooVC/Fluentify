@@ -48,6 +48,14 @@ jobs:
     - name: Restore Nuget Packages for Solution
       run: dotnet restore ${{ env.solution }}
 
+    - name: Get Branch Name
+      id: get_branch
+      run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+
+    - name: Replace GIT-BRANCH Placeholder in Analyzer.cs for Help URL
+      run: |
+        sed -i "s/{{GIT_BRANCH}}/${{ env.branch_name }}/g" src/Fluentify/Analyzer.cs
+
     - name: Build Solution
       run: dotnet build ${{ env.solution }} --configuration ${{ env.configuration }} --no-restore
 

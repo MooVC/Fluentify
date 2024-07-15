@@ -61,29 +61,83 @@ namespace Fluentify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value provided for the Descriptor must adhere to the standard C# .NET method naming conventions..
+        ///   Looks up a localized string similar to This property is marked with the Ignore attribute, removing it from consideration by Fluentify, making use of the Descriptor attribute redundant..
         /// </summary>
-        internal static string Description {
+        internal static string DisregardedRuleDescription {
             get {
-                return ResourceManager.GetString("Description", resourceCulture);
+                return ResourceManager.GetString("DisregardedRuleDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value &apos;{0}&apos; is not suitable for use as a method name..
+        ///   Looks up a localized string similar to Property &apos;{0}&apos; is marked with the Ignore attribute, removing it from consideration by Fluentify..
         /// </summary>
-        internal static string MessageFormat {
+        internal static string DisregardedRuleMessageFormat {
             get {
-                return ResourceManager.GetString("MessageFormat", resourceCulture);
+                return ResourceManager.GetString("DisregardedRuleMessageFormat", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value provided for the Descriptor is not suitable for use as a method name.
+        ///   Looks up a localized string similar to Descriptor is disregarded from consideration by Fluentify.
         /// </summary>
-        internal static string Title {
+        internal static string DisregardedRuleTitle {
             get {
-                return ResourceManager.GetString("Title", resourceCulture);
+                return ResourceManager.GetString("DisregardedRuleTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Property and its Descriptor are not considered by Fluentify because the type has not been annotated with the Fluentify attribute..
+        /// </summary>
+        internal static string MissingFluentifyRuleDescription {
+            get {
+                return ResourceManager.GetString("MissingFluentifyRuleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descriptor for Property &apos;{0}&apos; will not be applied - &apos;{1}&apos; is not annotated with Fluentify..
+        /// </summary>
+        internal static string MissingFluentifyRuleMessageFormat {
+            get {
+                return ResourceManager.GetString("MissingFluentifyRuleMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type does not utilize Fluentify.
+        /// </summary>
+        internal static string MissingFluentifyRuleTitle {
+            get {
+                return ResourceManager.GetString("MissingFluentifyRuleTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value provided for the Descriptor will be used as the name of the extension method and must adhere to the standard C# .NET naming conventions for methods..
+        /// </summary>
+        internal static string ValidNamingRuleDescription {
+            get {
+                return ResourceManager.GetString("ValidNamingRuleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value &apos;{0}&apos; is not suitable for use as an extension method name..
+        /// </summary>
+        internal static string ValidNamingRuleMessageFormat {
+            get {
+                return ResourceManager.GetString("ValidNamingRuleMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descriptor must adhere to the naming conventions for Methods.
+        /// </summary>
+        internal static string ValidNamingRuleTitle {
+            get {
+                return ResourceManager.GetString("ValidNamingRuleTitle", resourceCulture);
             }
         }
     }

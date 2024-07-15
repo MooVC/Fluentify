@@ -6,6 +6,11 @@
     <CodeAnalysisRuleSet />
   </PropertyGroup>
   <ItemGroup>
+    <Compile Update="Analyzer.Resources.Designer.cs">
+      <DependentUpon>Analyzer.Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="AttributeAnalyzer.Resources.Designer.cs">
       <DependentUpon>AttributeAnalyzer.Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -28,6 +33,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Analyzer.Resources.resx">
+      <LastGenOutput>Analyzer.Resources.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="AttributeAnalyzer.Resources.resx">
       <LastGenOutput>AttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>

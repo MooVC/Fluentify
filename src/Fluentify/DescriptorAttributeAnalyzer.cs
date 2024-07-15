@@ -1,6 +1,7 @@
 ﻿namespace Fluentify;
 
 using Fluentify.Semantics;
+using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -13,63 +14,125 @@ using static Fluentify.DescriptorAttributeGenerator;
 /// </summary>
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public sealed class DescriptorAttributeAnalyzer
-    : AttributeAnalyzer<AttributeSyntax>
+    : AttributeAnalyzer
 {
     /// <summary>
     /// Facilitates construction of the analyzer.
     /// </summary>
     public DescriptorAttributeAnalyzer()
-        : base(SyntaxKind.Attribute, ValidNamingRule)
+        : base(Name, DisregardedRule, MissingFluentifyRule, ValidNamingRule)
     {
     }
 
     /// <summary>
-    /// Gets the descriptor associated with the naming rule (Fluentify02).
+    /// Gets the descriptor associated with the disregarded rule (FLTFY02).
+    /// </summary>
+    internal static DiagnosticDescriptor DisregardedRule { get; } = new(
+        "FLTFY02",
+        GetResourceString(nameof(DisregardedRuleTitle)),
+        GetResourceString(nameof(DisregardedRuleMessageFormat)),
+        "Usage",
+        DiagnosticSeverity.Info,
+        isEnabledByDefault: true,
+        description: GetResourceString(nameof(DisregardedRuleDescription)),
+        helpLinkUri: GetHelpLinkUri("FLTFY02"));
+
+    /// <summary>
+    /// Gets the descriptor associated with the missing fluentify rule (FLTFY03).
+    /// </summary>
+    internal static DiagnosticDescriptor MissingFluentifyRule { get; } = new(
+        "FLTFY03",
+        GetResourceString(nameof(MissingFluentifyRuleTitle)),
+        GetResourceString(nameof(MissingFluentifyRuleMessageFormat)),
+        "Usage",
+        DiagnosticSeverity.Info,
+        isEnabledByDefault: true,
+        description: GetResourceString(nameof(MissingFluentifyRuleDescription)),
+        helpLinkUri: GetHelpLinkUri("FLTFY03"));
+
+    /// <summary>
+    /// Gets the descriptor associated with the naming rule (FLTFY04).
     /// </summary>
     internal static DiagnosticDescriptor ValidNamingRule { get; } = new(
-        "Fluentify02",
-        GetResourceString(nameof(Title)),
-        GetResourceString(nameof(MessageFormat)),
+        "FLTFY04",
+        GetResourceString(nameof(ValidNamingRuleTitle)),
+        GetResourceString(nameof(ValidNamingRuleMessageFormat)),
         "Naming",
         DiagnosticSeverity.Warning,
         isEnabledByDefault: true,
-        description: GetResourceString(nameof(Description)));
+        description: GetResourceString(nameof(ValidNamingRuleDescription)),
+        helpLinkUri: GetHelpLinkUri("FLTFY04"));
 
     /// <inheritdoc/>
-    protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, AttributeSyntax syntax)
+    protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, IMethodSymbol symbol, AttributeSyntax syntax)
     {
-        if (syntax.ArgumentList is null
-         || context.SemanticModel.GetSymbolInfo(syntax, cancellationToken: context.CancellationToken).Symbol is not IMethodSymbol symbol
-         || symbol.ContainingType is null
-         || !symbol.ContainingType.IsAttribute(Name))
+        if (IsViolatingMissingFluentifyRule(context, syntax, out string @class, out Location location))
         {
-            return;
+            Raise(context, MissingFluentifyRule, location, @class);
         }
-
-        AttributeArgumentSyntax? argument = syntax.ArgumentList.Arguments.FirstOrDefault();
-
-        if (argument is null)
+        else if (IsViolatingValidNamingRule(context, syntax, out string descriptor, out location))
         {
-            return;
+            Raise(context, ValidNamingRule, location, descriptor);
         }
-
-        Optional<object?> constant = context.SemanticModel.GetConstantValue(argument.Expression, cancellationToken: context.CancellationToken);
-
-        if (!constant.HasValue || constant.Value is null)
+        else if (IsViolatingDisregardedRule(context, syntax, out location, out string name))
         {
-            return;
-        }
-
-        string value = constant.Value.ToString();
-
-        if (!Pattern.IsMatch(value))
-        {
-            Raise(context, ValidNamingRule, argument.GetLocation(), value);
+            Raise(context, DisregardedRule, location, name);
         }
     }
 
     private static LocalizableResourceString GetResourceString(string name)
     {
         return new(name, ResourceManager, typeof(DescriptorAttributeAnalyzer_Resources));
+    }
+
+    private static bool IsViolatingDisregardedRule(SyntaxNodeAnalysisContext context, AttributeSyntax syntax, out Location location, out string name)
+    {
+        ISymbol? symbol = syntax.GetParent<ParameterSyntax>(context)
+            ?? syntax.GetParent<PropertyDeclarationSyntax>(context);
+
+        if (symbol is null || !symbol.HasIgnore())
+        {
+            location = Location.None;
+            name = string.Empty;
+
+            return false;
+        }
+
+        location = syntax.GetLocation();
+        name = symbol.Name;
+
+        return true;
+    }
+
+    private static bool IsViolatingValidNamingRule(SyntaxNodeAnalysisContext context, AttributeSyntax syntax, out string descriptor, out Location location)
+    {
+        descriptor = string.Empty;
+        location = Location.None;
+
+        if (syntax.ArgumentList is null)
+        {
+            return false;
+        }
+
+        AttributeArgumentSyntax? argument = syntax.ArgumentList.Arguments.FirstOrDefault();
+
+        if (argument is null)
+        {
+            return false;
+        }
+
+        Optional<object?> constant = context
+            .SemanticModel
+            .GetConstantValue(argument.Expression, cancellationToken: context.CancellationToken);
+
+        if (!constant.HasValue || constant.Value is not string value || Pattern.IsMatch(value))
+        {
+            return false;
+        }
+
+        descriptor = value;
+        location = argument.GetLocation();
+
+        return true;
     }
 }

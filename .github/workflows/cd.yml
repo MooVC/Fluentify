@@ -58,6 +58,14 @@ jobs:
         echo "informational=$rawTag" >> $env:GITHUB_ENV
       shell: pwsh
 
+    - name: Get Branch Name
+      id: get_branch
+      run: echo "branch_name=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+
+    - name: Replace GIT-BRANCH Placeholder in Analyzer.cs for Help URL
+      run: |
+        sed -i "s/{{GIT_BRANCH}}/${{ env.branch_name }}/g" src/Fluentify/Analyzer.cs
+
     - name: Build Solution
       run: dotnet build ${{ env.solution }} --configuration ${{ env.configuration }} --no-restore -p:AssemblyVersion=${{ env.version }} -p:FileVersion=${{ env.version }} -p:InformationalVersion=${{ env.informational }} -p:PackageVersion=${{ env.semantic }} -p:Version=${{ env.version }}
 

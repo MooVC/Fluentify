@@ -117,13 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Description" xml:space="preserve">
-    <value>The value provided for the Descriptor must adhere to the standard C# .NET method naming conventions.</value>
+  <data name="DisregardedRuleDescription" xml:space="preserve">
+    <value>This property is marked with the Ignore attribute, removing it from consideration by Fluentify, making use of the Descriptor attribute redundant.</value>
   </data>
-  <data name="MessageFormat" xml:space="preserve">
-    <value>The value '{0}' is not suitable for use as a method name.</value>
+  <data name="DisregardedRuleMessageFormat" xml:space="preserve">
+    <value>Property '{0}' is marked with the Ignore attribute, removing it from consideration by Fluentify.</value>
   </data>
-  <data name="Title" xml:space="preserve">
-    <value>The value provided for the Descriptor is not suitable for use as a method name</value>
+  <data name="DisregardedRuleTitle" xml:space="preserve">
+    <value>Descriptor is disregarded from consideration by Fluentify</value>
+  </data>
+  <data name="MissingFluentifyRuleDescription" xml:space="preserve">
+    <value>The Property and its Descriptor are not considered by Fluentify because the type has not been annotated with the Fluentify attribute.</value>
+  </data>
+  <data name="MissingFluentifyRuleMessageFormat" xml:space="preserve">
+    <value>Descriptor for Property '{0}' will not be applied - '{1}' is not annotated with Fluentify.</value>
+  </data>
+  <data name="MissingFluentifyRuleTitle" xml:space="preserve">
+    <value>Type does not utilize Fluentify</value>
+  </data>
+  <data name="ValidNamingRuleDescription" xml:space="preserve">
+    <value>The value provided for the Descriptor will be used as the name of the extension method and must adhere to the standard C# .NET naming conventions for methods.</value>
+  </data>
+  <data name="ValidNamingRuleMessageFormat" xml:space="preserve">
+    <value>The value '{0}' is not suitable for use as an extension method name.</value>
+  </data>
+  <data name="ValidNamingRuleTitle" xml:space="preserve">
+    <value>Descriptor must adhere to the naming conventions for Methods</value>
   </data>
 </root>

@@ -61,29 +61,56 @@ namespace Fluentify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This property is not considered by Fluentify, so the usage of Ignore attribute is redundant..
+        ///   Looks up a localized string similar to This property is not considered by Fluentify because the Fluentify attribute has not been applied to the type, so the usage of the Ignore attribute is redundant..
         /// </summary>
-        internal static string Description {
+        internal static string MissingFluentifyRuleDescription {
             get {
-                return ResourceManager.GetString("Description", resourceCulture);
+                return ResourceManager.GetString("MissingFluentifyRuleDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Property &apos;{0}&apos; is not considered by Fluentify, making the usage of Ignore attribute redundant..
+        ///   Looks up a localized string similar to Property &apos;{0}&apos; is not considered by Fluentify, making the usage of the Ignore attribute redundant..
         /// </summary>
-        internal static string MessageFormat {
+        internal static string MissingFluentifyRuleMessageFormat {
             get {
-                return ResourceManager.GetString("MessageFormat", resourceCulture);
+                return ResourceManager.GetString("MissingFluentifyRuleMessageFormat", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The property is already disregarded from consideration by Fluentify.
+        ///   Looks up a localized string similar to Type does not utilize Fluentify.
         /// </summary>
-        internal static string Title {
+        internal static string MissingFluentifyRuleTitle {
             get {
-                return ResourceManager.GetString("Title", resourceCulture);
+                return ResourceManager.GetString("MissingFluentifyRuleTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This property is not considered by Fluentify, so the usage of the Ignore attribute is redundant..
+        /// </summary>
+        internal static string RedundantUsageRuleDescription {
+            get {
+                return ResourceManager.GetString("RedundantUsageRuleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Property &apos;{0}&apos; is not considered by Fluentify, making the usage of the Ignore attribute redundant..
+        /// </summary>
+        internal static string RedundantUsageRuleMessageFormat {
+            get {
+                return ResourceManager.GetString("RedundantUsageRuleMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Property is already disregarded from consideration by Fluentify.
+        /// </summary>
+        internal static string RedundantUsageRuleTitle {
+            get {
+                return ResourceManager.GetString("RedundantUsageRuleTitle", resourceCulture);
             }
         }
     }

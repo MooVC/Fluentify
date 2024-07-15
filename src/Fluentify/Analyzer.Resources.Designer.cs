@@ -22,14 +22,14 @@ namespace Fluentify {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ClassAnalyzer_Resources {
+    internal class Analyzer_Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ClassAnalyzer_Resources() {
+        internal Analyzer_Resources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Fluentify {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fluentify.ClassAnalyzer.Resources", typeof(ClassAnalyzer_Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fluentify.Analyzer.Resources", typeof(Analyzer_Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,29 @@ namespace Fluentify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Classes with the Fluentify attribute must have a public or internal parameterless constructor to facilitate projection..
+        ///   Looks up a localized string similar to The value provided for the Descriptor must adhere to the standard C# .NET method naming conventions..
         /// </summary>
-        internal static string AccessibleDefaultConstructorRuleDescription {
+        internal static string Description {
             get {
-                return ResourceManager.GetString("AccessibleDefaultConstructorRuleDescription", resourceCulture);
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Class &apos;{0}&apos; has the Fluentify attribute but does not have a public or internal parameterless constructor..
+        ///   Looks up a localized string similar to The value &apos;{0}&apos; is not suitable for use as a method name..
         /// </summary>
-        internal static string AccessibleDefaultConstructorRuleMessageFormat {
+        internal static string MessageFormat {
             get {
-                return ResourceManager.GetString("AccessibleDefaultConstructorRuleMessageFormat", resourceCulture);
+                return ResourceManager.GetString("MessageFormat", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Class must have an accessible parameterless constructor to use Fluentify.
+        ///   Looks up a localized string similar to The value provided for the Descriptor is not suitable for use as a method name.
         /// </summary>
-        internal static string AccessibleDefaultConstructorRuleTitle {
+        internal static string Title {
             get {
-                return ResourceManager.GetString("AccessibleDefaultConstructorRuleTitle", resourceCulture);
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }
