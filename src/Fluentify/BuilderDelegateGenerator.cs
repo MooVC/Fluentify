@@ -17,7 +17,7 @@ public sealed class BuilderDelegateGenerator
     internal const string Source = $$"""
         namespace Fluentify
         {
-            internal delegate T Builder<T>(T subject)
+            public delegate T Builder<T>(T subject)
                 where T : new();
         }
         """;

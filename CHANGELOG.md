@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-alpha0007] - 2024-07-15
+
 ### Added
 
 - Analyzer FLTFY01 that issues a Warning whenever the Fluentify attribute is attached to a class that does not have an accessible default constructor.
@@ -16,6 +18,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Analyzer FLTFY06 that issues a Suggestion whenever the Ignore attribute is attached to a property that is already disregarded by Fluentify.
 - README.md to Nuget package.
 - Security Policy.
+
+### Changed
+
+- The Builder<T> delegate is now public, enabling generated extensions to be called from outside the scope of the current assembly.
 
 ## [1.0.0-alpha0006] - 2024-06-20
 

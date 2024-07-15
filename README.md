@@ -1,5 +1,6 @@
 
 
+
 # Fluentify [![NuGet](https://img.shields.io/nuget/v/Fluentify?logo=nuget)](https://www.nuget.org/packages/Fluentify/) [![GitHub](https://img.shields.io/github/license/MooVC/Fluentify)](LICENSE.md)
 
 Fluentify is a .NET Roslyn Source Generator designed to automate the creation of Fluent APIs. This tool enables engineers to rapidly develop rich, expressive, and maintainable APIs with ease. Utilizing Fluentify allows for cleaner code, easier maintenance, and more expressive interactions within your C# .NET applications.
@@ -174,12 +175,12 @@ Fluentify includes several analyzers to assist engineers with its usage. These a
 
 Rule ID                                                                                | Category | Severity | Notes
 ---------------------------------------------------------------------------------------|----------|----------|-------
-[FLTFY01](https://github.com/MooVC/Fluentify/blob/release/1.0.0/docs/rules/FLTFY01.md) | Design   | Warning  | Class must have an accessible parameterless constructor to use Fluentify
-[FLTFY02](https://github.com/MooVC/Fluentify/blob/release/1.0.0/docs/rules/FLTFY02.md) | Usage    | Info     | Descriptor is disregarded from consideration by Fluentify
-[FLTFY03](https://github.com/MooVC/Fluentify/blob/release/1.0.0/docs/rules/FLTFY03.md) | Usage    | Info     | Type does not utilize Fluentify
-[FLTFY04](https://github.com/MooVC/Fluentify/blob/release/1.0.0/docs/rules/FLTFY04.md) | Naming   | Warning  | Descriptor must adhere to the naming conventions for Methods
-[FLTFY05](https://github.com/MooVC/Fluentify/blob/release/1.0.0/docs/rules/FLTFY05.md) | Usage    | Info     | Type does not utilize Fluentify
-[FLTFY06](https://github.com/MooVC/Fluentify/blob/release/1.0.0/docs/rules/FLTFY06.md) | Usage    | Info     | Property is already disregarded from consideration by Fluentify
+[FLTFY01](docs/rules/FLTFY01.md) | Design   | Warning  | Class must have an accessible parameterless constructor to use Fluentify
+[FLTFY02](docs/rules/FLTFY02.md) | Usage    | Info     | Descriptor is disregarded from consideration by Fluentify
+[FLTFY03](docs/rules/FLTFY03.md) | Usage    | Info     | Type does not utilize Fluentify
+[FLTFY04](docs/rules/FLTFY04.md) | Naming   | Warning  | Descriptor must adhere to the naming conventions for Methods
+[FLTFY05](docs/rules/FLTFY05.md) | Usage    | Info     | Type does not utilize Fluentify
+[FLTFY06](docs/rules/FLTFY06.md) | Usage    | Info     | Property is already disregarded from consideration by Fluentify
 
 ## How to Apply in Practice
 
@@ -189,12 +190,30 @@ If we take the example of the `MovieBuilder` and apply Fluentify, it may look li
 
 ```csharp
 [Fluentify]
-public partial record Actor(string FirstName, string Surname, [Descriptor("BornIn")] int Birthday);
+public partial record Actor(
+    [Descriptor("BornIn")] int Birthday,
+    string FirstName,
+    string Surname);
 
 [Fluentify]
-public partial record Movie(Actor[] Actors, string Title, DateOnly ReleasedOn, Genre Genre);
+public partial record Movie(
+    Actor[] Actors,
+    [Descriptor("OfGenre")] Genre Genre,
+    [Descriptor("ReleasedOn")] DateOnly ReleasedOn,
+    string Title);
 ```
-In this example, we did not need to create the various `With` methods, nor did we need to explicitly create the `Build` method, significantly reducing the effort required by the engineer to support the highly expressive Fluent approach to building the `Movie` instance.
+In this example, we did not need to create the various `With` methods, nor did we need to explicitly create the `Build` method, significantly reducing the effort required by the engineer to support the highly expressive Fluent approach to building the `Movie` instance, demonstrated as follows:
+
+```csharp
+var actual = new Movie()
+   .OfGenre(Genre.SciFi)
+   .WithTitle("Star Trek: First Contact")
+   .ReleasedOn(new DateOnly(1996, 12, 13))
+   .WithActors(actor => actor
+       .WithFirstName("Patrick")
+       .WithSurname("Stewart")
+       .BornIn(1940));
+```
 
 Naturally, using Fluentify does not preclude engineers from adding additional methods to support building, and this will often be required if you choose to adopt the guided builder approach, or if specific validations or conversions are required before the final instance can be build. For example:
 ```csharp
@@ -202,22 +221,22 @@ public class MyService
 {
     public MyService(string connectionString, TimeSpan timeout)
     {
-        ConnectionString = Guard.Against.NullOrWhitespace(connectionString, message: "A connection string must be provided.");
-        
-        Timeout = Guard.Against.OutOfRange(
-            timeout,
-            TimeSpan.FromSeconds(1),
-            TimeSpan.MaxValue,
-            message: "Timeout must be greater than 1 second." );
+        ArgumentException.ThrowIfNullOrWhiteSpace(connectionString);
+        ArgumentOutOfRangeException.ThrowIfLessThan(timeout.TotalSeconds, 1);
+
+        ConnectionString = connectionString;
+        Timeout = timeout;
     }
-    
+
     public string ConnectionString { get; }
-    
+
     public TimeSpan Timeout { get; }
 }
 
 [Fluentify]
-public partial record MyServiceBuilder([Descriptor("ConnectsTo")]string ConnectionString, [Descriptor("Waits")] int Timeout)
+public partial record MyServiceBuilder(
+    [Descriptor("ConnectsTo")]string ConnectionString,
+    [Descriptor("Waits")] int Timeout)
 {
     public static MyServiceBuilder Empty => new();
     
