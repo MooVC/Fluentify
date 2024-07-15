@@ -83,6 +83,7 @@ public class Example
     
     #pragma warning restore FLTFY05 // Type does not utilize Fluentify
 }
+```
 
 or alternatively:
 

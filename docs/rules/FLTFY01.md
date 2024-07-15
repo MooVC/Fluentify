@@ -112,7 +112,7 @@ public class ExampleWithParameterizedConstructor
 
 or alternatively:
 
-```
+```csharp
 [Fluentify]
 [SuppressMessage("Design", "FLTFY01:Class must have an accessible parameterless constructor to use Fluentify", Justification = "Explanation for suppression")]
 public class ExampleWithParameterizedConstructor
