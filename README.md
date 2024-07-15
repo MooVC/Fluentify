@@ -215,7 +215,7 @@ var actual = new Movie()
        .BornIn(1940));
 ```
 
-Naturally, using Fluentify does not preclude engineers from adding additional methods to support building, and this will often be required if you choose to adopt the guided builder approach, or if specific validations or conversions are required before the final instance can be build. For example:
+Naturally, using Fluentify does not preclude engineers from adding additional methods to support building, and this will often be required if you choose to adopt the guided builder approach, or if specific validations or conversions are required before the final instance can be built. For example:
 ```csharp
 public class MyService
 {
