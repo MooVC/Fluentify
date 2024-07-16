@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-rc.1] - 2024-07-16
+
+### Changed
+
+- Auto Instantiation extension overloads to use the `Func<T, T>` delegae in place of `Builder<T>`, addressing a warning relating to ambigious types when an assembly referencing Fluentify is referenced by another assembly that also uses Fluentify.
+- Nuget package metadata.
+
+### Removed
+
+- The BuilderDelegateGenerator, used to generate the Builder<T> delegate, formally used by Fluentify to support Auto Instantiation and onward configuration.
+
 ## [1.0.0-alpha0007] - 2024-07-15
 
 ### Added

@@ -57,7 +57,7 @@ internal static partial class PropertyExtensions
             (property.GetArrayExtensionMethodBody(scalar), $"params {member}[] values"),
             (property.GetCollectionExtensionMethodBody(scalar), $"params {member}[] values"),
             (property.GetEnumerableExtensionMethodBody(scalar), $"params {member}[] values"),
-            (property.GetScalarDelegateExtensionMethodBody(type), $"global::Fluentify.Builder<{type.Name}> builder"),
+            (property.GetScalarDelegateExtensionMethodBody(type), $"Func<{type.Name}, {type.Name}> builder"),
             (property.GetScalarExtensionMethodBody(scalar), $"{parameter} value"),
         ];
 

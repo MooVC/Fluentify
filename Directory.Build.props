@@ -2,8 +2,7 @@
   <PropertyGroup>
     <AnalysisMode>Recommended</AnalysisMode>
     <Authors>Paul Martins</Authors>
-    <Company>MooVC</Company>
-    <Copyright>MooVC © 2024-$([System.DateTime]::Now.Year)</Copyright>
+    <Copyright>Paul Martins © 2024-$([System.DateTime]::Now.Year)</Copyright>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>

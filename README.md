@@ -1,6 +1,3 @@
-
-
-
 # Fluentify [![NuGet](https://img.shields.io/nuget/v/Fluentify?logo=nuget)](https://www.nuget.org/packages/Fluentify/) [![GitHub](https://img.shields.io/github/license/MooVC/Fluentify)](LICENSE.md)
 
 Fluentify is a .NET Roslyn Source Generator designed to automate the creation of Fluent APIs. This tool enables engineers to rapidly develop rich, expressive, and maintainable APIs with ease. Utilizing Fluentify allows for cleaner code, easier maintenance, and more expressive interactions within your C# .NET applications.
@@ -66,7 +63,7 @@ Console.WriteLine(@new.Age);     // Displays 75
 
 ## Auto Instantiation 
 
-The value associated with a given property can be automatically instantiated, as long as that type associated with the property adheres to the ``new()`` constraint. A second extension method is generated for the property, accepting a `Builder<T>` delegate as its parameter, which allows for the newly instantiated value to be configured before being applied.
+The value associated with a given property can be automatically instantiated, as long as that type associated with the property adheres to the ``new()`` constraint. A second extension method is generated for the property, accepting a `Func<T, T>` delegate as its parameter, which allows for the newly instantiated value to be configured before being applied.
 
 ```csharp
 _ = person.WithName(name => name
@@ -202,6 +199,7 @@ public partial record Movie(
     [Descriptor("ReleasedOn")] DateOnly ReleasedOn,
     string Title);
 ```
+
 In this example, we did not need to create the various `With` methods, nor did we need to explicitly create the `Build` method, significantly reducing the effort required by the engineer to support the highly expressive Fluent approach to building the `Movie` instance, demonstrated as follows:
 
 ```csharp
@@ -216,6 +214,7 @@ var actual = new Movie()
 ```
 
 Naturally, using Fluentify does not preclude engineers from adding additional methods to support building, and this will often be required if you choose to adopt the guided builder approach, or if specific validations or conversions are required before the final instance can be built. For example:
+
 ```csharp
 public class MyService
 {
@@ -246,6 +245,7 @@ public partial record MyServiceBuilder(
     }
 }
 ```
+
 In this example, a new instance of `MyService` can be created as follows:
 
 ```csharp

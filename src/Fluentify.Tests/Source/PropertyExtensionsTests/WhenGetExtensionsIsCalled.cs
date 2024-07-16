@@ -234,7 +234,7 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, global::Fluentify.Builder<TestType> builder)
+                public static TestSubject WithTestProperty(this TestSubject subject, Func<TestType, TestType> builder)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
             
