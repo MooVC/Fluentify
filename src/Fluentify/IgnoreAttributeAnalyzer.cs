@@ -27,6 +27,9 @@ public sealed class IgnoreAttributeAnalyzer
     /// <summary>
     /// Gets the descriptor associated with the missing fluentify rule (FLTFY05).
     /// </summary>
+    /// <value>
+    /// The descriptor associated with the missing fluentify rule (FLTFY05).
+    /// </value>
     internal static DiagnosticDescriptor MissingFluentifyRule { get; } = new(
         "FLTFY05",
         GetResourceString(nameof(MissingFluentifyRuleTitle)),
@@ -40,6 +43,9 @@ public sealed class IgnoreAttributeAnalyzer
     /// <summary>
     /// Gets the descriptor associated with the redundant usage rule (FLTFY06).
     /// </summary>
+    /// <value>
+    /// The descriptor associated with the redundant usage rule (FLTFY06).
+    /// </value>
     internal static DiagnosticDescriptor RedundantUsageRule { get; } = new(
         "FLTFY06",
         GetResourceString(nameof(RedundantUsageRuleTitle)),

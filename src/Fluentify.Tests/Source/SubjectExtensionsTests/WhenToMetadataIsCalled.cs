@@ -54,11 +54,11 @@ public sealed class WhenToMetadataIsCalled
         var metadata = subject.ToMetadata();
 
         // Assert
-        _ = metadata.Constraints.Should().Contain(new[]
-        {
+        _ = metadata.Constraints.Should().Contain(
+        [
             "where T : class, new()",
             "where U : struct",
-        });
+        ]);
 
         _ = metadata.Parameters.Should().Be("<T, U>");
         _ = metadata.Subject.Should().Be(subject);

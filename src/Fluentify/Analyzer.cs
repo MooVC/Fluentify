@@ -39,6 +39,11 @@ public abstract class Analyzer<TSyntax>
         context.RegisterSyntaxNodeAction(AnalyzeNode, kind);
     }
 
+    /// <summary>
+    /// Generates a help link based on the known location within the GitHub Repository.
+    /// </summary>
+    /// <param name="ruleId">The Diagnostic Id for the Rule.</param>
+    /// <returns>The link to the documentation on GitHub for the specified <paramref name="ruleId"/>.</returns>
     protected static string GetHelpLinkUri(string ruleId)
     {
         return $"https://github.com/MooVC/Fluentify/blob/{Branch}/docs/rules/{ruleId}.md";
@@ -64,9 +69,9 @@ public abstract class Analyzer<TSyntax>
     /// Context for a syntax node action. A syntax node action can use a Microsoft.CodeAnalysis.Diagnostics.SyntaxNodeAnalysisContext
     /// to report Microsoft.CodeAnalysis.Diagnostics for a Microsoft.CodeAnalysis.SyntaxNode.
     /// </param>
-    /// <param name="descriptor">A <see cref="DiagnosticDescriptor"/> describing the diagnostic</param>
+    /// <param name="descriptor">A <see cref="DiagnosticDescriptor"/> describing the diagnostic.</param>
     /// <param name="location">An location of the diagnostic.</param>
-    /// <param name="arguments">Arguments to the message of the diagnostic</param>
+    /// <param name="arguments">Arguments to the message of the diagnostic.</param>
     protected void Raise(SyntaxNodeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, params object[] arguments)
     {
         var diagnostic = Diagnostic.Create(descriptor, location, arguments);

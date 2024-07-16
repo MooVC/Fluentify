@@ -27,6 +27,16 @@ public abstract class AttributeAnalyzer
         this.name = name;
     }
 
+    /// <summary>
+    /// Determines if the MissingFluentifyRule is violated by the type associated with the specified <paramref name="syntax"/>.
+    /// </summary>
+    /// <param name="context">
+    /// A syntax node action can use a <see cref="SyntaxNodeAnalysisContext"/> to report <see cref="Diagnostic"/>s for a <see cref="SyntaxNode"/>.
+    /// </param>
+    /// <param name="syntax">The attribute that serves as the subject of the analyzer.</param>
+    /// <param name="class">The name of the type deemed to be in violation of the rule.</param>
+    /// <param name="location">The location of the specific syntax deemed to be the focus of the violation.</param>
+    /// <returns>True if the rule has been violated, otherwise False.</returns>
     protected static bool IsViolatingMissingFluentifyRule(SyntaxNodeAnalysisContext context, AttributeSyntax syntax, out string @class, out Location location)
     {
         ISymbol? parent = syntax.GetParent<TypeDeclarationSyntax>(context);

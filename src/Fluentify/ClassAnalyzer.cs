@@ -25,6 +25,9 @@ public sealed class ClassAnalyzer
     /// <summary>
     /// Gets the descriptor associated with accessible default constructor rule (FLTFY01).
     /// </summary>
+    /// <value>
+    /// The descriptor associated with accessible default constructor rule (FLTFY01).
+    /// </value>
     internal static DiagnosticDescriptor AccessibleDefaultConstructorRule { get; } = new(
         "FLTFY01",
         GetResourceString(nameof(AccessibleDefaultConstructorRuleTitle)),

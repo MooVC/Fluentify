@@ -27,6 +27,9 @@ public sealed class DescriptorAttributeAnalyzer
     /// <summary>
     /// Gets the descriptor associated with the disregarded rule (FLTFY02).
     /// </summary>
+    /// <value>
+    /// The descriptor associated with the disregarded rule (FLTFY02).
+    /// </value>
     internal static DiagnosticDescriptor DisregardedRule { get; } = new(
         "FLTFY02",
         GetResourceString(nameof(DisregardedRuleTitle)),
@@ -40,6 +43,9 @@ public sealed class DescriptorAttributeAnalyzer
     /// <summary>
     /// Gets the descriptor associated with the missing fluentify rule (FLTFY03).
     /// </summary>
+    /// <value>
+    /// The descriptor associated with the missing fluentify rule (FLTFY03).
+    /// </value>
     internal static DiagnosticDescriptor MissingFluentifyRule { get; } = new(
         "FLTFY03",
         GetResourceString(nameof(MissingFluentifyRuleTitle)),
@@ -53,6 +59,9 @@ public sealed class DescriptorAttributeAnalyzer
     /// <summary>
     /// Gets the descriptor associated with the naming rule (FLTFY04).
     /// </summary>
+    /// <value>
+    /// The descriptor associated with the naming rule (FLTFY04).
+    /// </value>
     internal static DiagnosticDescriptor ValidNamingRule { get; } = new(
         "FLTFY04",
         GetResourceString(nameof(ValidNamingRuleTitle)),
