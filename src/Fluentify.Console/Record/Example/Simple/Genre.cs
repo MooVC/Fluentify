@@ -9,6 +9,7 @@ public enum Genre
     /// A sample genre to facilitate testing.
     /// </summary>
     Horror,
+
     /// <summary>
     /// A sample genre to facilitate testing.
     /// </summary>
