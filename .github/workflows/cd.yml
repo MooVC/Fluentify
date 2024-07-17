@@ -13,6 +13,9 @@ env:
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
   solution: 'Fluentify.sln'
 
+permissions:
+  packages: write
+
 jobs:
 
   build:
