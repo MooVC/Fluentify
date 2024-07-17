@@ -2,6 +2,8 @@ name: .NET Build, Test & Publish
 
 on:
   push:
+    branches:
+      - release/*
     tags:
       - '*'
   workflow_dispatch:
