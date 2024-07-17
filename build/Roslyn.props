@@ -1,6 +1,7 @@
 <Project>
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)../analyzers/code.ruleset</CodeAnalysisRuleSet>
+    <DevelopmentDependency>true</DevelopmentDependency>
     <EnablePackageValidation>true</EnablePackageValidation>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <IncludeSymbols>true</IncludeSymbols>

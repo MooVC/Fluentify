@@ -11,6 +11,8 @@
     <Nullable>enable</Nullable>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/MooVC/fluentify</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageTags>Analyzer;Analyzers;Api;Builder;CSharp;Dotnet;Fluent;Generator;Roslyn;Source</PackageTags>
     <Product>Fluentify</Product>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryType>git</RepositoryType>

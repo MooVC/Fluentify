@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-rc.2] - 2024-07-17
+
+### Changed
+
+- Nuget metadata to include DevelopmentDependency, instructing consumers to set PrivateAssets to all.
+- Nuget metadata to include PackageReadmeFile and PackageTags.
+
 ## [1.0.0-rc.1] - 2024-07-16
 
 ### Changed
