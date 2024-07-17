@@ -79,5 +79,10 @@ jobs:
     - name: Pack Solution
       run: dotnet pack ${{ env.solution }} --configuration ${{ env.configuration }} --no-build --output ./artifacts -p:Version=${{ env.semantic }}
 
+    - name: Publish Packages to GitHub
+      run: dotnet nuget push **/Fluentify*.nupkg --source "https://nuget.pkg.github.com/MooVC/index.json" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
     - name: Publish Packages to NuGet
-      run: dotnet nuget push **/Fluentify*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      run: dotnet nuget push **/Fluentify*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
