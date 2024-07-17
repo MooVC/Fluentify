@@ -1,6 +1,5 @@
 ﻿namespace Fluentify.Semantics.ITypeSymbolExtensionsTests;
 
-using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 
 public sealed class WhenIsAttributeIsCalled

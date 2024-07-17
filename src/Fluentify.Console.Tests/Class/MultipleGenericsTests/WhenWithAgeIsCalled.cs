@@ -1,7 +1,5 @@
 ﻿namespace Fluentify.Console.Class.MultipleGenericsTests;
 
-using System.Text;
-
 public sealed class WhenWithAgeIsCalled
 {
     [Fact]

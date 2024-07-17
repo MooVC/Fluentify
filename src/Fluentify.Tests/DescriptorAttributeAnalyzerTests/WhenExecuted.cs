@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Testing;
 using Microsoft.CodeAnalysis.Text;

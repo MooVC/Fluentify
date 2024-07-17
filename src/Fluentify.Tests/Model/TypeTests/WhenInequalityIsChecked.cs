@@ -1,7 +1,6 @@
 ﻿namespace Fluentify.Model.TypeTests;
 
 using FluentAssertions;
-using Microsoft.CodeAnalysis;
 using Xunit;
 
 public abstract class WhenInequalityIsChecked

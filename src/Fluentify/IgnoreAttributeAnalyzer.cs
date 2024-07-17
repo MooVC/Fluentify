@@ -3,7 +3,6 @@
 using Fluentify.Semantics;
 using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using static Fluentify.IgnoreAttributeAnalyzer_Resources;
@@ -20,7 +19,7 @@ public sealed class IgnoreAttributeAnalyzer
     /// Facilitates construction of the analyzer.
     /// </summary>
     public IgnoreAttributeAnalyzer()
-        : base(Name,  MissingFluentifyRule, RedundantUsageRule)
+        : base(Name, MissingFluentifyRule, RedundantUsageRule)
     {
     }
 
