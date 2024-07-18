@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - TBC
+
+Initial Release
+
+## [1.0.0-rc.3] - 2024-07-18
+
+### Fixed
+
+- Diagnostic Id documentation for FLTFY01.
+- HelpUrl for diagnostics.
+
 ## [1.0.0-rc.2] - 2024-07-17
 
 ### Changed

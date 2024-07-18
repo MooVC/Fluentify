@@ -13,7 +13,7 @@ public abstract class Analyzer<TSyntax>
     : DiagnosticAnalyzer
     where TSyntax : CSharpSyntaxNode
 {
-    private const string Branch = "{{GIT_BRANCH}}";
+    private const string Branch = "release/1.0.0";
     private readonly SyntaxKind kind;
 
     /// <summary>

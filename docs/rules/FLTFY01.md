@@ -7,7 +7,7 @@
 </tr>
 <tr>
   <td>Diagnostic Id</td>
-  <td>FLTFY02</td>
+  <td>FLTFY01</td>
 </tr>
 <tr>
   <td>Category</td>
