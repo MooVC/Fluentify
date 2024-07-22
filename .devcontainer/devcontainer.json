@@ -1,0 +1,20 @@
+{
+	"name": "C# (.NET)",
+	"image": "mcr.microsoft.com/devcontainers/dotnet:0-7.0",
+	"features": {
+		"ghcr.io/devcontainers/features/dotnet:1": {}
+	},
+	"postCreateCommand": "wget https://dot.net/v1/dotnet-install.sh && chmod +x dotnet-install.sh && ./dotnet-install.sh -c 5.0 && ./dotnet-install.sh -c 6.0",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"github.vscode-github-actions",
+				"formulahendry.dotnet-test-explorer",
+				"ms-dotnettools.csharp",
+				"streetsidesoftware.code-spell-checker",
+				"dbaeumer.vscode-eslint",
+				"ms-dotnettools.vscode-dotnet-runtime"
+			]
+		}
+	}
+}

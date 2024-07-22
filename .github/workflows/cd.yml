@@ -1,0 +1,83 @@
+name: .NET Build, Test & Publish
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+
+env:
+  configuration: 'Release'
+  NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+  solution: 'Fluentify.sln'
+
+permissions:
+  packages: write
+
+jobs:
+
+  build:
+    name: Build, Test & Publish
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4.1.1
+      with:
+        fetch-depth: 0
+        
+    - name: Use .NET SDKs
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: | 
+          6.0.x
+          8.0.x
+    
+    - name: Cache NuGet Packages
+      uses: actions/cache@v4.0.1
+      with:
+        path: ${{ github.workspace }}/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+          
+    - name: Restore Nuget Packages for Solution
+      run: dotnet restore ${{ env.solution }}
+
+    - name: Extract and Format Version from Tag
+      run: |
+        if ($env:GITHUB_REF -match '^refs/tags/') {
+          $rawTag = $env:GITHUB_REF -replace '^refs/tags/', ''
+        } else {
+          $rawTag = git describe --tags (git rev-list --tags --max-count=1)
+        }
+
+        $semantic = $rawTag -replace '^v', '' -replace 'beta0+', 'beta.' 
+        $numeric = ($semantic -split "-")[0] + ".0"
+        
+        echo "version=$numeric" >> $env:GITHUB_ENV
+        echo "semantic=$semantic" >> $env:GITHUB_ENV
+        echo "informational=$rawTag" >> $env:GITHUB_ENV
+      shell: pwsh
+
+    - name: Build Solution
+      run: dotnet build ${{ env.solution }} --configuration ${{ env.configuration }} --no-restore -p:AssemblyVersion=${{ env.version }} -p:FileVersion=${{ env.version }} -p:InformationalVersion=${{ env.informational }} -p:PackageVersion=${{ env.semantic }} -p:Version=${{ env.version }}
+
+    - name: Test Solution
+      run: dotnet test ${{ env.solution }} --configuration ${{ env.configuration }} --no-build
+
+    - name: Upload Code Coverage
+      uses: codecov/codecov-action@v4.1.0
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Pack Solution
+      run: dotnet pack ${{ env.solution }} --configuration ${{ env.configuration }} --no-build --output ./artifacts -p:Version=${{ env.semantic }}
+
+    - name: Publish Packages to GitHub
+      run: dotnet nuget push **/Fluentify*.nupkg --source "https://nuget.pkg.github.com/MooVC/index.json" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Publish Packages to NuGet
+      run: dotnet nuget push **/Fluentify*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
