@@ -27,7 +27,7 @@ public sealed class ClassGenerator
         string initializers = GetInitializers(property, subject);
 
         return $$"""
-            return new {{subject}}
+            return new {{subject.Type}}
             {
                 {{initializers.Indent()}}
             };

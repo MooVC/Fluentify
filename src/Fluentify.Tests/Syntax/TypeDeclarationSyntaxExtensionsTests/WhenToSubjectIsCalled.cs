@@ -66,7 +66,6 @@ public sealed class WhenToSubjectIsCalled
         var expected = new Subject
         {
             Accessibility = Accessibility.Internal,
-            HasDefaultConstructor = hasDefaultConstructor,
             IsPartial = true,
             Name = "Boolean",
             Namespace = "Fluentify.Tests.Compilation",
@@ -109,6 +108,11 @@ public sealed class WhenToSubjectIsCalled
                     Name = "Name",
                 },
             ],
+            Type = new()
+            {
+                IsBuildable = hasDefaultConstructor,
+                Name = "global::Fluentify.Tests.Compilation.Boolean",
+            },
         };
 
         // Act
@@ -126,7 +130,6 @@ public sealed class WhenToSubjectIsCalled
         var expected = new Subject
         {
             Accessibility = Accessibility.Internal,
-            HasDefaultConstructor = hasDefaultConstructor,
             Name = "CrossReferenced",
             Namespace = "Fluentify.Tests.Compilation",
             Properties =
@@ -157,6 +160,11 @@ public sealed class WhenToSubjectIsCalled
                     Name = "Simple",
                 },
             ],
+            Type = new()
+            {
+                IsBuildable = hasDefaultConstructor,
+                Name = "global::Fluentify.Tests.Compilation.CrossReferenced",
+            },
         };
 
         // Act
@@ -192,7 +200,6 @@ public sealed class WhenToSubjectIsCalled
                     Name = "T3",
                 },
             ],
-            HasDefaultConstructor = hasDefaultConstructor,
             Name = "MultipleGenerics",
             Namespace = "Fluentify.Tests.Compilation",
             Properties =
@@ -237,6 +244,11 @@ public sealed class WhenToSubjectIsCalled
                     Name = "Attributes",
                 },
             ],
+            Type = new()
+            {
+                IsBuildable = hasDefaultConstructor,
+                Name = "global::Fluentify.Tests.Compilation.MultipleGenerics<T1, T2, T3>",
+            },
         };
 
         // Act
@@ -254,7 +266,6 @@ public sealed class WhenToSubjectIsCalled
         var expected = new Subject
         {
             Accessibility = Accessibility.Internal,
-            HasDefaultConstructor = hasDefaultConstructor,
             IsPartial = true,
             Name = "Simple",
             Namespace = "Fluentify.Tests.Compilation",
@@ -298,6 +309,11 @@ public sealed class WhenToSubjectIsCalled
                     Name = "Attributes",
                 },
             ],
+            Type = new()
+            {
+                IsBuildable = hasDefaultConstructor,
+                Name = "global::Fluentify.Tests.Compilation.Simple",
+            },
         };
 
         // Act
@@ -323,7 +339,6 @@ public sealed class WhenToSubjectIsCalled
                     Name = "T",
                 },
             ],
-            HasDefaultConstructor = hasDefaultConstructor,
             Name = "SingleGeneric",
             Namespace = "Fluentify.Tests.Compilation",
             Properties =
@@ -366,6 +381,11 @@ public sealed class WhenToSubjectIsCalled
                     Name = "Attributes",
                 },
             ],
+            Type = new()
+            {
+                IsBuildable = hasDefaultConstructor,
+                Name = "global::Fluentify.Tests.Compilation.SingleGeneric<T>",
+            },
         };
 
         // Act

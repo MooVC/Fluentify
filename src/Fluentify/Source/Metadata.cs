@@ -30,12 +30,4 @@ internal struct Metadata
     /// The subject to which the metadata relates.
     /// </value>
     public Subject Subject { get; set; }
-
-    /// <summary>
-    /// Gets or sets the type name for the <see cref="Subject"/>.
-    /// </summary>
-    /// <value>
-    /// The type name for the <see cref="Subject"/>.
-    /// </value>
-    public string Type { get; set; }
 }

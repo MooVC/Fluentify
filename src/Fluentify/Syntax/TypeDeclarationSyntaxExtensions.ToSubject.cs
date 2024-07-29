@@ -58,11 +58,15 @@ internal static partial class TypeDeclarationSyntaxExtensions
         {
             Accessibility = type.DeclaredAccessibility,
             Generics = generics,
-            HasDefaultConstructor = hasDefaultConstructor,
             IsPartial = isPartial,
             Name = type.Name,
             Namespace = type.ContainingNamespace.ToDisplayString(),
             Properties = properties,
+            Type = new()
+            {
+                IsBuildable = hasDefaultConstructor,
+                Name = type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
+            },
         };
     }
 }

@@ -15,6 +15,10 @@ public sealed partial class WhenGetExtensionsIsCalled
             Accessibility = Accessibility.Public,
             Name = "TestSubject",
             Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
         };
 
         var property = new Property
@@ -41,7 +45,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             Constraints = [],
             Parameters = string.Empty,
             Subject = subject,
-            Type = "TestSubject",
         };
 
         // Act
@@ -64,7 +67,9 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    params int[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
 
@@ -93,6 +98,10 @@ public sealed partial class WhenGetExtensionsIsCalled
             Accessibility = Accessibility.Public,
             Name = "TestSubject",
             Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
         };
 
         var property = new Property
@@ -119,7 +128,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             Constraints = [],
             Parameters = string.Empty,
             Subject = subject,
-            Type = "TestSubject",
         };
 
         // Act
@@ -142,7 +150,9 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             internal static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    params int[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
 
@@ -171,6 +181,10 @@ public sealed partial class WhenGetExtensionsIsCalled
             Accessibility = Accessibility.Public,
             Name = "TestSubject",
             Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
         };
 
         var property = new Property
@@ -197,7 +211,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             Constraints = [],
             Parameters = string.Empty,
             Subject = subject,
-            Type = "TestSubject",
         };
 
         // Act
@@ -219,7 +232,9 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    params int[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
             
@@ -249,6 +264,10 @@ public sealed partial class WhenGetExtensionsIsCalled
             Accessibility = Accessibility.Public,
             Name = "TestSubject",
             Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
         };
 
         var property = new Property
@@ -276,7 +295,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             Constraints = [],
             Parameters = string.Empty,
             Subject = subject,
-            Type = "TestSubject",
         };
 
         // Act
@@ -299,7 +317,9 @@ public sealed partial class WhenGetExtensionsIsCalled
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, params TestType[] values)
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    params TestType[] values)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
             
@@ -321,7 +341,9 @@ public sealed partial class WhenGetExtensionsIsCalled
                     {{scalar}}
                 }
 
-                public static TestSubject WithTestProperty(this TestSubject subject, Func<TestType, TestType> builder)
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    Func<TestType, TestType> builder)
                 {
                     ArgumentNullException.ThrowIfNull(subject);
             
@@ -341,6 +363,10 @@ public sealed partial class WhenGetExtensionsIsCalled
             Accessibility = Accessibility.Public,
             Name = "TestSubject",
             Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
         };
 
         var property = new Property
@@ -368,7 +394,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             Constraints = [],
             Parameters = string.Empty,
             Subject = subject,
-            Type = "TestSubject",
         };
 
         // Act

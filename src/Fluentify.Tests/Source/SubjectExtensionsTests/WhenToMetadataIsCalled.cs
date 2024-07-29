@@ -22,7 +22,6 @@ public sealed class WhenToMetadataIsCalled
         _ = metadata.Constraints.Should().BeEmpty();
         _ = metadata.Parameters.Should().BeEmpty();
         _ = metadata.Subject.Should().Be(subject);
-        _ = metadata.Type.Should().Be("TestClass");
     }
 
     [Fact]
@@ -62,6 +61,5 @@ public sealed class WhenToMetadataIsCalled
 
         _ = metadata.Parameters.Should().Be("<T, U>");
         _ = metadata.Subject.Should().Be(subject);
-        _ = metadata.Type.Should().Be("TestClass<T, U>");
     }
 }

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Changed
+
+- The fully qualified type information for the subject upon which Fluentify has been placed is now captured and utilized when generating extensions, thereby enabling support for nest classes.
+
 ## [1.0.0] - 2024-07-22
 
 Initial Release
