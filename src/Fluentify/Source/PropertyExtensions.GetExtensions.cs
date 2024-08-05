@@ -35,6 +35,7 @@ internal static partial class PropertyExtensions
             using System;
             using System.Collections.Generic;
             using System.Linq;
+            using Fluentify.Internal;
 
             {{accessibility}} static partial class {{metadata.Subject.Name}}Extensions
             {
@@ -89,7 +90,7 @@ internal static partial class PropertyExtensions
             return $$"""
                 {{signature}}
                 {
-                    ArgumentNullException.ThrowIfNull(subject);
+                    subject.ThrowIfNull("subject");
 
                     {{body.Indent()}}
                 }

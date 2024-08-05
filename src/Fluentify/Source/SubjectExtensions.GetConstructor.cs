@@ -26,7 +26,9 @@ internal static partial class SubjectExtensions
             {
                 #pragma warning disable CS8604
 
+                #if NET7_0_OR_GREATER
                 [SetsRequiredMembers]
+                #endif
                 public {{subject.Name}}()
                     : this({{parameters}})
                 {

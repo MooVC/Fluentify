@@ -67,6 +67,7 @@ internal sealed class Classes
             public int Age { get; init; }
             [Ignore] public string Name { get; init; }
             public IReadOnlyList<object>? Attributes { get; init; }
+        }
         """;
 
     private const string TwoOfThreeIgnoredSource = """

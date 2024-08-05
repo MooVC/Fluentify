@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis;
 /// <summary>
 /// Generates the Fluentify attribute, used to denote that a record type is to be subjected to <see cref="RecordGenerator"/>.
 /// </summary>
-[Generator]
+[Generator(LanguageNames.CSharp)]
 public sealed class FluentifyAttributeGenerator
     : AttributeGenerator
 {

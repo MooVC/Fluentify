@@ -33,33 +33,33 @@ internal abstract partial class Types<T>
 
     public Compilation Compilation { get; }
 
-    public Type Boolean { get; }
+    public Definition Boolean { get; }
 
-    public Type CrossReferenced { get; }
+    public Definition CrossReferenced { get; }
 
     public SemanticModel Model { get; }
 
-    public Type MultipleGenerics { get; }
+    public Definition MultipleGenerics { get; }
 
-    public Type Simple { get; }
+    public Definition Simple { get; }
 
-    public Type SingleGeneric { get; }
+    public Definition SingleGeneric { get; }
 
-    public Type OneOfThreeIgnored { get; }
+    public Definition OneOfThreeIgnored { get; }
 
-    public Type TwoOfThreeIgnored { get; }
+    public Definition TwoOfThreeIgnored { get; }
 
-    public Type AllThreeIgnored { get; }
+    public Definition AllThreeIgnored { get; }
 
-    public Type DescriptorOnRequired { get; }
+    public Definition DescriptorOnRequired { get; }
 
-    public Type DescriptorOnOptional { get; }
+    public Definition DescriptorOnOptional { get; }
 
-    public Type DescriptorOnIgnored { get; }
+    public Definition DescriptorOnIgnored { get; }
 
-    public Type Unannotated { get; }
+    public Definition Unannotated { get; }
 
-    public Type Unsupported { get; }
+    public Definition Unsupported { get; }
 
     private static string GetCode(string[] types)
     {
@@ -90,7 +90,7 @@ internal abstract partial class Types<T>
             .ToArray();
     }
 
-    private Type GetType(T[] declarations, string name)
+    private Definition GetType(T[] declarations, string name)
     {
         T syntax = declarations.First(declaration => declaration.Identifier.Text == name);
         INamedTypeSymbol symbol = Model.GetDeclaredSymbol(syntax)!;

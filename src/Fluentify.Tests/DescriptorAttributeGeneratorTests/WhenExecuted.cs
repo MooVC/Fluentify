@@ -1,12 +1,22 @@
 ﻿namespace Fluentify.DescriptorAttributeGeneratorTests;
 
-using static Fluentify.DescriptorAttributeGenerator;
+using Fluentify.Snippets;
 
 public sealed class WhenExecuted
-    : WhenPostInitializationOutputGeneratorIsExecuted<DescriptorAttributeGenerator>
+    : GeneratorTests<DescriptorAttributeGenerator>
 {
     public WhenExecuted()
-        : base(Source)
+        : base(Classes.ReferenceAssemblies, Classes.LanguageVersion)
     {
+    }
+
+    [Fact]
+    public async Task GivenAnAssemblyThenTheAttributeIsGenerated()
+    {
+        // Arrange
+        Attributes.Descriptor.IsExpectedIn(TestState);
+
+        // Act & Assert
+        await ActAndAssertAsync();
     }
 }

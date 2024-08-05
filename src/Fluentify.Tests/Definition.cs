@@ -3,4 +3,4 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-public sealed record Type(INamedTypeSymbol Symbol, TypeDeclarationSyntax Syntax);
+public sealed record Definition(INamedTypeSymbol Symbol, TypeDeclarationSyntax Syntax);

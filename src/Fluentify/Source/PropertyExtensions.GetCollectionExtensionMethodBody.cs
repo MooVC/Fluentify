@@ -26,7 +26,7 @@ internal static partial class PropertyExtensions
         return $$"""
             {{kind}} value = new();
 
-            if (subject.{{property.Name}} is not null)
+            if (subject.{{property.Name}} != null)
             {
                 foreach (var element in subject.{{property.Name}})
                 {

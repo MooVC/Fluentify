@@ -3,71 +3,71 @@
 using Fluentify.Model;
 using Fluentify.Semantics;
 using Microsoft.CodeAnalysis;
-using Type = Fluentify.Type;
+using Definition = Fluentify.Definition;
 
 public sealed class WhenGetPropertiesIsCalled
 {
-    public static readonly TheoryData<Compilation, Type> GivenBooleanThenTheExpectedPropertiesAreReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition> GivenBooleanThenTheExpectedPropertiesAreReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.Boolean },
         { Records.Instance.Compilation, Records.Instance.Boolean },
     };
 
-    public static readonly TheoryData<Compilation, Type> GivenCrossReferencedThenTheExpectedPropertiesAreReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition> GivenCrossReferencedThenTheExpectedPropertiesAreReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.CrossReferenced },
         { Records.Instance.Compilation, Records.Instance.CrossReferenced },
     };
 
-    public static readonly TheoryData<Compilation, Type> GivenMultipleGenericsThenTheExpectedPropertiesAreReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition> GivenMultipleGenericsThenTheExpectedPropertiesAreReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.MultipleGenerics },
         { Records.Instance.Compilation, Records.Instance.MultipleGenerics },
     };
 
-    public static readonly TheoryData<Compilation, Type> GivenSimpleThenTheExpectedPropertiesAreReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition> GivenSimpleThenTheExpectedPropertiesAreReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.Simple },
         { Records.Instance.Compilation, Records.Instance.Simple },
     };
 
-    public static readonly TheoryData<Compilation, Type> GivenSingleGenericThenTheExpectedPropertiesAreReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition> GivenSingleGenericThenTheExpectedPropertiesAreReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.SingleGeneric },
         { Records.Instance.Compilation, Records.Instance.SingleGeneric },
     };
 
-    public static readonly TheoryData<Compilation, Type> GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition> GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.OneOfThreeIgnored },
         { Records.Instance.Compilation, Records.Instance.OneOfThreeIgnored },
     };
 
-    public static readonly TheoryData<Compilation, Type> GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition> GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.TwoOfThreeIgnored },
         { Records.Instance.Compilation, Records.Instance.TwoOfThreeIgnored },
     };
 
-    public static readonly TheoryData<Compilation, Type> GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition> GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.AllThreeIgnored },
         { Records.Instance.Compilation, Records.Instance.AllThreeIgnored },
     };
 
-    public static readonly TheoryData<Compilation, Type> GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition> GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.DescriptorOnRequired },
         { Records.Instance.Compilation, Records.Instance.DescriptorOnRequired },
     };
 
-    public static readonly TheoryData<Compilation, Type> GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition> GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.DescriptorOnOptional },
         { Records.Instance.Compilation, Records.Instance.DescriptorOnOptional },
     };
 
-    public static readonly TheoryData<Compilation, Type> GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition> GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.DescriptorOnIgnored },
         { Records.Instance.Compilation, Records.Instance.DescriptorOnIgnored },
@@ -115,7 +115,7 @@ public sealed class WhenGetPropertiesIsCalled
 
     [Theory]
     [MemberData(nameof(GivenBooleanThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenBooleanThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
+    public void GivenBooleanThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition type)
     {
         // Arrange
         var isRetired = new Property
@@ -137,7 +137,7 @@ public sealed class WhenGetPropertiesIsCalled
 
     [Theory]
     [MemberData(nameof(GivenCrossReferencedThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenCrossReferencedThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
+    public void GivenCrossReferencedThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition type)
     {
         // Arrange
         var description = new Property
@@ -173,7 +173,7 @@ public sealed class WhenGetPropertiesIsCalled
 
     [Theory]
     [MemberData(nameof(GivenMultipleGenericsThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenMultipleGenericsThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
+    public void GivenMultipleGenericsThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition type)
     {
         // Arrange
         var age = new Property
@@ -224,7 +224,7 @@ public sealed class WhenGetPropertiesIsCalled
 
     [Theory]
     [MemberData(nameof(GivenSimpleThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenSimpleThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
+    public void GivenSimpleThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition type)
     {
         // Act & Assert
         ActAndAssert(compilation, type, age, attributes, name);
@@ -232,7 +232,7 @@ public sealed class WhenGetPropertiesIsCalled
 
     [Theory]
     [MemberData(nameof(GivenSingleGenericThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenSingleGenericThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
+    public void GivenSingleGenericThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition type)
     {
         // Arrange
         var attributes = new Property
@@ -255,7 +255,7 @@ public sealed class WhenGetPropertiesIsCalled
 
     [Theory]
     [MemberData(nameof(GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
+    public void GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition type)
     {
         // Arrange
         var name = new Property
@@ -270,7 +270,7 @@ public sealed class WhenGetPropertiesIsCalled
 
     [Theory]
     [MemberData(nameof(GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
+    public void GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition type)
     {
         // Arrange
         var age = new Property
@@ -291,7 +291,7 @@ public sealed class WhenGetPropertiesIsCalled
 
     [Theory]
     [MemberData(nameof(GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
+    public void GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition type)
     {
         // Act
         IReadOnlyList<Property> properties = type.Symbol.GetProperties(compilation, CancellationToken.None);
@@ -303,7 +303,7 @@ public sealed class WhenGetPropertiesIsCalled
 
     [Theory]
     [MemberData(nameof(GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
+    public void GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition type)
     {
         // Arrange
         var age = new Property
@@ -325,7 +325,7 @@ public sealed class WhenGetPropertiesIsCalled
 
     [Theory]
     [MemberData(nameof(GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
+    public void GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition type)
     {
         // Arrange
         var attributes = new Property
@@ -348,12 +348,12 @@ public sealed class WhenGetPropertiesIsCalled
 
     [Theory]
     [MemberData(nameof(GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Type type)
+    public void GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition type)
     {
         GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturned(compilation, type);
     }
 
-    private static void ActAndAssert(Compilation compilation, Type type, params Property[] expected)
+    private static void ActAndAssert(Compilation compilation, Definition type, params Property[] expected)
     {
         // Act
         IReadOnlyList<Property> actual = type.Symbol.GetProperties(compilation, CancellationToken.None);

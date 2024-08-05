@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis;
 /// <summary>
 /// Generates the Ignore attribute, used to denote that a property of a record type is not to be subjected to <see cref="RecordGenerator"/>.
 /// </summary>
-[Generator]
+[Generator(LanguageNames.CSharp)]
 public sealed class IgnoreAttributeGenerator
     : AttributeGenerator
 {

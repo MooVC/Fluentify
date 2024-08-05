@@ -34,6 +34,22 @@ public sealed class ClassGenerator
             """;
     }
 
+    /// <inheritdoc/>
+    private protected override string Wrap(string content)
+    {
+        return $"""
+            #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+            #nullable enable
+            #endif
+            
+            {content}
+
+            #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+            #nullable restore
+            #endif
+            """;
+    }
+
     private static string GetInitializers(Property property, Subject subject)
     {
         var initializers = new StringBuilder();

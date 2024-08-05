@@ -64,6 +64,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             using System;
             using System.Collections.Generic;
             using System.Linq;
+            using Fluentify.Internal;
 
             public static partial class TestSubjectExtensions
             {
@@ -71,11 +72,11 @@ public sealed partial class WhenGetExtensionsIsCalled
                     this global::TestSubject subject,
                     params int[] values)
                 {
-                    ArgumentNullException.ThrowIfNull(subject);
+                    subject.ThrowIfNull("subject");
 
                     int[] value = values;
 
-                    if (subject.TestProperty is not null)
+                    if (subject.TestProperty != null)
                     {
                         value = new int[value.Length + subject.TestProperty.Length];
 
@@ -142,6 +143,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             using System;
             using System.Collections.Generic;
             using System.Linq;
+            using Fluentify.Internal;
 
             internal static partial class TestSubjectExtensions
             {
@@ -149,11 +151,11 @@ public sealed partial class WhenGetExtensionsIsCalled
                     this global::TestSubject subject,
                     params int[] values)
                 {
-                    ArgumentNullException.ThrowIfNull(subject);
+                    subject.ThrowIfNull("subject");
 
                     int[] value = values;
 
-                    if (subject.TestProperty is not null)
+                    if (subject.TestProperty != null)
                     {
                         value = new int[value.Length + subject.TestProperty.Length];
 
@@ -219,6 +221,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             using System;
             using System.Collections.Generic;
             using System.Linq;
+            using Fluentify.Internal;
 
             public static partial class TestSubjectExtensions
             {
@@ -226,11 +229,11 @@ public sealed partial class WhenGetExtensionsIsCalled
                     this global::TestSubject subject,
                     params int[] values)
                 {
-                    ArgumentNullException.ThrowIfNull(subject);
+                    subject.ThrowIfNull("subject");
             
                     int[]? value = values;
 
-                    if (subject.TestProperty is not null)
+                    if (subject.TestProperty != null)
                     {
                         value = new int[value.Length + subject.TestProperty.Length];
 
@@ -299,6 +302,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             using System;
             using System.Collections.Generic;
             using System.Linq;
+            using Fluentify.Internal;
 
             public static partial class TestSubjectExtensions
             {
@@ -306,11 +310,11 @@ public sealed partial class WhenGetExtensionsIsCalled
                     this global::TestSubject subject,
                     params TestType[] values)
                 {
-                    ArgumentNullException.ThrowIfNull(subject);
+                    subject.ThrowIfNull("subject");
             
                     TestType[] value = values;
             
-                    if (subject.TestProperty is not null)
+                    if (subject.TestProperty != null)
                     {
                         value = new TestType[value.Length + subject.TestProperty.Length];
             
@@ -325,9 +329,9 @@ public sealed partial class WhenGetExtensionsIsCalled
                     this global::TestSubject subject,
                     Func<TestType, TestType> builder)
                 {
-                    ArgumentNullException.ThrowIfNull(subject);
+                    subject.ThrowIfNull("subject");
             
-                    ArgumentNullException.ThrowIfNull(builder);
+                    builder.ThrowIfNull("builder");
             
                     var instance = new TestType();
             

@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis;
 
 internal static partial class TypeExtensions
 {
-    public static IPropertySymbol GetProperty(this Type type, string name)
+    public static IPropertySymbol GetProperty(this Definition type, string name)
     {
         return type
             .Symbol
