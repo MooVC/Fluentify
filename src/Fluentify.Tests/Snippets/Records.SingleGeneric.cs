@@ -2,6 +2,17 @@
 
 public static partial class Records
 {
+    public const string SingleGenericContent = """
+        namespace Fluentify.Records.Testing
+        {
+            using System.Collections;
+
+            [Fluentify]
+            public sealed partial record SingleGeneric<T>(int Age, string Name, T? Attributes = default)
+                where T : IEnumerable;
+        }
+        """;
+
     public static readonly Declared SingleGeneric;
 
     public static readonly Generated SingleGenericConstructor = new(
@@ -23,17 +34,6 @@ public static partial class Records
         SingleGenericWithNameExtensionsContent,
         typeof(RecordGenerator),
         "Fluentify.Records.Testing.SingleGenericExtensions.WithName");
-
-    private const string SingleGenericContent = """
-        namespace Fluentify.Records.Testing
-        {
-            using System.Collections;
-
-            [Fluentify]
-            public sealed partial record SingleGeneric<T>(int Age, string Name, T? Attributes = default)
-                where T : IEnumerable;
-        }
-        """;
 
     private const string SingleGenericConstructorContent = """
         #nullable enable

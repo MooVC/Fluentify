@@ -2,6 +2,16 @@
 
 public static partial class Records
 {
+    public const string SimpleContent = """
+        namespace Fluentify.Records.Testing
+        {
+            using System.Collections.Generic;
+
+            [Fluentify]
+            public sealed partial record Simple(int Age, string Name, IReadOnlyList<object>? Attributes = default);
+        }
+        """;
+
     public static readonly Declared Simple;
 
     public static readonly Generated SimpleConstructor = new(
@@ -23,16 +33,6 @@ public static partial class Records
         SimpleWithNameExtensionsContent,
         typeof(RecordGenerator),
         "Fluentify.Records.Testing.SimpleExtensions.WithName");
-
-    private const string SimpleContent = """
-        namespace Fluentify.Records.Testing
-        {
-            using System.Collections.Generic;
-
-            [Fluentify]
-            public sealed partial record Simple(int Age, string Name, IReadOnlyList<object>? Attributes = default);
-        }
-        """;
 
     private const string SimpleConstructorContent = """
         #nullable enable

@@ -2,19 +2,7 @@
 
 public static partial class Classes
 {
-    public static readonly Declared CrossReferenced;
-
-    public static readonly Generated CrossReferencedWithDescriptionExtensions = new(
-        CrossReferencedWithDescriptionExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.CrossReferencedExtensions.WithDescription");
-
-    public static readonly Generated CrossReferencedWithSimpleExtensions = new(
-        CrossReferencedWithSimpleExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.CrossReferencedExtensions.WithSimple");
-
-    private const string CrossReferencedContent = """
+    public const string CrossReferencedContent = """
         namespace Fluentify.Classes.Testing
         {
             [Fluentify]
@@ -26,6 +14,18 @@ public static partial class Classes
             }
         }
         """;
+
+    public static readonly Declared CrossReferenced;
+
+    public static readonly Generated CrossReferencedWithDescriptionExtensions = new(
+        CrossReferencedWithDescriptionExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.CrossReferencedExtensions.WithDescription");
+
+    public static readonly Generated CrossReferencedWithSimpleExtensions = new(
+        CrossReferencedWithSimpleExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.CrossReferencedExtensions.WithSimple");
 
     private const string CrossReferencedWithDescriptionExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER

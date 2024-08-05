@@ -2,6 +2,23 @@
 
 public static partial class Classes
 {
+    public const string SimpleContent = """
+        namespace Fluentify.Classes.Testing
+        {
+            using System.Collections.Generic;
+
+            [Fluentify]
+            public sealed class Simple
+            {
+                public int Age { get; set; }
+
+                public string Name { get; set; }
+
+                public IReadOnlyList<object> Attributes { get; set; }
+            }
+        }
+        """;
+
     public static readonly Declared Simple;
 
     public static readonly Generated SimpleWithAgeExtensions = new(
@@ -18,23 +35,6 @@ public static partial class Classes
         SimpleWithNameExtensionsContent,
         typeof(ClassGenerator),
         "Fluentify.Classes.Testing.SimpleExtensions.WithName");
-
-    private const string SimpleContent = """
-        namespace Fluentify.Classes.Testing
-        {
-            using System.Collections.Generic;
-
-            [Fluentify]
-            public sealed partial class Simple
-            {
-                public int Age { get; set; }
-
-                public string Name { get; set; }
-
-                public IReadOnlyList<object> Attributes { get; set; }
-            }
-        }
-        """;
 
     private const string SimpleWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER

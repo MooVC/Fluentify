@@ -2,9 +2,7 @@
 
 public static partial class Classes
 {
-    public static readonly Declared AllThreeIgnored;
-
-    private const string AllThreeIgnoredContent = """
+    public const string AllThreeIgnoredContent = """
         namespace Fluentify.Classes.Testing
         {
             using System.Collections.Generic;
@@ -23,4 +21,6 @@ public static partial class Classes
             }
         }
         """;
+
+    public static readonly Declared AllThreeIgnored;
 }

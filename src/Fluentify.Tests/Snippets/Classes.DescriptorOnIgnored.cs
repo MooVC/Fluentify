@@ -2,19 +2,7 @@
 
 public static partial class Classes
 {
-    public static readonly Declared DescriptorOnIgnored;
-
-    public static readonly Generated DescriptorOnIgnoredWithAgeExtensions = new(
-        DescriptorOnIgnoredWithAgeExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.DescriptorOnIgnoredExtensions.WithAge");
-
-    public static readonly Generated DescriptorOnIgnoredWithAttributesExtensions = new(
-        DescriptorOnIgnoredWithAttributesExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.DescriptorOnIgnoredExtensions.WithAttributes");
-
-    private const string DescriptorOnIgnoredContent = """
+    public const string DescriptorOnIgnoredContent = """
         namespace Fluentify.Classes.Testing
         {
             using System.Collections.Generic;
@@ -31,6 +19,18 @@ public static partial class Classes
             }
         }
         """;
+
+    public static readonly Declared DescriptorOnIgnored;
+
+    public static readonly Generated DescriptorOnIgnoredWithAgeExtensions = new(
+        DescriptorOnIgnoredWithAgeExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.DescriptorOnIgnoredExtensions.WithAge");
+
+    public static readonly Generated DescriptorOnIgnoredWithAttributesExtensions = new(
+        DescriptorOnIgnoredWithAttributesExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.DescriptorOnIgnoredExtensions.WithAttributes");
 
     private const string DescriptorOnIgnoredWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER

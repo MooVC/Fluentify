@@ -2,6 +2,16 @@
 
 public static partial class Records
 {
+    public const string TwoOfThreeIgnoredContent = """
+        namespace Fluentify.Records.Testing
+        {
+            using System.Collections.Generic;
+
+            [Fluentify]
+            public sealed partial record TwoOfThreeIgnored([Ignore] int Age, [Ignore] string Name, IReadOnlyList<object>? Attributes = default);
+        }
+        """;
+
     public static readonly Declared TwoOfThreeIgnored;
 
     public static readonly Generated TwoOfThreeIgnoredConstructor = new(
@@ -13,16 +23,6 @@ public static partial class Records
         TwoOfThreeIgnoredWithAttributesExtensionsContent,
         typeof(RecordGenerator),
         "Fluentify.Records.Testing.TwoOfThreeIgnoredExtensions.WithAttributes");
-
-    private const string TwoOfThreeIgnoredContent = """
-        namespace Fluentify.Records.Testing
-        {
-            using System.Collections.Generic;
-
-            [Fluentify]
-            public sealed partial record TwoOfThreeIgnored([Ignore] int Age, [Ignore] string Name, IReadOnlyList<object>? Attributes = default);
-        }
-        """;
 
     private const string TwoOfThreeIgnoredConstructorContent = """
         #nullable enable

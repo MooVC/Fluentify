@@ -1,40 +1,46 @@
 ﻿namespace Fluentify.Syntax.TypeDeclarationSyntaxExtensionsTests;
 
 using Fluentify.Model;
+using Fluentify.Semantics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Definition = Fluentify.Definition;
 
 public sealed class WhenToSubjectIsCalled
 {
-    public static readonly TheoryData<Compilation, bool, Definition> GivenABooleanTypeThenTheExpectedSubjectIsReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition, bool, string> GivenABooleanTypeThenTheExpectedSubjectIsReturnedData = new()
     {
-        { Classes.Instance.Compilation, true, Classes.Instance.Boolean },
-        { Records.Instance.Compilation, false, Records.Instance.Boolean },
+        { Classes.Instance.Compilation, Classes.Instance.Boolean, false, nameof(Classes) },
+        { Records.Instance.Compilation, Records.Instance.Boolean, true, nameof(Records) },
     };
 
-    public static readonly TheoryData<Compilation, bool, Definition> GivenACrossReferencedTypeThenTheExpectedSubjectIsReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition, bool, string> GivenACrossReferencedTypeThenTheExpectedSubjectIsReturnedData = new()
     {
-        { Classes.Instance.Compilation, true, Classes.Instance.CrossReferenced },
-        { Records.Instance.Compilation, false, Records.Instance.CrossReferenced },
+        { Classes.Instance.Compilation, Classes.Instance.CrossReferenced, false, nameof(Classes) },
+        { Records.Instance.Compilation, Records.Instance.CrossReferenced, true, nameof(Records) },
     };
 
-    public static readonly TheoryData<Compilation, bool, Definition> GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition, bool> GivenAGlobalTypeThenTheExpectedSubjectIsReturnedData = new()
     {
-        { Classes.Instance.Compilation, true, Classes.Instance.MultipleGenerics },
-        { Records.Instance.Compilation, false, Records.Instance.MultipleGenerics },
+        { Classes.Instance.Compilation, Classes.Instance.Global, false },
+        { Records.Instance.Compilation, Records.Instance.Global, true },
     };
 
-    public static readonly TheoryData<Compilation, bool, Definition> GivenASimpleTypeThenTheExpectedSubjectIsReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition, bool, string> GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturnedData = new()
     {
-        { Classes.Instance.Compilation, true, Classes.Instance.Simple },
-        { Records.Instance.Compilation, false, Records.Instance.Simple },
+        { Classes.Instance.Compilation, Classes.Instance.MultipleGenerics, false, nameof(Classes) },
+        { Records.Instance.Compilation, Records.Instance.MultipleGenerics, true, nameof(Records) },
     };
 
-    public static readonly TheoryData<Compilation, bool, Definition> GivenASingleGenericTypeThenTheExpectedSubjectIsReturnedData = new()
+    public static readonly TheoryData<Compilation, Definition, bool, string> GivenASimpleTypeThenTheExpectedSubjectIsReturnedData = new()
     {
-        { Classes.Instance.Compilation, true, Classes.Instance.SingleGeneric },
-        { Records.Instance.Compilation, false, Records.Instance.SingleGeneric },
+        { Classes.Instance.Compilation, Classes.Instance.Simple, false, nameof(Classes) },
+        { Records.Instance.Compilation, Records.Instance.Simple, true, nameof(Records) },
+    };
+
+    public static readonly TheoryData<Compilation, Definition, bool, string> GivenASingleGenericTypeThenTheExpectedSubjectIsReturnedData = new()
+    {
+        { Classes.Instance.Compilation, Classes.Instance.SingleGeneric, false, nameof(Classes) },
+        { Records.Instance.Compilation, Records.Instance.SingleGeneric, true, nameof(Records) },
     };
 
     public static readonly TheoryData<Compilation, Definition> GivenUnannotatedOrUnsupportedThenNoSubjectIsReturnedData = new()
@@ -60,15 +66,15 @@ public sealed class WhenToSubjectIsCalled
 
     [Theory]
     [MemberData(nameof(GivenABooleanTypeThenTheExpectedSubjectIsReturnedData))]
-    public void GivenABooleanTypeThenTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Definition type)
+    public void GivenABooleanTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
     {
         // Arrange
         var expected = new Subject
         {
-            Accessibility = Accessibility.Internal,
-            IsPartial = true,
+            Accessibility = Accessibility.Public,
+            IsPartial = isPartial,
             Name = "Boolean",
-            Namespace = "Fluentify.Tests.Compilation",
+            Namespace = $"Fluentify.{type}.Testing",
             Properties =
             [
                 new Property
@@ -110,13 +116,13 @@ public sealed class WhenToSubjectIsCalled
             ],
             Type = new()
             {
-                IsBuildable = hasDefaultConstructor,
-                Name = "global::Fluentify.Tests.Compilation.Boolean",
+                IsBuildable = !isPartial,
+                Name = $"global::Fluentify.{type}.Testing.Boolean",
             },
         };
 
         // Act
-        var actual = type.Syntax.ToSubject(compilation, CancellationToken.None);
+        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
         _ = actual.Should().BeEquivalentTo(expected);
@@ -124,14 +130,15 @@ public sealed class WhenToSubjectIsCalled
 
     [Theory]
     [MemberData(nameof(GivenACrossReferencedTypeThenTheExpectedSubjectIsReturnedData))]
-    public void GivenACrossReferencedTypeThenTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Definition type)
+    public void GivenACrossReferencedTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
     {
         // Arrange
         var expected = new Subject
         {
-            Accessibility = Accessibility.Internal,
+            Accessibility = Accessibility.Public,
+            IsPartial = isPartial,
             Name = "CrossReferenced",
-            Namespace = "Fluentify.Tests.Compilation",
+            Namespace = $"Fluentify.{type}.Testing",
             Properties =
             [
                 new Property
@@ -154,7 +161,7 @@ public sealed class WhenToSubjectIsCalled
                         Type = new()
                         {
                             IsBuildable = true,
-                            Name = "global::Fluentify.Tests.Compilation.Simple",
+                            Name = $"global::Fluentify.{type}.Testing.Simple",
                         },
                     },
                     Name = "Simple",
@@ -162,13 +169,82 @@ public sealed class WhenToSubjectIsCalled
             ],
             Type = new()
             {
-                IsBuildable = hasDefaultConstructor,
-                Name = "global::Fluentify.Tests.Compilation.CrossReferenced",
+                IsBuildable = !isPartial,
+                Name = $"global::Fluentify.{type}.Testing.CrossReferenced",
             },
         };
 
         // Act
-        var actual = type.Syntax.ToSubject(compilation, CancellationToken.None);
+        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
+
+        // Assert
+        _ = actual.Should().BeEquivalentTo(expected);
+    }
+
+    [Theory]
+    [MemberData(nameof(GivenAGlobalTypeThenTheExpectedSubjectIsReturnedData))]
+    public void GivenAGlobalTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial)
+    {
+        // Arrange
+        string annotation = isPartial
+            ? "?"
+            : string.Empty;
+
+        var expected = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            IsPartial = isPartial,
+            Name = "Global",
+            Namespace = string.Empty,
+            Properties =
+            [
+                new Property
+                {
+                    Descriptor = "WithAge",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "int",
+                        },
+                    },
+                    Name = "Age",
+                },
+                new Property
+                {
+                    Descriptor = "WithName",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "string",
+                        },
+                    },
+                    Name = "Name",
+                },
+                new Property
+                {
+                    Descriptor = "WithAttributes",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            IsNullable = isPartial,
+                            Name = $"IReadOnlyList<object>{annotation}",
+                        },
+                    },
+                    Name = "Attributes",
+                },
+            ],
+            Type = new()
+            {
+                IsBuildable = !isPartial,
+                Name = $"global::Global",
+            },
+        };
+
+        // Act
+        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
         _ = actual.Should().BeEquivalentTo(expected);
@@ -176,12 +252,16 @@ public sealed class WhenToSubjectIsCalled
 
     [Theory]
     [MemberData(nameof(GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturnedData))]
-    public void GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Definition type)
+    public void GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
     {
         // Arrange
+        string annotation = isPartial
+            ? "?"
+            : string.Empty;
+
         var expected = new Subject
         {
-            Accessibility = Accessibility.Internal,
+            Accessibility = Accessibility.Public,
             Generics =
             [
                 new Generic
@@ -200,8 +280,9 @@ public sealed class WhenToSubjectIsCalled
                     Name = "T3",
                 },
             ],
+            IsPartial = isPartial,
             Name = "MultipleGenerics",
-            Namespace = "Fluentify.Tests.Compilation",
+            Namespace = $"Fluentify.{type}.Testing",
             Properties =
             [
                 new Property
@@ -212,8 +293,8 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
-                            IsNullable = true,
-                            Name = "T1?",
+                            IsNullable = isPartial,
+                            Name = $"T1{annotation}",
                         },
                     },
                 },
@@ -225,7 +306,7 @@ public sealed class WhenToSubjectIsCalled
                         Type = new()
                         {
                             IsBuildable = true,
-                            IsNullable = true,
+                            IsNullable = isPartial,
                             Name = "T2",
                         },
                     },
@@ -246,13 +327,13 @@ public sealed class WhenToSubjectIsCalled
             ],
             Type = new()
             {
-                IsBuildable = hasDefaultConstructor,
-                Name = "global::Fluentify.Tests.Compilation.MultipleGenerics<T1, T2, T3>",
+                IsBuildable = !isPartial,
+                Name = $"global::Fluentify.{type}.Testing.MultipleGenerics<T1, T2, T3>",
             },
         };
 
         // Act
-        var actual = type.Syntax.ToSubject(compilation, CancellationToken.None);
+        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
         _ = actual.Should().BeEquivalentTo(expected);
@@ -260,15 +341,19 @@ public sealed class WhenToSubjectIsCalled
 
     [Theory]
     [MemberData(nameof(GivenASimpleTypeThenTheExpectedSubjectIsReturnedData))]
-    public void GivenASimpleTypeThenTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Definition type)
+    public void GivenASimpleTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
     {
         // Arrange
+        string annotation = isPartial
+            ? "?"
+            : string.Empty;
+
         var expected = new Subject
         {
-            Accessibility = Accessibility.Internal,
-            IsPartial = true,
+            Accessibility = Accessibility.Public,
+            IsPartial = isPartial,
             Name = "Simple",
-            Namespace = "Fluentify.Tests.Compilation",
+            Namespace = $"Fluentify.{type}.Testing",
             Properties =
             [
                 new Property
@@ -302,8 +387,8 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
-                            IsNullable = true,
-                            Name = "IReadOnlyList<object>?",
+                            IsNullable = isPartial,
+                            Name = $"IReadOnlyList<object>{annotation}",
                         },
                     },
                     Name = "Attributes",
@@ -311,13 +396,13 @@ public sealed class WhenToSubjectIsCalled
             ],
             Type = new()
             {
-                IsBuildable = hasDefaultConstructor,
-                Name = "global::Fluentify.Tests.Compilation.Simple",
+                IsBuildable = !isPartial,
+                Name = $"global::Fluentify.{type}.Testing.Simple",
             },
         };
 
         // Act
-        var actual = type.Syntax.ToSubject(compilation, CancellationToken.None);
+        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
         _ = actual.Should().BeEquivalentTo(expected);
@@ -325,12 +410,12 @@ public sealed class WhenToSubjectIsCalled
 
     [Theory]
     [MemberData(nameof(GivenASingleGenericTypeThenTheExpectedSubjectIsReturnedData))]
-    public void GivenASingleGenericTypeThenTheExpectedSubjectIsReturned(Compilation compilation, bool hasDefaultConstructor, Definition type)
+    public void GivenASingleGenericTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
     {
         // Arrange
         var expected = new Subject
         {
-            Accessibility = Accessibility.Internal,
+            Accessibility = Accessibility.Public,
             Generics =
             [
                 new Generic
@@ -339,8 +424,9 @@ public sealed class WhenToSubjectIsCalled
                     Name = "T",
                 },
             ],
+            IsPartial = isPartial,
             Name = "SingleGeneric",
-            Namespace = "Fluentify.Tests.Compilation",
+            Namespace = $"Fluentify.{type}.Testing",
             Properties =
             [
                 new Property
@@ -374,7 +460,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
-                            IsNullable = true,
+                            IsNullable = isPartial,
                             Name = "T",
                         },
                     },
@@ -383,13 +469,13 @@ public sealed class WhenToSubjectIsCalled
             ],
             Type = new()
             {
-                IsBuildable = hasDefaultConstructor,
-                Name = "global::Fluentify.Tests.Compilation.SingleGeneric<T>",
+                IsBuildable = !isPartial,
+                Name = $"global::Fluentify.{type}.Testing.SingleGeneric<T>",
             },
         };
 
         // Act
-        var actual = type.Syntax.ToSubject(compilation, CancellationToken.None);
+        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
         _ = actual.Should().BeEquivalentTo(expected);
@@ -397,10 +483,10 @@ public sealed class WhenToSubjectIsCalled
 
     [Theory]
     [MemberData(nameof(GivenUnannotatedOrUnsupportedThenNoSubjectIsReturnedData))]
-    public void GivenUnannotatedOrUnsupportedThenNoSubjectIsReturned(Compilation compilation, Definition type)
+    public void GivenUnannotatedOrUnsupportedThenNoSubjectIsReturned(Compilation compilation, Definition definition)
     {
         // Act
-        var subject = type.Syntax.ToSubject(compilation, CancellationToken.None);
+        var subject = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
         _ = subject.Should().BeNull();

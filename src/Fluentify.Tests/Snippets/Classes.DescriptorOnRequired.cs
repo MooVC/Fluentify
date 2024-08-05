@@ -2,24 +2,7 @@
 
 public static partial class Classes
 {
-    public static readonly Declared DescriptorOnRequired;
-
-    public static readonly Generated DescriptorOnRequiredAgedExtensions = new(
-        DescriptorOnRequiredAgedExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.DescriptorOnRequiredExtensions.Aged");
-
-    public static readonly Generated DescriptorOnRequiredWithAttributesExtensions = new(
-        DescriptorOnRequiredWithAttributesExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.DescriptorOnRequiredExtensions.WithAttributes");
-
-    public static readonly Generated DescriptorOnRequiredWithNameExtensions = new(
-        DescriptorOnRequiredWithNameExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.DescriptorOnRequiredExtensions.WithName");
-
-    private const string DescriptorOnRequiredContent = """
+    public const string DescriptorOnRequiredContent = """
         namespace Fluentify.Classes.Testing
         {
             using System.Collections.Generic;
@@ -36,6 +19,23 @@ public static partial class Classes
             }
         }
         """;
+
+    public static readonly Declared DescriptorOnRequired;
+
+    public static readonly Generated DescriptorOnRequiredAgedExtensions = new(
+        DescriptorOnRequiredAgedExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.DescriptorOnRequiredExtensions.Aged");
+
+    public static readonly Generated DescriptorOnRequiredWithAttributesExtensions = new(
+        DescriptorOnRequiredWithAttributesExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.DescriptorOnRequiredExtensions.WithAttributes");
+
+    public static readonly Generated DescriptorOnRequiredWithNameExtensions = new(
+        DescriptorOnRequiredWithNameExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.DescriptorOnRequiredExtensions.WithName");
 
     private const string DescriptorOnRequiredAgedExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER

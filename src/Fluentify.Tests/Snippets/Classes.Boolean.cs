@@ -2,6 +2,21 @@
 
 public static partial class Classes
 {
+    public const string BooleanContent = """
+        namespace Fluentify.Classes.Testing
+        {
+            [Fluentify]
+            public sealed class Boolean
+            {
+                public int Age { get; set; }
+
+                public bool IsRetired { get; set; }
+
+                public string Name { get; set; }
+            }
+        }
+        """;
+
     public static readonly Declared Boolean;
 
     public static readonly Generated BooleanWithAgeExtensions = new(
@@ -18,21 +33,6 @@ public static partial class Classes
         BooleanIsRetiredExtensionsContent,
         typeof(ClassGenerator),
         "Fluentify.Classes.Testing.BooleanExtensions.IsRetired");
-
-    private const string BooleanContent = """
-        namespace Fluentify.Classes.Testing
-        {
-            [Fluentify]
-            public sealed class Boolean
-            {
-                public int Age { get; set; }
-
-                public bool IsRetired { get; set; }
-
-                public string Name { get; set; }
-            }
-        }
-        """;
 
     private const string BooleanWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER

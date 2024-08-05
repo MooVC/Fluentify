@@ -2,24 +2,7 @@
 
 public static partial class Classes
 {
-    public static readonly Declared MultipleGenerics;
-
-    public static readonly Generated MultipleGenericsWithAgeExtensions = new(
-        MultipleGenericsWithAgeExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.MultipleGenericsExtensions.WithAge");
-
-    public static readonly Generated MultipleGenericsWithAttributesExtensions = new(
-        MultipleGenericsWithAttributesExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.MultipleGenericsExtensions.WithAttributes");
-
-    public static readonly Generated MultipleGenericsWithNameExtensions = new(
-        MultipleGenericsWithNameExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.MultipleGenericsExtensions.WithName");
-
-    private const string MultipleGenericsContent = """
+    public const string MultipleGenericsContent = """
         namespace Fluentify.Classes.Testing
         {
             using System.Collections.Generic;
@@ -38,6 +21,23 @@ public static partial class Classes
             }
         }
         """;
+
+    public static readonly Declared MultipleGenerics;
+
+    public static readonly Generated MultipleGenericsWithAgeExtensions = new(
+        MultipleGenericsWithAgeExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.MultipleGenericsExtensions.WithAge");
+
+    public static readonly Generated MultipleGenericsWithAttributesExtensions = new(
+        MultipleGenericsWithAttributesExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.MultipleGenericsExtensions.WithAttributes");
+
+    public static readonly Generated MultipleGenericsWithNameExtensions = new(
+        MultipleGenericsWithNameExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.MultipleGenericsExtensions.WithName");
 
     private const string MultipleGenericsWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER

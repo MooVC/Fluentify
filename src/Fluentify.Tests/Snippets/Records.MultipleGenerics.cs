@@ -2,6 +2,19 @@
 
 public static partial class Records
 {
+    public const string MultipleGenericsContent = """
+        namespace Fluentify.Records.Testing
+        {
+            using System.Collections.Generic;
+
+            [Fluentify]
+            public sealed partial record MultipleGenerics<T1, T2, T3>(T1? Age, T2? Name, T3 Attributes)
+                where T1 : struct
+                where T2 : class, new()
+                where T3 : IEnumerable<string>;
+        }
+        """;
+
     public static readonly Declared MultipleGenerics;
 
     public static readonly Generated MultipleGenericsConstructor = new(
@@ -23,19 +36,6 @@ public static partial class Records
         MultipleGenericsWithNameExtensionsContent,
         typeof(RecordGenerator),
         "Fluentify.Records.Testing.MultipleGenericsExtensions.WithName");
-
-    private const string MultipleGenericsContent = """
-        namespace Fluentify.Records.Testing
-        {
-            using System.Collections.Generic;
-
-            [Fluentify]
-            public sealed partial record MultipleGenerics<T1, T2, T3>(T1? Age, T2? Name, T3 Attributes)
-                where T1 : struct
-                where T2 : class, new()
-                where T3 : IEnumerable<string>;
-        }
-        """;
 
     private const string MultipleGenericsConstructorContent = """
         #nullable enable

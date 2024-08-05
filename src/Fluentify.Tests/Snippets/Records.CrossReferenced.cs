@@ -2,6 +2,14 @@
 
 public static partial class Records
 {
+    public const string CrossReferencedContent = """
+        namespace Fluentify.Records.Testing
+        {
+            [Fluentify]
+            public sealed partial record CrossReferenced(string Description, Simple Simple);
+        }
+        """;
+
     public static readonly Declared CrossReferenced;
 
     public static readonly Generated CrossReferencedConstructor = new(
@@ -18,14 +26,6 @@ public static partial class Records
         CrossReferencedWithSimpleExtensionsContent,
         typeof(RecordGenerator),
         "Fluentify.Records.Testing.CrossReferencedExtensions.WithSimple");
-
-    private const string CrossReferencedContent = """
-        namespace Fluentify.Records.Testing
-        {
-            [Fluentify]
-            public sealed partial record CrossReferenced(string Description, Simple Simple);
-        }
-        """;
 
     private const string CrossReferencedConstructorContent = """
         #nullable enable

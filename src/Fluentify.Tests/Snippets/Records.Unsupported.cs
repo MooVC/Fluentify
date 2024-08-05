@@ -2,13 +2,13 @@
 
 public static partial class Records
 {
-    public static readonly Declared Unsupported;
-
-    private const string UnsupportedContent = """
+    public const string UnsupportedContent = """
         namespace Fluentify.Records.Testing
         {
             [Fluentify]
             public sealed record Unsupported();
         }
         """;
+
+    public static readonly Declared Unsupported;
 }

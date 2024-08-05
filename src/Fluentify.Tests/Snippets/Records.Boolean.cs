@@ -2,6 +2,14 @@
 
 public static partial class Records
 {
+    public const string BooleanContent = """
+        namespace Fluentify.Records.Testing
+        {
+            [Fluentify]
+            public sealed partial record Boolean(int Age, bool IsRetired, string Name);
+        }
+        """;
+
     public static readonly Declared Boolean;
 
     public static readonly Generated BooleanConstructor = new(
@@ -23,14 +31,6 @@ public static partial class Records
         BooleanIsRetiredExtensionsContent,
         typeof(RecordGenerator),
         "Fluentify.Records.Testing.BooleanExtensions.IsRetired");
-
-    private const string BooleanContent = """
-        namespace Fluentify.Records.Testing
-        {
-            [Fluentify]
-            public sealed partial record Boolean(int Age, bool IsRetired, string Name);
-        }
-        """;
 
     private const string BooleanConstructorContent = """
         #nullable enable

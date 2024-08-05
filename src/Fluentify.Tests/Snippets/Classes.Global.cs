@@ -2,6 +2,21 @@
 
 public static partial class Classes
 {
+    public const string GlobalContent = """
+        using System.Collections.Generic;
+        using Fluentify;
+
+        [Fluentify]
+        public sealed class Global
+        {
+            public int Age { get; set; }
+
+            public string Name { get; set; }
+
+            public IReadOnlyList<object> Attributes { get; set; }
+        }
+        """;
+
     public static readonly Declared Global;
 
     public static readonly Generated GlobalWithAgeExtensions = new(
@@ -18,21 +33,6 @@ public static partial class Classes
         GlobalWithNameExtensionsContent,
         typeof(ClassGenerator),
         "GlobalExtensions.WithName");
-
-    private const string GlobalContent = """
-        using System.Collections.Generic;
-        using Fluentify;
-
-        [Fluentify]
-        public sealed partial class Global
-        {
-            public int Age { get; set; }
-
-            public string Name { get; set; }
-
-            public IReadOnlyList<object> Attributes { get; set; }
-        }
-        """;
 
     private const string GlobalWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER

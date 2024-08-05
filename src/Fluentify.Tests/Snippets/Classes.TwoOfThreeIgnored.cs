@@ -2,14 +2,7 @@
 
 public static partial class Classes
 {
-    public static readonly Declared TwoOfThreeIgnored;
-
-    public static readonly Generated TwoOfThreeIgnoredWithAttributesExtensions = new(
-        TwoOfThreeIgnoredWithAttributesExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.TwoOfThreeIgnoredExtensions.WithAttributes");
-
-    private const string TwoOfThreeIgnoredContent = """
+    public const string TwoOfThreeIgnoredContent = """
         namespace Fluentify.Classes.Testing
         {
             using System.Collections.Generic;
@@ -27,6 +20,13 @@ public static partial class Classes
             }
         }
         """;
+
+    public static readonly Declared TwoOfThreeIgnored;
+
+    public static readonly Generated TwoOfThreeIgnoredWithAttributesExtensions = new(
+        TwoOfThreeIgnoredWithAttributesExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.TwoOfThreeIgnoredExtensions.WithAttributes");
 
     private const string TwoOfThreeIgnoredWithAttributesExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER

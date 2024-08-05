@@ -2,19 +2,7 @@
 
 public static partial class Classes
 {
-    public static readonly Declared OneOfThreeIgnored;
-
-    public static readonly Generated OneOfThreeIgnoredWithAgeExtensions = new(
-        OneOfThreeIgnoredWithAgeExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.OneOfThreeIgnoredExtensions.WithAge");
-
-    public static readonly Generated OneOfThreeIgnoredWithAttributesExtensions = new(
-        OneOfThreeIgnoredWithAttributesExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.OneOfThreeIgnoredExtensions.WithAttributes");
-
-    private const string OneOfThreeIgnoredContent = """
+    public const string OneOfThreeIgnoredContent = """
         namespace Fluentify.Classes.Testing
         {
             using System.Collections.Generic;
@@ -31,6 +19,18 @@ public static partial class Classes
             }
         }
         """;
+
+    public static readonly Declared OneOfThreeIgnored;
+
+    public static readonly Generated OneOfThreeIgnoredWithAgeExtensions = new(
+        OneOfThreeIgnoredWithAgeExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.OneOfThreeIgnoredExtensions.WithAge");
+
+    public static readonly Generated OneOfThreeIgnoredWithAttributesExtensions = new(
+        OneOfThreeIgnoredWithAttributesExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.OneOfThreeIgnoredExtensions.WithAttributes");
 
     private const string OneOfThreeIgnoredWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER

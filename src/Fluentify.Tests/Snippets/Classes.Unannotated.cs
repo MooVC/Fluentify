@@ -2,9 +2,7 @@
 
 public static partial class Classes
 {
-    public static readonly Declared Unannotated;
-
-    private const string UnannotatedContent = """
+    public const string UnannotatedContent = """
         namespace Fluentify.Classes.Testing
         {
             using System.Collections.Generic;
@@ -19,4 +17,6 @@ public static partial class Classes
             }
         }
         """;
+
+    public static readonly Declared Unannotated;
 }

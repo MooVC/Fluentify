@@ -1,6 +1,6 @@
 ﻿namespace Fluentify.Semantics.IPropertySymbolExtensionsTests;
 
-using Fluentify;
+using Fluentify.Semantics;
 using Microsoft.CodeAnalysis;
 
 public sealed class WhenGetDescriptorIsCalled
@@ -39,10 +39,10 @@ public sealed class WhenGetDescriptorIsCalled
 
     [Theory]
     [MemberData(nameof(GivenPropertyWithDescriptorThenTheDescriptorIsReturnedData))]
-    public void GivenPropertyWithDescriptorThenTheDescriptorIsReturned(string descriptor, string property, Definition type)
+    public void GivenPropertyWithDescriptorThenTheDescriptorIsReturned(string descriptor, string property, Definition definition)
     {
         // Arrange
-        IPropertySymbol symbol = type.GetProperty(property);
+        IPropertySymbol symbol = definition.GetProperty(property);
 
         // Act
         string? actual = symbol.GetDescriptor();
@@ -53,10 +53,10 @@ public sealed class WhenGetDescriptorIsCalled
 
     [Theory]
     [MemberData(nameof(GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturnedData))]
-    public void GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturned(Definition type)
+    public void GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturned(Definition definition)
     {
         // Arrange
-        IEnumerable<IPropertySymbol> properties = type
+        IEnumerable<IPropertySymbol> properties = definition
             .Symbol
             .GetMembers()
             .OfType<IPropertySymbol>();

@@ -2,24 +2,7 @@
 
 public static partial class Classes
 {
-    public static readonly Declared SingleGeneric;
-
-    public static readonly Generated SingleGenericWithAgeExtensions = new(
-        SingleGenericWithAgeExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.SingleGenericExtensions.WithAge");
-
-    public static readonly Generated SingleGenericWithAttributesExtensions = new(
-        SingleGenericWithAttributesExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.SingleGenericExtensions.WithAttributes");
-
-    public static readonly Generated SingleGenericWithNameExtensions = new(
-        SingleGenericWithNameExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.SingleGenericExtensions.WithName");
-
-    private const string SingleGenericContent = """
+    public const string SingleGenericContent = """
         namespace Fluentify.Classes.Testing
         {
             using System.Collections;
@@ -36,6 +19,23 @@ public static partial class Classes
             }
         }
         """;
+
+    public static readonly Declared SingleGeneric;
+
+    public static readonly Generated SingleGenericWithAgeExtensions = new(
+        SingleGenericWithAgeExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.SingleGenericExtensions.WithAge");
+
+    public static readonly Generated SingleGenericWithAttributesExtensions = new(
+        SingleGenericWithAttributesExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.SingleGenericExtensions.WithAttributes");
+
+    public static readonly Generated SingleGenericWithNameExtensions = new(
+        SingleGenericWithNameExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.SingleGenericExtensions.WithName");
 
     private const string SingleGenericWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER

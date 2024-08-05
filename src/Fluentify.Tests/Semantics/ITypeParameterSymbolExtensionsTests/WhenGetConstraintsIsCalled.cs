@@ -14,7 +14,7 @@ public sealed class WhenGetConstraintsIsCalled
         _ = parameter.HasReferenceTypeConstraint.Returns(true);
         _ = parameter.HasValueTypeConstraint.Returns(false);
         _ = parameter.HasNotNullConstraint.Returns(false);
-        _ = parameter.ConstraintTypes.Returns(ImmutableArray<ITypeSymbol>.Empty);
+        _ = parameter.ConstraintTypes.Returns([]);
         _ = parameter.HasConstructorConstraint.Returns(false);
 
         // Act
@@ -33,7 +33,7 @@ public sealed class WhenGetConstraintsIsCalled
         _ = parameter.HasReferenceTypeConstraint.Returns(false);
         _ = parameter.HasValueTypeConstraint.Returns(true);
         _ = parameter.HasNotNullConstraint.Returns(false);
-        _ = parameter.ConstraintTypes.Returns(ImmutableArray<ITypeSymbol>.Empty);
+        _ = parameter.ConstraintTypes.Returns([]);
         _ = parameter.HasConstructorConstraint.Returns(false);
 
         // Act
@@ -52,7 +52,7 @@ public sealed class WhenGetConstraintsIsCalled
         _ = parameter.HasReferenceTypeConstraint.Returns(false);
         _ = parameter.HasValueTypeConstraint.Returns(false);
         _ = parameter.HasNotNullConstraint.Returns(true);
-        _ = parameter.ConstraintTypes.Returns(ImmutableArray<ITypeSymbol>.Empty);
+        _ = parameter.ConstraintTypes.Returns([]);
         _ = parameter.HasConstructorConstraint.Returns(false);
 
         // Act
@@ -71,7 +71,7 @@ public sealed class WhenGetConstraintsIsCalled
         _ = parameter.HasReferenceTypeConstraint.Returns(false);
         _ = parameter.HasValueTypeConstraint.Returns(false);
         _ = parameter.HasNotNullConstraint.Returns(false);
-        _ = parameter.ConstraintTypes.Returns(ImmutableArray<ITypeSymbol>.Empty);
+        _ = parameter.ConstraintTypes.Returns([]);
         _ = parameter.HasConstructorConstraint.Returns(true);
 
         // Act
@@ -141,7 +141,7 @@ public sealed class WhenGetConstraintsIsCalled
         _ = parameter.HasReferenceTypeConstraint.Returns(false);
         _ = parameter.HasValueTypeConstraint.Returns(false);
         _ = parameter.HasNotNullConstraint.Returns(false);
-        _ = parameter.ConstraintTypes.Returns(ImmutableArray<ITypeSymbol>.Empty);
+        _ = parameter.ConstraintTypes.Returns([]);
         _ = parameter.HasConstructorConstraint.Returns(false);
 
         // Act

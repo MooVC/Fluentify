@@ -2,6 +2,14 @@
 
 public static partial class Records
 {
+    public const string GlobalContent = """
+        using System.Collections.Generic;
+        using Fluentify;
+
+        [Fluentify]
+        public sealed partial record Global(int Age, string Name, IReadOnlyList<object>? Attributes = default);
+        """;
+
     public static readonly Declared Global;
 
     public static readonly Generated GlobalConstructor = new(
@@ -23,14 +31,6 @@ public static partial class Records
         GlobalWithNameExtensionsContent,
         typeof(RecordGenerator),
         "GlobalExtensions.WithName");
-
-    private const string GlobalContent = """
-        using System.Collections.Generic;
-        using Fluentify;
-
-        [Fluentify]
-        public sealed partial record Global(int Age, string Name, IReadOnlyList<object>? Attributes = default);
-        """;
 
     private const string GlobalConstructorContent = """
         #nullable enable

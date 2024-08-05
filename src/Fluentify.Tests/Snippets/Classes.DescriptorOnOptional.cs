@@ -2,24 +2,7 @@
 
 public static partial class Classes
 {
-    public static readonly Declared DescriptorOnOptional;
-
-    public static readonly Generated DescriptorOnOptionalWithAgeExtensions = new(
-        DescriptorOnOptionalWithAgeExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.DescriptorOnOptionalExtensions.WithAge");
-
-    public static readonly Generated DescriptorOnOptionalAttributedWithExtensions = new(
-        DescriptorOnOptionalAttributedWithExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.DescriptorOnOptionalExtensions.AttributedWith");
-
-    public static readonly Generated DescriptorOnOptionalWithNameExtensions = new(
-        DescriptorOnOptionalWithNameExtensionsContent,
-        typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.DescriptorOnOptionalExtensions.WithName");
-
-    private const string DescriptorOnOptionalContent = """
+    public const string DescriptorOnOptionalContent = """
         namespace Fluentify.Classes.Testing
         {
             using System.Collections.Generic;
@@ -36,6 +19,23 @@ public static partial class Classes
             }
         }
         """;
+
+    public static readonly Declared DescriptorOnOptional;
+
+    public static readonly Generated DescriptorOnOptionalWithAgeExtensions = new(
+        DescriptorOnOptionalWithAgeExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.DescriptorOnOptionalExtensions.WithAge");
+
+    public static readonly Generated DescriptorOnOptionalAttributedWithExtensions = new(
+        DescriptorOnOptionalAttributedWithExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.DescriptorOnOptionalExtensions.AttributedWith");
+
+    public static readonly Generated DescriptorOnOptionalWithNameExtensions = new(
+        DescriptorOnOptionalWithNameExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.DescriptorOnOptionalExtensions.WithName");
 
     private const string DescriptorOnOptionalWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER

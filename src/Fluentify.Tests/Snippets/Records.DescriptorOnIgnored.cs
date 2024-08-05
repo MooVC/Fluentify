@@ -2,6 +2,16 @@
 
 public static partial class Records
 {
+    public const string DescriptorOnIgnoredContent = """
+        namespace Fluentify.Records.Testing
+        {
+            using System.Collections.Generic;
+
+            [Fluentify]
+            public sealed partial record DescriptorOnIgnored(int Age, [Descriptor("Named"), Ignore] string Name, IReadOnlyList<object>? Attributes = default);
+        }
+        """;
+
     public static readonly Declared DescriptorOnIgnored;
 
     public static readonly Generated DescriptorOnIgnoredConstructor = new(
@@ -18,16 +28,6 @@ public static partial class Records
         DescriptorOnIgnoredWithAttributesExtensionsContent,
         typeof(RecordGenerator),
         "Fluentify.Records.Testing.DescriptorOnIgnoredExtensions.WithAttributes");
-
-    private const string DescriptorOnIgnoredContent = """
-        namespace Fluentify.Records.Testing
-        {
-            using System.Collections.Generic;
-
-            [Fluentify]
-            public sealed partial record DescriptorOnIgnored(int Age, [Descriptor("Named"), Ignore] string Name, IReadOnlyList<object>? Attributes = default);
-        }
-        """;
 
     private const string DescriptorOnIgnoredConstructorContent = """
         #nullable enable

@@ -1,4 +1,4 @@
-﻿namespace Fluentify;
+﻿namespace Fluentify.Semantics;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;

@@ -2,6 +2,16 @@
 
 public static partial class Records
 {
+    public const string DescriptorOnRequiredContent = """
+        namespace Fluentify.Records.Testing
+        {
+            using System.Collections.Generic;
+
+            [Fluentify]
+            public sealed partial record DescriptorOnRequired([Descriptor("Aged")] int Age, string Name, IReadOnlyList<object>? Attributes = default);
+        }
+        """;
+
     public static readonly Declared DescriptorOnRequired;
 
     public static readonly Generated DescriptorOnRequiredConstructor = new(
@@ -23,16 +33,6 @@ public static partial class Records
         DescriptorOnRequiredWithNameExtensionsContent,
         typeof(RecordGenerator),
         "Fluentify.Records.Testing.DescriptorOnRequiredExtensions.WithName");
-
-    private const string DescriptorOnRequiredContent = """
-        namespace Fluentify.Records.Testing
-        {
-            using System.Collections.Generic;
-
-            [Fluentify]
-            public sealed partial record DescriptorOnRequired([Descriptor("Aged")] int Age, string Name, IReadOnlyList<object>? Attributes = default);
-        }
-        """;
 
     private const string DescriptorOnRequiredConstructorContent = """
         #nullable enable
