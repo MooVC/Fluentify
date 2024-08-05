@@ -51,7 +51,7 @@ public sealed class RecordGenerator
     private static Source GenerateConstructor(Subject subject)
     {
         string content = subject.GetConstructor();
-        string hint = $"{subject.Namespace}.{subject.Name}.ctor.g.cs";
+        string hint = $"{subject.Name}.ctor.g.cs";
 
         return new Source
         {

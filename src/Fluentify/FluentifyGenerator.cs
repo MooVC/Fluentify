@@ -60,7 +60,7 @@ public abstract partial class FluentifyGenerator<T>
 
             if (!string.IsNullOrEmpty(content))
             {
-                string hint = $"{subject.Namespace}.{subject.Name}Extensions.{property.Descriptor}.g.cs";
+                string hint = $"{subject.Name}Extensions.{property.Descriptor}.g.cs";
 
                 yield return new Source
                 {
@@ -90,13 +90,22 @@ public abstract partial class FluentifyGenerator<T>
 
     private void AddSource(string content, SourceProductionContext context, string hint, string @namespace)
     {
-        content = $$"""
+        if (!string.IsNullOrEmpty(@namespace))
+        {
+            content = $$"""
+                namespace {{@namespace}}
+                {
+                    {{content.Indent()}}
+                }
+                """;
+
+            hint = $"{@namespace}.{hint}";
+        }
+
+        content = $"""
             #pragma warning disable CS8625
 
-            namespace {{@namespace}}
-            {
-                {{content.Indent()}}
-            }
+            {content}
             
             #pragma warning restore CS8625
             """;

@@ -54,13 +54,17 @@ internal static partial class TypeDeclarationSyntaxExtensions
         bool isPartial = syntax.IsPartial();
         IReadOnlyList<Generic> generics = type.GetGenerics();
 
+        string @namespace = type.ContainingNamespace.IsGlobalNamespace
+            ? string.Empty
+            : type.ContainingNamespace.ToDisplayString();
+
         return new Subject
         {
             Accessibility = type.DeclaredAccessibility,
             Generics = generics,
             IsPartial = isPartial,
             Name = type.Name,
-            Namespace = type.ContainingNamespace.ToDisplayString(),
+            Namespace = @namespace,
             Properties = properties,
             Type = new()
             {

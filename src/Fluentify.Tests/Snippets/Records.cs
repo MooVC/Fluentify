@@ -57,6 +57,14 @@ public static partial class Records
             DescriptorOnRequiredWithNameExtensions,
             DescriptorOnRequiredWithAttributesExtensions);
 
+        Global = new(
+            GlobalContent,
+            nameof(Global),
+            GlobalConstructor,
+            GlobalWithAgeExtensions,
+            GlobalWithNameExtensions,
+            GlobalWithAttributesExtensions);
+
         MultipleGenerics = new(
             MultipleGenericsContent,
             nameof(MultipleGenerics),

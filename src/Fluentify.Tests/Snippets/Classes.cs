@@ -51,6 +51,13 @@ public static partial class Classes
             DescriptorOnRequiredWithNameExtensions,
             DescriptorOnRequiredWithAttributesExtensions);
 
+        Global = new(
+            GlobalContent,
+            nameof(Global),
+            GlobalWithAgeExtensions,
+            GlobalWithNameExtensions,
+            GlobalWithAttributesExtensions);
+
         MultipleGenerics = new(
             MultipleGenericsContent,
             nameof(MultipleGenerics),
