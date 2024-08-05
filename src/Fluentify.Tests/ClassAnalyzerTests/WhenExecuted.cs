@@ -1,12 +1,18 @@
 ﻿namespace Fluentify.ClassAnalyzerTests;
 
 using System.Threading.Tasks;
+using Fluentify.Snippets;
 using Microsoft.CodeAnalysis.Testing;
 using Microsoft.CodeAnalysis.Text;
 
 public sealed class WhenExecuted
     : AnalyzerTests<ClassAnalyzer, IgnoreAttributeGenerator>
 {
+    public WhenExecuted()
+        : base(Classes.ReferenceAssemblies, Classes.LanguageVersion)
+    {
+    }
+
     [Fact]
     public async Task GivenAClassWithAnImplicitDefaultConstructorWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised()
     {

@@ -60,7 +60,7 @@ public abstract partial class FluentifyGenerator<T>
 
             if (!string.IsNullOrEmpty(content))
             {
-                string hint = $"{subject.Namespace}.{subject.Name}Extensions.{property.Descriptor}.g.cs";
+                string hint = $"{subject.Name}Extensions.{property.Descriptor}.g.cs";
 
                 yield return new Source
                 {
@@ -71,25 +71,12 @@ public abstract partial class FluentifyGenerator<T>
         }
     }
 
-    private static void AddSource(string content, SourceProductionContext context, string hint, string @namespace)
-    {
-        content = $$"""
-            #nullable enable
-            #pragma warning disable CS8625
-
-            namespace {{@namespace}}
-            {
-                {{content.Indent()}}
-            }
-            
-            #pragma warning restore CS8625
-            #nullable restore
-            """;
-
-        var text = SourceText.From(content, Encoding.UTF8);
-
-        context.AddSource(hint, text);
-    }
+    /// <summary>
+    /// Applies contextual specific content, typically preprocessor directives, to the <paramref name="content"/>.
+    /// </summary>
+    /// <param name="content">The content to which the additional content is to be applied.</param>
+    /// <returns>The <paramref name="content"/> with the additional content applied.</returns>
+    private protected abstract string Wrap(string content);
 
     private static bool IsMatch(SyntaxNode node, CancellationToken cancellationToken)
     {
@@ -99,6 +86,35 @@ public abstract partial class FluentifyGenerator<T>
     private static T? Transform(GeneratorSyntaxContext context, CancellationToken cancellationToken)
     {
         return context.Node as T;
+    }
+
+    private void AddSource(string content, SourceProductionContext context, string hint, string @namespace)
+    {
+        if (!string.IsNullOrEmpty(@namespace))
+        {
+            content = $$"""
+                namespace {{@namespace}}
+                {
+                    {{content.Indent()}}
+                }
+                """;
+
+            hint = $"{@namespace}.{hint}";
+        }
+
+        content = $"""
+            #pragma warning disable CS8625
+
+            {content}
+            
+            #pragma warning restore CS8625
+            """;
+
+        content = Wrap(content);
+
+        var text = SourceText.From(content, Encoding.UTF8);
+
+        context.AddSource(hint, text);
     }
 
     private void Generate(SourceProductionContext context, Subject? subject)

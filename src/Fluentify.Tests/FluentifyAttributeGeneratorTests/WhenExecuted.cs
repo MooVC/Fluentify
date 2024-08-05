@@ -1,23 +1,22 @@
 ﻿namespace Fluentify.FluentifyAttributeGeneratorTests;
 
+using Fluentify.Snippets;
+
 public sealed class WhenExecuted
-    : WhenPostInitializationOutputGeneratorIsExecuted<FluentifyAttributeGenerator>
+    : GeneratorTests<FluentifyAttributeGenerator>
 {
-    internal const string Source = $$"""
-        namespace Fluentify
-        {
-            using System;
-
-            [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-            internal sealed class FluentifyAttribute
-                : Attribute
-            {
-            }
-        }
-        """;
-
     public WhenExecuted()
-        : base(Source)
+        : base(Classes.ReferenceAssemblies, Classes.LanguageVersion)
     {
+    }
+
+    [Fact]
+    public async Task GivenAnAssemblyThenTheAttributeIsGenerated()
+    {
+        // Arrange
+        Attributes.Fluentify.IsExpectedIn(TestState);
+
+        // Act & Assert
+        await ActAndAssertAsync();
     }
 }

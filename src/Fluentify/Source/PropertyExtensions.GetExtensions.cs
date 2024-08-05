@@ -35,6 +35,7 @@ internal static partial class PropertyExtensions
             using System;
             using System.Collections.Generic;
             using System.Linq;
+            using Fluentify.Internal;
 
             {{accessibility}} static partial class {{metadata.Subject.Name}}Extensions
             {
@@ -68,11 +69,15 @@ internal static partial class PropertyExtensions
     {
         string constraints = string.Join("\r\n", metadata.Constraints);
         string method = string.Concat(property.Descriptor, metadata.Parameters);
-        string type = metadata.Type;
+        string type = metadata.Subject.Type.ToString();
 
         string GetMethod(string body, string parameter)
         {
-            string signature = $"public static {type} {method}(this {type} subject, {parameter})";
+            string signature = $"""
+                public static {type} {method}(
+                    this {type} subject,
+                    {parameter})
+                """;
 
             if (!string.IsNullOrWhiteSpace(constraints))
             {
@@ -85,7 +90,7 @@ internal static partial class PropertyExtensions
             return $$"""
                 {{signature}}
                 {
-                    ArgumentNullException.ThrowIfNull(subject);
+                    subject.ThrowIfNull("subject");
 
                     {{body.Indent()}}
                 }

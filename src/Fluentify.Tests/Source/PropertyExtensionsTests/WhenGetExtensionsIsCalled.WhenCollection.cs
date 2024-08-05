@@ -15,6 +15,10 @@ public sealed partial class WhenGetExtensionsIsCalled
             Accessibility = Accessibility.Public,
             Name = "TestSubject",
             Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
         };
 
         var property = new Property
@@ -41,7 +45,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             Constraints = [],
             Parameters = string.Empty,
             Subject = subject,
-            Type = "TestSubject",
         };
 
         // Act
@@ -61,16 +64,19 @@ public sealed partial class WhenGetExtensionsIsCalled
             using System;
             using System.Collections.Generic;
             using System.Linq;
+            using Fluentify.Internal;
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    params int[] values)
                 {
-                    ArgumentNullException.ThrowIfNull(subject);
+                    subject.ThrowIfNull("subject");
 
                     List<int> value = new();
             
-                    if (subject.TestProperty is not null)
+                    if (subject.TestProperty != null)
                     {
                         foreach (var element in subject.TestProperty)
                         {
@@ -93,6 +99,10 @@ public sealed partial class WhenGetExtensionsIsCalled
             Accessibility = Accessibility.Public,
             Name = "TestSubject",
             Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
         };
 
         var property = new Property
@@ -119,7 +129,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             Constraints = [],
             Parameters = string.Empty,
             Subject = subject,
-            Type = "TestSubject",
         };
 
         // Act
@@ -139,16 +148,19 @@ public sealed partial class WhenGetExtensionsIsCalled
             using System;
             using System.Collections.Generic;
             using System.Linq;
+            using Fluentify.Internal;
 
             internal static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    params int[] values)
                 {
-                    ArgumentNullException.ThrowIfNull(subject);
+                    subject.ThrowIfNull("subject");
 
                     List<int> value = new();
             
-                    if (subject.TestProperty is not null)
+                    if (subject.TestProperty != null)
                     {
                         foreach (var element in subject.TestProperty)
                         {
@@ -171,6 +183,10 @@ public sealed partial class WhenGetExtensionsIsCalled
             Accessibility = Accessibility.Public,
             Name = "TestSubject",
             Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
         };
 
         var property = new Property
@@ -197,7 +213,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             Constraints = [],
             Parameters = string.Empty,
             Subject = subject,
-            Type = "TestSubject",
         };
 
         // Act
@@ -216,16 +231,19 @@ public sealed partial class WhenGetExtensionsIsCalled
             using System;
             using System.Collections.Generic;
             using System.Linq;
+            using Fluentify.Internal;
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, params int[] values)
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    params int[] values)
                 {
-                    ArgumentNullException.ThrowIfNull(subject);
+                    subject.ThrowIfNull("subject");
             
                     List<int>? value = new();
             
-                    if (subject.TestProperty is not null)
+                    if (subject.TestProperty != null)
                     {
                         foreach (var element in subject.TestProperty)
                         {
@@ -249,6 +267,10 @@ public sealed partial class WhenGetExtensionsIsCalled
             Accessibility = Accessibility.Public,
             Name = "TestSubject",
             Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
         };
 
         var property = new Property
@@ -276,7 +298,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             Constraints = [],
             Parameters = string.Empty,
             Subject = subject,
-            Type = "TestSubject",
         };
 
         // Act
@@ -296,16 +317,19 @@ public sealed partial class WhenGetExtensionsIsCalled
             using System;
             using System.Collections.Generic;
             using System.Linq;
+            using Fluentify.Internal;
 
             public static partial class TestSubjectExtensions
             {
-                public static TestSubject WithTestProperty(this TestSubject subject, params TestType[] values)
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    params TestType[] values)
                 {
-                    ArgumentNullException.ThrowIfNull(subject);
+                    subject.ThrowIfNull("subject");
             
                     List<TestType> value = new();
             
-                    if (subject.TestProperty is not null)
+                    if (subject.TestProperty != null)
                     {
                         foreach (var element in subject.TestProperty)
                         {
@@ -321,11 +345,13 @@ public sealed partial class WhenGetExtensionsIsCalled
                     {{scalar}}
                 }
 
-                public static TestSubject WithTestProperty(this TestSubject subject, Func<TestType, TestType> builder)
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    Func<TestType, TestType> builder)
                 {
-                    ArgumentNullException.ThrowIfNull(subject);
+                    subject.ThrowIfNull("subject");
             
-                    ArgumentNullException.ThrowIfNull(builder);
+                    builder.ThrowIfNull("builder");
             
                     var instance = new TestType();
             
@@ -341,6 +367,10 @@ public sealed partial class WhenGetExtensionsIsCalled
             Accessibility = Accessibility.Public,
             Name = "TestSubject",
             Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
         };
 
         var property = new Property
@@ -368,7 +398,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             Constraints = [],
             Parameters = string.Empty,
             Subject = subject,
-            Type = "TestSubject",
         };
 
         // Act

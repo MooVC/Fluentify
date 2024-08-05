@@ -27,10 +27,26 @@ public sealed class ClassGenerator
         string initializers = GetInitializers(property, subject);
 
         return $$"""
-            return new {{subject}}
+            return new {{subject.Type}}
             {
                 {{initializers.Indent()}}
             };
+            """;
+    }
+
+    /// <inheritdoc/>
+    private protected override string Wrap(string content)
+    {
+        return $"""
+            #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+            #nullable enable
+            #endif
+            
+            {content}
+
+            #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+            #nullable restore
+            #endif
             """;
     }
 

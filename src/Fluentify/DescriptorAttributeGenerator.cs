@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Text;
 /// Generates the Descriptor attribute, used to denote the preferred name for the extension methods associated with
 /// a property of a record type is to be subjected to <see cref="RecordGenerator"/>.
 /// </summary>
-[Generator]
+[Generator(LanguageNames.CSharp)]
 public sealed class DescriptorAttributeGenerator
     : IIncrementalGenerator
 {

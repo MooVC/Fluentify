@@ -30,10 +30,10 @@ public sealed class WhenGetGenericsIsCalled
         _ = parameter.HasReferenceTypeConstraint.Returns(true);
         _ = parameter.HasValueTypeConstraint.Returns(false);
         _ = parameter.HasConstructorConstraint.Returns(true);
-        _ = parameter.ConstraintTypes.Returns(ImmutableArray<ITypeSymbol>.Empty);
+        _ = parameter.ConstraintTypes.Returns([]);
 
         INamedTypeSymbol symbol = Substitute.For<INamedTypeSymbol>();
-        _ = symbol.TypeParameters.Returns(ImmutableArray.Create(parameter));
+        _ = symbol.TypeParameters.Returns([parameter]);
 
         // Act
         IReadOnlyList<Generic> generics = symbol.GetGenerics();
@@ -54,10 +54,10 @@ public sealed class WhenGetGenericsIsCalled
         _ = parameter.HasReferenceTypeConstraint.Returns(false);
         _ = parameter.HasValueTypeConstraint.Returns(false);
         _ = parameter.HasConstructorConstraint.Returns(false);
-        _ = parameter.ConstraintTypes.Returns(ImmutableArray<ITypeSymbol>.Empty);
+        _ = parameter.ConstraintTypes.Returns([]);
 
         INamedTypeSymbol symbol = Substitute.For<INamedTypeSymbol>();
-        _ = symbol.TypeParameters.Returns(ImmutableArray.Create(parameter));
+        _ = symbol.TypeParameters.Returns([parameter]);
 
         // Act
         IReadOnlyList<Generic> generics = symbol.GetGenerics();
@@ -78,17 +78,17 @@ public sealed class WhenGetGenericsIsCalled
         _ = parameter1.HasReferenceTypeConstraint.Returns(true);
         _ = parameter1.HasValueTypeConstraint.Returns(false);
         _ = parameter1.HasConstructorConstraint.Returns(true);
-        _ = parameter1.ConstraintTypes.Returns(ImmutableArray<ITypeSymbol>.Empty);
+        _ = parameter1.ConstraintTypes.Returns([]);
 
         ITypeParameterSymbol parameter2 = Substitute.For<ITypeParameterSymbol>();
         _ = parameter2.Name.Returns("T2");
         _ = parameter2.HasReferenceTypeConstraint.Returns(false);
         _ = parameter2.HasValueTypeConstraint.Returns(true);
         _ = parameter2.HasConstructorConstraint.Returns(false);
-        _ = parameter2.ConstraintTypes.Returns(ImmutableArray<ITypeSymbol>.Empty);
+        _ = parameter2.ConstraintTypes.Returns([]);
 
         INamedTypeSymbol symbol = Substitute.For<INamedTypeSymbol>();
-        _ = symbol.TypeParameters.Returns(ImmutableArray.Create(parameter1, parameter2));
+        _ = symbol.TypeParameters.Returns([parameter1, parameter2]);
 
         // Act
         IReadOnlyList<Generic> generics = symbol.GetGenerics();
@@ -117,10 +117,10 @@ public sealed class WhenGetGenericsIsCalled
         _ = parameter.HasReferenceTypeConstraint.Returns(false);
         _ = parameter.HasValueTypeConstraint.Returns(false);
         _ = parameter.HasConstructorConstraint.Returns(true);
-        _ = parameter.ConstraintTypes.Returns(ImmutableArray.Create<ITypeSymbol>(constraint));
+        _ = parameter.ConstraintTypes.Returns([constraint]);
 
         INamedTypeSymbol symbol = Substitute.For<INamedTypeSymbol>();
-        _ = symbol.TypeParameters.Returns(ImmutableArray.Create(parameter));
+        _ = symbol.TypeParameters.Returns([parameter]);
 
         // Act
         IReadOnlyList<Generic> generics = symbol.GetGenerics();

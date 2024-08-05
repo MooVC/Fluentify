@@ -27,34 +27,34 @@ internal sealed class Subject
     public IReadOnlyList<Generic> Generics { get; set; } = [];
 
     /// <summary>
-    /// Gets or sets a value indicating whether or not the class upon which the Fluentify attribute has been placed has a default constructor.
+    /// Gets a value indicating whether or not the type upon which the Fluentify attribute has been placed has a default constructor.
     /// </summary>
     /// <value>
-    /// A value indicating whether or not the class upon which the Fluentify attribute has been placed has a default constructor.
+    /// A value indicating whether or not the type upon which the Fluentify attribute has been placed has a default constructor.
     /// </value>
-    public bool HasDefaultConstructor { get; set; }
+    public bool HasDefaultConstructor => Type.IsBuildable;
 
     /// <summary>
-    /// Gets or sets a value indicating whether or not the class upon which the Fluentify attribute has been placed is marked as partial.
+    /// Gets or sets a value indicating whether or not the type upon which the Fluentify attribute has been placed is marked as partial.
     /// </summary>
     /// <value>
-    /// A value indicating whether or not the class upon which the Fluentify attribute has been placed is marked as partial.
+    /// A value indicating whether or not the type upon which the Fluentify attribute has been placed is marked as partial.
     /// </value>
     public bool IsPartial { get; set; }
 
     /// <summary>
-    /// Gets or sets the name of the class upon which the Fluentify attribute has been placed.
+    /// Gets or sets the name of the type upon which the Fluentify attribute has been placed.
     /// </summary>
     /// <value>
-    /// The name of the class upon which the Fluentify attribute has been placed.
+    /// The name of the type upon which the Fluentify attribute has been placed.
     /// </value>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the namespace for the class upon which the Fluentify attribute has been placed.
+    /// Gets or sets the namespace for the type upon which the Fluentify attribute has been placed.
     /// </summary>
     /// <value>
-    /// The namespace for the class upon which the Fluentify attribute has been placed.
+    /// The namespace for the type upon which the Fluentify attribute has been placed.
     /// </value>
     public string Namespace { get; set; } = string.Empty;
 
@@ -65,6 +65,14 @@ internal sealed class Subject
     /// The properties associated with the subject.
     /// </value>
     public IReadOnlyList<Property> Properties { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the data type of the Subject.
+    /// </summary>
+    /// <value>
+    /// The data type of the Subject.
+    /// </value>
+    public Type Type { get; set; } = Type.Unspecified;
 
     /// <inheritdoc/>
     public override string ToString()
@@ -87,9 +95,9 @@ internal sealed class Subject
         }
 
         yield return Accessibility;
-        yield return HasDefaultConstructor;
         yield return IsPartial;
         yield return Name;
         yield return Namespace;
+        yield return Type;
     }
 }

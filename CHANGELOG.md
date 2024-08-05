@@ -6,6 +6,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2024-08-05
+
+## Changed
+
+- The fully qualified type information for the subject upon which Fluentify has been placed is now captured and utilized when generating extensions, thereby enabling support for nested classes (#3).
+- Utilized Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing to improve the quality of the Generator tests.
+
+## Fixed
+
+- The generated code files no longer include the namespace if the containing namespace is global (#6).
+- The generated code files for classes now apply a conditional preprocessor directive to #nullable calls to prevent compilation failure in .NET Standard 2.0 projects.
+- The generated extensions no longer call ArgumentNullException.ThrowIfNull to prevent compilation failure in .NET Standard 2.0 projects.
+- The generated extensions no longer use pattern matching to prevent compilation failure in .NET Standard 2.0 projects.
+- The generated constructor for records now applies a preprocessor directive to the SetRequiredMembers attribute to prevent compilation failure in .NET 6 projects (#5).
+
 ## [1.0.0] - 2024-07-22
 
 Initial Release

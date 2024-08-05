@@ -9,6 +9,16 @@ internal sealed class Type
     : Value<Type>
 {
     /// <summary>
+    /// The alias for the <see cref="bool"/> type.
+    /// </summary>
+    public const string BooleanAlias = "bool";
+
+    /// <summary>
+    /// The annotation used to denote if a type is deemed to be nullable.
+    /// </summary>
+    public const string NullableAnnotation = "?";
+
+    /// <summary>
     /// Denotes a Type that has not been configured.
     /// </summary>
     public static readonly Type Unspecified = new();
@@ -19,7 +29,7 @@ internal sealed class Type
     /// <value>
     /// The value indicating whether or not the type is a boolean.
     /// </value>
-    public bool IsBoolean => Name.Length <= 5 && Name.StartsWith("bool", StringComparison.InvariantCulture);
+    public bool IsBoolean => Name.Length <= 5 && Name.StartsWith(BooleanAlias, StringComparison.InvariantCulture);
 
     /// <summary>
     /// Gets or sets a value indicating whether or not the type adheres to the new() constraint.
@@ -38,19 +48,22 @@ internal sealed class Type
     public bool IsNullable { get; set; }
 
     /// <summary>
-    /// Gets or sets the fully qualified name of the type.
+    /// Gets or sets the name of the type.
     /// </summary>
     /// <value>
-    /// The fully qualified name of the type.
+    /// The name of the type.
     /// </value>
+    /// <remarks>
+    /// When the type is a fundamental type, then the alias is typically used, otherwise the fully qualified type name is used.
+    /// </remarks>
     public string Name { get; set; } = string.Empty;
 
     /// <inheritdoc/>
     public override string ToString()
     {
-        if (IsNullable && !Name.EndsWith("?"))
+        if (IsNullable && !Name.EndsWith(NullableAnnotation))
         {
-            return $"{Name}?";
+            return string.Concat(Name, NullableAnnotation);
         }
 
         return Name;

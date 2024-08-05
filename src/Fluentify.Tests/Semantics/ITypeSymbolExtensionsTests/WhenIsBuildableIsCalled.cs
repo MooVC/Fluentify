@@ -1,10 +1,11 @@
 ﻿namespace Fluentify.Semantics.ITypeSymbolExtensionsTests;
 
+using Fluentify.Semantics;
 using Microsoft.CodeAnalysis;
 
 public sealed class WhenIsBuildableIsCalled
 {
-    public static readonly TheoryData<Compilation, string, Type> GivenABuildablePropertyThenTrueIsReturnedData = new()
+    public static readonly TheoryData<Compilation, string, Definition> GivenABuildablePropertyThenTrueIsReturnedData = new()
     {
         { Classes.Instance.Compilation, "Simple", Classes.Instance.CrossReferenced },
         { Classes.Instance.Compilation, "Name", Classes.Instance.MultipleGenerics },
@@ -12,7 +13,7 @@ public sealed class WhenIsBuildableIsCalled
         { Records.Instance.Compilation, "Name", Records.Instance.MultipleGenerics },
     };
 
-    public static readonly TheoryData<Compilation, string, Type> GivenANonBuildablePropertyThenFalseIsReturnedData = new()
+    public static readonly TheoryData<Compilation, string, Definition> GivenANonBuildablePropertyThenFalseIsReturnedData = new()
     {
         { Classes.Instance.Compilation, "Age", Classes.Instance.Boolean },
         { Classes.Instance.Compilation, "IsRetired", Classes.Instance.Boolean },
@@ -40,10 +41,10 @@ public sealed class WhenIsBuildableIsCalled
 
     [Theory]
     [MemberData(nameof(GivenABuildablePropertyThenTrueIsReturnedData))]
-    public void GivenABuildablePropertyThenTrueIsReturned(Compilation compilation, string property, Type type)
+    public void GivenABuildablePropertyThenTrueIsReturned(Compilation compilation, string property, Definition definition)
     {
         // Arrange
-        IPropertySymbol symbol = type.GetProperty(property);
+        IPropertySymbol symbol = definition.GetProperty(property);
 
         // Act
         bool isBuildable = symbol.Type.IsBuildable(compilation, CancellationToken.None);
@@ -54,10 +55,10 @@ public sealed class WhenIsBuildableIsCalled
 
     [Theory]
     [MemberData(nameof(GivenANonBuildablePropertyThenFalseIsReturnedData))]
-    public void GivenANonBuildablePropertyThenFalseIsReturned(Compilation compilation, string property, Type type)
+    public void GivenANonBuildablePropertyThenFalseIsReturned(Compilation compilation, string property, Definition definition)
     {
         // Arrange
-        IPropertySymbol symbol = type.GetProperty(property);
+        IPropertySymbol symbol = definition.GetProperty(property);
 
         // Act
         bool isBuildable = symbol.Type.IsBuildable(compilation, CancellationToken.None);

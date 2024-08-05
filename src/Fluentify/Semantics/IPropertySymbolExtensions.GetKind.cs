@@ -22,6 +22,13 @@ internal static partial class IPropertySymbolExtensions
 
     private delegate bool IsMatch(Compilation compilation, Kind kind, IPropertySymbol property, CancellationToken cancellationToken);
 
+    /// <summary>
+    /// Gets information relating to the data type captured by the property in the form of a <see cref="Kind"/>.
+    /// </summary>
+    /// <param name="property">The property from which the type infromation is to be obtained.</param>
+    /// <param name="compilation">The <see cref="Compilation"/> used to determine if the data type allows for internal construction.</param>
+    /// <param name="cancellationToken">A <see cref="CancellationToken" /> that can be used to cancel the operation.</param>
+    /// <returns>The <see cref="Kind"/> that encapsulates the information relating to the data type of the <paramref name="property"/>.</returns>
     public static Kind GetKind(this IPropertySymbol property, Compilation compilation, CancellationToken cancellationToken)
     {
         var kind = new Kind

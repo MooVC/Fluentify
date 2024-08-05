@@ -15,7 +15,9 @@ public sealed class WhenGetConstructorIsCalled
             {
                 #pragma warning disable CS8604
 
+                #if NET7_0_OR_GREATER
                 [SetsRequiredMembers]
+                #endif
                 public TestClass()
                     : this()
                 {
@@ -49,7 +51,9 @@ public sealed class WhenGetConstructorIsCalled
             {
                 #pragma warning disable CS8604
 
+                #if NET7_0_OR_GREATER
                 [SetsRequiredMembers]
+                #endif
                 public TestClass()
                     : this(default, default)
                 {

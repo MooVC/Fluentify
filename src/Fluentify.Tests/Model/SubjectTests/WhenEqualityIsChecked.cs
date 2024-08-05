@@ -1,9 +1,7 @@
 ﻿namespace Fluentify.Model.SubjectTests;
 
 using System.Collections.Generic;
-using FluentAssertions;
 using Microsoft.CodeAnalysis;
-using Xunit;
 
 public abstract class WhenEqualityIsChecked
 {
@@ -58,21 +56,29 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Generics = generics,
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
             Properties = properties,
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
         var instance2 = new Subject
         {
             Accessibility = Accessibility.Public,
             Generics = generics,
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
             Properties = properties,
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
 
         // Act
@@ -90,21 +96,29 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Generics = [],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
             Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
         var instance2 = new Subject
         {
             Accessibility = Accessibility.Private,
             Generics = [],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
             Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
 
         // Act
@@ -122,53 +136,29 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Generics = [new Generic { Name = "GenericName1" }],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
             Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
         var instance2 = new Subject
         {
             Accessibility = Accessibility.Public,
             Generics = [new Generic { Name = "GenericName2" }],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
             Properties = [],
-        };
-
-        // Act
-        bool areEqual = AreEqual(instance1, instance2);
-
-        // Assert
-        _ = areEqual.Should().BeFalse();
-    }
-
-    [Fact]
-    public void GivenDifferentHasDefaultConstructorThenTheyAreNotEqual()
-    {
-        // Arrange
-        var instance1 = new Subject
-        {
-            Accessibility = Accessibility.Public,
-            Generics = [],
-            HasDefaultConstructor = true,
-            IsPartial = false,
-            Name = "SubjectName",
-            Namespace = "SubjectNamespace",
-            Properties = [],
-        };
-        var instance2 = new Subject
-        {
-            Accessibility = Accessibility.Public,
-            Generics = [],
-            HasDefaultConstructor = false,
-            IsPartial = false,
-            Name = "SubjectName",
-            Namespace = "SubjectNamespace",
-            Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
 
         // Act
@@ -186,21 +176,29 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Generics = [],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
             Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
         var instance2 = new Subject
         {
             Accessibility = Accessibility.Public,
             Generics = [],
-            HasDefaultConstructor = true,
             IsPartial = true,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
             Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
 
         // Act
@@ -218,21 +216,29 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Generics = [],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName1",
             Namespace = "SubjectNamespace",
             Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
         var instance2 = new Subject
         {
             Accessibility = Accessibility.Public,
             Generics = [],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName2",
             Namespace = "SubjectNamespace",
             Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
 
         // Act
@@ -250,21 +256,29 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Generics = [],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "Namespace1",
             Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
         var instance2 = new Subject
         {
             Accessibility = Accessibility.Public,
             Generics = [],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "Namespace2",
             Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
 
         // Act
@@ -282,21 +296,69 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Generics = [],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
             Properties = [new Property { Name = "PropertyName1" }],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
         var instance2 = new Subject
         {
             Accessibility = Accessibility.Public,
             Generics = [],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
             Properties = [new Property { Name = "PropertyName2" }],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
+        };
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        _ = areEqual.Should().BeFalse();
+    }
+
+    [Fact]
+    public void GivenDifferentTypeThenTheyAreNotEqual()
+    {
+        // Arrange
+        var instance1 = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Generics = [],
+            IsPartial = false,
+            Name = "SubjectName",
+            Namespace = "SubjectNamespace",
+            Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
+        };
+        var instance2 = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Generics = [],
+            IsPartial = false,
+            Name = "SubjectName",
+            Namespace = "SubjectNamespace",
+            Properties = [],
+            Type = new()
+            {
+                IsBuildable = false,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
 
         // Act
@@ -314,11 +376,15 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Generics = [],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
             Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
 
         // Act
@@ -350,11 +416,15 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Generics = [],
-            HasDefaultConstructor = true,
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
             Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
         };
 
         // Act

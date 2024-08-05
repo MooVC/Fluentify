@@ -26,7 +26,7 @@ internal static partial class PropertyExtensions
         return $$"""
             {{kind}} value = values;
 
-            if (subject.{{property.Name}} is not null)
+            if (subject.{{property.Name}} != null)
             {
                 value = subject.{{property.Name}}
                     .Union(values)

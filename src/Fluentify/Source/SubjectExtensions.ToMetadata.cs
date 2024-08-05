@@ -22,7 +22,6 @@ internal static partial class SubjectExtensions
             Constraints = constraints,
             Parameters = parameters,
             Subject = subject,
-            Type = string.Concat(subject.Name, parameters),
         };
     }
 }

@@ -38,10 +38,20 @@ public sealed class RecordGenerator
         }
     }
 
+    /// <inheritdoc/>
+    private protected override string Wrap(string content)
+    {
+        return $"""
+            #nullable enable
+            {content}
+            #nullable restore
+            """;
+    }
+
     private static Source GenerateConstructor(Subject subject)
     {
         string content = subject.GetConstructor();
-        string hint = $"{subject.Namespace}.{subject.Name}.ctor.g.cs";
+        string hint = $"{subject.Name}.ctor.g.cs";
 
         return new Source
         {

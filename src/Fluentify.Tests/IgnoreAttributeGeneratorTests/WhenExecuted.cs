@@ -1,23 +1,22 @@
 ﻿namespace Fluentify.IgnoreAttributeGeneratorTests;
 
+using Fluentify.Snippets;
+
 public sealed class WhenExecuted
-    : WhenPostInitializationOutputGeneratorIsExecuted<IgnoreAttributeGenerator>
+    : GeneratorTests<IgnoreAttributeGenerator>
 {
-    internal const string Source = $$"""
-        namespace Fluentify
-        {
-            using System;
-
-            [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
-            internal sealed class IgnoreAttribute
-                : Attribute
-            {
-            }
-        }
-        """;
-
     public WhenExecuted()
-        : base(Source)
+        : base(Classes.ReferenceAssemblies, Classes.LanguageVersion)
     {
+    }
+
+    [Fact]
+    public async Task GivenAnAssemblyThenTheAttributeIsGenerated()
+    {
+        // Arrange
+        Attributes.Ignore.IsExpectedIn(TestState);
+
+        // Act & Assert
+        await ActAndAssertAsync();
     }
 }
