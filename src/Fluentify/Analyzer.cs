@@ -50,6 +50,23 @@ public abstract class Analyzer<TSyntax>
     }
 
     /// <summary>
+    /// Raises a <see cref="Diagnostic"/> instance within the specified <paramref name="context"/>.
+    /// </summary>
+    /// <param name="context">
+    /// Context for a syntax node action. A syntax node action can use a Microsoft.CodeAnalysis.Diagnostics.SyntaxNodeAnalysisContext
+    /// to report Microsoft.CodeAnalysis.Diagnostics for a Microsoft.CodeAnalysis.SyntaxNode.
+    /// </param>
+    /// <param name="descriptor">A <see cref="DiagnosticDescriptor"/> describing the diagnostic.</param>
+    /// <param name="location">An location of the diagnostic.</param>
+    /// <param name="arguments">Arguments to the message of the diagnostic.</param>
+    protected static void Raise(SyntaxNodeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, params object[] arguments)
+    {
+        var diagnostic = Diagnostic.Create(descriptor, location, arguments);
+
+        context.ReportDiagnostic(diagnostic);
+    }
+
+    /// <summary>
     /// Performs analysis upon the <paramref name="syntax"/>, which is deemed to have matched the
     /// <typeparamref name="TSyntax"/> and <see cref="kind"/> values.
     /// </summary>
@@ -61,23 +78,6 @@ public abstract class Analyzer<TSyntax>
     /// The <typeparamref name="TSyntax"/> matched within the <paramref name="context"/> to which the analysis is to be applied.
     /// </param>
     protected abstract void AnalyzeNode(SyntaxNodeAnalysisContext context, TSyntax syntax);
-
-    /// <summary>
-    /// Raises a <see cref="Diagnostic"/> instance within the specified <paramref name="context"/>.
-    /// </summary>
-    /// <param name="context">
-    /// Context for a syntax node action. A syntax node action can use a Microsoft.CodeAnalysis.Diagnostics.SyntaxNodeAnalysisContext
-    /// to report Microsoft.CodeAnalysis.Diagnostics for a Microsoft.CodeAnalysis.SyntaxNode.
-    /// </param>
-    /// <param name="descriptor">A <see cref="DiagnosticDescriptor"/> describing the diagnostic.</param>
-    /// <param name="location">An location of the diagnostic.</param>
-    /// <param name="arguments">Arguments to the message of the diagnostic.</param>
-    protected void Raise(SyntaxNodeAnalysisContext context, DiagnosticDescriptor descriptor, Location location, params object[] arguments)
-    {
-        var diagnostic = Diagnostic.Create(descriptor, location, arguments);
-
-        context.ReportDiagnostic(diagnostic);
-    }
 
     private void AnalyzeNode(SyntaxNodeAnalysisContext context)
     {
