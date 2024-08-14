@@ -78,6 +78,8 @@ public static partial class Classes
             SimpleWithNameExtensions,
             SimpleWithAttributesExtensions);
 
+        Single = new(SingleContent, nameof(Single), SingleWithAgeExtensions);
+
         SingleGeneric = new(
             SingleGenericContent,
             nameof(SingleGeneric),

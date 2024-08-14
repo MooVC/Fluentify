@@ -7,7 +7,7 @@
 internal sealed class SimpleWithEnumerables
 {
     /// <summary>
-    /// Gets or sets the first property to be subject to the extension generator.
+    /// Gets the first property to be subject to the extension generator.
     /// </summary>
     /// <value>
     /// The first property to be subject to the extension generator.
@@ -15,7 +15,7 @@ internal sealed class SimpleWithEnumerables
     public required int Age { get; init; }
 
     /// <summary>
-    /// Gets or sets the second property to be subject to the extension generator.
+    /// Gets the second property to be subject to the extension generator.
     /// </summary>
     /// <value>
     /// The second property to be subject to the extension generator.
@@ -23,7 +23,7 @@ internal sealed class SimpleWithEnumerables
     public required string Name { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the third property to be subject to the extension generator.
+    /// Gets the third property to be subject to the extension generator.
     /// </summary>
     /// <value>
     /// The third property to be subject to the extension generator.
@@ -31,7 +31,7 @@ internal sealed class SimpleWithEnumerables
     public required IEnumerable<object> Attributes { get; init; }
 
     /// <summary>
-    /// Gets or sets the fourth property to be subject to the extension generator.
+    /// Gets the fourth property to be subject to the extension generator.
     /// </summary>
     /// <value>
     /// The fourth property to be subject to the extension generator.
@@ -39,7 +39,7 @@ internal sealed class SimpleWithEnumerables
     public required IReadOnlyCollection<int> Numbers { get; init; }
 
     /// <summary>
-    /// Gets or sets the fifth property to be subject to the extension generator.
+    /// Gets the fifth property to be subject to the extension generator.
     /// </summary>
     /// <value>
     /// The fifth property to be subject to the extension generator.

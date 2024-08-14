@@ -50,7 +50,7 @@ public static partial class Records
                 [SetsRequiredMembers]
                 #endif
                 public DescriptorOnOptional()
-                    : this(default, default, default)
+                    : this(default(int), default(string), default(global::System.Collections.Generic.IReadOnlyList<object>?))
                 {
                 }
 

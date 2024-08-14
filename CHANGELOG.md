@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2024-08-15
+
+## Fixed
+
+- The default constructor, generated for record types when marked as partial, now applies the fully qualified type when propagating the default value, thereby removing the potential for ambiguity with the projection constructor (#8).
+
 ## [1.1.0] - 2024-08-05
 
 ## Changed

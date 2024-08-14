@@ -35,12 +35,12 @@ internal sealed class Property
     public Kind Kind { get; set; } = Kind.Unspecified;
 
     /// <summary>
-    /// Gets a value indicating whether or not the property has been annotated with the Ignore attribute.
+    /// Gets or sets a value indicating whether or not the property has been annotated with the Ignore attribute.
     /// </summary>
     /// <value>
     /// A value indicating whether or not the property has been annotated with the Ignore attribute.
     /// </value>
-    public bool IsIgnored => Kind == Kind.Unspecified;
+    public bool IsIgnored { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the property as defined within the subject.
@@ -55,6 +55,7 @@ internal sealed class Property
     {
         yield return Accessibility;
         yield return Descriptor;
+        yield return IsIgnored;
         yield return Kind;
         yield return Name;
     }

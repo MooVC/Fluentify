@@ -51,7 +51,7 @@ public static partial class Records
                 [SetsRequiredMembers]
                 #endif
                 public SingleGeneric()
-                    : this(default, default, default)
+                    : this(default(int), default(string), default(T?))
                 {
                 }
 

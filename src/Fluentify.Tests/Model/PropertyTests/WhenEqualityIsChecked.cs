@@ -14,6 +14,7 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
+            IsIgnored = true,
             Kind = new()
             {
                 Type = new()
@@ -27,6 +28,7 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
+            IsIgnored = true,
             Kind = new()
             {
                 Type = new()
@@ -52,6 +54,7 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
+            IsIgnored = true,
             Kind = new()
             {
                 Type = new()
@@ -65,6 +68,7 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Private,
             Descriptor = "descriptor",
+            IsIgnored = true,
             Kind = new()
             {
                 Type = new()
@@ -90,6 +94,7 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor1",
+            IsIgnored = true,
             Kind = new()
             {
                 Type = new()
@@ -103,6 +108,47 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor2",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
+            Name = "PropertyName",
+        };
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        _ = areEqual.Should().BeFalse();
+    }
+
+    [Fact]
+    public void GivenDifferentIsIgnoredThenTheyAreNotEqual()
+    {
+        // Arrange
+        var instance1 = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "descriptor",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
+            Name = "PropertyName",
+        };
+        var instance2 = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "descriptor",
+            IsIgnored = false,
             Kind = new()
             {
                 Type = new()
@@ -128,6 +174,7 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
+            IsIgnored = true,
             Kind = new()
             {
                 Type = new()
@@ -141,6 +188,7 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
+            IsIgnored = true,
             Kind = new()
             {
                 Type = new()
@@ -166,6 +214,7 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
+            IsIgnored = true,
             Kind = new()
             {
                 Type = new()
@@ -179,6 +228,7 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
+            IsIgnored = true,
             Kind = new()
             {
                 Type = new()
@@ -204,6 +254,7 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
+            IsIgnored = true,
             Kind = new()
             {
                 Type = new()
@@ -243,6 +294,7 @@ public abstract class WhenEqualityIsChecked
         {
             Accessibility = Accessibility.Public,
             Descriptor = "descriptor",
+            IsIgnored = true,
             Kind = new()
             {
                 Type = new()

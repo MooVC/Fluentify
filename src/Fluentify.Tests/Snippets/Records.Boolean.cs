@@ -48,7 +48,7 @@ public static partial class Records
                 [SetsRequiredMembers]
                 #endif
                 public Boolean()
-                    : this(default, default, default)
+                    : this(default(int), default(bool), default(string))
                 {
                 }
 

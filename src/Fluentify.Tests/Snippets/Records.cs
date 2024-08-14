@@ -88,6 +88,8 @@ public static partial class Records
             SimpleWithNameExtensions,
             SimpleWithAttributesExtensions);
 
+        Single = new(SingleContent, nameof(Single), SingleConstructor, SingleWithAgeExtensions);
+
         SingleGeneric = new(
             SingleGenericContent,
             nameof(SingleGeneric),

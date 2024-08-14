@@ -28,13 +28,13 @@ internal static partial class INamedTypeSymbolExtensions
 
     private static Property Map(this IPropertySymbol property, Compilation compilation, CancellationToken cancellationToken)
     {
+        Kind kind = property.GetKind(compilation, cancellationToken);
+        bool isIgnored = property.HasIgnore();
         string? descriptor = default;
-        Kind kind = Kind.Unspecified;
 
-        if (!property.HasIgnore())
+        if (!isIgnored)
         {
             descriptor = property.GetDescriptor();
-            kind = property.GetKind(compilation, cancellationToken);
         }
 
         descriptor ??= kind.Type.IsBoolean
@@ -45,8 +45,9 @@ internal static partial class INamedTypeSymbolExtensions
         {
             Accessibility = property.DeclaredAccessibility,
             Descriptor = descriptor,
-            Name = property.Name,
+            IsIgnored = isIgnored,
             Kind = kind,
+            Name = property.Name,
         };
     }
 }

@@ -53,7 +53,7 @@ public static partial class Records
                 [SetsRequiredMembers]
                 #endif
                 public MultipleGenerics()
-                    : this(default, default, default)
+                    : this(default(T1?), default(T2?), default(T3))
                 {
                 }
 

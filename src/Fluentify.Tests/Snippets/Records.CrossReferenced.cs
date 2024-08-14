@@ -43,7 +43,7 @@ public static partial class Records
                 [SetsRequiredMembers]
                 #endif
                 public CrossReferenced()
-                    : this(default, default)
+                    : this(default(string), default(global::Fluentify.Records.Testing.Simple))
                 {
                 }
 
