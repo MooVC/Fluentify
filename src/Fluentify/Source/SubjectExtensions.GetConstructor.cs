@@ -16,7 +16,7 @@ internal static partial class SubjectExtensions
     /// </returns>
     public static string GetConstructor(this Subject subject)
     {
-        IEnumerable<string> initializers = subject.Properties.Select(_ => "default");
+        IEnumerable<string> initializers = subject.Properties.Select(property => $"default({property.Kind})");
         string parameters = string.Join(", ", initializers);
 
         return $$"""

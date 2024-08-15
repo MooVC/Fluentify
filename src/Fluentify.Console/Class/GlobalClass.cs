@@ -1,7 +1,5 @@
-﻿#pragma warning disable SA1200 // Using directives should be placed correctly
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using Fluentify;
-#pragma warning restore SA1200 // Using directives should be placed correctly
 
 /// <summary>
 /// A class that demonstrates the libraries use without generics.
@@ -11,7 +9,7 @@ using Fluentify;
 internal sealed class GlobalClass
 {
     /// <summary>
-    /// Gets or sets the first property to be subject to the extension generator.
+    /// Gets the first property to be subject to the extension generator.
     /// </summary>
     /// <value>
     /// The first property to be subject to the extension generator.
@@ -19,7 +17,7 @@ internal sealed class GlobalClass
     public int Age { get; init; }
 
     /// <summary>
-    /// Gets or sets the second property to be subject to the extension generator.
+    /// Gets the second property to be subject to the extension generator.
     /// </summary>
     /// <value>
     /// The second property to be subject to the extension generator.
@@ -27,7 +25,7 @@ internal sealed class GlobalClass
     public string Name { get; init; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the third property to be subject to the extension generator.
+    /// Gets the third property to be subject to the extension generator.
     /// </summary>
     /// <value>
     /// The third property to be subject to the extension generator.

@@ -266,6 +266,14 @@ public sealed class WhenGetPropertiesIsCalled
         var name = new Property
         {
             Descriptor = "WithName",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "Name",
         };
 
@@ -283,6 +291,14 @@ public sealed class WhenGetPropertiesIsCalled
         var age = new Property
         {
             Descriptor = "WithAge",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "int",
+                },
+            },
             Name = "Age",
         };
 
@@ -291,6 +307,14 @@ public sealed class WhenGetPropertiesIsCalled
         var name = new Property
         {
             Descriptor = "WithName",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
             Name = "Name",
         };
 
@@ -349,7 +373,25 @@ public sealed class WhenGetPropertiesIsCalled
     [MemberData(nameof(GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
     {
-        GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturned(compilation, definition, isNullable);
+        // Arrange
+        var name = new Property
+        {
+            Descriptor = "WithName",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
+            Name = "Name",
+        };
+
+        Property attributes = GetAttributes(isNullable);
+
+        // Act & Assert
+        ActAndAssert(compilation, definition, age, attributes, name);
     }
 
     private static void ActAndAssert(Compilation compilation, Definition definition, params Property[] expected)

@@ -35,7 +35,7 @@ public static partial class Records
                 [SetsRequiredMembers]
                 #endif
                 public AllThreeIgnored()
-                    : this(default, default, default)
+                    : this(default(int), default(string), default(global::System.Collections.Generic.IReadOnlyList<object>?))
                 {
                 }
 

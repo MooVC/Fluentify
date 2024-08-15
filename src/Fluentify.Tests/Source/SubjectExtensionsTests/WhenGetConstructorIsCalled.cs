@@ -55,7 +55,7 @@ public sealed class WhenGetConstructorIsCalled
                 [SetsRequiredMembers]
                 #endif
                 public TestClass()
-                    : this(default, default)
+                    : this(default(string), default(int))
                 {
                 }
 
