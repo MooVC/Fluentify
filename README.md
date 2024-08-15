@@ -290,7 +290,7 @@ MyService service = MyServiceBuilder
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit pull requests or open issues to suggest improvements or add new features.
+Contributions are welcome - see the [CONTRIBUTING.md](CONTRIBUTING.md) file for details.
 
 ## License
 

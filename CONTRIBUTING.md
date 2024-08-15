@@ -26,7 +26,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 
 ## I Have a Question
 
-> If you want to ask a question, we assume that you have read the available [Documentation](https://github.com/MooVC/Fluentify/blob/master/README.md).
+> If you want to ask a question, we assume that you have read the available [Documentation](README.md).
 
 Before you ask a question, it is best to search for existing [Issues](https://github.com/MooVC/Fluentify/issues) that might help you. In case you have found a suitable issue and still need clarification, you can write your question in this issue. It is also advisable to search the internet for answers first.
 
@@ -51,7 +51,7 @@ We will then take care of the issue as soon as possible.
 A good bug report shouldn't leave others needing to chase you up for more information. Therefore, we ask you to investigate carefully, collect information and describe the issue in detail in your report. Please complete the following steps in advance to help us fix any potential bug as fast as possible.
 
 - Make sure that you are using the latest version.
-- Determine if your bug is really a bug and not an error on your side e.g. using incompatible environment components/versions (Make sure that you have read the [documentation](https://github.com/MooVC/Fluentify/blob/master/README.md). If you are looking for support, you might want to check [this section](#i-have-a-question)).
+- Determine if your bug is really a bug and not an error on your side e.g. using incompatible environment components/versions (Make sure that you have read the [documentation](README.md). If you are looking for support, you might want to check [this section](#i-have-a-question)).
 - To see if other users have experienced (and potentially already solved) the same issue you are having, check if there is not already a bug report existing for your bug or error in the [bug tracker](https://github.com/MooVC/Fluentify/issues?q=label%3Abug).
 - Also make sure to search the internet (including Stack Overflow) to see if users outside of the GitHub community have discussed the issue.
 - Collect information about the bug:
@@ -190,7 +190,7 @@ All tests should pass if the setup is correct.
 
 ### Improving The Documentation
 
-Contributions to the documentation are crucial in making Fluentify more accessible and useful to everyone. While the [README.md](https://github.com/MooVC/Fluentify/blob/master/README.md) provides basic usage examples, there is significant potential for improvement.
+Contributions to the documentation are crucial in making Fluentify more accessible and useful to everyone. While the [README.md](README.md) provides basic usage examples, there is significant potential for improvement.
 
 All public and internal methods in the code are commented to aid in the extension and maintenance of the library. However, a dedicated contributor's guide would be a valuable addition to help new contributors navigate the project more effectively.
 
