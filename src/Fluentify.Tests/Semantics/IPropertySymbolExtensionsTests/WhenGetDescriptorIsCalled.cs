@@ -10,9 +10,15 @@ public sealed class WhenGetDescriptorIsCalled
         { "Aged", "Age", Classes.Instance.DescriptorOnRequired },
         { "AttributedWith", "Attributes", Classes.Instance.DescriptorOnOptional },
         { "Named", "Name", Classes.Instance.DescriptorOnIgnored },
+        { "Age", "Age", Classes.Instance.SelfDescriptorOnRequired },
+        { "Attributes", "Attributes", Classes.Instance.SelfDescriptorOnOptional },
+        { "Name", "Name", Classes.Instance.SelfDescriptorOnIgnored },
         { "Aged", "Age", Records.Instance.DescriptorOnRequired },
         { "AttributedWith", "Attributes", Records.Instance.DescriptorOnOptional },
         { "Named", "Name", Records.Instance.DescriptorOnIgnored },
+        { "Age", "Age", Records.Instance.SelfDescriptorOnRequired },
+        { "Attributes", "Attributes", Records.Instance.SelfDescriptorOnOptional },
+        { "Name", "Name", Records.Instance.SelfDescriptorOnIgnored },
     };
 
     public static readonly TheoryData<Definition> GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturnedData = new()

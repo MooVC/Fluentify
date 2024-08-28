@@ -25,6 +25,9 @@ internal abstract partial class Types<T>
         Global = GetDefinition(declarations, nameof(Global));
         OneOfThreeIgnored = GetDefinition(declarations, nameof(OneOfThreeIgnored));
         MultipleGenerics = GetDefinition(declarations, nameof(MultipleGenerics));
+        SelfDescriptorOnIgnored = GetDefinition(declarations, nameof(SelfDescriptorOnIgnored));
+        SelfDescriptorOnOptional = GetDefinition(declarations, nameof(SelfDescriptorOnOptional));
+        SelfDescriptorOnRequired = GetDefinition(declarations, nameof(SelfDescriptorOnRequired));
         Simple = GetDefinition(declarations, nameof(Simple));
         SingleGeneric = GetDefinition(declarations, nameof(SingleGeneric));
         TwoOfThreeIgnored = GetDefinition(declarations, nameof(TwoOfThreeIgnored));
@@ -53,6 +56,12 @@ internal abstract partial class Types<T>
     public Definition MultipleGenerics { get; }
 
     public Definition OneOfThreeIgnored { get; }
+
+    public Definition SelfDescriptorOnIgnored { get; }
+
+    public Definition SelfDescriptorOnOptional { get; }
+
+    public Definition SelfDescriptorOnRequired { get; }
 
     public Definition Simple { get; }
 

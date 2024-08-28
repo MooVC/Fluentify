@@ -80,6 +80,29 @@ public static partial class Records
             OneOfThreeIgnoredWithAgeExtensions,
             OneOfThreeIgnoredWithAttributesExtensions);
 
+        SelfDescriptorOnIgnored = new(
+            SelfDescriptorOnIgnoredContent,
+            nameof(SelfDescriptorOnIgnored),
+            SelfDescriptorOnIgnoredConstructor,
+            SelfDescriptorOnIgnoredWithAgeExtensions,
+            SelfDescriptorOnIgnoredWithAttributesExtensions);
+
+        SelfDescriptorOnOptional = new(
+            SelfDescriptorOnOptionalContent,
+            nameof(SelfDescriptorOnOptional),
+            SelfDescriptorOnOptionalConstructor,
+            SelfDescriptorOnOptionalWithAgeExtensions,
+            SelfDescriptorOnOptionalWithNameExtensions,
+            SelfDescriptorOnOptionalAttributesExtensions);
+
+        SelfDescriptorOnRequired = new(
+            SelfDescriptorOnRequiredContent,
+            nameof(SelfDescriptorOnRequired),
+            SelfDescriptorOnRequiredConstructor,
+            SelfDescriptorOnRequiredAgeExtensions,
+            SelfDescriptorOnRequiredWithNameExtensions,
+            SelfDescriptorOnRequiredWithAttributesExtensions);
+
         Simple = new(
             SimpleContent,
             nameof(Simple),

@@ -71,6 +71,26 @@ public static partial class Classes
             OneOfThreeIgnoredWithAgeExtensions,
             OneOfThreeIgnoredWithAttributesExtensions);
 
+        SelfDescriptorOnIgnored = new(
+            SelfDescriptorOnIgnoredContent,
+            nameof(SelfDescriptorOnIgnored),
+            SelfDescriptorOnIgnoredWithAgeExtensions,
+            SelfDescriptorOnIgnoredWithAttributesExtensions);
+
+        SelfDescriptorOnOptional = new(
+            SelfDescriptorOnOptionalContent,
+            nameof(SelfDescriptorOnOptional),
+            SelfDescriptorOnOptionalWithAgeExtensions,
+            SelfDescriptorOnOptionalWithNameExtensions,
+            SelfDescriptorOnOptionalAttributesExtensions);
+
+        SelfDescriptorOnRequired = new(
+            SelfDescriptorOnRequiredContent,
+            nameof(SelfDescriptorOnRequired),
+            SelfDescriptorOnRequiredAgeExtensions,
+            SelfDescriptorOnRequiredWithNameExtensions,
+            SelfDescriptorOnRequiredWithAttributesExtensions);
+
         Simple = new(
             SimpleContent,
             nameof(Simple),
