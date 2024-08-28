@@ -1,13 +1,12 @@
-﻿namespace Fluentify.Console.Class.Descriptor;
+﻿namespace Fluentify.Console.Class.SelfDescriptor;
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 
 /// <summary>
 /// A class that demonstrates the libraries use without generics.
 /// </summary>
 [Fluentify]
-internal sealed class OnIgnored
+internal sealed class OnOptional
 {
     /// <summary>
     /// Gets the first property to be subject to the extension generator.
@@ -23,9 +22,6 @@ internal sealed class OnIgnored
     /// <value>
     /// The second property to be subject to the extension generator.
     /// </value>
-    [Descriptor("Named")]
-    [Ignore]
-    [SuppressMessage("Usage", "FLTFY02:Descriptor is disregarded from consideration by Fluentify", Justification = "The test is intended to demonstrate the outcome of combining the two attributes.")]
     public required string Name { get; init; }
 
     /// <summary>
@@ -34,5 +30,6 @@ internal sealed class OnIgnored
     /// <value>
     /// The third property to be subject to the extension generator.
     /// </value>
+    [Descriptor]
     public required IReadOnlyList<object>? Attributes { get; init; }
 }

@@ -127,7 +127,7 @@ public static partial class Classes
 
                     instance = builder(instance);
 
-                    return subject.AttributedWith(instance);
+                    return subject.Attributes(instance);
                 }
             }
         }

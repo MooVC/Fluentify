@@ -10,8 +10,4 @@ using Fluentify.Console.Record.Example.Simple;
 /// <param name="ReleasedOn">The date on which the Movie was released.</param>
 /// <param name="Title">The title of the Movie.</param>
 [Fluentify]
-public partial record Movie(
-    Actor[] Actors,
-    [Descriptor("OfGenre")] Genre Genre,
-    [Descriptor("ReleasedOn")] DateOnly ReleasedOn,
-    string Title);
+public partial record Movie(Actor[] Actors, [Descriptor("OfGenre")] Genre Genre, [Descriptor] DateOnly ReleasedOn, string Title);

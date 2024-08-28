@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Console.Class.Descriptor;
+﻿namespace Fluentify.Console.Class.SelfDescriptor;
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -23,7 +23,7 @@ internal sealed class OnIgnored
     /// <value>
     /// The second property to be subject to the extension generator.
     /// </value>
-    [Descriptor("Named")]
+    [Descriptor]
     [Ignore]
     [SuppressMessage("Usage", "FLTFY02:Descriptor is disregarded from consideration by Fluentify", Justification = "The test is intended to demonstrate the outcome of combining the two attributes.")]
     public required string Name { get; init; }

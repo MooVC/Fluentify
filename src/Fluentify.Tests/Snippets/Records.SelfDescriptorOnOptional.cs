@@ -139,7 +139,7 @@ public static partial class Records
 
                     instance = builder(instance);
 
-                    return subject.AttributedWith(instance);
+                    return subject.Attributes(instance);
                 }
             }
         }
