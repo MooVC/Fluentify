@@ -144,4 +144,13 @@
   <data name="ValidNamingRuleTitle" xml:space="preserve">
     <value>Descriptor must adhere to the naming conventions for Methods</value>
   </data>
+  <data name="RedundantRuleTitle" xml:space="preserve">
+    <value>Specified descriptor is already the default used by Fluentify</value>
+  </data>
+  <data name="RedundantRuleMessageFormat" xml:space="preserve">
+    <value>Descriptor '{0}' for Property '{1}' is Redundant - Fluentify already applies this descriptor by default.</value>
+  </data>
+  <data name="RedundantRuleDescription" xml:space="preserve">
+    <value>The Descriptor for the Property matches the default value applied by Fluentify, making use of the Descriptor attribute redundant.</value>
+  </data>
 </root>

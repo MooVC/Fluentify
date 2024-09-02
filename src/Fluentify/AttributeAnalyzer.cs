@@ -1,5 +1,6 @@
 ﻿namespace Fluentify;
 
+using System.Collections.Immutable;
 using Fluentify.Semantics;
 using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
@@ -16,13 +17,11 @@ public abstract class AttributeAnalyzer
     private readonly string name;
 
     /// <summary>
-    /// Facilitates construction of an analyzer that matches for the specified <paramref name="kind"/> and
-    /// may raise the specified <paramref name="diagnostics"/> if the conditions in the derived class are met.
+    /// Facilitates construction of an analyzer that matches for the specified <paramref name="kind"/>.
     /// </summary>
     /// <param name="name">The name of the attribute to match.</param>
-    /// <param name="diagnostics">The rules that are applied and potentially raised by the analyzer.</param>
-    private protected AttributeAnalyzer(string name, params DiagnosticDescriptor[] diagnostics)
-        : base(SyntaxKind.Attribute, diagnostics)
+    private protected AttributeAnalyzer(string name)
+        : base(SyntaxKind.Attribute)
     {
         this.name = name;
     }

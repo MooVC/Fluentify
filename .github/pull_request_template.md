@@ -11,7 +11,7 @@ Please provide a brief description of the changes you have made, including the p
 
 Please ensure the following are true for your PR:
 
-- [ ] I have followed the project's [coding style guidelines](CONTRIBUTING.md).
+- [ ] I have followed the project's [coding style guidelines](/.github/CONTRIBUTING.md).
 - [ ] I have added tests that prove my fix is effective or that my feature works.
 - [ ] I have verified that new and existing unit tests pass locally with my changes.
 - [ ] I have updated the documentation (if applicable).

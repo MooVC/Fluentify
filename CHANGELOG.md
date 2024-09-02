@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.0] - TBC
+
+## Added
+
+- FLTFY07 is now raised if the usage of the `Descriptor` attribute results in the same value that Fluentify would selected by default.
+
+## Changed
+
+- The Descriptor attribute can now direct Fluentify to use the delcared name as the Descriptor without having to repeat the declared name (#9). 
+
 ## [1.1.1] - 2024-08-15
 
 ## Fixed

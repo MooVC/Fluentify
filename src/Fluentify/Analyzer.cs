@@ -1,6 +1,5 @@
 ﻿namespace Fluentify;
 
-using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
@@ -17,19 +16,13 @@ public abstract class Analyzer<TSyntax>
     private readonly SyntaxKind kind;
 
     /// <summary>
-    /// Facilitates construction of an analyzer that matches for the specified <paramref name="kind"/> and
-    /// may raise the specified <paramref name="diagnostics"/> if the conditions in the derived class are met.
+    /// Facilitates construction of an analyzer that matches for the specified <paramref name="kind"/>.
     /// </summary>
     /// <param name="kind">The type of syntax to match.</param>
-    /// <param name="diagnostics">The rules that are applied and potentially raised by the analyzer.</param>
-    private protected Analyzer(SyntaxKind kind, params DiagnosticDescriptor[] diagnostics)
+    private protected Analyzer(SyntaxKind kind)
     {
         this.kind = kind;
-        SupportedDiagnostics = ImmutableArray.Create(diagnostics);
     }
-
-    /// <inheritdoc/>
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; }
 
     /// <inheritdoc/>
     public sealed override void Initialize(AnalysisContext context)

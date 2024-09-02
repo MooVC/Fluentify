@@ -7,6 +7,9 @@ If you are unfamiliar with Fluent Builder pattern, please review [Building Compl
 ```csharp
 var movie = new Movie
 {
+    Genre = Genre.SciFi,
+    Title = "Star Trek: First Contact",
+    ReleasedOn = new DateOnly(1996, 12, 13),
     Actors =
     [
         new Actor
@@ -16,9 +19,6 @@ var movie = new Movie
             Surname = "Stewart",
         },
     ],
-    Genre = Genre.SciFi,
-    ReleasedOn = new DateOnly(1996, 12, 13),
-    Title = "Star Trek: First Contact",
 };
 ```
 
@@ -145,7 +145,7 @@ public partial record Actor(
 public partial record Movie(
     Actor[] Actors,
     [Descriptor("OfGenre")] Genre Genre,
-    [Descriptor("ReleasedOn")] DateOnly ReleasedOn,
+    [Descriptor] DateOnly ReleasedOn,
     string Title);
 ```
 
@@ -171,7 +171,7 @@ public class Movie
     [Descriptor("OfGenre")] 
     public Genre Genre { get; init; }
     
-    [Descriptor("ReleasedOn")]
+    [Descriptor]
     public DateOnly ReleasedOn { get; init; }
     
     public string Title { get; init; }
@@ -242,6 +242,7 @@ Rule ID                          | Category | Severity | Notes
 [FLTFY04](docs/rules/FLTFY04.md) | Naming   | Warning  | Descriptor must adhere to the naming conventions for Methods
 [FLTFY05](docs/rules/FLTFY05.md) | Usage    | Info     | Type does not utilize Fluentify
 [FLTFY06](docs/rules/FLTFY06.md) | Usage    | Info     | Property is already disregarded from consideration by Fluentify
+[FLTFY07](docs/rules/FLTFY07.md) | Usage    | Info     | Specified descriptor is already the default used by Fluentify
 
 ## Building a Service
 
@@ -290,7 +291,7 @@ MyService service = MyServiceBuilder
 
 ## Contributing
 
-Contributions are welcome - see the [CONTRIBUTING.md](CONTRIBUTING.md) file for details.
+Contributions are welcome - see the [CONTRIBUTING.md](/.github/CONTRIBUTING.md) file for details.
 
 ## License
 

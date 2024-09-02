@@ -9,11 +9,6 @@ internal sealed class Type
     : Value<Type>
 {
     /// <summary>
-    /// The alias for the <see cref="bool"/> type.
-    /// </summary>
-    public const string BooleanAlias = "bool";
-
-    /// <summary>
     /// The annotation used to denote if a type is deemed to be nullable.
     /// </summary>
     public const string NullableAnnotation = "?";
@@ -22,14 +17,6 @@ internal sealed class Type
     /// Denotes a Type that has not been configured.
     /// </summary>
     public static readonly Type Unspecified = new();
-
-    /// <summary>
-    /// Gets a value indicating whether or not the type is a boolean.
-    /// </summary>
-    /// <value>
-    /// The value indicating whether or not the type is a boolean.
-    /// </value>
-    public bool IsBoolean => Name.Length <= 5 && Name.StartsWith(BooleanAlias, StringComparison.InvariantCulture);
 
     /// <summary>
     /// Gets or sets a value indicating whether or not the type adheres to the new() constraint.

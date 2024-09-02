@@ -115,6 +115,33 @@ namespace Fluentify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The Descriptor for the Property matches the default value applied by Fluentify, making use of the Descriptor attribute redundant..
+        /// </summary>
+        internal static string RedundantRuleDescription {
+            get {
+                return ResourceManager.GetString("RedundantRuleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descriptor &apos;{0}&apos; for Property &apos;{1}&apos; is Redundant - Fluentify already applies this descriptor by default..
+        /// </summary>
+        internal static string RedundantRuleMessageFormat {
+            get {
+                return ResourceManager.GetString("RedundantRuleMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specified descriptor is already the default used by Fluentify.
+        /// </summary>
+        internal static string RedundantRuleTitle {
+            get {
+                return ResourceManager.GetString("RedundantRuleTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The value provided for the Descriptor will be used as the name of the extension method and must adhere to the standard C# .NET naming conventions for methods..
         /// </summary>
         internal static string ValidNamingRuleDescription {

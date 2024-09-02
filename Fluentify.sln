@@ -38,13 +38,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		CHANGELOG.md = CHANGELOG.md
 		codecov.yml = codecov.yml
 		.github\CODEOWNERS = .github\CODEOWNERS
-		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
-		CONTRIBUTING.md = CONTRIBUTING.md
+		.github\CODE_OF_CONDUCT.md = .github\CODE_OF_CONDUCT.md
+		.github\CONTRIBUTING.md = .github\CONTRIBUTING.md
 		.github\dependabot.yml = .github\dependabot.yml
 		LICENSE = LICENSE
 		nuget.config = nuget.config
 		.github\pull_request_template.md = .github\pull_request_template.md
 		README.md = README.md
+		.github\SECURITY.md = .github\SECURITY.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluentify.Tests", "src\Fluentify.Tests\Fluentify.Tests.csproj", "{25FAA0FE-0B5A-489F-8145-DF74C9BADD81}"
@@ -61,6 +62,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rules", "Rules", "{14CECDE5
 		docs\rules\FLTFY04.md = docs\rules\FLTFY04.md
 		docs\rules\FLTFY05.md = docs\rules\FLTFY05.md
 		docs\rules\FLTFY06.md = docs\rules\FLTFY06.md
+		docs\rules\FLTFY07.md = docs\rules\FLTFY07.md
 	EndProjectSection
 EndProject
 Global

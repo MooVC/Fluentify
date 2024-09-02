@@ -23,23 +23,28 @@ public abstract partial class WhenExecuted
 
     protected static DiagnosticResult GetExpectedDisregardedRule(string member, LinePosition position)
     {
-        return GetExpected(member, position, DescriptorAttributeAnalyzer.DisregardedRule);
+        return GetExpected(position, DescriptorAttributeAnalyzer.DisregardedRule, member);
     }
 
     protected static DiagnosticResult GetExpectedMissingFluentifyRule(string @class, LinePosition position)
     {
-        return GetExpected(@class, position, DescriptorAttributeAnalyzer.MissingFluentifyRule);
+        return GetExpected(position, DescriptorAttributeAnalyzer.MissingFluentifyRule, @class);
+    }
+
+    protected static DiagnosticResult GetExpectedRedundantRule(string descriptor, string member, LinePosition position)
+    {
+        return GetExpected(position, DescriptorAttributeAnalyzer.RedundantRule, descriptor, member);
     }
 
     protected static DiagnosticResult GetExpectedValidNamingRule(string descriptor, LinePosition position)
     {
-        return GetExpected(descriptor, position, DescriptorAttributeAnalyzer.ValidNamingRule);
+        return GetExpected(position, DescriptorAttributeAnalyzer.ValidNamingRule, descriptor);
     }
 
-    private static DiagnosticResult GetExpected(string argument, LinePosition position, DiagnosticDescriptor rule)
+    private static DiagnosticResult GetExpected(LinePosition position, DiagnosticDescriptor rule, params object[] arguments)
     {
         return new DiagnosticResult(rule)
-            .WithArguments(argument)
+            .WithArguments(arguments)
             .WithLocation(position);
     }
 }

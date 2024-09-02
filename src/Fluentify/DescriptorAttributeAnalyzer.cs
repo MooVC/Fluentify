@@ -1,5 +1,7 @@
 ﻿namespace Fluentify;
 
+using System.Collections.Immutable;
+using System.Data;
 using Fluentify.Semantics;
 using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
@@ -19,9 +21,18 @@ public sealed class DescriptorAttributeAnalyzer
     /// Facilitates construction of the analyzer.
     /// </summary>
     public DescriptorAttributeAnalyzer()
-        : base(Name, DisregardedRule, MissingFluentifyRule, ValidNamingRule)
+        : base(Name)
     {
     }
+
+    /// <inheritdoc/>
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
+    [
+        DisregardedRule,
+        MissingFluentifyRule,
+        RedundantRule,
+        ValidNamingRule,
+    ];
 
     /// <summary>
     /// Gets the descriptor associated with the disregarded rule (FLTFY02).
@@ -71,6 +82,22 @@ public sealed class DescriptorAttributeAnalyzer
         description: GetResourceString(nameof(ValidNamingRuleDescription)),
         helpLinkUri: GetHelpLinkUri("FLTFY04"));
 
+    /// <summary>
+    /// Gets the descriptor associated with the redundant rule (FLTFY07).
+    /// </summary>
+    /// <value>
+    /// The descriptor associated with the redundant rule (FLTFY07).
+    /// </value>
+    internal static DiagnosticDescriptor RedundantRule { get; } = new(
+        "FLTFY07",
+        GetResourceString(nameof(RedundantRuleTitle)),
+        GetResourceString(nameof(RedundantRuleMessageFormat)),
+        "Usage",
+        DiagnosticSeverity.Info,
+        isEnabledByDefault: true,
+        description: GetResourceString(nameof(RedundantRuleDescription)),
+        helpLinkUri: GetHelpLinkUri("FLTFY07"));
+
     /// <inheritdoc/>
     protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, IMethodSymbol symbol, AttributeSyntax syntax)
     {
@@ -82,10 +109,30 @@ public sealed class DescriptorAttributeAnalyzer
         {
             Raise(context, ValidNamingRule, location, descriptor);
         }
-        else if (IsViolatingDisregardedRule(context, syntax, out location, out string name))
+        else if (IsViolatingDisregardedRule(context, syntax, out location, out string name, out ISymbol? member))
         {
             Raise(context, DisregardedRule, location, name);
         }
+        else if (IsViolatingRedundantRule(member!, syntax, ref descriptor, out location, out name))
+        {
+            Raise(context, RedundantRule, location, descriptor, name);
+        }
+    }
+
+    private static bool IsViolatingRedundantRule(ISymbol symbol, AttributeSyntax syntax, ref string descriptor, out Location location, out string name)
+    {
+        if (IsSelfDescribing(symbol, ref descriptor))
+        {
+            location = syntax.GetLocation();
+            name = symbol.Name;
+
+            return true;
+        }
+
+        location = Location.None;
+        name = string.Empty;
+
+        return false;
     }
 
     private static LocalizableResourceString GetResourceString(string name)
@@ -93,9 +140,46 @@ public sealed class DescriptorAttributeAnalyzer
         return new(name, ResourceManager, typeof(DescriptorAttributeAnalyzer_Resources));
     }
 
-    private static bool IsViolatingDisregardedRule(SyntaxNodeAnalysisContext context, AttributeSyntax syntax, out Location location, out string name)
+    private static bool HasDescriptor(AttributeArgumentSyntax argument, SyntaxNodeAnalysisContext context, out string descriptor)
     {
-        ISymbol? symbol = syntax.GetParent<ParameterSyntax>(context)
+        Optional<object?> constant = context
+            .SemanticModel
+            .GetConstantValue(argument.Expression, cancellationToken: context.CancellationToken);
+
+        if (!constant.HasValue || constant.Value is not string value)
+        {
+            descriptor = string.Empty;
+
+            return false;
+        }
+
+        descriptor = value;
+
+        return true;
+    }
+
+    private static bool IsSelfDescribing(ISymbol symbol, ref string descriptor)
+    {
+        string @default = symbol.GetDefaultDescriptor();
+
+        if (string.IsNullOrEmpty(descriptor))
+        {
+            descriptor = @default;
+
+            return true;
+        }
+
+        return string.Equals(@default, descriptor, StringComparison.Ordinal);
+    }
+
+    private static bool IsViolatingDisregardedRule(
+        SyntaxNodeAnalysisContext context,
+        AttributeSyntax syntax,
+        out Location location,
+        out string name,
+        out ISymbol? symbol)
+    {
+        symbol = syntax.GetParent<ParameterSyntax>(context)
             ?? syntax.GetParent<PropertyDeclarationSyntax>(context);
 
         if (symbol is null || !symbol.HasIgnore())
@@ -129,16 +213,11 @@ public sealed class DescriptorAttributeAnalyzer
             return false;
         }
 
-        Optional<object?> constant = context
-            .SemanticModel
-            .GetConstantValue(argument.Expression, cancellationToken: context.CancellationToken);
-
-        if (!constant.HasValue || constant.Value is not string value || Pattern.IsMatch(value))
+        if (HasDescriptor(argument, context, out descriptor) && Pattern.IsMatch(descriptor))
         {
             return false;
         }
 
-        descriptor = value;
         location = argument.GetLocation();
 
         return true;
