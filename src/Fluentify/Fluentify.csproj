@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>A .NET Roslyn Source Generator designed to automate the creation of Fluent APIs. This tool enables engineers to rapidly develop rich, expressive, and maintainable APIs with ease. Utilizing Fluentify allows for cleaner code, easier maintenance, and more expressive interactions within your C# .NET applications.</Description>
+    <NoWarn>RS2002;RS2003</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="Analyzer.Resources.Designer.cs">

@@ -1,7 +1,6 @@
 ﻿namespace Fluentify;
 
 using System.Collections.Immutable;
-using System.Data;
 using Fluentify.Semantics;
 using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
@@ -164,9 +163,7 @@ public sealed class DescriptorAttributeAnalyzer
 
         if (string.IsNullOrEmpty(descriptor))
         {
-            descriptor = @default;
-
-            return true;
+            descriptor = symbol.Name;
         }
 
         return string.Equals(@default, descriptor, StringComparison.Ordinal);
