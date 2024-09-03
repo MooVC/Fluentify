@@ -40,6 +40,24 @@ public sealed class WhenGetDefaultDescriptorIsCalled
         { "WithAge", "Age", Records.Instance.Unannotated },
     };
 
+    [Fact]
+    public void GivenAnUnrecognizedSymbolThenTheDefaultDescriptorIsReturned()
+    {
+        // Arrange
+        const string name = "Age";
+        const string expected = $"With{name}";
+
+        ISymbol symbol = Substitute.For<ITypeSymbol>();
+
+        _ = symbol.Name.Returns(name);
+
+        // Act
+        string? actual = symbol.GetDefaultDescriptor();
+
+        // Assert
+        _ = actual.Should().Be(expected);
+    }
+
     [Theory]
     [MemberData(nameof(GivenParametersThenExpectedDefaultDescriptorsIsReturnedData))]
     public void GivenParametersThenExpectedDefaultDescriptorsIsReturned(string descriptor, string parameter, Definition definition)
