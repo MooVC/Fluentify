@@ -58,6 +58,13 @@ public static partial class Classes
             GlobalWithNameExtensions,
             GlobalWithAttributesExtensions);
 
+        InvalidDescriptor = new(
+            InvalidDescriptorContent,
+            nameof(InvalidDescriptor),
+            InvalidDescriptorWithAgeExtensions,
+            InvalidDescriptorWithNameExtensions,
+            InvalidDescriptorWithAttributesExtensions);
+
         MultipleGenerics = new(
             MultipleGenericsContent,
             nameof(MultipleGenerics),

@@ -17,6 +17,7 @@ internal sealed class Classes
             DescriptorOnOptionalContent,
             DescriptorOnRequiredContent,
             GlobalContent,
+            InvalidDescriptorContent,
             MultipleGenericsContent,
             OneOfThreeIgnoredContent,
             SelfDescriptorOnIgnoredContent,

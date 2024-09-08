@@ -65,6 +65,14 @@ public static partial class Records
             GlobalWithNameExtensions,
             GlobalWithAttributesExtensions);
 
+        InvalidDescriptor = new(
+            InvalidDescriptorContent,
+            nameof(InvalidDescriptor),
+            InvalidDescriptorConstructor,
+            InvalidDescriptorWithAgeExtensions,
+            InvalidDescriptorWithNameExtensions,
+            InvalidDescriptorWithAttributesExtensions);
+
         MultipleGenerics = new(
             MultipleGenericsContent,
             nameof(MultipleGenerics),

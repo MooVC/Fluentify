@@ -23,6 +23,7 @@ internal abstract partial class Types<T>
         DescriptorOnOptional = GetDefinition(declarations, nameof(DescriptorOnOptional));
         DescriptorOnRequired = GetDefinition(declarations, nameof(DescriptorOnRequired));
         Global = GetDefinition(declarations, nameof(Global));
+        InvalidDescriptor = GetDefinition(declarations, nameof(InvalidDescriptor));
         OneOfThreeIgnored = GetDefinition(declarations, nameof(OneOfThreeIgnored));
         MultipleGenerics = GetDefinition(declarations, nameof(MultipleGenerics));
         SelfDescriptorOnIgnored = GetDefinition(declarations, nameof(SelfDescriptorOnIgnored));
@@ -52,6 +53,8 @@ internal abstract partial class Types<T>
     public Definition DescriptorOnRequired { get; }
 
     public Definition Global { get; }
+
+    public Definition InvalidDescriptor { get; }
 
     public Definition MultipleGenerics { get; }
 
