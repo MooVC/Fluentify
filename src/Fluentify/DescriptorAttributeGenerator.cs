@@ -31,12 +31,16 @@ public sealed class DescriptorAttributeGenerator
             internal sealed class {{Name}}Attribute
                 : Attribute
             {
+                public {{Name}}Attribute()
+                {
+                }
+
                 public {{Name}}Attribute(string value)
                 {
                     Value = value;
                 }
 
-                public string Value { get; }
+                public string Value { get; } = string.Empty;
             }
         }
         """;

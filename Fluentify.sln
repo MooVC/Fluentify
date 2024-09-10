@@ -31,27 +31,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analyzers", "Analyzers", "{
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EDFD8FBD-CDAB-4EAE-986C-538E457515D0}"
-	ProjectSection(SolutionItems) = preProject
-		.filenesting.json = .filenesting.json
-		.gitignore = .gitignore
-		.runsettings = .runsettings
-		CHANGELOG.md = CHANGELOG.md
-		codecov.yml = codecov.yml
-		.github\CODEOWNERS = .github\CODEOWNERS
-		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
-		CONTRIBUTING.md = CONTRIBUTING.md
-		.github\dependabot.yml = .github\dependabot.yml
-		LICENSE = LICENSE
-		nuget.config = nuget.config
-		.github\pull_request_template.md = .github\pull_request_template.md
-		README.md = README.md
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluentify.Tests", "src\Fluentify.Tests\Fluentify.Tests.csproj", "{25FAA0FE-0B5A-489F-8145-DF74C9BADD81}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluentify.Console.Tests", "src\Fluentify.Console.Tests\Fluentify.Console.Tests.csproj", "{4CAAA913-C6DD-4FD2-AF51-BCB89E6DD44F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{E9DE67A5-339C-4BA3-BD91-F9E0937B3BFF}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		.github\CODE_OF_CONDUCT.md = .github\CODE_OF_CONDUCT.md
+		.github\CONTRIBUTING.md = .github\CONTRIBUTING.md
+		LICENSE = LICENSE
+		README.md = README.md
+		.github\SECURITY.md = .github\SECURITY.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rules", "Rules", "{14CECDE5-92C5-4ADC-A1B7-8BC089588D0B}"
 	ProjectSection(SolutionItems) = preProject
@@ -61,6 +54,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rules", "Rules", "{14CECDE5
 		docs\rules\FLTFY04.md = docs\rules\FLTFY04.md
 		docs\rules\FLTFY05.md = docs\rules\FLTFY05.md
 		docs\rules\FLTFY06.md = docs\rules\FLTFY06.md
+		docs\rules\FLTFY07.md = docs\rules\FLTFY07.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{62844182-B1F0-4244-AE6A-C7272BE585F5}"
+	ProjectSection(SolutionItems) = preProject
+		.filenesting.json = .filenesting.json
+		.gitignore = .gitignore
+		.runsettings = .runsettings
+		codecov.yml = codecov.yml
+		.github\CODEOWNERS = .github\CODEOWNERS
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{69C82B4D-CAE6-4E96-805F-7BA9E581D65D}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug_report.md = .github\ISSUE_TEMPLATE\bug_report.md
+		.github\ISSUE_TEMPLATE\feature_request.md = .github\ISSUE_TEMPLATE\feature_request.md
+		.github\pull_request_template.md = .github\pull_request_template.md
 	EndProjectSection
 EndProject
 Global

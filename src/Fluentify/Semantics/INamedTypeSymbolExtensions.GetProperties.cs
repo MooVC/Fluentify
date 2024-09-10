@@ -37,9 +37,7 @@ internal static partial class INamedTypeSymbolExtensions
             descriptor = property.GetDescriptor();
         }
 
-        descriptor ??= kind.Type.IsBoolean
-            ? property.Name
-            : $"With{property.Name}";
+        descriptor ??= property.GetDefaultDescriptor();
 
         return new Property
         {

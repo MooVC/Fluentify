@@ -58,6 +58,13 @@ public static partial class Classes
             GlobalWithNameExtensions,
             GlobalWithAttributesExtensions);
 
+        InvalidDescriptor = new(
+            InvalidDescriptorContent,
+            nameof(InvalidDescriptor),
+            InvalidDescriptorWithAgeExtensions,
+            InvalidDescriptorWithNameExtensions,
+            InvalidDescriptorWithAttributesExtensions);
+
         MultipleGenerics = new(
             MultipleGenericsContent,
             nameof(MultipleGenerics),
@@ -70,6 +77,26 @@ public static partial class Classes
             nameof(OneOfThreeIgnored),
             OneOfThreeIgnoredWithAgeExtensions,
             OneOfThreeIgnoredWithAttributesExtensions);
+
+        SelfDescriptorOnIgnored = new(
+            SelfDescriptorOnIgnoredContent,
+            nameof(SelfDescriptorOnIgnored),
+            SelfDescriptorOnIgnoredWithAgeExtensions,
+            SelfDescriptorOnIgnoredWithAttributesExtensions);
+
+        SelfDescriptorOnOptional = new(
+            SelfDescriptorOnOptionalContent,
+            nameof(SelfDescriptorOnOptional),
+            SelfDescriptorOnOptionalWithAgeExtensions,
+            SelfDescriptorOnOptionalWithNameExtensions,
+            SelfDescriptorOnOptionalAttributesExtensions);
+
+        SelfDescriptorOnRequired = new(
+            SelfDescriptorOnRequiredContent,
+            nameof(SelfDescriptorOnRequired),
+            SelfDescriptorOnRequiredAgeExtensions,
+            SelfDescriptorOnRequiredNameExtensions,
+            SelfDescriptorOnRequiredWithAttributesExtensions);
 
         Simple = new(
             SimpleContent,

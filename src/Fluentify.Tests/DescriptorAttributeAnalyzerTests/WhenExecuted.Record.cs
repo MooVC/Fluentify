@@ -109,5 +109,54 @@ public partial class WhenExecuted
             // Act & Assert
             await ActAndAssertAsync();
         }
+
+        [Fact]
+        public async Task GivenASelfDescriptorOnANonBooleanWhenFluentifyIsAppliedToTheClassThenThenNoDiagnosticIsRaised()
+        {
+            // Arrange
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public record TestRecord([Descriptor] string Name);
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenARedundantSelfDescriptorOnANonBooleanWhenFluentifyIsAppliedToTheClassThenDisregardedRuleIsRaised()
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedRedundantRule("WithName", "Name", new LinePosition(3, 26)));
+
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public record TestRecord([Descriptor("WithName")] string Name);
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenASelfDescriptorOnABooleanWhenFluentifyIsAppliedToTheClassThenDisregardedRuleIsRaised()
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedRedundantRule("IsActive", "IsActive", new LinePosition(3, 26)));
+
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public record TestRecord([Descriptor] bool IsActive);
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
     }
 }

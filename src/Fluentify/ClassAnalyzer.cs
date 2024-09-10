@@ -1,5 +1,6 @@
 ﻿namespace Fluentify;
 
+using System.Collections.Immutable;
 using Fluentify.Semantics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -18,9 +19,12 @@ public sealed class ClassAnalyzer
     /// Facilitates construction of the analyzer.
     /// </summary>
     public ClassAnalyzer()
-        : base(SyntaxKind.ClassDeclaration, AccessibleDefaultConstructorRule)
+        : base(SyntaxKind.ClassDeclaration)
     {
     }
+
+    /// <inheritdoc/>
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = [AccessibleDefaultConstructorRule];
 
     /// <summary>
     /// Gets the descriptor associated with accessible default constructor rule (FLTFY01).

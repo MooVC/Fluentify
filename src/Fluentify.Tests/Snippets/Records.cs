@@ -65,6 +65,14 @@ public static partial class Records
             GlobalWithNameExtensions,
             GlobalWithAttributesExtensions);
 
+        InvalidDescriptor = new(
+            InvalidDescriptorContent,
+            nameof(InvalidDescriptor),
+            InvalidDescriptorConstructor,
+            InvalidDescriptorWithAgeExtensions,
+            InvalidDescriptorWithNameExtensions,
+            InvalidDescriptorWithAttributesExtensions);
+
         MultipleGenerics = new(
             MultipleGenericsContent,
             nameof(MultipleGenerics),
@@ -79,6 +87,29 @@ public static partial class Records
             OneOfThreeIgnoredConstructor,
             OneOfThreeIgnoredWithAgeExtensions,
             OneOfThreeIgnoredWithAttributesExtensions);
+
+        SelfDescriptorOnIgnored = new(
+            SelfDescriptorOnIgnoredContent,
+            nameof(SelfDescriptorOnIgnored),
+            SelfDescriptorOnIgnoredConstructor,
+            SelfDescriptorOnIgnoredWithAgeExtensions,
+            SelfDescriptorOnIgnoredWithAttributesExtensions);
+
+        SelfDescriptorOnOptional = new(
+            SelfDescriptorOnOptionalContent,
+            nameof(SelfDescriptorOnOptional),
+            SelfDescriptorOnOptionalConstructor,
+            SelfDescriptorOnOptionalWithAgeExtensions,
+            SelfDescriptorOnOptionalWithNameExtensions,
+            SelfDescriptorOnOptionalAttributesExtensions);
+
+        SelfDescriptorOnRequired = new(
+            SelfDescriptorOnRequiredContent,
+            nameof(SelfDescriptorOnRequired),
+            SelfDescriptorOnRequiredConstructor,
+            SelfDescriptorOnRequiredAgeExtensions,
+            SelfDescriptorOnRequiredNameExtensions,
+            SelfDescriptorOnRequiredWithAttributesExtensions);
 
         Simple = new(
             SimpleContent,

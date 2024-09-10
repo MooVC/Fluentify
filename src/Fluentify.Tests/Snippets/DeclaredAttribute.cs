@@ -5,7 +5,7 @@ using Xunit.Sdk;
 
 [AttributeUsage(AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
 public sealed class DeclaredAttribute
-        : DataAttribute
+    : DataAttribute
 {
     public DeclaredAttribute(Type source)
     {

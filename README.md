@@ -7,6 +7,9 @@ If you are unfamiliar with Fluent Builder pattern, please review [Building Compl
 ```csharp
 var movie = new Movie
 {
+    Genre = Genre.SciFi,
+    Title = "Star Trek: First Contact",
+    ReleasedOn = new DateOnly(1996, 12, 13),
     Actors =
     [
         new Actor
@@ -16,9 +19,6 @@ var movie = new Movie
             Surname = "Stewart",
         },
     ],
-    Genre = Genre.SciFi,
-    ReleasedOn = new DateOnly(1996, 12, 13),
-    Title = "Star Trek: First Contact",
 };
 ```
 
@@ -130,7 +130,9 @@ Console.WriteLine(@new.Actors.Length);     // Displays 2
 
 ## Custom Descriptors
 
-The name of the generated extension method(s) can be customized via the `Descriptor` attribute.
+By default, Fluentify will generate an extension method for each property using the `With{Property Name}` pattern for all types, with the exception of `bool`, which defaults to the declared name of the property.
+
+The name used can be customized via the `Descriptor` attribute. When a descriptor is provided that is deemed acceptable as a method name to the compiler, it is applied to the extension method. When no descriptor is provided, the declared name of the property used.
 
 ### Record Type Usage
 
@@ -145,7 +147,7 @@ public partial record Actor(
 public partial record Movie(
     Actor[] Actors,
     [Descriptor("OfGenre")] Genre Genre,
-    [Descriptor("ReleasedOn")] DateOnly ReleasedOn,
+    [Descriptor] DateOnly ReleasedOn,
     string Title);
 ```
 
@@ -171,7 +173,7 @@ public class Movie
     [Descriptor("OfGenre")] 
     public Genre Genre { get; init; }
     
-    [Descriptor("ReleasedOn")]
+    [Descriptor]
     public DateOnly ReleasedOn { get; init; }
     
     public string Title { get; init; }
@@ -190,12 +192,6 @@ var movie = new Movie()
        .WithSurname("Stewart")
        .BornIn(1940));
 ```
-
-When no custom descriptor is specified, the extension method(s) will use the following pattern for all property types, except `bool`:
-
-`With{PropertyName}`
-
-For `bool`, the extension method will utilize the same name as the property.
 
 ## Property Exclusion
 
@@ -242,6 +238,7 @@ Rule ID                          | Category | Severity | Notes
 [FLTFY04](docs/rules/FLTFY04.md) | Naming   | Warning  | Descriptor must adhere to the naming conventions for Methods
 [FLTFY05](docs/rules/FLTFY05.md) | Usage    | Info     | Type does not utilize Fluentify
 [FLTFY06](docs/rules/FLTFY06.md) | Usage    | Info     | Property is already disregarded from consideration by Fluentify
+[FLTFY07](docs/rules/FLTFY07.md) | Usage    | Info     | Specified descriptor is already the default used by Fluentify
 
 ## Building a Service
 
@@ -290,7 +287,7 @@ MyService service = MyServiceBuilder
 
 ## Contributing
 
-Contributions are welcome - see the [CONTRIBUTING.md](CONTRIBUTING.md) file for details.
+Contributions are welcome - see the [CONTRIBUTING.md](/.github/CONTRIBUTING.md) file for details.
 
 ## License
 

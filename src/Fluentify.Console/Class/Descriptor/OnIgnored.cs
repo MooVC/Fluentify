@@ -1,6 +1,7 @@
 ﻿namespace Fluentify.Console.Class.Descriptor;
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 /// <summary>
 /// A class that demonstrates the libraries use without generics.
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 internal sealed class OnIgnored
 {
     /// <summary>
-    /// Gets or sets the first property to be subject to the extension generator.
+    /// Gets the first property to be subject to the extension generator.
     /// </summary>
     /// <value>
     /// The first property to be subject to the extension generator.
@@ -17,17 +18,18 @@ internal sealed class OnIgnored
     public required int Age { get; init; }
 
     /// <summary>
-    /// Gets or sets the second property to be subject to the extension generator.
+    /// Gets the second property to be subject to the extension generator.
     /// </summary>
     /// <value>
     /// The second property to be subject to the extension generator.
     /// </value>
     [Descriptor("Named")]
     [Ignore]
+    [SuppressMessage("Usage", "FLTFY02:Descriptor is disregarded from consideration by Fluentify", Justification = "The test is intended to demonstrate the outcome of combining the two attributes.")]
     public required string Name { get; init; }
 
     /// <summary>
-    /// Gets or sets the third property to be subject to the extension generator.
+    /// Gets the third property to be subject to the extension generator.
     /// </summary>
     /// <value>
     /// The third property to be subject to the extension generator.

@@ -7,7 +7,4 @@
 /// <param name="FirstName">The given name for the Actor.</param>
 /// <param name="Surname">The family name for the Actor.</param>
 [Fluentify]
-public partial record Actor(
-    [Descriptor("BornIn")] int Birthday,
-    string FirstName,
-    string Surname);
+public partial record Actor([Descriptor("BornIn")] int Birthday, string FirstName, string Surname);

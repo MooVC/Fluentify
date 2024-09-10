@@ -126,5 +126,85 @@ public partial class WhenExecuted
             // Act & Assert
             await ActAndAssertAsync();
         }
+
+        [Fact]
+        public async Task GivenAValidDescriptorOnABooleanWhenFluentifyIsAppliedToTheClassThenNoDiagnosticIsRaised()
+        {
+            // Arrange
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public class TestClass
+                {
+                    [Descriptor("IsDifferent")]
+                    public bool IsActive { get; set; }
+                }
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenASelfDescriptorOnANonBooleanWhenFluentifyIsAppliedToTheClassThenThenNoDiagnosticIsRaised()
+        {
+            // Arrange
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public class TestClass
+                {
+                    [Descriptor]
+                    public string Name { get; set; }
+                }
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenARedundantSelfDescriptorOnANonBooleanWhenFluentifyIsAppliedToTheClassThenDisregardedRuleIsRaised()
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedRedundantRule("WithName", "Name", new LinePosition(5, 5)));
+
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public class TestClass
+                {
+                    [Descriptor("WithName")]
+                    public string Name { get; set; }
+                }
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenASelfDescriptorOnABooleanWhenFluentifyIsAppliedToTheClassThenDisregardedRuleIsRaised()
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedRedundantRule("IsActive", "IsActive", new LinePosition(5, 5)));
+
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public class TestClass
+                {
+                    [Descriptor]
+                    public bool IsActive { get; set; }
+                }
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
     }
 }

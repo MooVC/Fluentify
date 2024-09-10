@@ -6,9 +6,7 @@
 /// <param name="ConnectionString">A sample connection string, a common requirement in services that often benefit from the Fluent Builder pattern.</param>
 /// <param name="Timeout">A timeout associated with the connection.</param>
 [Fluentify]
-public partial record MyServiceBuilder(
-    [Descriptor("ConnectsTo")] string ConnectionString,
-    [Descriptor("Waits")] int Timeout)
+public partial record MyServiceBuilder([Descriptor("ConnectsTo")] string ConnectionString, [Descriptor("Waits")] int Timeout)
 {
     /// <summary>
     /// Gets an initial value to facilitate ease of consumption of the Fluent API.

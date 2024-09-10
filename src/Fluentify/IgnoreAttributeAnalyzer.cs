@@ -1,5 +1,6 @@
 ﻿namespace Fluentify;
 
+using System.Collections.Immutable;
 using Fluentify.Semantics;
 using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
@@ -19,9 +20,12 @@ public sealed class IgnoreAttributeAnalyzer
     /// Facilitates construction of the analyzer.
     /// </summary>
     public IgnoreAttributeAnalyzer()
-        : base(Name, MissingFluentifyRule, RedundantUsageRule)
+        : base(Name)
     {
     }
+
+    /// <inheritdoc/>
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = [MissingFluentifyRule, RedundantUsageRule];
 
     /// <summary>
     /// Gets the descriptor associated with the missing fluentify rule (FLTFY05).

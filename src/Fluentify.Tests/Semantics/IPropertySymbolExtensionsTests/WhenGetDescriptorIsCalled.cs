@@ -5,14 +5,22 @@ using Microsoft.CodeAnalysis;
 
 public sealed class WhenGetDescriptorIsCalled
 {
-    public static readonly TheoryData<string, string, Definition> GivenPropertyWithDescriptorThenTheDescriptorIsReturnedData = new()
+    public static readonly TheoryData<string?, string, Definition> GivenPropertyWithDescriptorThenTheDescriptorIsReturnedData = new()
     {
         { "Aged", "Age", Classes.Instance.DescriptorOnRequired },
         { "AttributedWith", "Attributes", Classes.Instance.DescriptorOnOptional },
         { "Named", "Name", Classes.Instance.DescriptorOnIgnored },
+        { default, "Age", Classes.Instance.InvalidDescriptor },
+        { "Age", "Age", Classes.Instance.SelfDescriptorOnRequired },
+        { "Attributes", "Attributes", Classes.Instance.SelfDescriptorOnOptional },
+        { "Name", "Name", Classes.Instance.SelfDescriptorOnIgnored },
         { "Aged", "Age", Records.Instance.DescriptorOnRequired },
         { "AttributedWith", "Attributes", Records.Instance.DescriptorOnOptional },
         { "Named", "Name", Records.Instance.DescriptorOnIgnored },
+        { default, "Age", Records.Instance.InvalidDescriptor },
+        { "Age", "Age", Records.Instance.SelfDescriptorOnRequired },
+        { "Attributes", "Attributes", Records.Instance.SelfDescriptorOnOptional },
+        { "Name", "Name", Records.Instance.SelfDescriptorOnIgnored },
     };
 
     public static readonly TheoryData<Definition> GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturnedData = new()
@@ -39,7 +47,7 @@ public sealed class WhenGetDescriptorIsCalled
 
     [Theory]
     [MemberData(nameof(GivenPropertyWithDescriptorThenTheDescriptorIsReturnedData))]
-    public void GivenPropertyWithDescriptorThenTheDescriptorIsReturned(string descriptor, string property, Definition definition)
+    public void GivenPropertyWithDescriptorThenTheDescriptorIsReturned(string? descriptor, string property, Definition definition)
     {
         // Arrange
         IPropertySymbol symbol = definition.GetProperty(property);

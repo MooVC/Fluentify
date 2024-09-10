@@ -11,25 +11,36 @@ using static Fluentify.DescriptorAttributeGenerator;
 internal static partial class IPropertySymbolExtensions
 {
     /// <summary>
-    /// Gets the descriptor associated with the <paramref name="property"/> when declared within a record.
+    /// Gets the descriptor associated with the <paramref name="property"/>.
     /// </summary>
     /// <param name="property">The property to be checked for the presence of an attribute.</param>
     /// <returns>
-    /// The descriptor associated with the <paramref name="property"/> when declared within a record, otherwise <see langword="null"/>.
+    /// The descriptor associated with the <paramref name="property"/>, otherwise <see langword="null"/>.
     /// </returns>
     public static string? GetDescriptor(this IPropertySymbol property)
     {
         AttributeData? attribute = property.GetAttribute(Name)
             ?? property.GetAttributeFromParameter();
 
-        if (attribute is not null
-            && (attribute.HasDescriptorOnConstuctorArguments(out string descriptor) || attribute.HasDescriptorOnSyntax(out descriptor))
-            && Pattern.IsMatch(descriptor))
+        if (attribute is null)
         {
-            return descriptor;
+            return default;
         }
 
-        return default;
+        if (attribute.HasDescriptorOnConstuctorArguments(out string descriptor) || attribute.HasDescriptorOnSyntax(out descriptor))
+        {
+            if (Pattern.IsMatch(descriptor))
+            {
+                return descriptor;
+            }
+
+            if (!string.IsNullOrEmpty(descriptor))
+            {
+                return default;
+            }
+        }
+
+        return property.Name;
     }
 
     private static AttributeData? GetAttributeFromParameter(this IPropertySymbol property)
