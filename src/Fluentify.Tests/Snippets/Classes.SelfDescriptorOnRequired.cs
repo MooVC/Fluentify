@@ -12,7 +12,8 @@ public static partial class Classes
             {
                 [Descriptor]
                 public int Age { get; set; }
-
+        
+                [Descriptor("")]
                 public string Name { get; set; }
 
                 public IReadOnlyList<object> Attributes { get; set; }
@@ -32,10 +33,10 @@ public static partial class Classes
         typeof(ClassGenerator),
         "Fluentify.Classes.Testing.SelfDescriptorOnRequiredExtensions.WithAttributes");
 
-    public static readonly Generated SelfDescriptorOnRequiredWithNameExtensions = new(
-        SelfDescriptorOnRequiredWithNameExtensionsContent,
+    public static readonly Generated SelfDescriptorOnRequiredNameExtensions = new(
+        SelfDescriptorOnRequiredNameExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.SelfDescriptorOnRequiredExtensions.WithName");
+        "Fluentify.Classes.Testing.SelfDescriptorOnRequiredExtensions.Name");
 
     private const string SelfDescriptorOnRequiredAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
@@ -139,7 +140,7 @@ public static partial class Classes
         #endif
         """;
 
-    private const string SelfDescriptorOnRequiredWithNameExtensionsContent = """
+    private const string SelfDescriptorOnRequiredNameExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
         #endif
@@ -155,7 +156,7 @@ public static partial class Classes
 
             public static partial class SelfDescriptorOnRequiredExtensions
             {
-                public static global::Fluentify.Classes.Testing.SelfDescriptorOnRequired WithName(
+                public static global::Fluentify.Classes.Testing.SelfDescriptorOnRequired Name(
                     this global::Fluentify.Classes.Testing.SelfDescriptorOnRequired subject,
                     string value)
                 {

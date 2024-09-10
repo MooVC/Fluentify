@@ -13,8 +13,10 @@ public static partial class Classes
                 [Descriptor(" ")]
                 public int Age { get; set; }
 
+                [Descriptor("With Name")]
                 public string Name { get; set; }
-
+        
+                [Descriptor("&Invalid")]
                 public IReadOnlyList<object> Attributes { get; set; }
             }
         }

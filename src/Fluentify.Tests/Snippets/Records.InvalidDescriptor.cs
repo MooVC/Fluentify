@@ -8,7 +8,10 @@ public static partial class Records
             using System.Collections.Generic;
 
             [Fluentify]
-            public sealed partial record InvalidDescriptor([Descriptor(" ")] int Age, string Name, IReadOnlyList<object>? Attributes = default);
+            public sealed partial record InvalidDescriptor(
+                [Descriptor(" ")] int Age,
+                [Descriptor("With Name")] string Name,
+                [Descriptor("&Invalid")] IReadOnlyList<object>? Attributes = default);
         }
         """;
 

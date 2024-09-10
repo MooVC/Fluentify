@@ -130,7 +130,9 @@ Console.WriteLine(@new.Actors.Length);     // Displays 2
 
 ## Custom Descriptors
 
-The name of the generated extension method(s) can be customized via the `Descriptor` attribute.
+By default, Fluentify will generate an extension method for each property using the `With{Property Name}` pattern for all types, with the exception of `bool`, which defaults to the declared name of the property.
+
+The name used can be customized via the `Descriptor` attribute. When a descriptor is provided that is deemed acceptable as a method name to the compiler, it is applied to the extension method. When no descriptor is provided, the declared name of the property used.
 
 ### Record Type Usage
 
@@ -190,12 +192,6 @@ var movie = new Movie()
        .WithSurname("Stewart")
        .BornIn(1940));
 ```
-
-When no custom descriptor is specified, the extension method(s) will use the following pattern for all property types, except `bool`:
-
-`With{PropertyName}`
-
-For `bool`, the extension method will utilize the same name as the property.
 
 ## Property Exclusion
 

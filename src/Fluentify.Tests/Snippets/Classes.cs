@@ -95,7 +95,7 @@ public static partial class Classes
             SelfDescriptorOnRequiredContent,
             nameof(SelfDescriptorOnRequired),
             SelfDescriptorOnRequiredAgeExtensions,
-            SelfDescriptorOnRequiredWithNameExtensions,
+            SelfDescriptorOnRequiredNameExtensions,
             SelfDescriptorOnRequiredWithAttributesExtensions);
 
         Simple = new(

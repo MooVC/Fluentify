@@ -8,7 +8,10 @@ public static partial class Records
             using System.Collections.Generic;
 
             [Fluentify]
-            public sealed partial record SelfDescriptorOnRequired([Descriptor] int Age, string Name, IReadOnlyList<object>? Attributes = default);
+            public sealed partial record SelfDescriptorOnRequired(
+                [Descriptor] int Age,
+                [Descriptor("")] string Name,
+                IReadOnlyList<object>? Attributes = default);
         }
         """;
 
@@ -29,10 +32,10 @@ public static partial class Records
         typeof(RecordGenerator),
         "Fluentify.Records.Testing.SelfDescriptorOnRequiredExtensions.WithAttributes");
 
-    public static readonly Generated SelfDescriptorOnRequiredWithNameExtensions = new(
-        SelfDescriptorOnRequiredWithNameExtensionsContent,
+    public static readonly Generated SelfDescriptorOnRequiredNameExtensions = new(
+        SelfDescriptorOnRequiredNameExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.SelfDescriptorOnRequiredExtensions.WithName");
+        "Fluentify.Records.Testing.SelfDescriptorOnRequiredExtensions.Name");
 
     private const string SelfDescriptorOnRequiredConstructorContent = """
         #nullable enable
@@ -148,7 +151,7 @@ public static partial class Records
         #nullable restore
         """;
 
-    private const string SelfDescriptorOnRequiredWithNameExtensionsContent = """
+    private const string SelfDescriptorOnRequiredNameExtensionsContent = """
         #nullable enable
         #pragma warning disable CS8625
 
@@ -161,7 +164,7 @@ public static partial class Records
 
             public static partial class SelfDescriptorOnRequiredExtensions
             {
-                public static global::Fluentify.Records.Testing.SelfDescriptorOnRequired WithName(
+                public static global::Fluentify.Records.Testing.SelfDescriptorOnRequired Name(
                     this global::Fluentify.Records.Testing.SelfDescriptorOnRequired subject,
                     string value)
                 {

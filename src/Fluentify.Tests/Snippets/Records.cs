@@ -108,7 +108,7 @@ public static partial class Records
             nameof(SelfDescriptorOnRequired),
             SelfDescriptorOnRequiredConstructor,
             SelfDescriptorOnRequiredAgeExtensions,
-            SelfDescriptorOnRequiredWithNameExtensions,
+            SelfDescriptorOnRequiredNameExtensions,
             SelfDescriptorOnRequiredWithAttributesExtensions);
 
         Simple = new(
