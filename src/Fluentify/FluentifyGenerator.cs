@@ -26,7 +26,7 @@ public abstract partial class FluentifyGenerator<T>
 
         IncrementalValuesProvider<Subject?> subjects = records
            .Combine(context.CompilationProvider)
-           .Select((match, cancellationToken) => match.Left.ToSubject(match.Right, cancellationToken))
+           .Select(static (match, cancellationToken) => match.Left.ToSubject(match.Right, cancellationToken))
            .Where(subject => subject is not null);
 
         context.RegisterSourceOutput(subjects, Generate);

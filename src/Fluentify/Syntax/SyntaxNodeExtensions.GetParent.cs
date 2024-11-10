@@ -45,13 +45,13 @@ internal static partial class SyntaxNodeExtensions
             .OfType<TParent>()
             .FirstOrDefault();
 
-        if (parent is null)
+        if (parent is not SyntaxNode node)
         {
             return default;
         }
 
         return context
             .SemanticModel
-            .GetDeclaredSymbol(parent, cancellationToken: context.CancellationToken);
+            .GetDeclaredSymbol(node, cancellationToken: context.CancellationToken);
     }
 }

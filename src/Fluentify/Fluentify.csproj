@@ -4,6 +4,12 @@
     <NoWarn>RS2002;RS2003</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Valuify">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Analyzer.Resources.Designer.cs">
       <DependentUpon>Analyzer.Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
