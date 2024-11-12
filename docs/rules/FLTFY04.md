@@ -81,5 +81,5 @@ It is not recommended to disable the rule, as this may result in some confusion 
 ```ini
 # Disable FLTFY04: Descriptor must adhere to the naming conventions for Methods
 [*.cs]
-dotnet_diagnostic.FLTYF04.severity = none
+dotnet_diagnostic.FLTFY04.severity = none
 ```

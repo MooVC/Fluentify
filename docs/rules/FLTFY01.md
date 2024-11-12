@@ -133,5 +133,5 @@ It is not recommended to disable the rule, as this may result in some confusion 
 ```ini
 # Disable FLTFY01: Class must have an accessible parameterless constructor to use Fluentify
 [*.cs]
-dotnet_diagnostic.FLTYF01.severity = none
+dotnet_diagnostic.FLTFY01.severity = none
 ```

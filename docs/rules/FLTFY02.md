@@ -95,5 +95,5 @@ It is not recommended to disable the rule, as this may result in some confusion 
 ```ini
 # Disable FLTFY02: Descriptor is disregarded from consideration by Fluentify
 [*.cs]
-dotnet_diagnostic.FLTYF02.severity = none
+dotnet_diagnostic.FLTFY02.severity = none
 ```
