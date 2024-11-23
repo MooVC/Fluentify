@@ -1,12 +1,12 @@
 ﻿namespace Fluentify.Model;
 
-using System.Collections.Generic;
+using Valuify;
 
 /// <summary>
 /// The definition of the <see cref="Kind"/> type, which is used to capture information relating to a the data type.
 /// </summary>
-internal sealed class Kind
-    : Value<Kind>
+[Valuify]
+internal sealed partial class Kind
 {
     /// <summary>
     /// Denotes a Kind that has not been configured.
@@ -43,13 +43,5 @@ internal sealed class Kind
     public override string ToString()
     {
         return Type.ToString();
-    }
-
-    /// <inheritdoc/>
-    protected override IEnumerable<object> GetProperties()
-    {
-        yield return Member;
-        yield return Pattern;
-        yield return Type;
     }
 }

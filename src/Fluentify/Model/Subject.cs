@@ -2,13 +2,14 @@
 
 using Fluentify.Source;
 using Microsoft.CodeAnalysis;
+using Valuify;
 
 /// <summary>
 /// The definition of the <see cref="Subject"/> type, which is used to capture information relating to a subject
 /// upon which the Fluentify attribute has been placed.
 /// </summary>
-internal sealed class Subject
-    : Value<Subject>
+[Valuify]
+internal sealed partial class Subject
 {
     /// <summary>
     /// Gets or sets the declared accessibility modifier for the subject.
@@ -80,24 +81,5 @@ internal sealed class Subject
         string parameters = Generics.ToParameters();
 
         return string.Concat(Name, parameters);
-    }
-
-    /// <inheritdoc/>
-    protected override IEnumerable<object> GetProperties()
-    {
-        IEnumerable<object> values = Generics
-            .Cast<object>()
-            .Union(Properties);
-
-        foreach (object value in values)
-        {
-            yield return value;
-        }
-
-        yield return Accessibility;
-        yield return IsPartial;
-        yield return Name;
-        yield return Namespace;
-        yield return Type;
     }
 }

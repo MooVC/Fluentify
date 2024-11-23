@@ -1,12 +1,12 @@
 ﻿namespace Fluentify.Model;
 
-using System.Collections.Generic;
+using Valuify;
 
 /// <summary>
 /// The definition of the <see cref="Type"/> type, which is used to capture information relating to a data type.
 /// </summary>
-internal sealed class Type
-    : Value<Type>
+[Valuify]
+internal sealed partial class Type
 {
     /// <summary>
     /// The annotation used to denote if a type is deemed to be nullable.
@@ -54,13 +54,5 @@ internal sealed class Type
         }
 
         return Name;
-    }
-
-    /// <inheritdoc/>
-    protected override IEnumerable<object> GetProperties()
-    {
-        yield return IsBuildable;
-        yield return IsNullable;
-        yield return Name;
     }
 }

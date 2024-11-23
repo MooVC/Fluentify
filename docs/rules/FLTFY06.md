@@ -96,5 +96,5 @@ It is not recommended to disable the rule, as its presence suggests a misunderst
 ```ini
 # Disable FLTFY06: Property is already disregarded from consideration by Fluentify
 [*.cs]
-dotnet_diagnostic.FLTYF06.severity = none
+dotnet_diagnostic.FLTFY06.severity = none
 ```

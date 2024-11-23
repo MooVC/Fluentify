@@ -31,7 +31,7 @@ internal static partial class TypeDeclarationSyntaxExtensions
         }
 
         SemanticModel model = compilation.GetSemanticModel(syntax.SyntaxTree);
-        ISymbol? symbol = model.GetDeclaredSymbol(syntax);
+        ISymbol? symbol = model.GetDeclaredSymbol(syntax, cancellationToken: cancellationToken);
 
         if (symbol is not INamedTypeSymbol type || !type.HasFluentify())
         {

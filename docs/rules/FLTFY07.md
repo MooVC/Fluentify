@@ -107,5 +107,5 @@ It is not recommended to disable the rule, as its presence suggests a misunderst
 ```ini
 # Disable FLTFY07: Specified descriptor is already the default used by Fluentify
 [*.cs]
-dotnet_diagnostic.FLTYF07.severity = none
+dotnet_diagnostic.FLTFY07.severity = none
 ```

@@ -103,5 +103,5 @@ It is not recommended to disable the rule, as this may result in some confusion 
 ```ini
 # Disable FLTFY05: Type does not utilize Fluentify
 [*.cs]
-dotnet_diagnostic.FLTYF05.severity = none
+dotnet_diagnostic.FLTFY05.severity = none
 ```

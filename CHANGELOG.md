@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Fixed
+
+- Corrected typo in documentation for analyzers relating to disabling custom rules.
+
 ## [1.2.0] - 2024-09-10
 
 ## Added

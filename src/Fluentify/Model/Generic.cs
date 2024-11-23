@@ -1,10 +1,12 @@
 ﻿namespace Fluentify.Model;
 
+using Valuify;
+
 /// <summary>
 /// The definition of the <see cref="Generic"/> type, which is used to capture information relating to a generic parameter.
 /// </summary>
-internal sealed class Generic
-    : Value<Generic>
+[Valuify]
+internal sealed partial class Generic
 {
     /// <summary>
     /// Gets or sets the constraints associated with the generic type parameter.
@@ -21,16 +23,4 @@ internal sealed class Generic
     /// The name of the property type defined within the subject.
     /// </value>
     public string Name { get; set; } = string.Empty;
-
-    /// <inheritdoc/>
-
-    protected override IEnumerable<object> GetProperties()
-    {
-        foreach (string constraint in Constraints)
-        {
-            yield return constraint;
-        }
-
-        yield return Name;
-    }
 }

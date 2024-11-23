@@ -1,14 +1,14 @@
 ﻿namespace Fluentify.Model;
 
-using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
+using Valuify;
 
 /// <summary>
 /// The definition of the <see cref="Property"/> type, which is used to capture information relating to a property
 /// that is to be supported through a fluent extension.
 /// </summary>
-internal sealed class Property
-    : Value<Property>
+[Valuify]
+internal sealed partial class Property
 {
     /// <summary>
     /// Gets or sets the declared accessibility modifier for the property as defined within the subject.
@@ -49,14 +49,4 @@ internal sealed class Property
     /// The name of the property as defined within the subject.
     /// </value>
     public string Name { get; set; } = string.Empty;
-
-    /// <inheritdoc/>
-    protected override IEnumerable<object> GetProperties()
-    {
-        yield return Accessibility;
-        yield return Descriptor;
-        yield return IsIgnored;
-        yield return Kind;
-        yield return Name;
-    }
 }
