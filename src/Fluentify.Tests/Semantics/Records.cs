@@ -19,6 +19,7 @@ internal sealed class Records
             GlobalContent,
             InvalidDescriptorContent,
             MultipleGenericsContent,
+            NestedContent,
             OneOfThreeIgnoredContent,
             SelfDescriptorOnIgnoredContent,
             SelfDescriptorOnOptionalContent,

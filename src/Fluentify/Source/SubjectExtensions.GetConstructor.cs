@@ -19,9 +19,7 @@ internal static partial class SubjectExtensions
         IEnumerable<string> initializers = subject.Properties.Select(property => $"default({property.Kind})");
         string parameters = string.Join(", ", initializers);
 
-        return $$"""
-            using System.Diagnostics.CodeAnalysis;
-
+        string code = $$"""
             partial record {{subject}}
             {
                 #pragma warning disable CS8604
@@ -37,5 +35,30 @@ internal static partial class SubjectExtensions
                 #pragma warning restore CS8604
             }
             """;
+
+        code = Nest(code, subject);
+
+        return $"""
+            using System.Diagnostics.CodeAnalysis;
+
+            {code}
+            """;
+    }
+
+    private static string Nest(string code, Subject subject)
+    {
+        foreach (Nesting parent in subject.Nesting)
+        {
+            code = code.Indent();
+
+            code = $$"""
+                {{parent.Declaration}} {{parent.Qualification}}
+                {
+                    {{code}}
+                }
+                """;
+        }
+
+        return code;
     }
 }

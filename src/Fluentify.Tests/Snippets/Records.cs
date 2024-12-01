@@ -81,6 +81,14 @@ public static partial class Records
             MultipleGenericsWithNameExtensions,
             MultipleGenericsWithAttributesExtensions);
 
+        Nested = new(
+            NestedContent,
+            nameof(Nested),
+            NestedConstructor,
+            NestedWithAgeExtensions,
+            NestedWithNameExtensions,
+            NestedWithAttributesExtensions);
+
         OneOfThreeIgnored = new(
             OneOfThreeIgnoredContent,
             nameof(OneOfThreeIgnored),

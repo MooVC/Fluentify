@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## Added
+
+- Support for Fluentify on nested classes and records (#3).
+
 ## Fixed
 
 - Corrected typo in documentation for analyzers relating to disabling custom rules.

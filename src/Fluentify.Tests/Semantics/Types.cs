@@ -26,6 +26,7 @@ internal abstract partial class Types<T>
         InvalidDescriptor = GetDefinition(declarations, nameof(InvalidDescriptor));
         OneOfThreeIgnored = GetDefinition(declarations, nameof(OneOfThreeIgnored));
         MultipleGenerics = GetDefinition(declarations, nameof(MultipleGenerics));
+        Nested = GetDefinition(declarations, nameof(Nested));
         SelfDescriptorOnIgnored = GetDefinition(declarations, nameof(SelfDescriptorOnIgnored));
         SelfDescriptorOnOptional = GetDefinition(declarations, nameof(SelfDescriptorOnOptional));
         SelfDescriptorOnRequired = GetDefinition(declarations, nameof(SelfDescriptorOnRequired));
@@ -57,6 +58,8 @@ internal abstract partial class Types<T>
     public Definition InvalidDescriptor { get; }
 
     public Definition MultipleGenerics { get; }
+
+    public Definition Nested { get; }
 
     public Definition OneOfThreeIgnored { get; }
 
