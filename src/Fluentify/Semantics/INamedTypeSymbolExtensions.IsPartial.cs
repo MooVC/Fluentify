@@ -63,14 +63,13 @@ internal static partial class INamedTypeSymbolExtensions
     {
         return symbol.TypeKind switch
         {
-            TypeKind.Class => symbol.IsRecord
-                ? "record"
-                : "class",
+            TypeKind.Interface => "interface",
             TypeKind.Struct => symbol.IsRecord
                 ? "record struct"
                 : "struct",
-            TypeKind.Interface => "interface",
-            _ => string.Empty,
+            _ => symbol.IsRecord
+                ? "record"
+                : "class",
         };
     }
 
