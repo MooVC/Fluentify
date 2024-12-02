@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Console.Class.NestedTests;
+﻿namespace Fluentify.Console.Record.NestedInRecordStructTests;
 
 public sealed class WhenWithAttributesIsCalled
 {
@@ -6,10 +6,10 @@ public sealed class WhenWithAttributesIsCalled
     public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange
-        Nested.Simple? subject = default;
+        NestedInRecordStruct.Simple? subject = default;
 
         // Act
-        Func<Nested.Simple> act = () => subject!.WithAttributes(new object());
+        Func<NestedInRecordStruct.Simple> act = () => subject!.WithAttributes(new object());
 
         // Assert
         _ = act.Should().Throw<ArgumentNullException>()
@@ -22,7 +22,7 @@ public sealed class WhenWithAttributesIsCalled
         // Arrange
         object[] attributes = [new()];
 
-        var original = new Nested.Simple
+        var original = new NestedInRecordStruct.Simple
         {
             Age = Random.Shared.Next(),
             Attributes = [],
@@ -30,7 +30,7 @@ public sealed class WhenWithAttributesIsCalled
         };
 
         // Act
-        Nested.Simple actual = original.WithAttributes(attributes);
+        NestedInRecordStruct.Simple actual = original.WithAttributes(attributes);
 
         // Assert
         _ = actual.Should().NotBeSameAs(original);

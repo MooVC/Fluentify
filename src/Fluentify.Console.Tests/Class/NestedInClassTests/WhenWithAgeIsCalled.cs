@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Console.Record.NestedTests;
+﻿namespace Fluentify.Console.Class.NestedInClassTests;
 
 public sealed class WhenWithAgeIsCalled
 {
@@ -6,10 +6,10 @@ public sealed class WhenWithAgeIsCalled
     public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange
-        Nested.Simple? subject = default;
+        NestedInClass.Simple? subject = default;
 
         // Act
-        Func<Nested.Simple> act = () => subject!.WithAge(1);
+        Func<NestedInClass.Simple> act = () => subject!.WithAge(1);
 
         // Assert
         _ = act.Should().Throw<ArgumentNullException>()
@@ -25,7 +25,7 @@ public sealed class WhenWithAgeIsCalled
     public void GivenAnAgeThenTheValueIsApplied(int age)
     {
         // Arrange
-        var original = new Nested.Simple
+        var original = new NestedInClass.Simple
         {
             Age = Random.Shared.Next(),
             Attributes = [new(), new()],
@@ -33,7 +33,7 @@ public sealed class WhenWithAgeIsCalled
         };
 
         // Act
-        Nested.Simple actual = original.WithAge(age);
+        NestedInClass.Simple actual = original.WithAge(age);
 
         // Assert
         _ = actual.Should().NotBeSameAs(original);

@@ -1,9 +1,9 @@
 ﻿namespace Fluentify.Console.Record;
 
 /// <summary>
-/// A record that demonstrates the libraries on a nested record.
+/// A ref struct that demonstrates the libraries use on a nested record.
 /// </summary>
-internal sealed partial class Nested
+internal ref partial struct NestedInRefStruct
 {
     /// <summary>
     /// A record that demonstrates the libraries on a nested record.

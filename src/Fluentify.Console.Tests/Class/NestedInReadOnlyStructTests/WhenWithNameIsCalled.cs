@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Console.Class.NestedTests;
+﻿namespace Fluentify.Console.Class.NestedInReadOnlyStructTests;
 
 public sealed class WhenWithNameIsCalled
 {
@@ -6,10 +6,10 @@ public sealed class WhenWithNameIsCalled
     public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange
-        Nested.Simple? subject = default;
+        NestedInReadOnlyStruct.Simple? subject = default;
 
         // Act
-        Func<Nested.Simple> act = () => subject!.WithName("Avery Brooks");
+        Func<NestedInReadOnlyStruct.Simple> act = () => subject!.WithName("Avery Brooks");
 
         // Assert
         _ = act.Should().Throw<ArgumentNullException>()
@@ -23,7 +23,7 @@ public sealed class WhenWithNameIsCalled
     public void GivenANameThenTheValueIsApplied(string name)
     {
         // Arrange
-        var original = new Nested.Simple
+        var original = new NestedInReadOnlyStruct.Simple
         {
             Age = Random.Shared.Next(),
             Attributes = [new(), new()],
@@ -31,7 +31,7 @@ public sealed class WhenWithNameIsCalled
         };
 
         // Act
-        Nested.Simple actual = original.WithName(name);
+        NestedInReadOnlyStruct.Simple actual = original.WithName(name);
 
         // Assert
         _ = actual.Should().NotBeSameAs(original);
