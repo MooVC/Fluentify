@@ -127,6 +127,13 @@ public static partial class Records
             SimpleWithNameExtensions,
             SimpleWithAttributesExtensions);
 
+        SimpleWithDefaultConstructor = new(
+            SimpleWithDefaultConstructorContent,
+            nameof(SimpleWithDefaultConstructor),
+            SimpleWithDefaultConstructorWithAgeExtensions,
+            SimpleWithDefaultConstructorWithNameExtensions,
+            SimpleWithDefaultConstructorWithAttributesExtensions);
+
         Single = new(SingleContent, nameof(Single), SingleConstructor, SingleWithAgeExtensions);
 
         SingleGeneric = new(

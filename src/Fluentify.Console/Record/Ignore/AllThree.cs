@@ -1,6 +1,7 @@
 ﻿namespace Fluentify.Console.Record.Ignore;
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 /// <summary>
 /// A record that demonstrates the libraries use without generics.
@@ -8,5 +9,6 @@ using System.Collections.Generic;
 /// <param name="Age">The first property to be subject to the extension generator.</param>
 /// <param name="Name">The second property to be subject to the extension generator.</param>
 /// <param name="Attributes">The third property to be subject to the extension generator.</param>
+[ExcludeFromCodeCoverage]
 [Fluentify]
 internal sealed partial record AllThree([Ignore] int Age, [Ignore] string Name, [Ignore] IReadOnlyList<object>? Attributes = default);
