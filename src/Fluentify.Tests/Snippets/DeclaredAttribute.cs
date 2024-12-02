@@ -20,7 +20,7 @@ public sealed class DeclaredAttribute
 
         foreach (FieldInfo field in fields)
         {
-            if (field.FieldType == typeof(Declared) && field.Name == "Nested")
+            if (field.FieldType == typeof(Declared))
             {
                 object? value = field.GetValue(default);
 

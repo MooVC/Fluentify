@@ -19,7 +19,7 @@ internal sealed class Classes
             GlobalContent,
             InvalidDescriptorContent,
             MultipleGenericsContent,
-            NestedContent,
+            NestedInClassContent,
             OneOfThreeIgnoredContent,
             SelfDescriptorOnIgnoredContent,
             SelfDescriptorOnOptionalContent,

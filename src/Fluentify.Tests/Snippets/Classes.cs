@@ -72,12 +72,12 @@ public static partial class Classes
             MultipleGenericsWithNameExtensions,
             MultipleGenericsWithAttributesExtensions);
 
-        Nested = new(
-            NestedContent,
-            nameof(Nested),
-            NestedWithAgeExtensions,
-            NestedWithNameExtensions,
-            NestedWithAttributesExtensions);
+        NestedInClass = new(
+            NestedInClassContent,
+            nameof(NestedInClass),
+            NestedInClassWithAgeExtensions,
+            NestedInClassWithNameExtensions,
+            NestedInClassWithAttributesExtensions);
 
         OneOfThreeIgnored = new(
             OneOfThreeIgnoredContent,

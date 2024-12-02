@@ -33,8 +33,8 @@ public sealed class WhenToSubjectIsCalled
 
     public static readonly TheoryData<Compilation, Definition, bool, string> GivenANestedTypeThenTheExpectedSubjectIsReturnedData = new()
     {
-        { Classes.Instance.Compilation, Classes.Instance.Nested, false, nameof(Classes) },
-        { Records.Instance.Compilation, Records.Instance.Nested, true, nameof(Records) },
+        { Classes.Instance.Compilation, Classes.Instance.NestedInClass, false, nameof(Classes) },
+        { Records.Instance.Compilation, Records.Instance.NestedInClass, true, nameof(Records) },
     };
 
     public static readonly TheoryData<Compilation, Definition, bool, string> GivenASimpleTypeThenTheExpectedSubjectIsReturnedData = new()
@@ -358,7 +358,7 @@ public sealed class WhenToSubjectIsCalled
         {
             Accessibility = Accessibility.Public,
             IsPartial = isPartial,
-            Name = "Nested",
+            Name = "NestedInClass",
             Namespace = $"Fluentify.{type}.Testing",
             Nesting = [new Nesting { Declaration = "partial class", Name = "Outter", Qualification = "Outter" }],
             Properties =
@@ -404,7 +404,7 @@ public sealed class WhenToSubjectIsCalled
             Type = new()
             {
                 IsBuildable = !isPartial,
-                Name = $"global::Fluentify.{type}.Testing.Outter.Nested",
+                Name = $"global::Fluentify.{type}.Testing.Outter.NestedInClass",
             },
         };
 

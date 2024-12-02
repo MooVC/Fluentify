@@ -2,7 +2,7 @@
 
 public static partial class Classes
 {
-    public const string NestedContent = """
+    public const string NestedInClassContent = """
         namespace Fluentify.Classes.Testing
         {
             using System.Collections.Generic;
@@ -10,7 +10,7 @@ public static partial class Classes
             public sealed class Outter
             {
                 [Fluentify]
-                public sealed class Nested
+                public sealed class NestedInClass
                 {
                     public int Age { get; set; }
 
@@ -22,24 +22,24 @@ public static partial class Classes
         }
         """;
 
-    public static readonly Declared Nested;
+    public static readonly Declared NestedInClass;
 
-    public static readonly Generated NestedWithAgeExtensions = new(
-        NestedWithAgeExtensionsContent,
+    public static readonly Generated NestedInClassWithAgeExtensions = new(
+        NestedInClassWithAgeExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.Outter.NestedExtensions.WithAge");
+        "Fluentify.Classes.Testing.Outter.NestedInClassExtensions.WithAge");
 
-    public static readonly Generated NestedWithAttributesExtensions = new(
-        NestedWithAttributesExtensionsContent,
+    public static readonly Generated NestedInClassWithAttributesExtensions = new(
+        NestedInClassWithAttributesExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.Outter.NestedExtensions.WithAttributes");
+        "Fluentify.Classes.Testing.Outter.NestedInClassExtensions.WithAttributes");
 
-    public static readonly Generated NestedWithNameExtensions = new(
-        NestedWithNameExtensionsContent,
+    public static readonly Generated NestedInClassWithNameExtensions = new(
+        NestedInClassWithNameExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.Outter.NestedExtensions.WithName");
+        "Fluentify.Classes.Testing.Outter.NestedInClassExtensions.WithName");
 
-    private const string NestedWithAgeExtensionsContent = """
+    private const string NestedInClassWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
         #endif
@@ -53,15 +53,15 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedExtensions
+            public static partial class NestedInClassExtensions
             {
-                public static global::Fluentify.Classes.Testing.Outter.Nested WithAge(
-                    this global::Fluentify.Classes.Testing.Outter.Nested subject,
+                public static global::Fluentify.Classes.Testing.Outter.NestedInClass WithAge(
+                    this global::Fluentify.Classes.Testing.Outter.NestedInClass subject,
                     int value)
                 {
                     subject.ThrowIfNull("subject");
 
-                    return new global::Fluentify.Classes.Testing.Outter.Nested
+                    return new global::Fluentify.Classes.Testing.Outter.NestedInClass
                     {
                         Age = value,
                         Name = subject.Name,
@@ -78,7 +78,7 @@ public static partial class Classes
         #endif
         """;
 
-    private const string NestedWithAttributesExtensionsContent = """
+    private const string NestedInClassWithAttributesExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
         #endif
@@ -92,10 +92,10 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedExtensions
+            public static partial class NestedInClassExtensions
             {
-                public static global::Fluentify.Classes.Testing.Outter.Nested WithAttributes(
-                    this global::Fluentify.Classes.Testing.Outter.Nested subject,
+                public static global::Fluentify.Classes.Testing.Outter.NestedInClass WithAttributes(
+                    this global::Fluentify.Classes.Testing.Outter.NestedInClass subject,
                     params object[] values)
                 {
                     subject.ThrowIfNull("subject");
@@ -109,7 +109,7 @@ public static partial class Classes
                             .ToArray();
                     }
 
-                    return new global::Fluentify.Classes.Testing.Outter.Nested
+                    return new global::Fluentify.Classes.Testing.Outter.NestedInClass
                     {
                         Age = subject.Age,
                         Name = subject.Name,
@@ -117,8 +117,8 @@ public static partial class Classes
                     };
                 }
 
-                public static global::Fluentify.Classes.Testing.Outter.Nested WithAttributes(
-                    this global::Fluentify.Classes.Testing.Outter.Nested subject,
+                public static global::Fluentify.Classes.Testing.Outter.NestedInClass WithAttributes(
+                    this global::Fluentify.Classes.Testing.Outter.NestedInClass subject,
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
@@ -141,7 +141,7 @@ public static partial class Classes
         #endif
         """;
 
-    private const string NestedWithNameExtensionsContent = """
+    private const string NestedInClassWithNameExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
         #endif
@@ -155,15 +155,15 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedExtensions
+            public static partial class NestedInClassExtensions
             {
-                public static global::Fluentify.Classes.Testing.Outter.Nested WithName(
-                    this global::Fluentify.Classes.Testing.Outter.Nested subject,
+                public static global::Fluentify.Classes.Testing.Outter.NestedInClass WithName(
+                    this global::Fluentify.Classes.Testing.Outter.NestedInClass subject,
                     string value)
                 {
                     subject.ThrowIfNull("subject");
 
-                    return new global::Fluentify.Classes.Testing.Outter.Nested
+                    return new global::Fluentify.Classes.Testing.Outter.NestedInClass
                     {
                         Age = subject.Age,
                         Name = value,
