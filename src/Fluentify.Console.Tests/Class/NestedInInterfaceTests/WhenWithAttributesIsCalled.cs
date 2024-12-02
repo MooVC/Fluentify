@@ -6,10 +6,10 @@ public sealed class WhenWithAttributesIsCalled
     public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange
-        NestedInClass.Simple? subject = default;
+        NestedInInterface.Simple? subject = default;
 
         // Act
-        Func<NestedInClass.Simple> act = () => subject!.WithAttributes(new object());
+        Func<NestedInInterface.Simple> act = () => subject!.WithAttributes(new object());
 
         // Assert
         _ = act.Should().Throw<ArgumentNullException>()
@@ -22,7 +22,7 @@ public sealed class WhenWithAttributesIsCalled
         // Arrange
         object[] attributes = [new()];
 
-        var original = new NestedInClass.Simple
+        var original = new NestedInInterface.Simple
         {
             Age = Random.Shared.Next(),
             Attributes = [],
@@ -30,7 +30,7 @@ public sealed class WhenWithAttributesIsCalled
         };
 
         // Act
-        NestedInClass.Simple actual = original.WithAttributes(attributes);
+        NestedInInterface.Simple actual = original.WithAttributes(attributes);
 
         // Assert
         _ = actual.Should().NotBeSameAs(original);

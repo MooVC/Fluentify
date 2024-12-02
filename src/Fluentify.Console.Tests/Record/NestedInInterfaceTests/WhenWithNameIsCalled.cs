@@ -6,10 +6,10 @@ public sealed class WhenWithNameIsCalled
     public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange
-        NestedInClass.Simple? subject = default;
+        NestedInInterface.Simple? subject = default;
 
         // Act
-        Func<NestedInClass.Simple> act = () => subject!.WithName("Avery Brooks");
+        Func<NestedInInterface.Simple> act = () => subject!.WithName("Avery Brooks");
 
         // Assert
         _ = act.Should().Throw<ArgumentNullException>()
@@ -23,7 +23,7 @@ public sealed class WhenWithNameIsCalled
     public void GivenANameThenTheValueIsApplied(string name)
     {
         // Arrange
-        var original = new NestedInClass.Simple
+        var original = new NestedInInterface.Simple
         {
             Age = Random.Shared.Next(),
             Attributes = [new(), new()],
@@ -31,7 +31,7 @@ public sealed class WhenWithNameIsCalled
         };
 
         // Act
-        NestedInClass.Simple actual = original.WithName(name);
+        NestedInInterface.Simple actual = original.WithName(name);
 
         // Assert
         _ = actual.Should().NotBeSameAs(original);
