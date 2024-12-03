@@ -31,6 +31,12 @@ public sealed class WhenToSubjectIsCalled
         { Records.Instance.Compilation, Records.Instance.MultipleGenerics, true, nameof(Records) },
     };
 
+    public static readonly TheoryData<Compilation, Definition, bool, string> GivenANestedTypeThenTheExpectedSubjectIsReturnedData = new()
+    {
+        { Classes.Instance.Compilation, Classes.Instance.NestedInClass, false, nameof(Classes) },
+        { Records.Instance.Compilation, Records.Instance.NestedInClass, true, nameof(Records) },
+    };
+
     public static readonly TheoryData<Compilation, Definition, bool, string> GivenASimpleTypeThenTheExpectedSubjectIsReturnedData = new()
     {
         { Classes.Instance.Compilation, Classes.Instance.Simple, false, nameof(Classes) },
@@ -329,6 +335,76 @@ public sealed class WhenToSubjectIsCalled
             {
                 IsBuildable = !isPartial,
                 Name = $"global::Fluentify.{type}.Testing.MultipleGenerics<T1, T2, T3>",
+            },
+        };
+
+        // Act
+        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
+
+        // Assert
+        _ = actual.Should().BeEquivalentTo(expected);
+    }
+
+    [Theory]
+    [MemberData(nameof(GivenANestedTypeThenTheExpectedSubjectIsReturnedData))]
+    public void GivenANestedTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
+    {
+        // Arrange
+        string annotation = isPartial
+            ? "?"
+            : string.Empty;
+
+        var expected = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            IsPartial = isPartial,
+            Name = "NestedInClass",
+            Namespace = $"Fluentify.{type}.Testing",
+            Nesting = [new Nesting { Declaration = "partial class", Name = "Outter", Qualification = "Outter" }],
+            Properties =
+            [
+                new Property
+                {
+                    Descriptor = "WithAge",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "int",
+                        },
+                    },
+                    Name = "Age",
+                },
+                new Property
+                {
+                    Descriptor = "WithName",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            Name = "string",
+                        },
+                    },
+                    Name = "Name",
+                },
+                new Property
+                {
+                    Descriptor = "WithAttributes",
+                    Kind = new()
+                    {
+                        Type = new()
+                        {
+                            IsNullable = isPartial,
+                            Name = $"IReadOnlyList<object>{annotation}",
+                        },
+                    },
+                    Name = "Attributes",
+                },
+            ],
+            Type = new()
+            {
+                IsBuildable = !isPartial,
+                Name = $"global::Fluentify.{type}.Testing.Outter.NestedInClass",
             },
         };
 

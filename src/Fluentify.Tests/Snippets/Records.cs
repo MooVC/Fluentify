@@ -8,7 +8,7 @@ public static partial class Records
 {
     public static readonly LanguageVersion LanguageVersion = LanguageVersion.CSharp9;
 
-    public static readonly ReferenceAssemblies ReferenceAssemblies = ReferenceAssemblies.Net.Net60;
+    public static readonly ReferenceAssemblies ReferenceAssemblies = ReferenceAssemblies.Net.Net80;
 
     [SuppressMessage("Minor Code Smell", "S3963:\"static\" fields should be initialized inline", Justification = "Needed due to order constraint.")]
     static Records()
@@ -81,6 +81,38 @@ public static partial class Records
             MultipleGenericsWithNameExtensions,
             MultipleGenericsWithAttributesExtensions);
 
+        NestedInClass = new(
+            NestedInClassContent,
+            nameof(NestedInClass),
+            NestedInClassConstructor,
+            NestedInClassWithAgeExtensions,
+            NestedInClassWithNameExtensions,
+            NestedInClassWithAttributesExtensions);
+
+        NestedInInterface = new(
+            NestedInInterfaceContent,
+            nameof(NestedInInterface),
+            NestedInInterfaceConstructor,
+            NestedInInterfaceWithAgeExtensions,
+            NestedInInterfaceWithNameExtensions,
+            NestedInInterfaceWithAttributesExtensions);
+
+        NestedInRecord = new(
+            NestedInRecordContent,
+            nameof(NestedInRecord),
+            NestedInRecordConstructor,
+            NestedInRecordWithAgeExtensions,
+            NestedInRecordWithNameExtensions,
+            NestedInRecordWithAttributesExtensions);
+
+        NestedInStruct = new(
+            NestedInStructContent,
+            nameof(NestedInStruct),
+            NestedInStructConstructor,
+            NestedInStructWithAgeExtensions,
+            NestedInStructWithNameExtensions,
+            NestedInStructWithAttributesExtensions);
+
         OneOfThreeIgnored = new(
             OneOfThreeIgnoredContent,
             nameof(OneOfThreeIgnored),
@@ -118,6 +150,20 @@ public static partial class Records
             SimpleWithAgeExtensions,
             SimpleWithNameExtensions,
             SimpleWithAttributesExtensions);
+
+        SimpleWithDefaultConstructor = new(
+            SimpleWithDefaultConstructorContent,
+            nameof(SimpleWithDefaultConstructor),
+            SimpleWithDefaultConstructorWithAgeExtensions,
+            SimpleWithDefaultConstructorWithNameExtensions,
+            SimpleWithDefaultConstructorWithAttributesExtensions);
+
+        SimpleWithoutPartial = new(
+            SimpleWithoutPartialContent,
+            nameof(SimpleWithoutPartial),
+            SimpleWithoutPartialWithAgeExtensions,
+            SimpleWithoutPartialWithNameExtensions,
+            SimpleWithoutPartialWithAttributesExtensions);
 
         Single = new(SingleContent, nameof(Single), SingleConstructor, SingleWithAgeExtensions);
 

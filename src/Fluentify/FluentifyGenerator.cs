@@ -33,6 +33,40 @@ public abstract partial class FluentifyGenerator<T>
     }
 
     /// <summary>
+    /// Generates a unique hintname based on the property and subject combination.
+    /// </summary>
+    /// <param name="subject">The subject for which the context is generated.</param>
+    /// <param name="property">The property for which the context was generated.</param>
+    /// <param name="suffix">An optional suffix for the hint.</param>
+    /// <returns>The unique hint name.</returns>
+    private protected static string GetHint(Subject subject, Property? property = default, string? suffix = default)
+    {
+        string name = subject.Name;
+
+        if (subject.Nesting.Count > 0)
+        {
+            IEnumerable<string> names = subject.Nesting
+                .Reverse()
+                .Select(parent => parent.Name)
+                .Union([name]);
+
+            name = string.Join(".", names);
+        }
+
+        if (property is not null)
+        {
+            name = $"{name}Extensions.{property.Descriptor}";
+        }
+
+        if (suffix is not null)
+        {
+            name = $"{name}.{suffix}";
+        }
+
+        return $"{name}.g.cs";
+    }
+
+    /// <summary>
     /// Allows for the customization of the transfrm generated for the specified property.
     /// </summary>
     /// <param name="property">The property for which the transform is to be generated.</param>
@@ -60,7 +94,7 @@ public abstract partial class FluentifyGenerator<T>
 
             if (!string.IsNullOrEmpty(content))
             {
-                string hint = $"{subject.Name}Extensions.{property.Descriptor}.g.cs";
+                string hint = GetHint(subject, property: property);
 
                 yield return new Source
                 {

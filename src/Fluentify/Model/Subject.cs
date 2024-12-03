@@ -36,10 +36,12 @@ internal sealed partial class Subject
     public bool HasDefaultConstructor => Type.IsBuildable;
 
     /// <summary>
-    /// Gets or sets a value indicating whether or not the type upon which the Fluentify attribute has been placed is marked as partial.
+    /// Gets or sets a value indicating whether or not the type upon which the Fluentify attribute has been placed is considered a candidate
+    /// for partial content.
     /// </summary>
     /// <value>
-    /// A value indicating whether or not the type upon which the Fluentify attribute has been placed is marked as partial.
+    /// A value indicating whether or not the type upon which the Fluentify attribute has been placed is considered a candidate
+    /// for partial content.
     /// </value>
     public bool IsPartial { get; set; }
 
@@ -58,6 +60,14 @@ internal sealed partial class Subject
     /// The namespace for the type upon which the Fluentify attribute has been placed.
     /// </value>
     public string Namespace { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the declarations associated with the parent types in order of declaration.
+    /// </summary>
+    /// <value>
+    /// The declarations associated with the parent types in order of declaration.
+    /// </value>
+    public IReadOnlyList<Nesting> Nesting { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the properties associated with the subject.

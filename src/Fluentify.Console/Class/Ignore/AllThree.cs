@@ -1,10 +1,12 @@
 ﻿namespace Fluentify.Console.Class.Ignore;
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 /// <summary>
 /// A class that demonstrates the libraries use without generics, with all properties ignored.
 /// </summary>
+[ExcludeFromCodeCoverage]
 [Fluentify]
 internal sealed class AllThree
 {

@@ -45,13 +45,14 @@ internal static partial class TypeDeclarationSyntaxExtensions
             return default;
         }
 
-        return syntax.ToSubject(compilation, type, properties);
+        return type.ToSubject(compilation, properties);
     }
 
-    private static Subject ToSubject(this TypeDeclarationSyntax syntax, Compilation compilation, INamedTypeSymbol type, IReadOnlyList<Property> properties)
+    private static Subject ToSubject(this INamedTypeSymbol type, Compilation compilation, IReadOnlyList<Property> properties)
     {
+        var nesting = new Stack<Nesting>();
         bool hasDefaultConstructor = type.HasAccessibleParameterlessConstructor(compilation);
-        bool isPartial = syntax.IsPartial();
+        bool isPartial = type.IsPartial(nesting);
         IReadOnlyList<Generic> generics = type.GetGenerics();
 
         string @namespace = type.ContainingNamespace.IsGlobalNamespace
@@ -65,6 +66,7 @@ internal static partial class TypeDeclarationSyntaxExtensions
             IsPartial = isPartial,
             Name = type.Name,
             Namespace = @namespace,
+            Nesting = [.. nesting],
             Properties = properties,
             Type = new()
             {

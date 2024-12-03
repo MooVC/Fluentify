@@ -61,6 +61,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = properties,
             Type = new()
             {
@@ -75,6 +76,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = properties,
             Type = new()
             {
@@ -101,6 +103,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -115,6 +118,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -141,6 +145,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -155,6 +160,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -181,6 +187,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -195,6 +202,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = true,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -221,6 +229,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName1",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -235,6 +244,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName2",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -261,6 +271,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "Namespace1",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -275,6 +286,49 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "Namespace2",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
+            Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
+        };
+
+        // Act
+        bool areNotEqual = AreNotEqual(instance1, instance2);
+
+        // Assert
+        _ = areNotEqual.Should().BeTrue();
+    }
+
+    [Fact]
+    public void GivenDifferentNestingThenTheyAreNotEqual()
+    {
+        // Arrange
+        var instance1 = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Generics = [],
+            IsPartial = false,
+            Name = "SubjectName",
+            Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial record" }],
+            Properties = [],
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
+        };
+        var instance2 = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Generics = [],
+            IsPartial = false,
+            Name = "SubjectName",
+            Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -301,6 +355,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [new Property { Name = "PropertyName1" }],
             Type = new()
             {
@@ -315,6 +370,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [new Property { Name = "PropertyName2" }],
             Type = new()
             {
@@ -341,6 +397,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -355,6 +412,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -381,6 +439,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
@@ -421,6 +480,7 @@ public abstract class WhenInequalityIsChecked
             IsPartial = false,
             Name = "SubjectName",
             Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
             Properties = [],
             Type = new()
             {
