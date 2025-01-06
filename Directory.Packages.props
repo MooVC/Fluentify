@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="coverlet.msbuild" Version="6.0.2" />
+    <PackageVersion Include="coverlet.msbuild" Version="6.0.3" />
     <PackageVersion Include="FluentAssertions" Version="7.0.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.12.0" />
