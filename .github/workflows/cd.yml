@@ -22,7 +22,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v4.1.1
+      uses: actions/checkout@v4.2.2
       with:
         fetch-depth: 0
         
@@ -33,7 +33,7 @@ jobs:
           9.0.x
 
     - name: Cache NuGet Packages
-      uses: actions/cache@v4.0.1
+      uses: actions/cache@v4.2.0
       with:
         path: ${{ github.workspace }}/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
@@ -66,7 +66,7 @@ jobs:
       run: dotnet test ${{ env.solution }} --configuration ${{ env.configuration }} --no-build
 
     - name: Upload Code Coverage
-      uses: codecov/codecov-action@v4.1.0
+      uses: codecov/codecov-action@v5.1.2
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
 
