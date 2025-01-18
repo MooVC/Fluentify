@@ -16,13 +16,13 @@ public sealed class WhenHasAttributeIsCalled
         _ = data.AttributeClass.Returns(@class);
 
         ISymbol symbol = Substitute.For<ISymbol>();
-        _ = symbol.GetAttributes().Returns(ImmutableArray.Create(data));
+        _ = symbol.GetAttributes().Returns([data]);
 
         // Act
         bool result = symbol.HasAttribute("Test");
 
         // Assert
-        _ = result.Should().BeTrue();
+        result.ShouldBeTrue();
     }
 
     [Fact]
@@ -36,13 +36,13 @@ public sealed class WhenHasAttributeIsCalled
         _ = data.AttributeClass.Returns(@class);
 
         ISymbol symbol = Substitute.For<ISymbol>();
-        _ = symbol.GetAttributes().Returns(ImmutableArray.Create(data));
+        _ = symbol.GetAttributes().Returns([data]);
 
         // Act
         bool result = symbol.HasAttribute("Test");
 
         // Assert
-        _ = result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -50,12 +50,12 @@ public sealed class WhenHasAttributeIsCalled
     {
         // Arrange
         ISymbol symbol = Substitute.For<ISymbol>();
-        _ = symbol.GetAttributes().Returns(ImmutableArray<AttributeData>.Empty);
+        _ = symbol.GetAttributes().Returns([]);
 
         // Act
         bool result = symbol.HasAttribute("Test");
 
         // Assert
-        _ = result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 }

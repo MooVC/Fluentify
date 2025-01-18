@@ -42,6 +42,6 @@ public abstract class AnalyzerTests<TAnalyzer, TGenerator>
         Func<Task> act = () => RunAsync();
 
         // Assert
-        return act.Should().NotThrowAsync();
+        return act.ShouldNotThrowAsync();
     }
 }

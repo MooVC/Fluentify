@@ -1,8 +1,5 @@
 ﻿namespace Fluentify.Model.KindTests;
 
-using FluentAssertions;
-using Xunit;
-
 public abstract class WhenEqualityIsChecked
 {
     [Fact]
@@ -38,7 +35,7 @@ public abstract class WhenEqualityIsChecked
         bool areEqual = AreEqual(instance1, instance2);
 
         // Assert
-        _ = areEqual.Should().BeTrue();
+        areEqual.ShouldBeTrue();
     }
 
     [Fact]
@@ -72,7 +69,7 @@ public abstract class WhenEqualityIsChecked
         bool areEqual = AreEqual(instance1, instance2);
 
         // Assert
-        _ = areEqual.Should().BeFalse();
+        areEqual.ShouldBeFalse();
     }
 
     [Fact]
@@ -108,7 +105,7 @@ public abstract class WhenEqualityIsChecked
         bool areEqual = AreEqual(instance1, instance2);
 
         // Assert
-        _ = areEqual.Should().BeFalse();
+        areEqual.ShouldBeFalse();
     }
 
     [Fact]
@@ -144,7 +141,7 @@ public abstract class WhenEqualityIsChecked
         bool areEqual = AreEqual(instance1, instance2);
 
         // Assert
-        _ = areEqual.Should().BeFalse();
+        areEqual.ShouldBeFalse();
     }
 
     [Fact]
@@ -168,7 +165,7 @@ public abstract class WhenEqualityIsChecked
         bool areEqual = AreEqual(instance, default);
 
         // Assert
-        _ = areEqual.Should().BeFalse();
+        areEqual.ShouldBeFalse();
     }
 
     [Fact]
@@ -182,7 +179,7 @@ public abstract class WhenEqualityIsChecked
         bool areEqual = AreEqual(instance1, instance2);
 
         // Assert
-        _ = areEqual.Should().BeTrue();
+        areEqual.ShouldBeTrue();
     }
 
     [Fact]
@@ -206,7 +203,7 @@ public abstract class WhenEqualityIsChecked
         bool areEqual = AreEqual(instance, instance);
 
         // Assert
-        _ = areEqual.Should().BeTrue();
+        areEqual.ShouldBeTrue();
     }
 
     private protected abstract bool AreEqual(Kind? instance1, Kind? instance2);

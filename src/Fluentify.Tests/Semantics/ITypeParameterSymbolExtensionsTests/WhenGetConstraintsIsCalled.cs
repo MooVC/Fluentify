@@ -21,8 +21,8 @@ public sealed class WhenGetConstraintsIsCalled
         IReadOnlyList<string> result = parameter.GetConstraints();
 
         // Assert
-        _ = result.Should().ContainSingle()
-            .Which.Should().Be("class");
+        result.ShouldHaveSingleItem()
+            .ShouldBe("class");
     }
 
     [Fact]
@@ -40,8 +40,8 @@ public sealed class WhenGetConstraintsIsCalled
         IReadOnlyList<string> result = parameter.GetConstraints();
 
         // Assert
-        _ = result.Should().ContainSingle()
-            .Which.Should().Be("struct");
+        result.ShouldHaveSingleItem()
+            .ShouldBe("struct");
     }
 
     [Fact]
@@ -59,8 +59,8 @@ public sealed class WhenGetConstraintsIsCalled
         IReadOnlyList<string> result = parameter.GetConstraints();
 
         // Assert
-        _ = result.Should().ContainSingle()
-            .Which.Should().Be("notnull");
+        result.ShouldHaveSingleItem()
+            .ShouldBe("notnull");
     }
 
     [Fact]
@@ -78,8 +78,8 @@ public sealed class WhenGetConstraintsIsCalled
         IReadOnlyList<string> result = parameter.GetConstraints();
 
         // Assert
-        _ = result.Should().ContainSingle()
-            .Which.Should().Be("new()");
+        result.ShouldHaveSingleItem()
+            .ShouldBe("new()");
     }
 
     [Fact]
@@ -104,8 +104,8 @@ public sealed class WhenGetConstraintsIsCalled
         IReadOnlyList<string> result = parameter.GetConstraints();
 
         // Assert
-        _ = result.Should().ContainSingle()
-            .Which.Should().Be("global::Namespace.TypeName");
+        result.ShouldHaveSingleItem()
+            .ShouldBe("global::Namespace.TypeName");
     }
 
     [Fact]
@@ -130,7 +130,7 @@ public sealed class WhenGetConstraintsIsCalled
         IReadOnlyList<string> result = parameter.GetConstraints();
 
         // Assert
-        _ = result.Should().ContainInOrder("class", "notnull", "global::Namespace.TypeName", "new()");
+        result.ShouldBeSubsetOf(["class", "notnull", "global::Namespace.TypeName", "new()"]);
     }
 
     [Fact]
@@ -148,6 +148,6 @@ public sealed class WhenGetConstraintsIsCalled
         IReadOnlyList<string> result = parameter.GetConstraints();
 
         // Assert
-        _ = result.Should().BeEmpty();
+        result.ShouldBeEmpty();
     }
 }

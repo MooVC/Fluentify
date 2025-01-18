@@ -12,8 +12,8 @@ public sealed class WhenWithDescriptionIsCalled
         Func<CrossReferenced> act = () => subject!.WithDescription("Cross Referenced");
 
         // Assert
-        _ = act.Should().Throw<ArgumentNullException>()
-            .WithParameterName(nameof(subject));
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 
     [Theory]
@@ -33,8 +33,8 @@ public sealed class WhenWithDescriptionIsCalled
         CrossReferenced actual = original.WithDescription(description);
 
         // Assert
-        _ = actual.Should().NotBeSameAs(original);
-        _ = actual.Description.Should().Be(description);
-        _ = actual.Simple.Should().Be(original.Simple);
+        actual.ShouldNotBeSameAs(original);
+        actual.Description.ShouldBe(description);
+        actual.Simple.ShouldBe(original.Simple);
     }
 }

@@ -10,13 +10,13 @@ public sealed class WhenHasFluentifyIsCalled
     public void GivenNoAttributesThenReturnsFalse()
     {
         // Arrange
-        INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes(ImmutableArray<AttributeData>.Empty);
+        INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes([]);
 
         // Act
         bool result = record.HasFluentify();
 
         // Assert
-        _ = result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -24,13 +24,13 @@ public sealed class WhenHasFluentifyIsCalled
     {
         // Arrange
         AttributeData attribute = CreateAttributeData("SomeOtherAttribute");
-        INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes(ImmutableArray.Create(attribute));
+        INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes([attribute]);
 
         // Act
         bool result = record.HasFluentify();
 
         // Assert
-        _ = result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -38,13 +38,13 @@ public sealed class WhenHasFluentifyIsCalled
     {
         // Arrange
         AttributeData attribute = CreateAttributeData("global::Fluentify.FluentifyAttribute");
-        INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes(ImmutableArray.Create(attribute));
+        INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes([attribute]);
 
         // Act
         bool result = record.HasFluentify();
 
         // Assert
-        _ = result.Should().BeTrue();
+        result.ShouldBeTrue();
     }
 
     [Fact]
@@ -53,13 +53,13 @@ public sealed class WhenHasFluentifyIsCalled
         // Arrange
         AttributeData other = CreateAttributeData("SomeOtherAttribute");
         AttributeData fluentify = CreateAttributeData("global::Fluentify.FluentifyAttribute");
-        INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes(ImmutableArray.Create(other, fluentify));
+        INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes([other, fluentify]);
 
         // Act
         bool result = record.HasFluentify();
 
         // Assert
-        _ = result.Should().BeTrue();
+        result.ShouldBeTrue();
     }
 
     private static INamedTypeSymbol CreateNamedTypeSymbolWithAttributes(ImmutableArray<AttributeData> attributes)

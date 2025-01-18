@@ -13,11 +13,11 @@ public sealed class WhenGetParameterIsCalled
         _ = parameter.Name.Returns("Property");
 
         IMethodSymbol constructor = Substitute.For<IMethodSymbol>();
-        _ = constructor.Parameters.Returns(ImmutableArray.Create(parameter));
+        _ = constructor.Parameters.Returns([parameter]);
 
         INamedTypeSymbol containingType = Substitute.For<INamedTypeSymbol>();
         _ = containingType.IsRecord.Returns(true);
-        _ = containingType.InstanceConstructors.Returns(ImmutableArray.Create(constructor));
+        _ = containingType.InstanceConstructors.Returns([constructor]);
 
         IPropertySymbol property = Substitute.For<IPropertySymbol>();
         _ = property.Name.Returns("Property");
@@ -27,7 +27,7 @@ public sealed class WhenGetParameterIsCalled
         IParameterSymbol? result = property.GetParameter();
 
         // Assert
-        _ = result.Should().Be(parameter);
+        result.ShouldBe(parameter);
     }
 
     [Fact]
@@ -38,11 +38,11 @@ public sealed class WhenGetParameterIsCalled
         _ = parameter.Name.Returns("DifferentProperty");
 
         IMethodSymbol constructor = Substitute.For<IMethodSymbol>();
-        _ = constructor.Parameters.Returns(ImmutableArray.Create(parameter));
+        _ = constructor.Parameters.Returns([parameter]);
 
         INamedTypeSymbol containingType = Substitute.For<INamedTypeSymbol>();
         _ = containingType.IsRecord.Returns(true);
-        _ = containingType.InstanceConstructors.Returns(ImmutableArray.Create(constructor));
+        _ = containingType.InstanceConstructors.Returns([constructor]);
 
         IPropertySymbol property = Substitute.For<IPropertySymbol>();
         _ = property.Name.Returns("Property");
@@ -52,7 +52,7 @@ public sealed class WhenGetParameterIsCalled
         IParameterSymbol? result = property.GetParameter();
 
         // Assert
-        _ = result.Should().BeNull();
+        result.ShouldBeNull();
     }
 
     [Fact]
@@ -69,7 +69,7 @@ public sealed class WhenGetParameterIsCalled
         IParameterSymbol? result = property.GetParameter();
 
         // Assert
-        _ = result.Should().BeNull();
+        result.ShouldBeNull();
     }
 
     [Fact]
@@ -83,14 +83,14 @@ public sealed class WhenGetParameterIsCalled
         _ = parameter2.Name.Returns("OtherProperty");
 
         IMethodSymbol constructor1 = Substitute.For<IMethodSymbol>();
-        _ = constructor1.Parameters.Returns(ImmutableArray.Create(parameter2));
+        _ = constructor1.Parameters.Returns([parameter2]);
 
         IMethodSymbol constructor2 = Substitute.For<IMethodSymbol>();
-        _ = constructor2.Parameters.Returns(ImmutableArray.Create(parameter1));
+        _ = constructor2.Parameters.Returns([parameter1]);
 
         INamedTypeSymbol containingType = Substitute.For<INamedTypeSymbol>();
         _ = containingType.IsRecord.Returns(true);
-        _ = containingType.InstanceConstructors.Returns(ImmutableArray.Create(constructor1, constructor2));
+        _ = containingType.InstanceConstructors.Returns([constructor1, constructor2]);
 
         IPropertySymbol property = Substitute.For<IPropertySymbol>();
         _ = property.Name.Returns("Property");
@@ -100,6 +100,6 @@ public sealed class WhenGetParameterIsCalled
         IParameterSymbol? result = property.GetParameter();
 
         // Assert
-        _ = result.Should().Be(parameter1);
+        result.ShouldBe(parameter1);
     }
 }

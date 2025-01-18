@@ -15,7 +15,7 @@ public sealed class WhenIsAttributeIsCalled
         bool result = attribute.IsAttribute("Test");
 
         // Assert
-        _ = result.Should().BeTrue();
+        result.ShouldBeTrue();
     }
 
     [Fact]
@@ -29,7 +29,7 @@ public sealed class WhenIsAttributeIsCalled
         bool result = attribute.IsAttribute("Test");
 
         // Assert
-        _ = result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -43,6 +43,6 @@ public sealed class WhenIsAttributeIsCalled
         bool result = attribute.IsAttribute("Test");
 
         // Assert
-        _ = result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 }

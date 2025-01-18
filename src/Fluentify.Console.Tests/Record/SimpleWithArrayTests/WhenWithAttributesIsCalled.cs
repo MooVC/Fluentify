@@ -12,8 +12,8 @@ public sealed class WhenWithAttributesIsCalled
         Func<SimpleWithArray> act = () => subject!.WithAttributes(new object());
 
         // Assert
-        _ = act.Should().Throw<ArgumentNullException>()
-            .WithParameterName(nameof(subject));
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 
     [Fact]
@@ -35,9 +35,9 @@ public sealed class WhenWithAttributesIsCalled
         SimpleWithArray actual = original.WithAttributes(second);
 
         // Assert
-        _ = actual.Should().NotBeSameAs(original);
-        _ = actual.Age.Should().Be(original.Age);
-        _ = actual.Attributes.Should().BeEquivalentTo(expected);
-        _ = actual.Name.Should().Be(original.Name);
+        actual.ShouldNotBeSameAs(original);
+        actual.Age.ShouldBe(original.Age);
+        actual.Attributes.ShouldBeEquivalentTo(expected);
+        actual.Name.ShouldBe(original.Name);
     }
 }

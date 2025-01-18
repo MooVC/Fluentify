@@ -1,8 +1,5 @@
 ﻿namespace Fluentify.Model.TypeTests;
 
-using FluentAssertions;
-using Xunit;
-
 public abstract class WhenInequalityIsChecked
 {
     [Fact]
@@ -22,7 +19,7 @@ public abstract class WhenInequalityIsChecked
         bool areNotEqual = AreNotEqual(instance1, instance2);
 
         // Assert
-        _ = areNotEqual.Should().BeFalse();
+        areNotEqual.ShouldBeFalse();
     }
 
     [Fact]
@@ -43,7 +40,7 @@ public abstract class WhenInequalityIsChecked
         bool areNotEqual = AreNotEqual(instance1, instance2);
 
         // Assert
-        _ = areNotEqual.Should().BeTrue();
+        areNotEqual.ShouldBeTrue();
     }
 
     [Fact]
@@ -63,7 +60,7 @@ public abstract class WhenInequalityIsChecked
         bool areNotEqual = AreNotEqual(instance1, instance2);
 
         // Assert
-        _ = areNotEqual.Should().BeTrue();
+        areNotEqual.ShouldBeTrue();
     }
 
     [Fact]
@@ -79,7 +76,7 @@ public abstract class WhenInequalityIsChecked
         bool areNotEqual = AreNotEqual(instance, default);
 
         // Assert
-        _ = areNotEqual.Should().BeTrue();
+        areNotEqual.ShouldBeTrue();
     }
 
     [Fact]
@@ -93,7 +90,7 @@ public abstract class WhenInequalityIsChecked
         bool areNotEqual = AreNotEqual(instance1, instance2);
 
         // Assert
-        _ = areNotEqual.Should().BeFalse();
+        areNotEqual.ShouldBeFalse();
     }
 
     [Fact]
@@ -109,7 +106,7 @@ public abstract class WhenInequalityIsChecked
         bool areNotEqual = AreNotEqual(instance, instance);
 
         // Assert
-        _ = areNotEqual.Should().BeFalse();
+        areNotEqual.ShouldBeFalse();
     }
 
     private protected abstract bool AreNotEqual(Type? instance1, Type? instance2);

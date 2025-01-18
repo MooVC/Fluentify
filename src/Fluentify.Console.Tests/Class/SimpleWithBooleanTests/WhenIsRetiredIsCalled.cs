@@ -12,8 +12,8 @@ public sealed class WhenIsRetiredIsCalled
         Func<SimpleWithBoolean> act = () => subject!.IsRetired(true);
 
         // Assert
-        _ = act.Should().Throw<ArgumentNullException>()
-            .WithParameterName(nameof(subject));
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 
     [Theory]
@@ -33,10 +33,10 @@ public sealed class WhenIsRetiredIsCalled
         SimpleWithBoolean actual = original.IsRetired(isRetired);
 
         // Assert
-        _ = actual.Should().NotBeSameAs(original);
-        _ = actual.Age.Should().Be(original.Age);
-        _ = actual.IsRetired.Should().Be(isRetired);
-        _ = actual.Name.Should().Be(original.Name);
+        actual.ShouldNotBeSameAs(original);
+        actual.Age.ShouldBe(original.Age);
+        actual.IsRetired.ShouldBe(isRetired);
+        actual.Name.ShouldBe(original.Name);
     }
 
     [Fact]
@@ -54,9 +54,9 @@ public sealed class WhenIsRetiredIsCalled
         SimpleWithBoolean actual = original.IsRetired(default);
 
         // Assert
-        _ = actual.Should().NotBeSameAs(original);
-        _ = actual.Age.Should().Be(original.Age);
-        _ = actual.IsRetired.Should().BeNull();
-        _ = actual.Name.Should().Be(original.Name);
+        actual.ShouldNotBeSameAs(original);
+        actual.Age.ShouldBe(original.Age);
+        actual.IsRetired.ShouldBeNull();
+        actual.Name.ShouldBe(original.Name);
     }
 }

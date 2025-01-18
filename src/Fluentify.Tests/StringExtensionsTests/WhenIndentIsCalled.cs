@@ -12,7 +12,7 @@ public sealed class WhenIndentIsCalled
         string result = input.Indent();
 
         // Assert
-        _ = result.Should().Be(string.Empty);
+        result.ShouldBe(string.Empty);
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public sealed class WhenIndentIsCalled
         string result = input.Indent();
 
         // Assert
-        _ = result.Should().Be(input);
+        result.ShouldBe(input);
     }
 
     [Fact]
@@ -49,7 +49,7 @@ public sealed class WhenIndentIsCalled
         string result = input.Indent();
 
         // Assert
-        _ = result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Fact]
@@ -73,7 +73,7 @@ public sealed class WhenIndentIsCalled
         string result = input.Indent(whitespace: ">>");
 
         // Assert
-        _ = result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Fact]
@@ -97,6 +97,6 @@ public sealed class WhenIndentIsCalled
         string result = input.Indent(skip: 2);
 
         // Assert
-        _ = result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 }

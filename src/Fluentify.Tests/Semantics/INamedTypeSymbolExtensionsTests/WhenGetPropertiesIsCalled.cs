@@ -330,8 +330,8 @@ public sealed class WhenGetPropertiesIsCalled
         IReadOnlyList<Property> properties = definition.Symbol.GetProperties(compilation, CancellationToken.None);
 
         // Assert
-        _ = properties.Should().HaveCount(3);
-        _ = properties.Should().OnlyContain(property => property.IsIgnored);
+        properties.Count.ShouldBe(3);
+        properties.ShouldAllBe(property => property.IsIgnored);
     }
 
     [Theory]
@@ -400,8 +400,8 @@ public sealed class WhenGetPropertiesIsCalled
         IReadOnlyList<Property> actual = definition.Symbol.GetProperties(compilation, CancellationToken.None);
 
         // Assert
-        _ = actual.Should().HaveCount(expected.Length);
-        _ = actual.Should().Contain(expected);
+        actual.Count.ShouldBe(expected.Length);
+        actual.ShouldBeSubsetOf(expected);
     }
 
     private static Property GetAttributes(bool isNullable, string descriptor = "WithAttributes")

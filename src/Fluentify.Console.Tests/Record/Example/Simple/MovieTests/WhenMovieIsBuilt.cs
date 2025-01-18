@@ -35,7 +35,7 @@ public sealed class WhenMovieIsBuilt
                 .BornIn(1940));
 
         // Assert
-        _ = actual.Should().NotBe(original);
-        _ = actual.Should().BeEquivalentTo(expected);
+        actual.ShouldNotBe(original);
+        actual.ShouldBeEquivalentTo(expected);
     }
 }

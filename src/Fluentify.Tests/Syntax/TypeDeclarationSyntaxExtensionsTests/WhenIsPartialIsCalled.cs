@@ -21,7 +21,7 @@ public sealed class WhenIsPartialIsCalled
         bool result = syntax.IsPartial();
 
         // Assert
-        _ = result.Should().BeTrue();
+        result.ShouldBeTrue();
     }
 
     [Fact]
@@ -40,7 +40,7 @@ public sealed class WhenIsPartialIsCalled
         bool result = syntax.IsPartial();
 
         // Assert
-        _ = result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -59,7 +59,7 @@ public sealed class WhenIsPartialIsCalled
         bool result = syntax.IsPartial();
 
         // Assert
-        _ = result.Should().BeTrue();
+        result.ShouldBeTrue();
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public sealed class WhenIsPartialIsCalled
         bool result = syntax.IsPartial();
 
         // Assert
-        _ = result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -97,7 +97,7 @@ public sealed class WhenIsPartialIsCalled
         bool result = syntax.IsPartial();
 
         // Assert
-        _ = result.Should().BeTrue();
+        result.ShouldBeTrue();
     }
 
     [Fact]
@@ -116,7 +116,7 @@ public sealed class WhenIsPartialIsCalled
         bool result = syntax.IsPartial();
 
         // Assert
-        _ = result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 
     private static TypeDeclarationSyntax CreateTypeDeclarationSyntax(string source)

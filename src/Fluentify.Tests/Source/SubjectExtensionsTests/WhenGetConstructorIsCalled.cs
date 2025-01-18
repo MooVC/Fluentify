@@ -37,7 +37,7 @@ public sealed class WhenGetConstructorIsCalled
         string result = subject.GetConstructor();
 
         // Assert
-        _ = result.Should().Be(Expected);
+        result.ShouldBe(Expected);
     }
 
     [Fact]
@@ -97,6 +97,6 @@ public sealed class WhenGetConstructorIsCalled
         string result = subject.GetConstructor();
 
         // Assert
-        _ = result.Should().Be(Expected);
+        result.ShouldBe(Expected);
     }
 }

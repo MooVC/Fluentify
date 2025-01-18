@@ -257,7 +257,7 @@ To ensure consistency and maintainability across the Fluentify codebase, we foll
   var actual = Math.Max(expected, 4);
 
   // Assert
-  _ = actual.Should().Be(expected);
+  actual.ShouldBe(expected);
   ```
 
 - **Test Naming**: 

@@ -19,9 +19,9 @@ public sealed class WhenToMetadataIsCalled
         var metadata = subject.ToMetadata();
 
         // Assert
-        _ = metadata.Constraints.Should().BeEmpty();
-        _ = metadata.Parameters.Should().BeEmpty();
-        _ = metadata.Subject.Should().Be(subject);
+        metadata.Constraints.ShouldBeEmpty();
+        metadata.Parameters.ShouldBeEmpty();
+        metadata.Subject.ShouldBe(subject);
     }
 
     [Fact]
@@ -53,13 +53,13 @@ public sealed class WhenToMetadataIsCalled
         var metadata = subject.ToMetadata();
 
         // Assert
-        _ = metadata.Constraints.Should().Contain(
+        metadata.Constraints.ShouldBeSubsetOf(
         [
             "where T : class, new()",
             "where U : struct",
         ]);
 
-        _ = metadata.Parameters.Should().Be("<T, U>");
-        _ = metadata.Subject.Should().Be(subject);
+        metadata.Parameters.ShouldBe("<T, U>");
+        metadata.Subject.ShouldBe(subject);
     }
 }
