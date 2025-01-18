@@ -12,8 +12,8 @@ public sealed class WhenWithAttributesIsCalled
         Func<OnIgnored> act = () => subject!.WithAttributes(new object());
 
         // Assert
-        _ = act.Should().Throw<ArgumentNullException>()
-            .WithParameterName(nameof(subject));
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 
     [Fact]
@@ -33,9 +33,9 @@ public sealed class WhenWithAttributesIsCalled
         OnIgnored actual = original.WithAttributes(attributes);
 
         // Assert
-        _ = actual.Should().NotBeSameAs(original);
-        _ = actual.Age.Should().Be(original.Age);
-        _ = actual.Attributes.Should().BeEquivalentTo(attributes);
-        _ = actual.Name.Should().Be(original.Name);
+        actual.ShouldNotBeSameAs(original);
+        actual.Age.ShouldBe(original.Age);
+        actual.Attributes.ShouldBeEquivalentTo(attributes);
+        actual.Name.ShouldBe(original.Name);
     }
 }

@@ -12,8 +12,8 @@ public sealed class WhenWithNamesIsCalled
         Func<SimpleWithEnumerables> act = () => subject!.WithNames("Avery Brooks");
 
         // Assert
-        _ = act.Should().Throw<ArgumentNullException>()
-            .WithParameterName(nameof(subject));
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 
     [Fact]
@@ -37,11 +37,11 @@ public sealed class WhenWithNamesIsCalled
         SimpleWithEnumerables actual = original.WithNames(second);
 
         // Assert
-        _ = actual.Should().NotBeSameAs(original);
-        _ = actual.Age.Should().Be(original.Age);
-        _ = actual.Attributes.Should().BeEquivalentTo(original.Attributes);
-        _ = actual.Name.Should().Be(original.Name);
-        _ = actual.Names.Should().BeEquivalentTo(expected);
-        _ = actual.Numbers.Should().BeEquivalentTo(original.Numbers);
+        actual.ShouldNotBeSameAs(original);
+        actual.Age.ShouldBe(original.Age);
+        actual.Attributes.ShouldBeEquivalentTo(original.Attributes);
+        actual.Name.ShouldBe(original.Name);
+        actual.Names.ShouldBeEquivalentTo(expected);
+        actual.Numbers.ShouldBeEquivalentTo(original.Numbers);
     }
 }

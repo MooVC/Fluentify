@@ -1,7 +1,6 @@
 ﻿namespace Fluentify.Source.GenericExtensionsTests;
 
 using System.Collections.Generic;
-using FluentAssertions;
 using Fluentify.Model;
 using Fluentify.Source;
 using Xunit;
@@ -18,7 +17,7 @@ public sealed class WhenToParametersIsCalled
         string actual = empty.ToParameters();
 
         // Assert
-        _ = actual.Should().BeEmpty();
+        actual.ShouldBeEmpty();
     }
 
     [Fact]
@@ -32,7 +31,7 @@ public sealed class WhenToParametersIsCalled
         string actual = single.ToParameters();
 
         // Assert
-        _ = actual.Should().Be(expected);
+        actual.ShouldBe(expected);
     }
 
     [Fact]
@@ -51,6 +50,6 @@ public sealed class WhenToParametersIsCalled
         string actual = multiple.ToParameters();
 
         // Assert
-        _ = actual.Should().Be(expected);
+        actual.ShouldBe(expected);
     }
 }

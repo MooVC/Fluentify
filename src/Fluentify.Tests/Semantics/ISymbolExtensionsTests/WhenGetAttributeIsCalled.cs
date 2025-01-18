@@ -21,7 +21,7 @@ public sealed class WhenGetAttributeIsCalled
         AttributeData? result = symbol.GetAttribute("Test");
 
         // Assert
-        _ = result.Should().Be(data);
+        result.ShouldBe(data);
     }
 
     [Fact]
@@ -41,7 +41,7 @@ public sealed class WhenGetAttributeIsCalled
         AttributeData? result = symbol.GetAttribute("Test");
 
         // Assert
-        _ = result.Should().BeNull();
+        result.ShouldBeNull();
     }
 
     [Fact]
@@ -55,6 +55,6 @@ public sealed class WhenGetAttributeIsCalled
         AttributeData? result = symbol.GetAttribute("Test");
 
         // Assert
-        _ = result.Should().BeNull();
+        result.ShouldBeNull();
     }
 }

@@ -17,13 +17,13 @@ public sealed class WhenHasIgnoreIsCalled
         _ = data.AttributeClass.Returns(@class);
 
         IPropertySymbol property = Substitute.For<IPropertySymbol>();
-        _ = property.GetAttributes().Returns(ImmutableArray.Create(data));
+        _ = property.GetAttributes().Returns([data]);
 
         // Act
         bool result = property.HasIgnore();
 
         // Assert
-        _ = result.Should().BeTrue();
+        result.ShouldBeTrue();
     }
 
     [Fact]
@@ -37,13 +37,13 @@ public sealed class WhenHasIgnoreIsCalled
         _ = data.AttributeClass.Returns(@class);
 
         IPropertySymbol property = Substitute.For<IPropertySymbol>();
-        _ = property.GetAttributes().Returns(ImmutableArray.Create(data));
+        _ = property.GetAttributes().Returns([data]);
 
         // Act
         bool result = property.HasIgnore();
 
         // Assert
-        _ = result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -51,12 +51,12 @@ public sealed class WhenHasIgnoreIsCalled
     {
         // Arrange
         IPropertySymbol property = Substitute.For<IPropertySymbol>();
-        _ = property.GetAttributes().Returns(ImmutableArray<AttributeData>.Empty);
+        _ = property.GetAttributes().Returns([]);
 
         // Act
         bool result = property.HasIgnore();
 
         // Assert
-        _ = result.Should().BeFalse();
+        result.ShouldBeFalse();
     }
 }

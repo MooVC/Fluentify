@@ -12,8 +12,8 @@ public sealed class WhenWithAgeIsCalled
         Func<GlobalClass> act = () => subject!.WithAge(1);
 
         // Assert
-        _ = act.Should().Throw<ArgumentNullException>()
-            .WithParameterName(nameof(subject));
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 
     [Theory]
@@ -36,9 +36,9 @@ public sealed class WhenWithAgeIsCalled
         GlobalClass actual = original.WithAge(age);
 
         // Assert
-        _ = actual.Should().NotBeSameAs(original);
-        _ = actual.Age.Should().Be(age);
-        _ = actual.Attributes.Should().BeEquivalentTo(original.Attributes);
-        _ = actual.Name.Should().BeEquivalentTo(original.Name);
+        actual.ShouldNotBeSameAs(original);
+        actual.Age.ShouldBe(age);
+        actual.Attributes.ShouldBeEquivalentTo(original.Attributes);
+        actual.Name.ShouldBeEquivalentTo(original.Name);
     }
 }

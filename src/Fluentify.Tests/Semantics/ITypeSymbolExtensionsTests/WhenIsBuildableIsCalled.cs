@@ -50,7 +50,7 @@ public sealed class WhenIsBuildableIsCalled
         bool isBuildable = symbol.Type.IsBuildable(compilation, CancellationToken.None);
 
         // Assert
-        _ = isBuildable.Should().BeTrue();
+        isBuildable.ShouldBeTrue();
     }
 
     [Theory]
@@ -64,6 +64,6 @@ public sealed class WhenIsBuildableIsCalled
         bool isBuildable = symbol.Type.IsBuildable(compilation, CancellationToken.None);
 
         // Assert
-        _ = isBuildable.Should().BeFalse();
+        isBuildable.ShouldBeFalse();
     }
 }

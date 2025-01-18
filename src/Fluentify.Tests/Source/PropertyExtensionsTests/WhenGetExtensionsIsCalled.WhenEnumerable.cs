@@ -54,7 +54,7 @@ public sealed partial class WhenGetExtensionsIsCalled
         string result = property.GetExtensions(ref metadata, _ => default);
 
         // Assert
-        _ = result.Should().BeEmpty();
+        result.ShouldBeEmpty();
     }
 
     [Theory]
@@ -136,7 +136,7 @@ public sealed partial class WhenGetExtensionsIsCalled
         string result = property.GetExtensions(ref metadata, _ => scalar);
 
         // Assert
-        _ = result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Theory]
@@ -218,7 +218,7 @@ public sealed partial class WhenGetExtensionsIsCalled
         string result = property.GetExtensions(ref metadata, _ => scalar);
 
         // Assert
-        _ = result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Theory]
@@ -301,7 +301,7 @@ public sealed partial class WhenGetExtensionsIsCalled
         string result = property.GetExtensions(ref metadata, _ => scalar);
 
         // Assert
-        _ = result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 
     [Theory]
@@ -399,6 +399,6 @@ public sealed partial class WhenGetExtensionsIsCalled
         string result = property.GetExtensions(ref metadata, _ => scalar);
 
         // Assert
-        _ = result.Should().Be(expected);
+        result.ShouldBe(expected);
     }
 }

@@ -67,7 +67,7 @@ public sealed class WhenToSubjectIsCalled
         var subject = syntax.ToSubject(Classes.Instance.Compilation, CancellationToken.None);
 
         // Assert
-        _ = subject.Should().BeNull();
+        subject.ShouldBeNull();
     }
 
     [Theory]
@@ -131,7 +131,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
-        _ = actual.Should().BeEquivalentTo(expected);
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -184,7 +184,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
-        _ = actual.Should().BeEquivalentTo(expected);
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -253,7 +253,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
-        _ = actual.Should().BeEquivalentTo(expected);
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -342,7 +342,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
-        _ = actual.Should().BeEquivalentTo(expected);
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -412,7 +412,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
-        _ = actual.Should().BeEquivalentTo(expected);
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -481,7 +481,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
-        _ = actual.Should().BeEquivalentTo(expected);
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -554,7 +554,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
-        _ = actual.Should().BeEquivalentTo(expected);
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -565,6 +565,6 @@ public sealed class WhenToSubjectIsCalled
         var subject = definition.Syntax.ToSubject(compilation, CancellationToken.None);
 
         // Assert
-        _ = subject.Should().BeNull();
+        subject.ShouldBeNull();
     }
 }

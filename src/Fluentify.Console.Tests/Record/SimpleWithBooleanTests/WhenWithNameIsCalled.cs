@@ -12,8 +12,8 @@ public sealed class WhenWithNameIsCalled
         Func<SimpleWithBoolean> act = () => subject!.WithName("Avery Brooks");
 
         // Assert
-        _ = act.Should().Throw<ArgumentNullException>()
-            .WithParameterName(nameof(subject));
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 
     [Theory]
@@ -34,9 +34,9 @@ public sealed class WhenWithNameIsCalled
         SimpleWithBoolean actual = original.WithName(name);
 
         // Assert
-        _ = actual.Should().NotBeSameAs(original);
-        _ = actual.Age.Should().Be(original.Age);
-        _ = actual.IsRetired.Should().Be(original.IsRetired);
-        _ = actual.Name.Should().BeEquivalentTo(name);
+        actual.ShouldNotBeSameAs(original);
+        actual.Age.ShouldBe(original.Age);
+        actual.IsRetired.ShouldBe(original.IsRetired);
+        actual.Name.ShouldBeEquivalentTo(name);
     }
 }

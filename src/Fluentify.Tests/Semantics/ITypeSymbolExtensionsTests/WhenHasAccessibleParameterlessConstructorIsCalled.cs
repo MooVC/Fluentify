@@ -110,8 +110,8 @@ public sealed class WhenHasAccessibleParameterlessConstructorIsCalled
         bool actual = symbol.HasAccessibleParameterlessConstructor(Records.Instance.Compilation, out bool isInternal);
 
         // Assert
-        _ = isInternal.Should().BeFalse();
-        _ = actual.Should().Be(expected);
+        isInternal.ShouldBeFalse();
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -135,8 +135,8 @@ public sealed class WhenHasAccessibleParameterlessConstructorIsCalled
         bool actual = symbol.HasAccessibleParameterlessConstructor(compilation, out bool isInternal);
 
         // Assert
-        _ = isInternal.Should().BeTrue();
-        _ = actual.Should().Be(expected);
+        isInternal.ShouldBeTrue();
+        actual.ShouldBe(expected);
     }
 
     private static Compilation CreateCompilation(string code)

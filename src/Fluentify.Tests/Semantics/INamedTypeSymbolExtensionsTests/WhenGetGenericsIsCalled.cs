@@ -1,6 +1,5 @@
 ﻿namespace Fluentify.Semantics.INamedTypeSymbolExtensionsTests;
 
-using System.Collections.Immutable;
 using Fluentify.Model;
 using Fluentify.Semantics;
 using Microsoft.CodeAnalysis;
@@ -12,13 +11,13 @@ public sealed class WhenGetGenericsIsCalled
     {
         // Arrange
         INamedTypeSymbol symbol = Substitute.For<INamedTypeSymbol>();
-        _ = symbol.TypeParameters.Returns(ImmutableArray<ITypeParameterSymbol>.Empty);
+        _ = symbol.TypeParameters.Returns([]);
 
         // Act
         IReadOnlyList<Generic> generics = symbol.GetGenerics();
 
         // Assert
-        _ = generics.Should().BeEmpty();
+        generics.ShouldBeEmpty();
     }
 
     [Fact]
@@ -39,10 +38,10 @@ public sealed class WhenGetGenericsIsCalled
         IReadOnlyList<Generic> generics = symbol.GetGenerics();
 
         // Assert
-        _ = generics.Should().HaveCount(1);
+        generics.Count.ShouldBe(1);
         Generic generic = generics[0];
-        _ = generic.Name.Should().Be("T");
-        _ = generic.Constraints.Should().ContainInOrder("class", "new()");
+        generic.Name.ShouldBe("T");
+        generic.Constraints.ShouldBeSubsetOf(["class", "new()"]);
     }
 
     [Fact]
@@ -63,10 +62,10 @@ public sealed class WhenGetGenericsIsCalled
         IReadOnlyList<Generic> generics = symbol.GetGenerics();
 
         // Assert
-        _ = generics.Should().HaveCount(1);
+        generics.Count.ShouldBe(1);
         Generic generic = generics[0];
-        _ = generic.Name.Should().Be("T");
-        _ = generic.Constraints.Should().BeEmpty();
+        generic.Name.ShouldBe("T");
+        generic.Constraints.ShouldBeEmpty();
     }
 
     [Fact]
@@ -94,15 +93,15 @@ public sealed class WhenGetGenericsIsCalled
         IReadOnlyList<Generic> generics = symbol.GetGenerics();
 
         // Assert
-        _ = generics.Should().HaveCount(2);
+        generics.Count.ShouldBe(2);
 
         Generic generic1 = generics[0];
-        _ = generic1.Name.Should().Be("T1");
-        _ = generic1.Constraints.Should().ContainInOrder("class", "new()");
+        generic1.Name.ShouldBe("T1");
+        generic1.Constraints.ShouldBeSubsetOf(["class", "new()"]);
 
         Generic generic2 = generics[^1];
-        _ = generic2.Name.Should().Be("T2");
-        _ = generic2.Constraints.Should().ContainInOrder("struct");
+        generic2.Name.ShouldBe("T2");
+        generic2.Constraints.ShouldContain("struct");
     }
 
     [Fact]
@@ -126,9 +125,9 @@ public sealed class WhenGetGenericsIsCalled
         IReadOnlyList<Generic> generics = symbol.GetGenerics();
 
         // Assert
-        _ = generics.Should().HaveCount(1);
+        generics.Count.ShouldBe(1);
         Generic generic = generics[0];
-        _ = generic.Name.Should().Be("T");
-        _ = generic.Constraints.Should().ContainInOrder("global::System.IDisposable", "new()");
+        generic.Name.ShouldBe("T");
+        generic.Constraints.ShouldBeSubsetOf(["global::System.IDisposable", "new()"]);
     }
 }

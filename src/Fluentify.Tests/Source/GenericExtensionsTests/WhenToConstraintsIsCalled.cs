@@ -1,7 +1,6 @@
 ﻿namespace Fluentify.Source.GenericExtensionsTests;
 
 using System.Collections.Generic;
-using FluentAssertions;
 using Fluentify.Model;
 using Fluentify.Source;
 using Xunit;
@@ -18,7 +17,7 @@ public sealed class WhenToConstraintsIsCalled
         IReadOnlyList<string> actual = empty.ToConstraints();
 
         // Assert
-        _ = actual.Should().BeEmpty();
+        actual.ShouldBeEmpty();
     }
 
     [Fact]
@@ -32,7 +31,7 @@ public sealed class WhenToConstraintsIsCalled
         IReadOnlyList<string> actual = single.ToConstraints();
 
         // Assert
-        _ = actual.Should().BeEquivalentTo(expected);
+        actual.ShouldBe(expected);
     }
 
     [Fact]
@@ -50,7 +49,7 @@ public sealed class WhenToConstraintsIsCalled
         IReadOnlyList<string> actual = single.ToConstraints();
 
         // Assert
-        _ = actual.Should().BeEquivalentTo(expected);
+        actual.ShouldBe(expected);
     }
 
     [Fact]
@@ -68,7 +67,7 @@ public sealed class WhenToConstraintsIsCalled
         IReadOnlyList<string> actual = single.ToConstraints();
 
         // Assert
-        _ = actual.Should().BeEquivalentTo(expected);
+        actual.ShouldBe(expected);
     }
 
     [Fact]
@@ -93,6 +92,6 @@ public sealed class WhenToConstraintsIsCalled
         IReadOnlyList<string> actual = multiple.ToConstraints();
 
         // Assert
-        _ = actual.Should().BeEquivalentTo(expected);
+        actual.ShouldBe(expected);
     }
 }

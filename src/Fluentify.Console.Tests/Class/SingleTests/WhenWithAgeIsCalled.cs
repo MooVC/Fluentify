@@ -12,8 +12,8 @@ public sealed class WhenWithAgeIsCalled
         Func<Single> act = () => subject!.WithAge(1);
 
         // Assert
-        _ = act.Should().Throw<ArgumentNullException>()
-            .WithParameterName(nameof(subject));
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 
     [Theory]
@@ -34,7 +34,7 @@ public sealed class WhenWithAgeIsCalled
         Single actual = original.WithAge(age);
 
         // Assert
-        _ = actual.Should().NotBeSameAs(original);
-        _ = actual.Age.Should().Be(age);
+        actual.ShouldNotBeSameAs(original);
+        actual.Age.ShouldBe(age);
     }
 }

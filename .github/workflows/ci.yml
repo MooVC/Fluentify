@@ -18,6 +18,10 @@ env:
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
   solution: 'Fluentify.sln'
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   build:
     name: Build & Test
@@ -53,6 +57,6 @@ jobs:
       run: dotnet test ${{ env.solution }} --configuration ${{ env.configuration }} --no-build
 
     - name: Upload Code Coverage
-      uses: codecov/codecov-action@v5.1.2
+      uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303
       with:
         token: ${{ secrets.CODECOV_TOKEN }}

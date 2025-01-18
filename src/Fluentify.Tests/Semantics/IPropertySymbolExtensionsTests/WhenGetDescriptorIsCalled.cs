@@ -56,7 +56,7 @@ public sealed class WhenGetDescriptorIsCalled
         string? actual = symbol.GetDescriptor();
 
         // Assert
-        _ = actual.Should().Be(descriptor);
+        actual.ShouldBe(descriptor);
     }
 
     [Theory]
@@ -75,7 +75,7 @@ public sealed class WhenGetDescriptorIsCalled
             string? descriptor = property.GetDescriptor();
 
             // Assert
-            _ = descriptor.Should().BeNull();
+            descriptor.ShouldBeNull();
         }
     }
 }

@@ -17,8 +17,8 @@ public sealed class WhenMyServiceIsBuilt
             .Build();
 
         // Assert
-        _ = service.Should().NotBeNull();
-        _ = service.ConnectionString.Should().Be(connectionString);
-        _ = service.Timeout.TotalSeconds.Should().Be(timeout);
+        _ = service.ShouldNotBeNull();
+        service.ConnectionString.ShouldBe(connectionString);
+        service.Timeout.TotalSeconds.ShouldBe(timeout);
     }
 }

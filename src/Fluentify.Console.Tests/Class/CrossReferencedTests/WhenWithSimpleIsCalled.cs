@@ -12,8 +12,8 @@ public sealed class WhenWithSimpleIsCalled
         Func<CrossReferenced> act = () => subject!.WithSimple(new Simple());
 
         // Assert
-        _ = act.Should().Throw<ArgumentNullException>()
-            .WithParameterName(nameof(subject));
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 
     [Fact]
@@ -32,9 +32,9 @@ public sealed class WhenWithSimpleIsCalled
         CrossReferenced actual = original.WithSimple(expected);
 
         // Assert
-        _ = actual.Should().NotBeSameAs(original);
-        _ = actual.Description.Should().Be(original.Description);
-        _ = actual.Simple.Should().Be(expected);
+        actual.ShouldNotBeSameAs(original);
+        actual.Description.ShouldBe(original.Description);
+        actual.Simple.ShouldBe(expected);
     }
 
     [Fact]
@@ -53,8 +53,8 @@ public sealed class WhenWithSimpleIsCalled
         CrossReferenced actual = original.WithSimple(_ => expected);
 
         // Assert
-        _ = actual.Should().NotBeSameAs(original);
-        _ = actual.Description.Should().Be(original.Description);
-        _ = actual.Simple.Should().Be(expected);
+        actual.ShouldNotBeSameAs(original);
+        actual.Description.ShouldBe(original.Description);
+        actual.Simple.ShouldBe(expected);
     }
 }

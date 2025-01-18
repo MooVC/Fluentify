@@ -55,7 +55,7 @@ public sealed class WhenGetDefaultDescriptorIsCalled
         string? actual = symbol.GetDefaultDescriptor();
 
         // Assert
-        _ = actual.Should().Be(expected);
+        actual.ShouldBe(expected);
     }
 
     [Theory]
@@ -69,7 +69,7 @@ public sealed class WhenGetDefaultDescriptorIsCalled
         string? actual = symbol.GetDefaultDescriptor();
 
         // Assert
-        _ = actual.Should().Be(descriptor);
+        actual.ShouldBe(descriptor);
     }
 
     [Theory]
@@ -83,6 +83,6 @@ public sealed class WhenGetDefaultDescriptorIsCalled
         string? actual = symbol.GetDefaultDescriptor();
 
         // Assert
-        _ = actual.Should().Be(descriptor);
+        actual.ShouldBe(descriptor);
     }
 }
