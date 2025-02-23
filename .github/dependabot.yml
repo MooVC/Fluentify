@@ -3,16 +3,16 @@ updates:
   - package-ecosystem: "nuget"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "daily"
     groups:
       all-dependencies:
         patterns:
           - "*"
           
   - package-ecosystem: "github-actions"
-    directory: ".github/workflows" # Location of your GitHub Actions workflows
+    directory: ".github/workflows"
     schedule:
-      interval: "weekly" # Check for updates weekly
+      interval: "daily"
     commit-message:
       prefix: "deps"
     open-pull-requests-limit: 10
