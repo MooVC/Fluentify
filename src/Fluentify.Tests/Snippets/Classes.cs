@@ -79,12 +79,26 @@ public static partial class Classes
             NestedInClassWithNameExtensions,
             NestedInClassWithAttributesExtensions);
 
+        NestedInClassWithGenerics = new(
+            NestedInClassWithGenericsContent,
+            nameof(NestedInClassWithGenerics),
+            NestedInClassWithGenericsWithAgeExtensions,
+            NestedInClassWithGenericsWithNameExtensions,
+            NestedInClassWithGenericsWithAttributesExtensions);
+
         NestedInStruct = new(
             NestedInStructContent,
             nameof(NestedInStruct),
             NestedInStructWithAgeExtensions,
             NestedInStructWithNameExtensions,
             NestedInStructWithAttributesExtensions);
+
+        NestedInStructWithGenerics = new(
+            NestedInStructWithGenericsContent,
+            nameof(NestedInStructWithGenerics),
+            NestedInStructWithGenericsWithAgeExtensions,
+            NestedInStructWithGenericsWithNameExtensions,
+            NestedInStructWithGenericsWithAttributesExtensions);
 
         OneOfThreeIgnored = new(
             OneOfThreeIgnoredContent,
