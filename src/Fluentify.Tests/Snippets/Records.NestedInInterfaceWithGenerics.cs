@@ -22,22 +22,22 @@ public static partial class Records
     public static readonly Generated NestedInInterfaceWithGenericsConstructor = new(
         NestedInInterfaceWithGenericsConstructorContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner>.ctor");
+        "Fluentify.Records.Testing.Outter.NestedInInterfaceWithGenerics.ctor");
 
     public static readonly Generated NestedInInterfaceWithGenericsWithAgeExtensions = new(
         NestedInInterfaceWithGenericsWithAgeExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner>Extensions.WithAge");
+        "Fluentify.Records.Testing.Outter.NestedInInterfaceWithGenericsExtensions.WithAge");
 
     public static readonly Generated NestedInInterfaceWithGenericsWithAttributesExtensions = new(
         NestedInInterfaceWithGenericsWithAttributesExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner>Extensions.WithAttributes");
+        "Fluentify.Records.Testing.Outter.NestedInInterfaceWithGenericsExtensions.WithAttributes");
 
     public static readonly Generated NestedInInterfaceWithGenericsWithNameExtensions = new(
         NestedInInterfaceWithGenericsWithNameExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner>Extensions.WithName");
+        "Fluentify.Records.Testing.Outter.NestedInInterfaceWithGenericsExtensions.WithName");
 
     private const string NestedInInterfaceWithGenericsConstructorContent = """
         #nullable enable
@@ -83,7 +83,7 @@ public static partial class Records
 
             public static partial class NestedInInterfaceWithGenericsExtensions
             {
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> WithAge(
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> WithAge<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> subject,
                     int value)
                     where TOutter : class
@@ -116,7 +116,7 @@ public static partial class Records
 
             public static partial class NestedInInterfaceWithGenericsExtensions
             {
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> WithAttributes(
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> subject,
                     params object[] values)
                     where TOutter : class
@@ -139,7 +139,7 @@ public static partial class Records
                     };
                 }
 
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> WithAttributes(
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> subject,
                     Func<object, object> builder)
                     where TOutter : class
@@ -175,7 +175,7 @@ public static partial class Records
 
             public static partial class NestedInInterfaceWithGenericsExtensions
             {
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> WithName(
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> WithName<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> subject,
                     string value)
                     where TOutter : class

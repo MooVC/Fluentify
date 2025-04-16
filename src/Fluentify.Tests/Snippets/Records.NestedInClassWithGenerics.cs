@@ -22,22 +22,22 @@ public static partial class Records
     public static readonly Generated NestedInClassWithGenericsConstructor = new(
         NestedInClassWithGenericsConstructorContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>.ctor");
+        "Fluentify.Records.Testing.Outter.NestedInClassWithGenerics.ctor");
 
     public static readonly Generated NestedInClassWithGenericsWithAgeExtensions = new(
         NestedInClassWithGenericsWithAgeExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>Extensions.WithAge");
+        "Fluentify.Records.Testing.Outter.NestedInClassWithGenericsExtensions.WithAge");
 
     public static readonly Generated NestedInClassWithGenericsWithAttributesExtensions = new(
         NestedInClassWithGenericsWithAttributesExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>Extensions.WithAttributes");
+        "Fluentify.Records.Testing.Outter.NestedInClassWithGenericsExtensions.WithAttributes");
 
     public static readonly Generated NestedInClassWithGenericsWithNameExtensions = new(
         NestedInClassWithGenericsWithNameExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>Extensions.WithName");
+        "Fluentify.Records.Testing.Outter.NestedInClassWithGenericsExtensions.WithName");
 
     private const string NestedInClassWithGenericsConstructorContent = """
         #nullable enable
@@ -83,7 +83,7 @@ public static partial class Records
 
             public static partial class NestedInClassWithGenericsExtensions
             {
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAge(
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAge<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
                     int value)
                     where TOutter : class
@@ -116,7 +116,7 @@ public static partial class Records
 
             public static partial class NestedInClassWithGenericsExtensions
             {
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes(
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
                     params object[] values)
                     where TOutter : class
@@ -139,7 +139,7 @@ public static partial class Records
                     };
                 }
 
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes(
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
                     Func<object, object> builder)
                     where TOutter : class
@@ -175,7 +175,7 @@ public static partial class Records
 
             public static partial class NestedInClassWithGenericsExtensions
             {
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithName(
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithName<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
                     string value)
                     where TOutter : class

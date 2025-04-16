@@ -9,6 +9,7 @@ public abstract class WhenEqualityIsChecked
         var instance1 = new Nesting
         {
             Declaration = "partial class",
+            Generics = [new Generic { Name = "T" }],
             Name = "Simple",
             Qualification = "Complex",
         };
@@ -16,6 +17,7 @@ public abstract class WhenEqualityIsChecked
         var instance2 = new Nesting
         {
             Declaration = "partial class",
+            Generics = [new Generic { Name = "T" }],
             Name = "Simple",
             Qualification = "Complex",
         };
@@ -28,12 +30,67 @@ public abstract class WhenEqualityIsChecked
     }
 
     [Fact]
+    public void GivenDifferentDeclarationThenTheyAreDeemedNotEqual()
+    {
+        // Arrange
+        var instance1 = new Nesting
+        {
+            Declaration = "partial class",
+            Generics = [new Generic { Name = "T" }],
+            Name = "Simple",
+            Qualification = "Complex",
+        };
+
+        var instance2 = new Nesting
+        {
+            Declaration = "struct",
+            Generics = [new Generic { Name = "T" }],
+            Name = "Simple",
+            Qualification = "Complex",
+        };
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        areEqual.ShouldBeFalse();
+    }
+
+    [Fact]
+    public void GivenADifferentGenericsThenTheyAreNotDeemedEqual()
+    {
+        // Arrange
+        var instance1 = new Nesting
+        {
+            Declaration = "partial class",
+            Generics = [new Generic { Name = "T1" }],
+            Name = "Simple",
+            Qualification = "Complex",
+        };
+
+        var instance2 = new Nesting
+        {
+            Declaration = "partial class",
+            Generics = [new Generic { Name = "T2" }],
+            Name = "Simple",
+            Qualification = "Complex",
+        };
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        areEqual.ShouldBeFalse();
+    }
+
+    [Fact]
     public void GivenADifferentNameThenTheyAreNotDeemedEqual()
     {
         // Arrange
         var instance1 = new Nesting
         {
             Declaration = "partial class",
+            Generics = [new Generic { Name = "T" }],
             Name = "Simple1",
             Qualification = "Complex",
         };
@@ -41,6 +98,7 @@ public abstract class WhenEqualityIsChecked
         var instance2 = new Nesting
         {
             Declaration = "partial class",
+            Generics = [new Generic { Name = "T" }],
             Name = "Simple2",
             Qualification = "Complex",
         };
@@ -59,6 +117,7 @@ public abstract class WhenEqualityIsChecked
         var instance1 = new Nesting
         {
             Declaration = "partial class",
+            Generics = [new Generic { Name = "T" }],
             Name = "Simple",
             Qualification = "Complex1",
         };
@@ -66,33 +125,9 @@ public abstract class WhenEqualityIsChecked
         var instance2 = new Nesting
         {
             Declaration = "partial class",
+            Generics = [new Generic { Name = "T" }],
             Name = "Simple",
             Qualification = "Complex2",
-        };
-
-        // Act
-        bool areEqual = AreEqual(instance1, instance2);
-
-        // Assert
-        areEqual.ShouldBeFalse();
-    }
-
-    [Fact]
-    public void GivenDifferentTypeThenTheyAreDeemedNotEqual()
-    {
-        // Arrange
-        var instance1 = new Nesting
-        {
-            Declaration = "partial class",
-            Name = "Simple",
-            Qualification = "Complex",
-        };
-
-        var instance2 = new Nesting
-        {
-            Declaration = "struct",
-            Name = "Simple",
-            Qualification = "Complex",
         };
 
         // Act
@@ -109,6 +144,7 @@ public abstract class WhenEqualityIsChecked
         var instance = new Nesting
         {
             Declaration = "partial class",
+            Generics = [new Generic { Name = "T" }],
             Name = "Simple",
             Qualification = "Complex",
         };
@@ -141,6 +177,7 @@ public abstract class WhenEqualityIsChecked
         var instance1 = new Nesting
         {
             Declaration = "partial class",
+            Generics = [new Generic { Name = "T" }],
             Name = "Simple",
             Qualification = "Complex",
         };

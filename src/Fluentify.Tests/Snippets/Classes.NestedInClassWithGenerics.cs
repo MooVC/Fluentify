@@ -29,17 +29,17 @@ public static partial class Classes
     public static readonly Generated NestedInClassWithGenericsWithAgeExtensions = new(
         NestedInClassWithGenericsWithAgeExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>Extensions.WithAge");
+        "Fluentify.Classes.Testing.Outter.NestedInClassWithGenericsExtensions.WithAge");
 
     public static readonly Generated NestedInClassWithGenericsWithAttributesExtensions = new(
         NestedInClassWithGenericsWithAttributesExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>Extensions.WithAttributes");
+        "Fluentify.Classes.Testing.Outter.NestedInClassWithGenericsExtensions.WithAttributes");
 
     public static readonly Generated NestedInClassWithGenericsWithNameExtensions = new(
         NestedInClassWithGenericsWithNameExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>Extensions.WithName");
+        "Fluentify.Classes.Testing.Outter.NestedInClassWithGenericsExtensions.WithName");
 
     private const string NestedInClassWithGenericsWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
@@ -98,7 +98,7 @@ public static partial class Classes
 
             public static partial class NestedInClassWithGenericsExtensions
             {
-                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes(
+                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
                     params object[] values)
                     where TOutter : class
@@ -123,7 +123,7 @@ public static partial class Classes
                     };
                 }
 
-                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes(
+                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
                     Func<object, object> builder)
                     where TOutter : class
@@ -165,7 +165,7 @@ public static partial class Classes
 
             public static partial class NestedInClassWithGenericsExtensions
             {
-                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithName(
+                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithName<TOutter, TInner>(
                     this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
                     string value)
                     where TOutter : class

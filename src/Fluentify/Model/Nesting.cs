@@ -1,6 +1,5 @@
 ﻿namespace Fluentify.Model;
 
-using System.Collections.Generic;
 using Valuify;
 
 /// <summary>
@@ -12,6 +11,14 @@ internal sealed partial class Nesting
     /// <summary>Gets or sets the kind associated with the type, be it a class, record etc.</summary>
     /// <value>The kind associated with the type, be it a class, record etc.</value>
     public string Declaration { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the generic parameters associated with the nesting.
+    /// </summary>
+    /// <value>
+    /// The generic parameters associated with the nesting.
+    /// </value>
+    public IReadOnlyList<Generic> Generics { get; set; } = [];
 
     /// <summary>Gets or sets the name of the type.</summary>
     /// <value>The name of the type.</value>

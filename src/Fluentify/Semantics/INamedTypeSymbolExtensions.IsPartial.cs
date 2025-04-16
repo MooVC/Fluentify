@@ -30,6 +30,7 @@ internal static partial class INamedTypeSymbolExtensions
                 var parent = new Nesting
                 {
                     Declaration = declaration,
+                    Generics = current.GetGenerics(),
                     Name = current.Name,
                     Qualification = current.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat),
                 };

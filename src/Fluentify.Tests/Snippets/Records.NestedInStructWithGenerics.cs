@@ -22,22 +22,22 @@ public static partial class Records
     public static readonly Generated NestedInStructWithGenericsConstructor = new(
         NestedInStructWithGenericsConstructorContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner>.ctor");
+        "Fluentify.Records.Testing.Outter.NestedInStructWithGenerics.ctor");
 
     public static readonly Generated NestedInStructWithGenericsWithAgeExtensions = new(
         NestedInStructWithGenericsWithAgeExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner>Extensions.WithAge");
+        "Fluentify.Records.Testing.Outter.NestedInStructWithGenericsExtensions.WithAge");
 
     public static readonly Generated NestedInStructWithGenericsWithAttributesExtensions = new(
         NestedInStructWithGenericsWithAttributesExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner>Extensions.WithAttributes");
+        "Fluentify.Records.Testing.Outter.NestedInStructWithGenericsExtensions.WithAttributes");
 
     public static readonly Generated NestedInStructWithGenericsWithNameExtensions = new(
         NestedInStructWithGenericsWithNameExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner>Extensions.WithName");
+        "Fluentify.Records.Testing.Outter.NestedInStructWithGenericsExtensions.WithName");
 
     private const string NestedInStructWithGenericsConstructorContent = """
         #nullable enable
@@ -83,7 +83,7 @@ public static partial class Records
 
             public static partial class NestedInStructWithGenericsExtensions
             {
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithAge(
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithAge<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> subject,
                     int value)
                     where TOutter : class
@@ -116,7 +116,7 @@ public static partial class Records
 
             public static partial class NestedInStructWithGenericsExtensions
             {
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithAttributes(
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> subject,
                     params object[] values)
                     where TOutter : class
@@ -139,7 +139,7 @@ public static partial class Records
                     };
                 }
 
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithAttributes(
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> subject,
                     Func<object, object> builder)
                     where TOutter : class
@@ -175,7 +175,7 @@ public static partial class Records
 
             public static partial class NestedInStructWithGenericsExtensions
             {
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithName(
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithName<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> subject,
                     string value)
                     where TOutter : class
