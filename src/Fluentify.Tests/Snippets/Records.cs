@@ -89,6 +89,14 @@ public static partial class Records
             NestedInClassWithNameExtensions,
             NestedInClassWithAttributesExtensions);
 
+        NestedInClassWithGenerics = new(
+            NestedInClassWithGenericsContent,
+            nameof(NestedInClassWithGenerics),
+            NestedInClassWithGenericsConstructor,
+            NestedInClassWithGenericsWithAgeExtensions,
+            NestedInClassWithGenericsWithNameExtensions,
+            NestedInClassWithGenericsWithAttributesExtensions);
+
         NestedInInterface = new(
             NestedInInterfaceContent,
             nameof(NestedInInterface),
@@ -96,6 +104,14 @@ public static partial class Records
             NestedInInterfaceWithAgeExtensions,
             NestedInInterfaceWithNameExtensions,
             NestedInInterfaceWithAttributesExtensions);
+
+        NestedInInterfaceWithGenerics = new(
+            NestedInInterfaceWithGenericsContent,
+            nameof(NestedInInterfaceWithGenerics),
+            NestedInInterfaceWithGenericsConstructor,
+            NestedInInterfaceWithGenericsWithAgeExtensions,
+            NestedInInterfaceWithGenericsWithNameExtensions,
+            NestedInInterfaceWithGenericsWithAttributesExtensions);
 
         NestedInRecord = new(
             NestedInRecordContent,
@@ -105,6 +121,14 @@ public static partial class Records
             NestedInRecordWithNameExtensions,
             NestedInRecordWithAttributesExtensions);
 
+        NestedInRecordWithGenerics = new(
+            NestedInRecordWithGenericsContent,
+            nameof(NestedInRecordWithGenerics),
+            NestedInRecordWithGenericsConstructor,
+            NestedInRecordWithGenericsWithAgeExtensions,
+            NestedInRecordWithGenericsWithNameExtensions,
+            NestedInRecordWithGenericsWithAttributesExtensions);
+
         NestedInStruct = new(
             NestedInStructContent,
             nameof(NestedInStruct),
@@ -112,6 +136,14 @@ public static partial class Records
             NestedInStructWithAgeExtensions,
             NestedInStructWithNameExtensions,
             NestedInStructWithAttributesExtensions);
+
+        NestedInStructWithGenerics = new(
+            NestedInStructWithGenericsContent,
+            nameof(NestedInStructWithGenerics),
+            NestedInStructWithGenericsConstructor,
+            NestedInStructWithGenericsWithAgeExtensions,
+            NestedInStructWithGenericsWithNameExtensions,
+            NestedInStructWithGenericsWithAttributesExtensions);
 
         OneOfThreeIgnored = new(
             OneOfThreeIgnoredContent,

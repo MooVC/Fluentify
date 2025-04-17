@@ -14,8 +14,9 @@ internal static partial class SubjectExtensions
     /// <returns>The <see cref="Metadata"/> for <paramref name="subject"/>.</returns>
     public static Metadata ToMetadata(this Subject subject)
     {
-        IReadOnlyList<string> constraints = subject.Generics.ToConstraints();
-        string parameters = subject.Generics.ToParameters();
+        IReadOnlyList<Generic> generics = subject.Collect();
+        IReadOnlyList<string> constraints = generics.ToConstraints();
+        string parameters = generics.ToParameters();
 
         return new Metadata
         {
@@ -23,5 +24,19 @@ internal static partial class SubjectExtensions
             Parameters = parameters,
             Subject = subject,
         };
+    }
+
+    private static IReadOnlyList<Generic> Collect(this Subject subject)
+    {
+        var generics = new List<Generic>();
+
+        foreach (Nesting nesting in subject.Nesting)
+        {
+            generics.AddRange(nesting.Generics);
+        }
+
+        generics.AddRange(subject.Generics);
+
+        return [.. generics];
     }
 }
