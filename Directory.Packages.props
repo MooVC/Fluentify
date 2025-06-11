@@ -15,7 +15,7 @@
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.11.0.117924" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" />
-    <PackageVersion Include="System.Formats.Asn1" Version="9.0.5" />
+    <PackageVersion Include="System.Formats.Asn1" Version="9.0.6" />
     <PackageVersion Include="Valuify" Version="1.6.0" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.1" />
