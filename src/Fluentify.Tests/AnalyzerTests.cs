@@ -12,28 +12,28 @@ public abstract class AnalyzerTests<TAnalyzer, TGenerator>
     where TAnalyzer : DiagnosticAnalyzer, new()
     where TGenerator : new()
 {
-    private readonly Type[] generators;
-    private readonly LanguageVersion languageVersion;
+    private readonly Type[] _generators;
+    private readonly LanguageVersion _languageVersion;
 
     protected AnalyzerTests(ReferenceAssemblies assemblies, LanguageVersion languageVersion, params Type[] generators)
     {
-        this.generators = generators.Length == 0
+        _generators = generators.Length == 0
             ? [typeof(FluentifyAttributeGenerator), typeof(TGenerator)]
             : generators;
 
-        this.languageVersion = languageVersion;
+        _languageVersion = languageVersion;
         ReferenceAssemblies = assemblies;
         TestBehaviors = TestBehaviors.SkipGeneratedSourcesCheck;
     }
 
     protected sealed override ParseOptions CreateParseOptions()
     {
-        return new CSharpParseOptions(languageVersion);
+        return new CSharpParseOptions(_languageVersion);
     }
 
     protected sealed override IEnumerable<Type> GetSourceGenerators()
     {
-        return generators;
+        return _generators;
     }
 
     protected Task ActAndAssertAsync()

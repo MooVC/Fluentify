@@ -5,7 +5,7 @@ using Fluentify.Snippets;
 public sealed class WhenExecuted
     : GeneratorTests<RecordGenerator>
 {
-    private static readonly Type[] generators =
+    private static readonly Type[] _generators =
     [
         typeof(DescriptorAttributeGenerator),
         typeof(FluentifyAttributeGenerator),
@@ -15,7 +15,7 @@ public sealed class WhenExecuted
     ];
 
     public WhenExecuted()
-        : base(Records.ReferenceAssemblies, Records.LanguageVersion, generators)
+        : base(Records.ReferenceAssemblies, Records.LanguageVersion, _generators)
     {
     }
 

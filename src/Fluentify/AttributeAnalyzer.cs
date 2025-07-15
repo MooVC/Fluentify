@@ -14,7 +14,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 public abstract class AttributeAnalyzer
     : Analyzer<AttributeSyntax>
 {
-    private readonly string name;
+    private readonly string _name;
 
     /// <summary>
     /// Facilitates construction of an analyzer that matches for the specified <paramref name="kind"/>.
@@ -23,7 +23,7 @@ public abstract class AttributeAnalyzer
     private protected AttributeAnalyzer(string name)
         : base(SyntaxKind.Attribute)
     {
-        this.name = name;
+        _name = name;
     }
 
     /// <summary>
@@ -94,6 +94,6 @@ public abstract class AttributeAnalyzer
     private bool IsAttribute(IMethodSymbol symbol)
     {
         return symbol.ContainingType is not null
-            && symbol.ContainingType.IsAttribute(name);
+            && symbol.ContainingType.IsAttribute(_name);
     }
 }

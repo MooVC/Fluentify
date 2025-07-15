@@ -9,27 +9,26 @@ public abstract class GeneratorTests<TGenerator>
     : CSharpSourceGeneratorTest<TGenerator, DefaultVerifier>
     where TGenerator : new()
 {
-    private readonly Type[] generators;
-    private readonly LanguageVersion languageVersion;
+    private readonly Type[] _generators;
+    private readonly LanguageVersion _languageVersion;
 
     protected GeneratorTests(ReferenceAssemblies assemblies, LanguageVersion languageVersion, params Type[] generators)
     {
-        this.generators = generators.Length == 0
+        _generators = generators.Length == 0
             ? [typeof(TGenerator)]
             : generators;
-
-        this.languageVersion = languageVersion;
+        _languageVersion = languageVersion;
         ReferenceAssemblies = assemblies;
     }
 
     protected sealed override ParseOptions CreateParseOptions()
     {
-        return new CSharpParseOptions(languageVersion);
+        return new CSharpParseOptions(_languageVersion);
     }
 
     protected sealed override IEnumerable<Type> GetSourceGenerators()
     {
-        return generators;
+        return _generators;
     }
 
     protected Task ActAndAssertAsync()

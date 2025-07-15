@@ -13,7 +13,7 @@ public abstract class Analyzer<TSyntax>
     where TSyntax : CSharpSyntaxNode
 {
     private const string Branch = "master";
-    private readonly SyntaxKind kind;
+    private readonly SyntaxKind _kind;
 
     /// <summary>
     /// Facilitates construction of an analyzer that matches for the specified <paramref name="kind"/>.
@@ -21,7 +21,7 @@ public abstract class Analyzer<TSyntax>
     /// <param name="kind">The type of syntax to match.</param>
     private protected Analyzer(SyntaxKind kind)
     {
-        this.kind = kind;
+        _kind = kind;
     }
 
     /// <inheritdoc/>
@@ -29,7 +29,7 @@ public abstract class Analyzer<TSyntax>
     {
         context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
         context.EnableConcurrentExecution();
-        context.RegisterSyntaxNodeAction(AnalyzeNode, kind);
+        context.RegisterSyntaxNodeAction(AnalyzeNode, _kind);
     }
 
     /// <summary>

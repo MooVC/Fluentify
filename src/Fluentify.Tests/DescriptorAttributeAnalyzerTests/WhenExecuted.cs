@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Text;
 public abstract partial class WhenExecuted
     : AnalyzerTests<DescriptorAttributeAnalyzer, DescriptorAttributeGenerator>
 {
-    private static readonly Type[] generators =
+    private static readonly Type[] _generators =
     [
         typeof(DescriptorAttributeGenerator),
         typeof(FluentifyAttributeGenerator),
@@ -17,7 +17,7 @@ public abstract partial class WhenExecuted
     ];
 
     protected WhenExecuted(ReferenceAssemblies assemblies, LanguageVersion languageVersion)
-        : base(assemblies, languageVersion, generators)
+        : base(assemblies, languageVersion, _generators)
     {
     }
 

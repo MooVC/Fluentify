@@ -10,8 +10,8 @@ using Microsoft.CodeAnalysis.Text;
 public abstract class AttributeGenerator
     : IIncrementalGenerator
 {
-    private readonly string name;
-    private readonly string[] targets;
+    private readonly string _name;
+    private readonly string[] _targets;
 
     /// <summary>
     /// Serves as a template for attribute generation.
@@ -20,8 +20,8 @@ public abstract class AttributeGenerator
     /// <param name="targets">The AttributeTargets for the attribute.</param>
     private protected AttributeGenerator(string name, params string[] targets)
     {
-        this.name = name;
-        this.targets = targets;
+        _name = name;
+        _targets = targets;
     }
 
     /// <inheritdoc/>
@@ -38,7 +38,7 @@ public abstract class AttributeGenerator
                 using System;
 
                 [AttributeUsage({{GetTargets()}}, Inherited = false, AllowMultiple = false)]
-                internal sealed class {{name}}Attribute
+                internal sealed class {{_name}}Attribute
                     : Attribute
                 {
                 }
@@ -47,12 +47,12 @@ public abstract class AttributeGenerator
 
         var text = SourceText.From(source, Encoding.UTF8);
 
-        context.AddSource($"{name}Attribute.g.cs", text);
+        context.AddSource($"{_name}Attribute.g.cs", text);
     }
 
     private string GetTargets()
     {
-        IEnumerable<string> parameters = targets.Select(target => $"AttributeTargets.{target}");
+        IEnumerable<string> parameters = _targets.Select(target => $"AttributeTargets.{target}");
 
         return string.Join(" | ", parameters);
     }
