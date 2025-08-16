@@ -221,7 +221,7 @@ public sealed class WhenGetPropertiesIsCalled
         };
 
         // Act & Assert
-        ActAndAssert(compilation, definition, _age, attributes, _name);
+        ActAndAssert(compilation, definition, age, attributes, name);
     }
 
     [Theory]
@@ -255,7 +255,7 @@ public sealed class WhenGetPropertiesIsCalled
         };
 
         // Act & Assert
-        ActAndAssert(compilation, definition, _age, attributes, name);
+        ActAndAssert(compilation, definition, _age, attributes, _name);
     }
 
     [Theory]
@@ -280,7 +280,7 @@ public sealed class WhenGetPropertiesIsCalled
         Property attributes = GetAttributes(isNullable);
 
         // Act & Assert
-        ActAndAssert(compilation, definition, age, attributes, name);
+        ActAndAssert(compilation, definition, _age, attributes, name);
     }
 
     [Theory]
