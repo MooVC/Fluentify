@@ -24,9 +24,9 @@ namespace Fluentify {
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class DescriptorAttributeAnalyzer_Resources {
         
-        private static global::System.Resources.ResourceManager resourceMan;
-        
-        private static global::System.Globalization.CultureInfo resourceCulture;
+        private static global::System.Resources.ResourceManager _resourceMan;
+
+        private static global::System.Globalization.CultureInfo _resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal DescriptorAttributeAnalyzer_Resources() {
@@ -38,11 +38,11 @@ namespace Fluentify {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+                if (object.ReferenceEquals(_resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fluentify.DescriptorAttributeAnalyzer.Resources", typeof(DescriptorAttributeAnalyzer_Resources).Assembly);
-                    resourceMan = temp;
+                    _resourceMan = temp;
                 }
-                return resourceMan;
+                return _resourceMan;
             }
         }
         
@@ -53,10 +53,10 @@ namespace Fluentify {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
             get {
-                return resourceCulture;
+                return _resourceCulture;
             }
             set {
-                resourceCulture = value;
+                _resourceCulture = value;
             }
         }
         
@@ -65,7 +65,7 @@ namespace Fluentify {
         /// </summary>
         internal static string DisregardedRuleDescription {
             get {
-                return ResourceManager.GetString("DisregardedRuleDescription", resourceCulture);
+                return ResourceManager.GetString("DisregardedRuleDescription", _resourceCulture);
             }
         }
         
@@ -74,7 +74,7 @@ namespace Fluentify {
         /// </summary>
         internal static string DisregardedRuleMessageFormat {
             get {
-                return ResourceManager.GetString("DisregardedRuleMessageFormat", resourceCulture);
+                return ResourceManager.GetString("DisregardedRuleMessageFormat", _resourceCulture);
             }
         }
         
@@ -83,7 +83,7 @@ namespace Fluentify {
         /// </summary>
         internal static string DisregardedRuleTitle {
             get {
-                return ResourceManager.GetString("DisregardedRuleTitle", resourceCulture);
+                return ResourceManager.GetString("DisregardedRuleTitle", _resourceCulture);
             }
         }
         
@@ -92,7 +92,7 @@ namespace Fluentify {
         /// </summary>
         internal static string MissingFluentifyRuleDescription {
             get {
-                return ResourceManager.GetString("MissingFluentifyRuleDescription", resourceCulture);
+                return ResourceManager.GetString("MissingFluentifyRuleDescription", _resourceCulture);
             }
         }
         
@@ -101,7 +101,7 @@ namespace Fluentify {
         /// </summary>
         internal static string MissingFluentifyRuleMessageFormat {
             get {
-                return ResourceManager.GetString("MissingFluentifyRuleMessageFormat", resourceCulture);
+                return ResourceManager.GetString("MissingFluentifyRuleMessageFormat", _resourceCulture);
             }
         }
         
@@ -110,7 +110,7 @@ namespace Fluentify {
         /// </summary>
         internal static string MissingFluentifyRuleTitle {
             get {
-                return ResourceManager.GetString("MissingFluentifyRuleTitle", resourceCulture);
+                return ResourceManager.GetString("MissingFluentifyRuleTitle", _resourceCulture);
             }
         }
         
@@ -119,7 +119,7 @@ namespace Fluentify {
         /// </summary>
         internal static string RedundantRuleDescription {
             get {
-                return ResourceManager.GetString("RedundantRuleDescription", resourceCulture);
+                return ResourceManager.GetString("RedundantRuleDescription", _resourceCulture);
             }
         }
         
@@ -128,7 +128,7 @@ namespace Fluentify {
         /// </summary>
         internal static string RedundantRuleMessageFormat {
             get {
-                return ResourceManager.GetString("RedundantRuleMessageFormat", resourceCulture);
+                return ResourceManager.GetString("RedundantRuleMessageFormat", _resourceCulture);
             }
         }
         
@@ -137,7 +137,7 @@ namespace Fluentify {
         /// </summary>
         internal static string RedundantRuleTitle {
             get {
-                return ResourceManager.GetString("RedundantRuleTitle", resourceCulture);
+                return ResourceManager.GetString("RedundantRuleTitle", _resourceCulture);
             }
         }
         
@@ -146,7 +146,7 @@ namespace Fluentify {
         /// </summary>
         internal static string ValidNamingRuleDescription {
             get {
-                return ResourceManager.GetString("ValidNamingRuleDescription", resourceCulture);
+                return ResourceManager.GetString("ValidNamingRuleDescription", _resourceCulture);
             }
         }
         
@@ -155,7 +155,7 @@ namespace Fluentify {
         /// </summary>
         internal static string ValidNamingRuleMessageFormat {
             get {
-                return ResourceManager.GetString("ValidNamingRuleMessageFormat", resourceCulture);
+                return ResourceManager.GetString("ValidNamingRuleMessageFormat", _resourceCulture);
             }
         }
         
@@ -164,7 +164,7 @@ namespace Fluentify {
         /// </summary>
         internal static string ValidNamingRuleTitle {
             get {
-                return ResourceManager.GetString("ValidNamingRuleTitle", resourceCulture);
+                return ResourceManager.GetString("ValidNamingRuleTitle", _resourceCulture);
             }
         }
     }
