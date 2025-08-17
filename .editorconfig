@@ -179,9 +179,9 @@ dotnet_naming_rule.private_constant_should_be_pascal_case.severity = error
 dotnet_naming_rule.private_constant_should_be_pascal_case.symbols = private_constant
 dotnet_naming_rule.private_constant_should_be_pascal_case.style = pascal_case
 
-dotnet_naming_rule.private_static_field_should_be_camel_case.severity = error
-dotnet_naming_rule.private_static_field_should_be_camel_case.symbols = private_static_field
-dotnet_naming_rule.private_static_field_should_be_camel_case.style = camel_case
+dotnet_naming_rule.private_fields_should_be_underscore_prefixed.severity = error
+dotnet_naming_rule.private_fields_should_be_underscore_prefixed.symbols = private_fields
+dotnet_naming_rule.private_fields_should_be_underscore_prefixed.style = underscore_prefix
 
 # Symbol specifications
 
@@ -197,9 +197,9 @@ dotnet_naming_symbols.non_field_members.applicable_kinds = property, event, meth
 dotnet_naming_symbols.non_field_members.applicable_accessibilities = public, internal, private, protected, protected_internal
 dotnet_naming_symbols.non_field_members.required_modifiers =
 
-dotnet_naming_symbols.private_static_field.applicable_kinds = field
-dotnet_naming_symbols.private_static_field.applicable_accessibilities = private
-dotnet_naming_symbols.private_static_field.required_modifiers = static
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_symbols.private_fields.required_modifiers =
 
 dotnet_naming_symbols.private_constant.applicable_kinds = field
 dotnet_naming_symbols.private_constant.applicable_accessibilities = private
@@ -221,6 +221,10 @@ dotnet_naming_style.camel_case.required_prefix =
 dotnet_naming_style.camel_case.required_suffix =
 dotnet_naming_style.camel_case.word_separator =
 dotnet_naming_style.camel_case.capitalization = camel_case
+dotnet_naming_style.underscore_prefix.required_prefix = _
+dotnet_naming_style.underscore_prefix.required_suffix =
+dotnet_naming_style.underscore_prefix.word_separator =
+dotnet_naming_style.underscore_prefix.capitalization = camel_case
 dotnet_diagnostic.S1117.severity = none
 dotnet_diagnostic.SA1506.severity=silent
 dotnet_diagnostic.SA1500.severity=error
@@ -262,10 +266,10 @@ dotnet_diagnostic.SA1302.severity=error
 dotnet_diagnostic.SA1303.severity=error
 dotnet_diagnostic.SA1304.severity=error
 dotnet_diagnostic.SA1305.severity=error
-dotnet_diagnostic.SA1306.severity=error
+dotnet_diagnostic.SA1306.severity=none
 dotnet_diagnostic.SA1307.severity=error
 dotnet_diagnostic.SA1308.severity=error
-dotnet_diagnostic.SA1309.severity=error
+dotnet_diagnostic.SA1309.severity=none
 dotnet_diagnostic.SA1310.severity=error
 dotnet_diagnostic.SA1311.severity=silent
 dotnet_diagnostic.SA1312.severity=error
@@ -454,7 +458,7 @@ dotnet_diagnostic.CA2009.severity=warning
 dotnet_diagnostic.CA2011.severity=warning
 dotnet_diagnostic.CA2012.severity=warning
 dotnet_diagnostic.CA1700.severity=error
-dotnet_diagnostic.CA1707.severity=error
+dotnet_diagnostic.CA1707.severity=none
 dotnet_diagnostic.CA1708.severity=error
 dotnet_diagnostic.CA1710.severity=error
 dotnet_diagnostic.CA1711.severity=silent

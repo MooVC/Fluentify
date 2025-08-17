@@ -78,7 +78,7 @@ public sealed class WhenGetPropertiesIsCalled
         { Records.Instance.Compilation, Records.Instance.TwoOfThreeIgnored, true },
     };
 
-    private static readonly Property age = new()
+    private static readonly Property _age = new()
     {
         Descriptor = "WithAge",
         Kind = new()
@@ -91,7 +91,7 @@ public sealed class WhenGetPropertiesIsCalled
         Name = "Age",
     };
 
-    private static readonly Property name = new()
+    private static readonly Property _name = new()
     {
         Descriptor = "WithName",
         Kind = new()
@@ -123,7 +123,7 @@ public sealed class WhenGetPropertiesIsCalled
         };
 
         // Act & Assert
-        ActAndAssert(compilation, definition, age, isRetired, name);
+        ActAndAssert(compilation, definition, _age, isRetired, _name);
     }
 
     [Theory]
@@ -232,7 +232,7 @@ public sealed class WhenGetPropertiesIsCalled
         Property attributes = GetAttributes(isNullable);
 
         // Act & Assert
-        ActAndAssert(compilation, definition, age, attributes, name);
+        ActAndAssert(compilation, definition, _age, attributes, _name);
     }
 
     [Theory]
@@ -255,7 +255,7 @@ public sealed class WhenGetPropertiesIsCalled
         };
 
         // Act & Assert
-        ActAndAssert(compilation, definition, age, attributes, name);
+        ActAndAssert(compilation, definition, _age, attributes, _name);
     }
 
     [Theory]
@@ -280,7 +280,7 @@ public sealed class WhenGetPropertiesIsCalled
         Property attributes = GetAttributes(isNullable);
 
         // Act & Assert
-        ActAndAssert(compilation, definition, age, attributes, name);
+        ActAndAssert(compilation, definition, _age, attributes, name);
     }
 
     [Theory]
@@ -355,7 +355,7 @@ public sealed class WhenGetPropertiesIsCalled
         Property attributes = GetAttributes(isNullable);
 
         // Act & Assert
-        ActAndAssert(compilation, definition, age, attributes, name);
+        ActAndAssert(compilation, definition, age, attributes, _name);
     }
 
     [Theory]
@@ -366,7 +366,7 @@ public sealed class WhenGetPropertiesIsCalled
         Property attributes = GetAttributes(isNullable, descriptor: "AttributedWith");
 
         // Act & Assert
-        ActAndAssert(compilation, definition, age, attributes, name);
+        ActAndAssert(compilation, definition, _age, attributes, _name);
     }
 
     [Theory]
@@ -391,7 +391,7 @@ public sealed class WhenGetPropertiesIsCalled
         Property attributes = GetAttributes(isNullable);
 
         // Act & Assert
-        ActAndAssert(compilation, definition, age, attributes, name);
+        ActAndAssert(compilation, definition, _age, attributes, name);
     }
 
     private static void ActAndAssert(Compilation compilation, Definition definition, params Property[] expected)

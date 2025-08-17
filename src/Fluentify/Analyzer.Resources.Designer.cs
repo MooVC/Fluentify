@@ -24,9 +24,9 @@ namespace Fluentify {
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Analyzer_Resources {
         
-        private static global::System.Resources.ResourceManager resourceMan;
-        
-        private static global::System.Globalization.CultureInfo resourceCulture;
+        private static global::System.Resources.ResourceManager _resourceMan;
+
+        private static global::System.Globalization.CultureInfo _resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Analyzer_Resources() {
@@ -38,11 +38,11 @@ namespace Fluentify {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
-                if (object.ReferenceEquals(resourceMan, null)) {
+                if (object.ReferenceEquals(_resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fluentify.Analyzer.Resources", typeof(Analyzer_Resources).Assembly);
-                    resourceMan = temp;
+                    _resourceMan = temp;
                 }
-                return resourceMan;
+                return _resourceMan;
             }
         }
         
@@ -53,10 +53,10 @@ namespace Fluentify {
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static global::System.Globalization.CultureInfo Culture {
             get {
-                return resourceCulture;
+                return _resourceCulture;
             }
             set {
-                resourceCulture = value;
+                _resourceCulture = value;
             }
         }
         
@@ -65,7 +65,7 @@ namespace Fluentify {
         /// </summary>
         internal static string Description {
             get {
-                return ResourceManager.GetString("Description", resourceCulture);
+                return ResourceManager.GetString("Description", _resourceCulture);
             }
         }
         
@@ -74,7 +74,7 @@ namespace Fluentify {
         /// </summary>
         internal static string MessageFormat {
             get {
-                return ResourceManager.GetString("MessageFormat", resourceCulture);
+                return ResourceManager.GetString("MessageFormat", _resourceCulture);
             }
         }
         
@@ -83,7 +83,7 @@ namespace Fluentify {
         /// </summary>
         internal static string Title {
             get {
-                return ResourceManager.GetString("Title", resourceCulture);
+                return ResourceManager.GetString("Title", _resourceCulture);
             }
         }
     }

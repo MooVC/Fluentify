@@ -13,7 +13,7 @@ internal static partial class IPropertySymbolExtensions
     private const string ReadOnlyCollection = "global::System.Collections.Generic.IReadOnlyCollection<T>";
     private const string ReadOnlyList = "global::System.Collections.Generic.IReadOnlyList<T>";
 
-    private static readonly IsMatch[] strategies =
+    private static readonly IsMatch[] _strategies =
     [
         IsArray,
         IsCollection,
@@ -43,7 +43,7 @@ internal static partial class IPropertySymbolExtensions
 
         kind.Type.IsBuildable = property.Type.IsBuildable(compilation, cancellationToken);
 
-        _ = Array.Exists(strategies, strategy => strategy(compilation, kind, property, cancellationToken));
+        _ = Array.Exists(_strategies, strategy => strategy(compilation, kind, property, cancellationToken));
 
         return kind;
     }
