@@ -37,6 +37,11 @@ var movie = new Movie()
 
 This document will use the `Movie` example to describe how the features of Fluentify can be used to make the illustrated use of the Fluent Builder pattern possible. 
 
+## Requirements
+
+- C# v3.0 or later.
+- Visual Studio 2022 v17.0 or later, or any compatible IDE that supports Roslyn source generators.
+
 ## Installation
 
 To install Fluentify, use the following command in your package manager console:

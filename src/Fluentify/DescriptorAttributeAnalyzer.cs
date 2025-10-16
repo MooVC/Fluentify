@@ -25,13 +25,11 @@ public sealed class DescriptorAttributeAnalyzer
     }
 
     /// <inheritdoc/>
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } =
-    [
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = ImmutableArray.Create(
         DisregardedRule,
         MissingFluentifyRule,
         RedundantRule,
-        ValidNamingRule,
-    ];
+        ValidNamingRule);
 
     /// <summary>
     /// Gets the descriptor associated with the disregarded rule (FLTFY02).

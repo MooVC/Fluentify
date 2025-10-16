@@ -25,7 +25,9 @@ public sealed class IgnoreAttributeAnalyzer
     }
 
     /// <inheritdoc/>
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = [MissingFluentifyRule, RedundantUsageRule];
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = ImmutableArray.Create(
+        MissingFluentifyRule,
+        RedundantUsageRule);
 
     /// <summary>
     /// Gets the descriptor associated with the missing fluentify rule (FLTFY05).
