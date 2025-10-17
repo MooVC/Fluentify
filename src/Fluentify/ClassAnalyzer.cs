@@ -24,7 +24,7 @@ public sealed class ClassAnalyzer
     }
 
     /// <inheritdoc/>
-    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = [AccessibleDefaultConstructorRule];
+    public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = ImmutableArray.Create(AccessibleDefaultConstructorRule);
 
     /// <summary>
     /// Gets the descriptor associated with accessible default constructor rule (FLTFY01).
