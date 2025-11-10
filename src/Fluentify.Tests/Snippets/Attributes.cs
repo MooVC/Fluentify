@@ -38,4 +38,20 @@ public static class Attributes
             """,
         typeof(IgnoreAttributeGenerator),
         "IgnoreAttribute");
+
+    public static readonly Generated SkipAutoInstantiation = new(
+        $$"""
+            namespace Fluentify
+            {
+                using System;
+
+                [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
+                internal sealed class SkipAutoInstantiationAttribute
+                    : Attribute
+                {
+                }
+            }
+            """,
+        typeof(SkipAutoInstantiationAttributeGenerator),
+        "SkipAutoInstantiationAttribute");
 }

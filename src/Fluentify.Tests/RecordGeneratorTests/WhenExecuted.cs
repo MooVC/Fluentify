@@ -12,6 +12,7 @@ public sealed class WhenExecuted
         typeof(IgnoreAttributeGenerator),
         typeof(InternalExtensionsGenerator),
         typeof(RecordGenerator),
+        typeof(SkipAutoInstantiationAttributeGenerator),
     ];
 
     public WhenExecuted()
@@ -27,6 +28,7 @@ public sealed class WhenExecuted
         Attributes.Descriptor.IsExpectedIn(TestState);
         Attributes.Fluentify.IsExpectedIn(TestState);
         Attributes.Ignore.IsExpectedIn(TestState);
+        Attributes.SkipAutoInstantiation.IsExpectedIn(TestState);
         Extensions.Internal.IsExpectedIn(TestState);
 
         declared.IsDeclaredIn(TestState);
