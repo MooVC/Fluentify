@@ -26,6 +26,7 @@ internal sealed class Records
             SelfDescriptorOnRequiredContent,
             SimpleContent,
             SingleGenericContent,
+            SkipAutoInstantiationContent,
             TwoOfThreeIgnoredContent,
             UnannotatedContent,
             UnsupportedContent)
