@@ -41,7 +41,7 @@ internal static partial class IPropertySymbolExtensions
             },
         };
 
-        kind.Type.IsBuildable = property.Type.IsBuildable(compilation, cancellationToken, property);
+        kind.Type.IsBuildable = !property.HasSkipAutoInstantiation() && property.Type.IsBuildable(compilation, cancellationToken);
 
         _ = Array.Exists(_strategies, strategy => strategy(compilation, kind, property, cancellationToken));
 

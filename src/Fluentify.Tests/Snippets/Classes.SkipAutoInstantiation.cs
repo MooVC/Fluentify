@@ -12,12 +12,12 @@ public static partial class Classes
             {
                 public int Age { get; set; }
 
-                [global::Fluentify.SkipAutoInstantiation]
-                public Dependent Dependency { get; set; } = new Dependent();
+                [SkipAutoInstantiation]
+                public Dependent Dependency { get; set; }
 
                 public sealed class Dependent
                 {
-                    public string Name { get; set; } = string.Empty;
+                    public string Name { get; set; }
                 }
             }
         }

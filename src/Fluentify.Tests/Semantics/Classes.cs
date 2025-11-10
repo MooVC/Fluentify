@@ -26,12 +26,11 @@ internal sealed class Classes
             SelfDescriptorOnOptionalContent,
             SelfDescriptorOnRequiredContent,
             SimpleContent,
-            SkipAutoInstantiationContent,
             SingleGenericContent,
+            SkipAutoInstantiationContent,
             TwoOfThreeIgnoredContent,
             UnannotatedContent,
-            UnsupportedContent,
-            Attributes.SkipAutoInstantiation.Content)
+            UnsupportedContent)
     {
     }
 }

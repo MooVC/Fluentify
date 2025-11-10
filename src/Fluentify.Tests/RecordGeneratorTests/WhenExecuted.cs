@@ -10,9 +10,9 @@ public sealed class WhenExecuted
         typeof(DescriptorAttributeGenerator),
         typeof(FluentifyAttributeGenerator),
         typeof(IgnoreAttributeGenerator),
-        typeof(SkipAutoInstantiationAttributeGenerator),
         typeof(InternalExtensionsGenerator),
         typeof(RecordGenerator),
+        typeof(SkipAutoInstantiationAttributeGenerator),
     ];
 
     public WhenExecuted()
