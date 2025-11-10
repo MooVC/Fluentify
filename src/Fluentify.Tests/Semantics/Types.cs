@@ -31,6 +31,7 @@ internal abstract partial class Types<T>
         SelfDescriptorOnOptional = GetDefinition(declarations, nameof(SelfDescriptorOnOptional));
         SelfDescriptorOnRequired = GetDefinition(declarations, nameof(SelfDescriptorOnRequired));
         Simple = GetDefinition(declarations, nameof(Simple));
+        SkipAutoInstantiation = TryGetDefinition(declarations, nameof(SkipAutoInstantiation));
         SingleGeneric = GetDefinition(declarations, nameof(SingleGeneric));
         TwoOfThreeIgnored = GetDefinition(declarations, nameof(TwoOfThreeIgnored));
         Unannotated = GetDefinition(declarations, nameof(Unannotated));
@@ -71,6 +72,8 @@ internal abstract partial class Types<T>
 
     public Definition Simple { get; }
 
+    public Definition? SkipAutoInstantiation { get; }
+
     public Definition SingleGeneric { get; }
 
     public Definition TwoOfThreeIgnored { get; }
@@ -101,6 +104,20 @@ internal abstract partial class Types<T>
     private Definition GetDefinition(T[] declarations, string name)
     {
         T syntax = declarations.First(declaration => declaration.Identifier.Text == name);
+        INamedTypeSymbol symbol = Model.GetDeclaredSymbol(syntax)!;
+
+        return new(symbol, syntax);
+    }
+
+    private Definition? TryGetDefinition(T[] declarations, string name)
+    {
+        T? syntax = declarations.FirstOrDefault(declaration => declaration.Identifier.Text == name);
+
+        if (syntax is null)
+        {
+            return null;
+        }
+
         INamedTypeSymbol symbol = Model.GetDeclaredSymbol(syntax)!;
 
         return new(symbol, syntax);

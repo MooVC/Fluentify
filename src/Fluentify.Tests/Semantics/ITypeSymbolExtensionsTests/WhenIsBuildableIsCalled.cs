@@ -18,6 +18,7 @@ public sealed class WhenIsBuildableIsCalled
         { Classes.Instance.Compilation, "Age", Classes.Instance.Boolean },
         { Classes.Instance.Compilation, "IsRetired", Classes.Instance.Boolean },
         { Classes.Instance.Compilation, "Name", Classes.Instance.Boolean },
+        { Classes.Instance.Compilation, "Dependency", Classes.Instance.SkipAutoInstantiation! },
         { Classes.Instance.Compilation, "Age", Classes.Instance.MultipleGenerics },
         { Classes.Instance.Compilation, "Attributes", Classes.Instance.MultipleGenerics },
         { Classes.Instance.Compilation, "Age", Classes.Instance.Simple },
@@ -47,7 +48,7 @@ public sealed class WhenIsBuildableIsCalled
         IPropertySymbol symbol = definition.GetProperty(property);
 
         // Act
-        bool isBuildable = symbol.Type.IsBuildable(compilation, CancellationToken.None);
+        bool isBuildable = symbol.Type.IsBuildable(compilation, CancellationToken.None, symbol);
 
         // Assert
         isBuildable.ShouldBeTrue();
@@ -60,8 +61,13 @@ public sealed class WhenIsBuildableIsCalled
         // Arrange
         IPropertySymbol symbol = definition.GetProperty(property);
 
+        if (property == "Dependency")
+        {
+            symbol.HasSkipAutoInstantiation().ShouldBeTrue();
+        }
+
         // Act
-        bool isBuildable = symbol.Type.IsBuildable(compilation, CancellationToken.None);
+        bool isBuildable = symbol.Type.IsBuildable(compilation, CancellationToken.None, symbol);
 
         // Assert
         isBuildable.ShouldBeFalse();

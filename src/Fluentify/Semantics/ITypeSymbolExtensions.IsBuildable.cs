@@ -16,8 +16,17 @@ internal static partial class ITypeSymbolExtensions
     /// <param name="compilation">The <see cref="Compilation"/> used to determine if the constraint allows for internal construction.</param>
     /// <param name="cancellationToken">A <see cref="CancellationToken" /> that can be used to cancel the operation.</param>
     /// <returns>True if the <paramref name="type"/> adheres to the new() constraint, otherwise False.</returns>
-    public static bool IsBuildable(this ITypeSymbol type, Compilation compilation, CancellationToken cancellationToken)
+    public static bool IsBuildable(
+        this ITypeSymbol type,
+        Compilation compilation,
+        CancellationToken cancellationToken,
+        IPropertySymbol? property = null)
     {
+        if (property is not null && property.HasSkipAutoInstantiation())
+        {
+            return false;
+        }
+
         if (type is ITypeParameterSymbol generic)
         {
             return generic.HasConstructorConstraint;

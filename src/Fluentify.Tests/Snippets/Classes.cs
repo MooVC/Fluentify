@@ -133,6 +133,12 @@ public static partial class Classes
             SimpleWithNameExtensions,
             SimpleWithAttributesExtensions);
 
+        SkipAutoInstantiation = new(
+            SkipAutoInstantiationContent,
+            nameof(SkipAutoInstantiation),
+            SkipAutoInstantiationWithAgeExtensions,
+            SkipAutoInstantiationWithDependencyExtensions);
+
         Single = new(SingleContent, nameof(Single), SingleWithAgeExtensions);
 
         SingleGeneric = new(

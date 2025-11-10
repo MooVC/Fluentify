@@ -1,5 +1,6 @@
 ﻿namespace Fluentify.Semantics;
 
+using Fluentify.Snippets;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Fluentify.Snippets.Classes;
 
@@ -25,10 +26,12 @@ internal sealed class Classes
             SelfDescriptorOnOptionalContent,
             SelfDescriptorOnRequiredContent,
             SimpleContent,
+            SkipAutoInstantiationContent,
             SingleGenericContent,
             TwoOfThreeIgnoredContent,
             UnannotatedContent,
-            UnsupportedContent)
+            UnsupportedContent,
+            Attributes.SkipAutoInstantiation.Content)
     {
     }
 }
