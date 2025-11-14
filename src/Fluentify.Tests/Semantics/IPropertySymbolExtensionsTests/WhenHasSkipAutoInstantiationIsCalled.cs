@@ -1,6 +1,5 @@
 namespace Fluentify.Semantics.IPropertySymbolExtensionsTests;
 
-using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using static Fluentify.SkipAutoInstantiationAttributeGenerator;
 
