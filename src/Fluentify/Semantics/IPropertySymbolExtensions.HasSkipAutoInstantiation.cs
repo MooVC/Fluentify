@@ -16,6 +16,7 @@ internal static partial class IPropertySymbolExtensions
     /// <returns>True if the SkipAutoInstantiation attribute is present on the <paramref name="property"/>, otherwise False.</returns>
     public static bool HasSkipAutoInstantiation(this IPropertySymbol property)
     {
-        return property.HasAttribute(Name);
+        return property.HasAttribute(Name)
+            || (property.Type?.HasAttribute(Name) ?? false);
     }
 }

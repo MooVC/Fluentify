@@ -214,6 +214,13 @@ public static partial class Records
             SkipAutoInstantiationWithAgeExtensions,
             SkipAutoInstantiationWithDependencyExtensions);
 
+        SkipAutoInstantiationOnType = new(
+            SkipAutoInstantiationOnTypeContent,
+            nameof(SkipAutoInstantiationOnType),
+            SkipAutoInstantiationOnTypeConstructor,
+            SkipAutoInstantiationOnTypeWithAgeExtensions,
+            SkipAutoInstantiationOnTypeWithDependencyExtensions);
+
         TwoOfThreeIgnored = new(
             TwoOfThreeIgnoredContent,
             nameof(TwoOfThreeIgnored),
