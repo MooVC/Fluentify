@@ -1,6 +1,5 @@
 ﻿namespace Fluentify;
 
-using System.Collections.Immutable;
 using Fluentify.Semantics;
 using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;

@@ -19,7 +19,7 @@ public sealed class SkipAutoInstantiationAttributeGenerator
     /// Creates an instance of the <see cref="SkipAutoInstantiationAttributeGenerator"/>.
     /// </summary>
     public SkipAutoInstantiationAttributeGenerator()
-        : base(Name, "Parameter", "Property")
+        : base(Name, "Class", "Parameter", "Property", "Struct")
     {
     }
 }

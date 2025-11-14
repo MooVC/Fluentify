@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Added
 
-- Introduced the `SkipAutoInstantiation` attribute, allowing consumers to opt out of generating builder-based overloads when a property type should not be automatically instantiated.
+- Introduced the `SkipAutoInstantiation` attribute, allowing consumers to opt out of generating builder-based overloads when a type, or a specific property, should not be automatically instantiated.
 
 # [1.7.0] - 2025-10-17
 

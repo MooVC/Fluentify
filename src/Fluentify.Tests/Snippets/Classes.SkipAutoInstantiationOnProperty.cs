@@ -2,13 +2,13 @@ namespace Fluentify.Snippets;
 
 public static partial class Classes
 {
-    public const string SkipAutoInstantiationContent = """
+    public const string SkipAutoInstantiationOnPropertyContent = """
         namespace Fluentify.Classes.Testing
         {
             using System.Collections.Generic;
 
             [Fluentify]
-            public sealed class SkipAutoInstantiation
+            public sealed class SkipAutoInstantiationOnProperty
             {
                 public int Age { get; set; }
 
@@ -23,19 +23,19 @@ public static partial class Classes
         }
         """;
 
-    public static readonly Declared SkipAutoInstantiation;
+    public static readonly Declared SkipAutoInstantiationOnProperty;
 
-    public static readonly Generated SkipAutoInstantiationWithAgeExtensions = new(
-        SkipAutoInstantiationWithAgeExtensionsContent,
+    public static readonly Generated SkipAutoInstantiationOnPropertyWithAgeExtensions = new(
+        SkipAutoInstantiationOnPropertyWithAgeExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.SkipAutoInstantiationExtensions.WithAge");
+        "Fluentify.Classes.Testing.SkipAutoInstantiationOnPropertyExtensions.WithAge");
 
-    public static readonly Generated SkipAutoInstantiationWithDependencyExtensions = new(
-        SkipAutoInstantiationWithDependencyExtensionsContent,
+    public static readonly Generated SkipAutoInstantiationOnPropertyWithDependencyExtensions = new(
+        SkipAutoInstantiationOnPropertyWithDependencyExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.SkipAutoInstantiationExtensions.WithDependency");
+        "Fluentify.Classes.Testing.SkipAutoInstantiationOnPropertyExtensions.WithDependency");
 
-    private const string SkipAutoInstantiationWithAgeExtensionsContent = """
+    private const string SkipAutoInstantiationOnPropertyWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
         #endif
@@ -49,15 +49,15 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class SkipAutoInstantiationExtensions
+            public static partial class SkipAutoInstantiationOnPropertyExtensions
             {
-                public static global::Fluentify.Classes.Testing.SkipAutoInstantiation WithAge(
-                    this global::Fluentify.Classes.Testing.SkipAutoInstantiation subject,
+                public static global::Fluentify.Classes.Testing.SkipAutoInstantiationOnProperty WithAge(
+                    this global::Fluentify.Classes.Testing.SkipAutoInstantiationOnProperty subject,
                     int value)
                 {
                     subject.ThrowIfNull("subject");
 
-                    return new global::Fluentify.Classes.Testing.SkipAutoInstantiation
+                    return new global::Fluentify.Classes.Testing.SkipAutoInstantiationOnProperty
                     {
                         Age = value,
                         Dependency = subject.Dependency,
@@ -73,7 +73,7 @@ public static partial class Classes
         #endif
         """;
 
-    private const string SkipAutoInstantiationWithDependencyExtensionsContent = """
+    private const string SkipAutoInstantiationOnPropertyWithDependencyExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
         #endif
@@ -87,15 +87,15 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class SkipAutoInstantiationExtensions
+            public static partial class SkipAutoInstantiationOnPropertyExtensions
             {
-                public static global::Fluentify.Classes.Testing.SkipAutoInstantiation WithDependency(
-                    this global::Fluentify.Classes.Testing.SkipAutoInstantiation subject,
-                    global::Fluentify.Classes.Testing.SkipAutoInstantiation.Dependent value)
+                public static global::Fluentify.Classes.Testing.SkipAutoInstantiationOnProperty WithDependency(
+                    this global::Fluentify.Classes.Testing.SkipAutoInstantiationOnProperty subject,
+                    global::Fluentify.Classes.Testing.SkipAutoInstantiationOnProperty.Dependent value)
                 {
                     subject.ThrowIfNull("subject");
 
-                    return new global::Fluentify.Classes.Testing.SkipAutoInstantiation
+                    return new global::Fluentify.Classes.Testing.SkipAutoInstantiationOnProperty
                     {
                         Age = subject.Age,
                         Dependency = value,

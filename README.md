@@ -114,13 +114,29 @@ Console.WriteLine(@new.Birthday);     // Displays 1975
 
 The value associated with a given property can be automatically instantiated, as long as that type associated with the property adheres to the `new()` constraint. A second extension method is generated for the property, accepting a `Func<T, T>` delegate as its parameter, which allows for the newly instantiated value to be configured before being applied.
 
-In some scenarios it may be undesirable for a given property to allow for Auto Instantiation. This feature can be disabled by applying the `[SkipAutoInstantiation]` attribute to the property (or corresponding primary constructor parameter) to suppress generation of the builder overload.
+In some scenarios it may be undesirable for a given property to allow for Auto Instantiation. This feature can be disabled by applying the `[SkipAutoInstantiation]` attribute to the property, the corresponding primary constructor parameter, or the type referenced by the property to suppress generation of the builder overload.
 
 ```csharp
 public sealed class Movie
 {
     [SkipAutoInstantiation]
     public Actor Lead { get; init; }
+}
+```
+
+When multiple properties share the same type, it may be desirable to annotate the type to prevent the builder overload from being generated on any property that uses that type.
+
+```csharp
+[SkipAutoInstantiation]
+public sealed class Actor
+{
+    public string Name { get; init; }
+}
+
+public sealed class Movie
+{
+    public Actor Lead { get; init; }
+    public Actor Supporting { get; init; }
 }
 ```
 

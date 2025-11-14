@@ -142,11 +142,17 @@ public static partial class Classes
             SingleGenericWithNameExtensions,
             SingleGenericWithAttributesExtensions);
 
-        SkipAutoInstantiation = new(
-            SkipAutoInstantiationContent,
-            nameof(SkipAutoInstantiation),
-            SkipAutoInstantiationWithAgeExtensions,
-            SkipAutoInstantiationWithDependencyExtensions);
+        SkipAutoInstantiationOnProperty = new(
+            SkipAutoInstantiationOnPropertyContent,
+            nameof(SkipAutoInstantiationOnProperty),
+            SkipAutoInstantiationOnPropertyWithAgeExtensions,
+            SkipAutoInstantiationOnPropertyWithDependencyExtensions);
+
+        SkipAutoInstantiationOnType = new(
+            SkipAutoInstantiationOnTypeContent,
+            nameof(SkipAutoInstantiationOnType),
+            SkipAutoInstantiationOnTypeWithAgeExtensions,
+            SkipAutoInstantiationOnTypeWithDependencyExtensions);
 
         TwoOfThreeIgnored = new(
             TwoOfThreeIgnoredContent,

@@ -2,15 +2,15 @@ namespace Fluentify.Snippets;
 
 public static partial class Records
 {
-    public const string SkipAutoInstantiationContent = """
+    public const string SkipAutoInstantiationOnPropertyContent = """
         namespace Fluentify.Records.Testing
         {
             using System.Collections.Generic;
 
             [Fluentify]
-            public sealed partial record SkipAutoInstantiation(
+            public sealed partial record SkipAutoInstantiationOnProperty(
                 int Age,
-                [SkipAutoInstantiation] SkipAutoInstantiation.Dependent Dependency)
+                [SkipAutoInstantiation] SkipAutoInstantiationOnProperty.Dependent Dependency)
             {
                 public sealed class Dependent
                 {
@@ -20,24 +20,24 @@ public static partial class Records
         }
         """;
 
-    public static readonly Declared SkipAutoInstantiation;
+    public static readonly Declared SkipAutoInstantiationOnProperty;
 
-    public static readonly Generated SkipAutoInstantiationConstructor = new(
-        SkipAutoInstantiationConstructorContent,
+    public static readonly Generated SkipAutoInstantiationOnPropertyConstructor = new(
+        SkipAutoInstantiationOnPropertyConstructorContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.SkipAutoInstantiation.ctor");
+        "Fluentify.Records.Testing.SkipAutoInstantiationOnProperty.ctor");
 
-    public static readonly Generated SkipAutoInstantiationWithAgeExtensions = new(
-        SkipAutoInstantiationWithAgeExtensionsContent,
+    public static readonly Generated SkipAutoInstantiationOnPropertyWithAgeExtensions = new(
+        SkipAutoInstantiationOnPropertyWithAgeExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.SkipAutoInstantiationExtensions.WithAge");
+        "Fluentify.Records.Testing.SkipAutoInstantiationOnPropertyExtensions.WithAge");
 
-    public static readonly Generated SkipAutoInstantiationWithDependencyExtensions = new(
-        SkipAutoInstantiationWithDependencyExtensionsContent,
+    public static readonly Generated SkipAutoInstantiationOnPropertyWithDependencyExtensions = new(
+        SkipAutoInstantiationOnPropertyWithDependencyExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.SkipAutoInstantiationExtensions.WithDependency");
+        "Fluentify.Records.Testing.SkipAutoInstantiationOnPropertyExtensions.WithDependency");
 
-    private const string SkipAutoInstantiationConstructorContent = """
+    private const string SkipAutoInstantiationOnPropertyConstructorContent = """
         #nullable enable
         #pragma warning disable CS8625
 
@@ -45,15 +45,15 @@ public static partial class Records
         {
             using System.Diagnostics.CodeAnalysis;
 
-            partial record SkipAutoInstantiation
+            partial record SkipAutoInstantiationOnProperty
             {
                 #pragma warning disable CS8604
 
                 #if NET7_0_OR_GREATER
                 [SetsRequiredMembers]
                 #endif
-                public SkipAutoInstantiation()
-                    : this(default(int), default(global::Fluentify.Records.Testing.SkipAutoInstantiation.Dependent))
+                public SkipAutoInstantiationOnProperty()
+                    : this(default(int), default(global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty.Dependent))
                 {
                 }
 
@@ -65,7 +65,7 @@ public static partial class Records
         #nullable restore
         """;
 
-    private const string SkipAutoInstantiationWithAgeExtensionsContent = """
+    private const string SkipAutoInstantiationOnPropertyWithAgeExtensionsContent = """
         #nullable enable
         #pragma warning disable CS8625
 
@@ -76,10 +76,10 @@ public static partial class Records
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class SkipAutoInstantiationExtensions
+            public static partial class SkipAutoInstantiationOnPropertyExtensions
             {
-                public static global::Fluentify.Records.Testing.SkipAutoInstantiation WithAge(
-                    this global::Fluentify.Records.Testing.SkipAutoInstantiation subject,
+                public static global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty WithAge(
+                    this global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty subject,
                     int value)
                 {
                     subject.ThrowIfNull("subject");
@@ -96,7 +96,7 @@ public static partial class Records
         #nullable restore
         """;
 
-    private const string SkipAutoInstantiationWithDependencyExtensionsContent = """
+    private const string SkipAutoInstantiationOnPropertyWithDependencyExtensionsContent = """
         #nullable enable
         #pragma warning disable CS8625
 
@@ -107,11 +107,11 @@ public static partial class Records
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class SkipAutoInstantiationExtensions
+            public static partial class SkipAutoInstantiationOnPropertyExtensions
             {
-                public static global::Fluentify.Records.Testing.SkipAutoInstantiation WithDependency(
-                    this global::Fluentify.Records.Testing.SkipAutoInstantiation subject,
-                    global::Fluentify.Records.Testing.SkipAutoInstantiation.Dependent value)
+                public static global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty WithDependency(
+                    this global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty subject,
+                    global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty.Dependent value)
                 {
                     subject.ThrowIfNull("subject");
 

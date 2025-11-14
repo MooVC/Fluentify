@@ -1,7 +1,5 @@
 ﻿namespace Fluentify.Records.Testing;
 
-using System.Collections.Generic;
-
 [Fluentify]
 public sealed partial record SkipAutoInstantiation(
     int Age,
