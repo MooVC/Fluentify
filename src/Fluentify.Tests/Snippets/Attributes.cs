@@ -45,7 +45,7 @@ public static class Attributes
             {
                 using System;
 
-                [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
+                [AttributeUsage(AttributeTargets.Class | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
                 internal sealed class SkipAutoInstantiationAttribute
                     : Attribute
                 {

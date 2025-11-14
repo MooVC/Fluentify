@@ -31,7 +31,8 @@ internal abstract partial class Types<T>
         SelfDescriptorOnOptional = GetDefinition(declarations, nameof(SelfDescriptorOnOptional));
         SelfDescriptorOnRequired = GetDefinition(declarations, nameof(SelfDescriptorOnRequired));
         Simple = GetDefinition(declarations, nameof(Simple));
-        SkipAutoInstantiation = GetDefinition(declarations, nameof(SkipAutoInstantiation));
+        SkipAutoInstantiationOnProperty = GetDefinition(declarations, nameof(SkipAutoInstantiationOnProperty));
+        SkipAutoInstantiationOnType = GetDefinition(declarations, nameof(SkipAutoInstantiationOnType));
         SingleGeneric = GetDefinition(declarations, nameof(SingleGeneric));
         TwoOfThreeIgnored = GetDefinition(declarations, nameof(TwoOfThreeIgnored));
         Unannotated = GetDefinition(declarations, nameof(Unannotated));
@@ -72,7 +73,9 @@ internal abstract partial class Types<T>
 
     public Definition Simple { get; }
 
-    public Definition SkipAutoInstantiation { get; }
+    public Definition SkipAutoInstantiationOnProperty { get; }
+
+    public Definition SkipAutoInstantiationOnType { get; }
 
     public Definition SingleGeneric { get; }
 

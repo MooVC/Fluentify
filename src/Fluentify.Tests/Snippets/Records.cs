@@ -207,12 +207,12 @@ public static partial class Records
             SingleGenericWithNameExtensions,
             SingleGenericWithAttributesExtensions);
 
-        SkipAutoInstantiation = new(
-            SkipAutoInstantiationContent,
-            nameof(SkipAutoInstantiation),
-            SkipAutoInstantiationConstructor,
-            SkipAutoInstantiationWithAgeExtensions,
-            SkipAutoInstantiationWithDependencyExtensions);
+        SkipAutoInstantiationOnProperty = new(
+            SkipAutoInstantiationOnPropertyContent,
+            nameof(SkipAutoInstantiationOnProperty),
+            SkipAutoInstantiationOnPropertyConstructor,
+            SkipAutoInstantiationOnPropertyWithAgeExtensions,
+            SkipAutoInstantiationOnPropertyWithDependencyExtensions);
 
         SkipAutoInstantiationOnType = new(
             SkipAutoInstantiationOnTypeContent,

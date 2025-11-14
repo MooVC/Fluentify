@@ -124,7 +124,7 @@ public sealed class Movie
 }
 ```
 
-When multiple properties share the same type, annotating the type prevents the builder overload from being generated everywhere that type is used.
+When multiple properties share the same type, it may be desirable to annotate the type to prevent the builder overload from being generated on any property that uses that type.
 
 ```csharp
 [SkipAutoInstantiation]
