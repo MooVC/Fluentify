@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Fixed
 
 - Metadata associated with `FLTFY03` are now correctly added to the description (#89).
+- `ImmutableArray`, `ImmutableHashSet`, `ImmutableList` and `ImmutableSortedSet` are now correctly identified as collection types (#93).
 
 # [1.8.0] - 2025-11-14
 
