@@ -32,21 +32,32 @@ public abstract class AttributeAnalyzer
     /// A syntax node action can use a <see cref="SyntaxNodeAnalysisContext"/> to report <see cref="Diagnostic"/>s for a <see cref="SyntaxNode"/>.
     /// </param>
     /// <param name="syntax">The attribute that serves as the subject of the analyzer.</param>
+    /// <param name="member">The name of the property or parameter deemed to be in violation of the rule.</param>
     /// <param name="class">The name of the type deemed to be in violation of the rule.</param>
     /// <param name="location">The location of the specific syntax deemed to be the focus of the violation.</param>
     /// <returns>True if the rule has been violated, otherwise False.</returns>
-    protected static bool IsViolatingMissingFluentifyRule(SyntaxNodeAnalysisContext context, AttributeSyntax syntax, out string @class, out Location location)
+    protected static bool IsViolatingMissingFluentifyRule(
+        SyntaxNodeAnalysisContext context,
+        AttributeSyntax syntax,
+        out string member,
+        out string @class,
+        out Location location)
     {
         ISymbol? parent = syntax.GetParent<TypeDeclarationSyntax>(context);
 
-        if (parent is not INamedTypeSymbol type || type.HasFluentify())
+        ISymbol? target = syntax.GetParent<PropertyDeclarationSyntax>(context)
+            ?? syntax.GetParent<ParameterSyntax>(context);
+
+        if (parent is not INamedTypeSymbol type || target is null || type.HasFluentify())
         {
+            member = string.Empty;
             @class = string.Empty;
             location = Location.None;
 
             return false;
         }
 
+        member = target.Name;
         @class = type.Name;
         location = syntax.GetLocation();
 

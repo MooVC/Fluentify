@@ -64,11 +64,11 @@ public sealed class IgnoreAttributeAnalyzer
     /// <inheritdoc/>
     protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, IMethodSymbol symbol, AttributeSyntax syntax)
     {
-        if (IsViolatingMissingFluentifyRule(context, syntax, out string @class, out Location location))
+        if (IsViolatingMissingFluentifyRule(context, syntax, out string property, out string _, out Location location))
         {
-            Raise(context, MissingFluentifyRule, location, @class);
+            Raise(context, MissingFluentifyRule, location, property);
         }
-        else if (IsViolatingRedundantUsageRule(context, syntax, out location, out string property))
+        else if (IsViolatingRedundantUsageRule(context, syntax, out location, out property))
         {
             Raise(context, RedundantUsageRule, location, property);
         }

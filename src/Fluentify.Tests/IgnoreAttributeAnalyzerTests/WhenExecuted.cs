@@ -13,9 +13,9 @@ public abstract partial class WhenExecuted
     {
     }
 
-    protected static DiagnosticResult GetExpectedMissingFluentifyRule(string @class, LinePosition position)
+    protected static DiagnosticResult GetExpectedMissingFluentifyRule(string property, LinePosition position)
     {
-        return GetExpected(@class, position, IgnoreAttributeAnalyzer.MissingFluentifyRule);
+        return GetExpected(property, position, IgnoreAttributeAnalyzer.MissingFluentifyRule);
     }
 
     protected static DiagnosticResult GetExpectedRedundantUsageRule(LinePosition position, string property)

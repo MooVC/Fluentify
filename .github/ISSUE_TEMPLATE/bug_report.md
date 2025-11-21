@@ -20,9 +20,9 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Environment (please complete the following information):**
-- Fluentify Version [e.g. 1.0.0]
-- .NET Version (Your Project): [e.g. NET 8]
- - IDE: [e.g. Visual Studio 2022]
+- Fluentify Version: [e.g. 1.8.1]
+- .NET Version (Your Project): [e.g. NET 10]
+ - IDE: [e.g. Visual Studio 2026 v18.0.1]
 
 **Additional context**
 Add any other context about the problem here.

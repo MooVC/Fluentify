@@ -98,30 +98,30 @@ public sealed class DescriptorAttributeAnalyzer
     /// <inheritdoc/>
     protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, IMethodSymbol symbol, AttributeSyntax syntax)
     {
-        if (IsViolatingMissingFluentifyRule(context, syntax, out string @class, out Location location))
+        if (IsViolatingMissingFluentifyRule(context, syntax, out string member, out string @class, out Location location))
         {
-            Raise(context, MissingFluentifyRule, location, @class);
+            Raise(context, MissingFluentifyRule, location, member, @class);
         }
         else if (IsViolatingValidNamingRule(context, syntax, out string descriptor, out location))
         {
             Raise(context, ValidNamingRule, location, descriptor);
         }
-        else if (IsViolatingDisregardedRule(context, syntax, out location, out string name, out ISymbol? member))
+        else if (IsViolatingDisregardedRule(context, syntax, out location, out string name, out ISymbol? property))
         {
             Raise(context, DisregardedRule, location, name);
         }
-        else if (IsViolatingRedundantRule(member!, syntax, ref descriptor, out location, out name))
+        else if (IsViolatingRedundantRule(property, syntax, ref descriptor, out location, out name))
         {
             Raise(context, RedundantRule, location, descriptor, name);
         }
     }
 
-    private static bool IsViolatingRedundantRule(ISymbol symbol, AttributeSyntax syntax, ref string descriptor, out Location location, out string name)
+    private static bool IsViolatingRedundantRule(ISymbol? property, AttributeSyntax syntax, ref string descriptor, out Location location, out string name)
     {
-        if (IsSelfDescribing(symbol, ref descriptor))
+        if (property is not null && IsSelfDescribing(property, ref descriptor))
         {
             location = syntax.GetLocation();
-            name = symbol.Name;
+            name = property.Name;
 
             return true;
         }
@@ -172,12 +172,12 @@ public sealed class DescriptorAttributeAnalyzer
         AttributeSyntax syntax,
         out Location location,
         out string name,
-        out ISymbol? symbol)
+        out ISymbol? property)
     {
-        symbol = syntax.GetParent<ParameterSyntax>(context)
+        property = syntax.GetParent<ParameterSyntax>(context)
             ?? syntax.GetParent<PropertyDeclarationSyntax>(context);
 
-        if (symbol is null || !symbol.HasIgnore())
+        if (property is null || !property.HasIgnore())
         {
             location = Location.None;
             name = string.Empty;
@@ -186,7 +186,7 @@ public sealed class DescriptorAttributeAnalyzer
         }
 
         location = syntax.GetLocation();
-        name = symbol.Name;
+        name = property.Name;
 
         return true;
     }
