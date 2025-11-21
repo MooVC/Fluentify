@@ -1,6 +1,7 @@
 namespace Fluentify.Source;
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Fluentify.Model;
 
 /// <summary>
@@ -24,17 +25,8 @@ internal static partial class PropertyExtensions
 
         Kind kind = property.Kind;
 
-        string initialization = ImmutableInitialization.GetInitialization(kind, property)
-            ?? $$"""
-                {{kind}} value = values;
-
-                if (subject.{{property.Name}} != null)
-                {
-                    value = subject.{{property.Name}}
-                        .Union(values)
-                        .ToArray();
-                }
-                """;
+        string initialization = Initialization.GetInitialization(kind, property)
+            ?? GetStandardInitialization(kind, property);
 
         return $$"""
             {{initialization}}
@@ -43,32 +35,55 @@ internal static partial class PropertyExtensions
             """;
     }
 
-    private sealed record ImmutableInitialization(string Name, string Method, bool UsesDefaultCheck = false)
+    private static string GetStandardInitialization(Kind kind, Property property)
+    {
+        return $$"""
+            {{kind}} value = values;
+
+            if (subject.{{property.Name}} != null)
+            {
+                value = subject.{{property.Name}}
+                    .Union(values)
+                    .ToArray();
+            }
+            """;
+    }
+
+    private sealed class Initialization
     {
         private const string Namespace = "global::System.Collections.Immutable.";
 
+        private static readonly Initialization[] _candidates =
+        [
+            new("ImmutableArray", "AddRange", usesDefaultCheck: true),
+            new("ImmutableList", "AddRange"),
+            new("ImmutableHashSet", "Union"),
+            new("ImmutableSortedSet", "Union"),
+        ];
+
+        private Initialization(string name, string method, bool usesDefaultCheck = false)
+        {
+            Name = name;
+            Method = method;
+            UsesDefaultCheck = usesDefaultCheck;
+        }
+
+        public string Name { get; }
+
+        public string Method { get; }
+
+        public bool UsesDefaultCheck { get; }
+
         public static string? GetInitialization(Kind kind, Property property)
         {
-            foreach (ImmutableInitialization initialization in GetCandidates())
+            Initialization? candidate = _candidates.FirstOrDefault(initialization => initialization.IsMatch(kind.Type.Name));
+
+            if (candidate is not null)
             {
-                if (initialization.IsMatch(kind.Type.Name))
-                {
-                    return initialization.Create(kind, property.Name);
-                }
+                return candidate.Create(kind, property.Name);
             }
 
             return default;
-        }
-
-        private static ImmutableInitialization[] GetCandidates()
-        {
-            return new ImmutableInitialization[]
-            {
-                new("ImmutableArray", "AddRange", UsesDefaultCheck: true),
-                new("ImmutableList", "AddRange"),
-                new("ImmutableHashSet", "Union"),
-                new("ImmutableSortedSet", "Union"),
-            };
         }
 
         private string Create(Kind kind, string propertyName)
@@ -87,10 +102,10 @@ internal static partial class PropertyExtensions
         {
             if (UsesDefaultCheck)
             {
-                return $$"!subject.{{propertyName}}.IsDefault";
+                return $"!subject.{propertyName}.IsDefault";
             }
 
-            return $$"subject.{{propertyName}} != null";
+            return $"subject.{propertyName} != null";
         }
 
         private bool IsMatch(string type)
