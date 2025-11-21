@@ -98,9 +98,9 @@ public sealed class DescriptorAttributeAnalyzer
     /// <inheritdoc/>
     protected override void AnalyzeNode(SyntaxNodeAnalysisContext context, IMethodSymbol symbol, AttributeSyntax syntax)
     {
-        if (IsViolatingMissingFluentifyRule(context, syntax, out string @class, out Location location))
+        if (IsViolatingMissingFluentifyRule(context, syntax, out string member, out string @class, out Location location))
         {
-            Raise(context, MissingFluentifyRule, location, @class);
+            Raise(context, MissingFluentifyRule, location, member, @class);
         }
         else if (IsViolatingValidNamingRule(context, syntax, out string descriptor, out location))
         {

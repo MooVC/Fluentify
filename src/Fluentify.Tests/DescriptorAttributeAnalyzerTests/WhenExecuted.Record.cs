@@ -19,7 +19,7 @@ public partial class WhenExecuted
         public async Task GivenADescriptorWhenFluentifyIsNotAppliedToTheRecordThenMissingFluentifyRuleIsRaised(string descriptor)
         {
             // Arrange
-            ExpectedDiagnostics.Add(GetExpectedMissingFluentifyRule("TestRecord", new LinePosition(2, 26)));
+            ExpectedDiagnostics.Add(GetExpectedMissingFluentifyRule("Property", "TestRecord", new LinePosition(2, 26)));
 
             TestCode = $$"""
                 using Fluentify;

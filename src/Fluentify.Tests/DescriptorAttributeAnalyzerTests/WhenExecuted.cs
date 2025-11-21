@@ -27,9 +27,9 @@ public abstract partial class WhenExecuted
         return GetExpected(position, DescriptorAttributeAnalyzer.DisregardedRule, member);
     }
 
-    protected static DiagnosticResult GetExpectedMissingFluentifyRule(string @class, LinePosition position)
+    protected static DiagnosticResult GetExpectedMissingFluentifyRule(string member, string @class, LinePosition position)
     {
-        return GetExpected(position, DescriptorAttributeAnalyzer.MissingFluentifyRule, @class);
+        return GetExpected(position, DescriptorAttributeAnalyzer.MissingFluentifyRule, member, @class);
     }
 
     protected static DiagnosticResult GetExpectedRedundantRule(string descriptor, string member, LinePosition position)
