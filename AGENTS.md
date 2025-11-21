@@ -8,7 +8,7 @@ This repository hosts **Fluentify**, a .NET source generator and analyzers solut
 
 ## Build and Test
 
-- Use the .NET SDK **9.0**. The latest SDK can be found at [dotnet.microsoft.com](https://dotnet.microsoft.com/).
+- Use the .NET SDK **10.0**. The latest SDK can be found at [dotnet.microsoft.com](https://dotnet.microsoft.com/).
 - Restore packages with `dotnet restore`.
 - Run `dotnet test` to execute the test suite. This is the primary check before committing.
 - Tests are configured via `.runsettings` and use xUnit.
@@ -27,9 +27,11 @@ The project enforces strong C# coding conventions through `.editorconfig`, [Styl
 - Avoid abrieviations in names, except for well-known acronyms (e.g., `Http`, `Xml`).
 - Avoid single-letter names, even for loop variables.
 - Avoid qualified types, use `using` directives instead or an alias if necessary.
+- Avoid blank lines at the end of a file.
 - Use `var` for local variables when the type is clear from the right-hand side.
 - Use `nameof` for member names in exceptions and logging.
 - Use `string.Empty` instead of `""` for empty strings.
+- When possible, place declarations in alphabetical order (e.g. fields, parameters, properties, methods).
 
 ### Unit Testing Conventions
 

@@ -68,7 +68,7 @@ public sealed class IgnoreAttributeAnalyzer
         {
             Raise(context, MissingFluentifyRule, location, property);
         }
-        else if (IsViolatingRedundantUsageRule(context, syntax, out location, out string property))
+        else if (IsViolatingRedundantUsageRule(context, syntax, out location, out property))
         {
             Raise(context, RedundantUsageRule, location, property);
         }
