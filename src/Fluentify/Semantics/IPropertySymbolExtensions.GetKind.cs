@@ -12,6 +12,10 @@ internal static partial class IPropertySymbolExtensions
     private const string Enumerable = "global::System.Collections.Generic.IEnumerable<T>";
     private const string ReadOnlyCollection = "global::System.Collections.Generic.IReadOnlyCollection<T>";
     private const string ReadOnlyList = "global::System.Collections.Generic.IReadOnlyList<T>";
+    private const string ImmutableArray = "global::System.Collections.Immutable.ImmutableArray<T>";
+    private const string ImmutableHashSet = "global::System.Collections.Immutable.ImmutableHashSet<T>";
+    private const string ImmutableList = "global::System.Collections.Immutable.ImmutableList<T>";
+    private const string ImmutableSortedSet = "global::System.Collections.Immutable.ImmutableSortedSet<T>";
 
     private static readonly IsMatch[] _strategies =
     [
@@ -78,7 +82,7 @@ internal static partial class IPropertySymbolExtensions
     {
         if (property.Type is not INamedTypeSymbol type
          || type.TypeArguments.Length != 1
-         || !type.OriginalDefinition.IsType(Enumerable, ReadOnlyCollection, ReadOnlyList))
+         || !type.OriginalDefinition.IsType(Enumerable, ImmutableArray, ImmutableHashSet, ImmutableList, ImmutableSortedSet, ReadOnlyCollection, ReadOnlyList))
         {
             return false;
         }

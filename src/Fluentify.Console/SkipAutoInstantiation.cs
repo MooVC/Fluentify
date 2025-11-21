@@ -7,6 +7,6 @@ public sealed partial record SkipAutoInstantiation(
 {
     public sealed class Dependent
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

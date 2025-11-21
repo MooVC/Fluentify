@@ -305,6 +305,119 @@ public sealed partial class WhenGetExtensionsIsCalled
     }
 
     [Theory]
+    [InlineData("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableArray<int>")]
+    [InlineData("return new();", "global::System.Collections.Immutable.ImmutableArray<int>")]
+    [InlineData("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableHashSet<int>")]
+    [InlineData("return new();", "global::System.Collections.Immutable.ImmutableHashSet<int>")]
+    [InlineData("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableList<int>")]
+    [InlineData("return new();", "global::System.Collections.Immutable.ImmutableList<int>")]
+    [InlineData("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableSortedSet<int>")]
+    [InlineData("return new();", "global::System.Collections.Immutable.ImmutableSortedSet<int>")]
+    public void GivenPublicPropertyAndPublicSubjectWhenImmutableEnumerableThenGeneratesPublicExtension(string scalar, string type)
+    {
+        // Arrange
+        string initialization = type switch
+        {
+            "global::System.Collections.Immutable.ImmutableArray<int>" => $$"""
+                    global::System.Collections.Immutable.ImmutableArray<int> value = global::System.Collections.Immutable.ImmutableArray.CreateRange(values);
+
+                    if (!subject.TestProperty.IsDefault)
+                    {
+                        value = subject.TestProperty.AddRange(values);
+                    }
+            """,
+            "global::System.Collections.Immutable.ImmutableHashSet<int>" => $$"""
+                    global::System.Collections.Immutable.ImmutableHashSet<int> value = global::System.Collections.Immutable.ImmutableHashSet.CreateRange(values);
+
+                    if (subject.TestProperty != null)
+                    {
+                        value = subject.TestProperty.Union(values);
+                    }
+            """,
+            "global::System.Collections.Immutable.ImmutableList<int>" => $$"""
+                    global::System.Collections.Immutable.ImmutableList<int> value = global::System.Collections.Immutable.ImmutableList.CreateRange(values);
+
+                    if (subject.TestProperty != null)
+                    {
+                        value = subject.TestProperty.AddRange(values);
+                    }
+            """,
+            _ => $$"""
+                    global::System.Collections.Immutable.ImmutableSortedSet<int> value = global::System.Collections.Immutable.ImmutableSortedSet.CreateRange(values);
+
+                    if (subject.TestProperty != null)
+                    {
+                        value = subject.TestProperty.Union(values);
+                    }
+            """,
+        };
+
+        string expected = $$"""
+            using System;
+            using System.Collections.Generic;
+            using System.Linq;
+            using Fluentify.Internal;
+
+            public static partial class TestSubjectExtensions
+            {
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    params int[] values)
+                {
+                    subject.ThrowIfNull("subject");
+
+            {{initialization}}
+
+                    {{scalar}}
+                }
+            }
+            """;
+
+        var subject = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Name = "TestSubject",
+            Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
+        };
+
+        var property = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "WithTestProperty",
+            Kind = new()
+            {
+                Member = new()
+                {
+                    Name = "int",
+                },
+                Pattern = Pattern.Enumerable,
+                Type = new()
+                {
+                    Name = type,
+                },
+            },
+            Name = "TestProperty",
+        };
+
+        var metadata = new Metadata
+        {
+            Constraints = [],
+            Parameters = string.Empty,
+            Subject = subject,
+        };
+
+        // Act
+        string result = property.GetExtensions(ref metadata, _ => scalar);
+
+        // Assert
+        result.ShouldBe(expected);
+    }
+
+    [Theory]
     [InlineData("throw new NotImplementedException();", "IEnumerable<TestType>")]
     [InlineData("return new();", "IEnumerable<TestType>")]
     [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<TestType>")]
