@@ -29,6 +29,9 @@ internal sealed class CollectionExample
         /// <summary>
         /// Gets or sets the name of the dependency.
         /// </summary>
+        /// <value>
+        /// The name of the dependency.
+        /// </value>
         public string Name { get; set; } = string.Empty;
     }
 }
