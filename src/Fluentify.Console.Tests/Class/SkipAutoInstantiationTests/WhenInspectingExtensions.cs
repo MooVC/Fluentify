@@ -9,7 +9,7 @@ public sealed class WhenInspectingExtensions
     public void GivenSkipAutoInstantiationAttributeThenBuilderExtensionIsNotGenerated()
     {
         // Arrange
-        Type extensions = typeof(Class.SkipAutoInstantiation.Example)
+        Type extensions = typeof(SkipAutoInstantiation.Example)
             .Assembly
             .GetType("Fluentify.Console.Class.SkipAutoInstantiation.ExampleExtensions")!
             .ShouldNotBeNull();
