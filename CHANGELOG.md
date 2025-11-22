@@ -4,6 +4,12 @@ All notable changes to Fluentify will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# 1.8.2 - 2025-11-22
+
+## Fixed
+
+- Types annotated with `SkipAutoInstantiation` no longer have auto instantiation overloads generated when the type serves as a argument to a collection property (#96).
+
 # 1.8.1 - 2025-11-21
 
 ## Fixed

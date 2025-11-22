@@ -2,6 +2,7 @@
 
 using Fluentify.Model;
 using Microsoft.CodeAnalysis;
+using static Fluentify.SkipAutoInstantiationAttributeGenerator;
 
 /// <summary>
 /// Provides extensions relating to <see cref="IPropertySymbol"/>.
@@ -16,6 +17,7 @@ internal static partial class IPropertySymbolExtensions
     private const string ImmutableHashSet = "global::System.Collections.Immutable.ImmutableHashSet<T>";
     private const string ImmutableList = "global::System.Collections.Immutable.ImmutableList<T>";
     private const string ImmutableSortedSet = "global::System.Collections.Immutable.ImmutableSortedSet<T>";
+    private const int ExpectedArgumentsForCollectionType = 1;
 
     private static readonly IsMatch[] _strategies =
     [
@@ -81,7 +83,7 @@ internal static partial class IPropertySymbolExtensions
     private static bool IsEnumerable(Compilation compilation, Kind kind, IPropertySymbol property, CancellationToken cancellationToken)
     {
         if (property.Type is not INamedTypeSymbol type
-         || type.TypeArguments.Length != 1
+         || type.TypeArguments.Length != ExpectedArgumentsForCollectionType
          || !type.OriginalDefinition.IsType(Enumerable, ImmutableArray, ImmutableHashSet, ImmutableList, ImmutableSortedSet, ReadOnlyCollection, ReadOnlyList))
         {
             return false;
@@ -97,7 +99,7 @@ internal static partial class IPropertySymbolExtensions
     {
         return new()
         {
-            IsBuildable = type.IsBuildable(compilation, cancellationToken),
+            IsBuildable = type.IsBuildable(compilation, cancellationToken) && !type.HasAttribute(Name),
             IsNullable = type.IsNullable(),
             Name = type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
         };
@@ -105,7 +107,7 @@ internal static partial class IPropertySymbolExtensions
 
     private static bool IsType(this IPropertySymbol property, out ITypeSymbol element, params string[] names)
     {
-        foreach (INamedTypeSymbol @interface in property.Type.AllInterfaces.Where(@interface => @interface.TypeArguments.Length == 1))
+        foreach (INamedTypeSymbol @interface in property.Type.AllInterfaces.Where(@interface => @interface.TypeArguments.Length == ExpectedArgumentsForCollectionType))
         {
             if (@interface.OriginalDefinition is INamedTypeSymbol type && type.IsType(names))
             {

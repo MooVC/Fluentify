@@ -9,7 +9,7 @@ public sealed class WhenInspectingExtensions
     public void GivenSkipAutoInstantiationAttributeThenBuilderExtensionIsNotGenerated()
     {
         // Arrange
-        Type extensions = typeof(Class.SkipAutoInstantiation.Example)
+        Type extensions = typeof(SkipAutoInstantiation.Example)
             .Assembly
             .GetType("Fluentify.Console.Class.SkipAutoInstantiation.ExampleExtensions")!
             .ShouldNotBeNull();
@@ -18,6 +18,26 @@ public sealed class WhenInspectingExtensions
         MethodInfo? builder = extensions
             .GetMethods(BindingFlags.Public | BindingFlags.Static)
             .SingleOrDefault(method => method.Name == "WithDependency"
+                && method.GetParameters().Any(parameter => parameter.ParameterType.IsGenericType
+                    && parameter.ParameterType.GetGenericTypeDefinition() == typeof(Func<,>)));
+
+        // Assert
+        builder.ShouldBeNull();
+    }
+
+    [Fact]
+    public void GivenCollectionOfSkipAutoInstantiationTypeThenBuilderExtensionIsNotGenerated()
+    {
+        // Arrange
+        Type extensions = typeof(Class.SkipAutoInstantiation.CollectionExample)
+            .Assembly
+            .GetType("Fluentify.Console.Class.SkipAutoInstantiation.CollectionExampleExtensions")!
+            .ShouldNotBeNull();
+
+        // Act
+        MethodInfo? builder = extensions
+            .GetMethods(BindingFlags.Public | BindingFlags.Static)
+            .SingleOrDefault(method => method.Name == "WithDependencies"
                 && method.GetParameters().Any(parameter => parameter.ParameterType.IsGenericType
                     && parameter.ParameterType.GetGenericTypeDefinition() == typeof(Func<,>)));
 
