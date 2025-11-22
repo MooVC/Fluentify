@@ -24,4 +24,24 @@ public sealed class WhenInspectingExtensions
         // Assert
         builder.ShouldBeNull();
     }
+
+    [Fact]
+    public void GivenCollectionOfSkipAutoInstantiationTypeThenBuilderExtensionIsNotGenerated()
+    {
+        // Arrange
+        Type extensions = typeof(Class.SkipAutoInstantiation.CollectionExample)
+            .Assembly
+            .GetType("Fluentify.Console.Class.SkipAutoInstantiation.CollectionExampleExtensions")!
+            .ShouldNotBeNull();
+
+        // Act
+        MethodInfo? builder = extensions
+            .GetMethods(BindingFlags.Public | BindingFlags.Static)
+            .SingleOrDefault(method => method.Name == "WithDependencies"
+                && method.GetParameters().Any(parameter => parameter.ParameterType.IsGenericType
+                    && parameter.ParameterType.GetGenericTypeDefinition() == typeof(Func<,>)));
+
+        // Assert
+        builder.ShouldBeNull();
+    }
 }

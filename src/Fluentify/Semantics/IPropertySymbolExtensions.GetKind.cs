@@ -2,6 +2,7 @@
 
 using Fluentify.Model;
 using Microsoft.CodeAnalysis;
+using static Fluentify.SkipAutoInstantiationAttributeGenerator;
 
 /// <summary>
 /// Provides extensions relating to <see cref="IPropertySymbol"/>.
@@ -97,7 +98,8 @@ internal static partial class IPropertySymbolExtensions
     {
         return new()
         {
-            IsBuildable = type.IsBuildable(compilation, cancellationToken),
+            IsBuildable = type.IsBuildable(compilation, cancellationToken)
+                && !type.HasAttribute(Name),
             IsNullable = type.IsNullable(),
             Name = type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
         };
