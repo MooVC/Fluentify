@@ -9,7 +9,7 @@
     <ExcludeByFile>**/*.Designer.cs</ExcludeByFile>
     <NoWarn>CA1859;CA1861;xUnit1044;xUnit1045;</NoWarn>
     <RootNamespace>$(MSBuildProjectName.Replace('.Tests', ''))</RootNamespace>
-    <TargetFrameworks>net10.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="coverlet.msbuild">

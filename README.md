@@ -263,6 +263,7 @@ Rule ID                          | Category | Severity | Notes
 [FLTFY05](docs/rules/FLTFY05.md) | Usage    | Info     | Type does not utilize Fluentify
 [FLTFY06](docs/rules/FLTFY06.md) | Usage    | Info     | Property is already disregarded from consideration by Fluentify
 [FLTFY07](docs/rules/FLTFY07.md) | Usage    | Info     | Specified descriptor is already the default used by Fluentify
+[FLTFY08](docs/rules/FLTFY08.md) | Design   | Info     | Record should be partial to allow Fluentify to generate a parameterless constructor
 
 ## Building a Service
 

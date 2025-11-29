@@ -1,4 +1,10 @@
-﻿## Release 1.2.0
+﻿## Release 1.9.0
+
+Rule ID | Category | Severity | Notes
+--------|----------|----------|-------
+FLTFY08 | Design   | Info     | FLTFY08_RecordAnalyzer, [Documentation](https://github.com/MooVC/Fluentify/blob/master/docs/rules/FLTFY08.md)
+
+## Release 1.2.0
 
 ### New Rules
 
