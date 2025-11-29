@@ -48,6 +48,8 @@ public sealed class RecordAnalyzer
         INamedTypeSymbol? symbol = context.SemanticModel.GetDeclaredSymbol(syntax, context.CancellationToken);
 
         if (symbol is not null
+            && context.ContainingSymbol is not null
+            && context.ContainingSymbol.Kind == SymbolKind.NamedType
             && symbol.HasFluentify()
             && !symbol.HasAccessibleParameterlessConstructor(context.Compilation)
             && !syntax.Modifiers.Any(SyntaxKind.PartialKeyword))
