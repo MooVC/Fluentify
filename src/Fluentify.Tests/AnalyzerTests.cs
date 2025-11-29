@@ -33,7 +33,7 @@ public abstract class AnalyzerTests<TAnalyzer, TGenerator>
 
     protected sealed override IEnumerable<Type> GetSourceGenerators()
     {
-        return _generators;
+        return _generators.Distinct();
     }
 
     protected Task ActAndAssertAsync()

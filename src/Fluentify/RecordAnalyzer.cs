@@ -37,7 +37,7 @@ public sealed class RecordAnalyzer
         GetResourceString(nameof(PartialRecordRequiredRuleTitle)),
         GetResourceString(nameof(PartialRecordRequiredRuleMessageFormat)),
         "Design",
-        DiagnosticSeverity.Warning,
+        DiagnosticSeverity.Info,
         isEnabledByDefault: true,
         description: GetResourceString(nameof(PartialRecordRequiredRuleDescription)),
         helpLinkUri: GetHelpLinkUri("FLTFY08"));
@@ -47,15 +47,13 @@ public sealed class RecordAnalyzer
     {
         INamedTypeSymbol? symbol = context.SemanticModel.GetDeclaredSymbol(syntax, context.CancellationToken);
 
-        if (symbol is null
-            || !symbol.HasFluentify()
-            || symbol.HasAccessibleParameterlessConstructor(context.Compilation)
-            || syntax.Modifiers.Any(SyntaxKind.PartialKeyword))
+        if (symbol is not null
+            && symbol.HasFluentify()
+            && !symbol.HasAccessibleParameterlessConstructor(context.Compilation)
+            && !syntax.Modifiers.Any(SyntaxKind.PartialKeyword))
         {
-            return;
+            Raise(context, PartialRecordRequiredRule, syntax.Identifier.GetLocation(), syntax.Identifier.Text);
         }
-
-        Raise(context, PartialRecordRequiredRule, syntax.Identifier.GetLocation(), syntax.Identifier.Text);
     }
 
     private static LocalizableResourceString GetResourceString(string name)
