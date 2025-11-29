@@ -1,6 +1,5 @@
 ﻿namespace Fluentify.Console;
 
-using System.Collections.Immutable;
 using static System.Console;
 
 /// <summary>
