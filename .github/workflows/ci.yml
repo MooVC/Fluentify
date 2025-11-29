@@ -10,6 +10,10 @@ on:
       - release/*
       - feature/*
       - hotfix/*
+    paths:
+      - '.github/workflows/**'
+      - 'build/**'
+      - 'src/**'
   schedule:
     - cron: '0 3 * * *'
 
