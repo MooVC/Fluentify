@@ -49,7 +49,7 @@ public sealed class RecordAnalyzer
 
         if (symbol is not null
             && context.ContainingSymbol is not null
-            && context.ContainingSymbol.Kind == SymbolKind.NamedType
+            && context.ContainingSymbol.Kind != SymbolKind.Method
             && symbol.HasFluentify()
             && !symbol.HasAccessibleParameterlessConstructor(context.Compilation)
             && !syntax.Modifiers.Any(SyntaxKind.PartialKeyword))
