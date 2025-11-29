@@ -61,7 +61,7 @@ namespace Fluentify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Records with the Fluentify attribute must be partial when Fluentify needs to generate a parameterless constructor..
+        ///   Looks up a localized string similar to Records with the Fluentify attribute should be partial when Fluentify needs to generate a parameterless constructor..
         /// </summary>
         internal static string PartialRecordRequiredRuleDescription {
             get {
@@ -79,7 +79,7 @@ namespace Fluentify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Record must be partial to allow Fluentify to generate a parameterless constructor.
+        ///   Looks up a localized string similar to Record should be partial to allow Fluentify to generate a parameterless constructor.
         /// </summary>
         internal static string PartialRecordRequiredRuleTitle {
             get {

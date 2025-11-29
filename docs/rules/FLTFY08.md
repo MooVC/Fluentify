@@ -1,4 +1,4 @@
-# FLTFY08: Record must be partial to allow Fluentify to generate a parameterless constructor
+# FLTFY08: Record should be partial to allow Fluentify to generate a parameterless constructor
 
 <table>
 <tr>
@@ -76,10 +76,10 @@ It is not recommended to suppress the rule. Instead, it is suggested that the `F
 If suppression is desired, one of the following approaches can be used:
 
 ```csharp
-#pragma warning disable FLTFY08 // Record must be partial to allow Fluentify to generate a parameterless constructor
+#pragma warning disable FLTFY08 // Record should be partial to allow Fluentify to generate a parameterless constructor
 [Fluentify]
 public record ExampleWithoutPartial(string Value);
-#pragma warning restore FLTFY08 // Record must be partial to allow Fluentify to generate a parameterless constructor
+#pragma warning restore FLTFY08 // Record should be partial to allow Fluentify to generate a parameterless constructor
 ```
 
 or alternatively:
@@ -89,7 +89,7 @@ using System.Diagnostics.CodeAnalysis;
 using Fluentify;
 
 [Fluentify]
-[SuppressMessage("Design", "FLTFY08:Record must be partial to allow Fluentify to generate a parameterless constructor", Justification = "Explanation for suppression")]
+[SuppressMessage("Design", "FLTFY08:Record should be partial to allow Fluentify to generate a parameterless constructor", Justification = "Explanation for suppression")]
 public record ExampleWithoutPartial(string Value);
 ```
 
@@ -98,7 +98,7 @@ public record ExampleWithoutPartial(string Value);
 It is not recommended to disable the rule, as this may result in some confusion if expected extension methods are not present.
 
 ```ini
-# Disable FLTFY08: Record must be partial to allow Fluentify to generate a parameterless constructor
+# Disable FLTFY08: Record should be partial to allow Fluentify to generate a parameterless constructor
 [*.cs]
 dotnet_diagnostic.FLTFY08.severity = none
 ```
