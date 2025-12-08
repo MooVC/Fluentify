@@ -345,6 +345,21 @@ public sealed partial class WhenGetExtensionsIsCalled
                     {{scalar}}
                 }
 
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    Func<List<TestType>, List<TestType>> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = new List<TestType>();
+
+                    instance = builder(instance);
+
+                    return subject.WithTestProperty(instance);
+                }
+
             }
             """;
 
@@ -373,6 +388,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
+                    IsBuildable = true,
                     Name = "List<TestType>",
                 },
             },

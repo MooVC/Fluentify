@@ -12,8 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Changed
 
-- Builder delegate overloads now reuse existing property values and throw a `NotSupportedException` when no value is available for non-buildable types or when auto instantiation is disabled.
-- Builder delegate overloads are only generated for scalar, non-BCL property types; collection properties and primitives no longer receive the builder overload.
+- Builder delegate overloads now reuse existing scalar property values, start collections from a new instance, and throw a `NotSupportedException` when no scalar value is available for non-buildable types or when auto instantiation is disabled.
+- Builder delegate overloads continue to skip BCL primitives while remaining available for buildable collection types.
 
 # [1.8.2] - 2025-11-22
 
