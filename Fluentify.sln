@@ -76,6 +76,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		.github\pull_request_template.md = .github\pull_request_template.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code", "Code", "{3882741C-B2EB-4491-AB29-C7E7C4EB2DCA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F1A8AE69-7BF2-460D-BE49-2EE3BA8D3129}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +107,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{22EEE0C5-9F8D-4709-BA2C-8AF5925FB341} = {3882741C-B2EB-4491-AB29-C7E7C4EB2DCA}
+		{DB71C87A-00F7-4B8C-8D75-8EAAB4BD8E24} = {3882741C-B2EB-4491-AB29-C7E7C4EB2DCA}
+		{25FAA0FE-0B5A-489F-8145-DF74C9BADD81} = {F1A8AE69-7BF2-460D-BE49-2EE3BA8D3129}
+		{4CAAA913-C6DD-4FD2-AF51-BCB89E6DD44F} = {F1A8AE69-7BF2-460D-BE49-2EE3BA8D3129}
 		{14CECDE5-92C5-4ADC-A1B7-8BC089588D0B} = {E9DE67A5-339C-4BA3-BD91-F9E0937B3BFF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

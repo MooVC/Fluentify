@@ -49,18 +49,16 @@ internal static partial class PropertyExtensions
         string parameter = property.Kind.ToString();
         string member = property.Kind.Member.ToString();
 
-        Type type = property.Kind.Type;
-
-        string? scalarDelegate = !type.IsBcl && !type.IsValueType
-            ? property.GetScalarDelegateExtensionMethodBody(type)
-            : default;
+        Type type = property.Kind.Pattern == Pattern.Scalar
+            ? property.Kind.Type
+            : property.Kind.Member;
 
         (string? Body, string Parameter)[] extensions =
         [
             (property.GetArrayExtensionMethodBody(scalar), $"params {member}[] values"),
             (property.GetCollectionExtensionMethodBody(scalar), $"params {member}[] values"),
             (property.GetEnumerableExtensionMethodBody(scalar), $"params {member}[] values"),
-            (scalarDelegate, $"Func<{type.Name}, {type.Name}> builder"),
+            (property.GetDelegateExtensionMethodBody(type), $"Func<{type.Name}, {type.Name}> builder"),
             (property.GetScalarExtensionMethodBody(scalar), $"{parameter} value"),
         ];
 

@@ -19,6 +19,14 @@ internal sealed partial class Type
     public static readonly Type Unspecified = new();
 
     /// <summary>
+    /// Gets or sets a value indicating whether or not the type is part of the Base Class Library.
+    /// </summary>
+    /// <value>
+    /// The value indicating whether or not the type is part of the Base Class Library.
+    /// </value>
+    public bool IsBcl { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether or not the type adheres to the new() constraint.
     /// </summary>
     /// <value>
@@ -41,14 +49,6 @@ internal sealed partial class Type
     /// The value indicating whether or not the type is a value type.
     /// </value>
     public bool IsValueType { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether or not the type is part of the Base Class Library.
-    /// </summary>
-    /// <value>
-    /// The value indicating whether or not the type is part of the Base Class Library.
-    /// </value>
-    public bool IsBcl { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the type.

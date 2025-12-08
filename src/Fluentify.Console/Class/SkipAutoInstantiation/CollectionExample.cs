@@ -11,7 +11,7 @@ internal sealed class CollectionExample
     /// <summary>
     /// Gets the dependencies that should not be automatically instantiated via builder extensions.
     /// </summary>
-    public List<CollectionExample.DependencySettings> Dependencies { get; init; } = new();
+    public List<DependencySettings> Dependencies { get; init; } = new();
 
     /// <summary>
     /// Represents a dependency type that is otherwise buildable.

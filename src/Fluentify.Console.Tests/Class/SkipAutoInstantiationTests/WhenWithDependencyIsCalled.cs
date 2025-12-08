@@ -8,14 +8,14 @@ public sealed class WhenWithDependencyIsCalled
     public void GivenDependencyThenTheValueIsApplied()
     {
         // Arrange
-        var dependency = new Class.SkipAutoInstantiation.Example.DependencySettings
+        var dependency = new Example.DependencySettings
         {
             ConnectionString = "Server=Primary;",
         };
 
-        var original = new Class.SkipAutoInstantiation.Example
+        var original = new Example
         {
-            Dependency = new Class.SkipAutoInstantiation.Example.DependencySettings
+            Dependency = new Example.DependencySettings
             {
                 ConnectionString = "Server=Original;",
             },
@@ -23,7 +23,7 @@ public sealed class WhenWithDependencyIsCalled
         };
 
         // Act
-        Class.SkipAutoInstantiation.Example actual = original.WithDependency(dependency);
+        Example actual = original.WithDependency(dependency);
 
         // Assert
         actual.ShouldNotBeSameAs(original);
