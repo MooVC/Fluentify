@@ -49,11 +49,9 @@ internal static partial class PropertyExtensions
         string parameter = property.Kind.ToString();
         string member = property.Kind.Member.ToString();
 
-        Type type = property.Kind.Pattern == Pattern.Scalar
-            ? property.Kind.Type
-            : property.Kind.Member;
+        Type type = property.Kind.Type;
 
-        string? scalarDelegate = property.Kind.Pattern == Pattern.Scalar && !type.IsBcl
+        string? scalarDelegate = !type.IsBcl
             ? property.GetScalarDelegateExtensionMethodBody(type)
             : default;
 
