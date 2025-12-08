@@ -51,7 +51,7 @@ internal static partial class PropertyExtensions
 
         Type type = property.Kind.Type;
 
-        string? scalarDelegate = !type.IsBcl
+        string? scalarDelegate = !type.IsBcl && !type.IsValueType
             ? property.GetScalarDelegateExtensionMethodBody(type)
             : default;
 

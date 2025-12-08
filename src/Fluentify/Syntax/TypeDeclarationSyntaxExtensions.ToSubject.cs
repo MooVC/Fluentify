@@ -72,6 +72,7 @@ internal static partial class TypeDeclarationSyntaxExtensions
             {
                 IsBuildable = hasDefaultConstructor,
                 IsBcl = type.IsBcl(),
+                IsValueType = type.IsValueType,
                 Name = type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
             },
         };

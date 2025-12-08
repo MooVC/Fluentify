@@ -44,6 +44,7 @@ internal static partial class IPropertySymbolExtensions
             {
                 IsBcl = property.Type.IsBcl(),
                 IsNullable = property.Type.IsNullable(),
+                IsValueType = property.Type.IsValueType,
                 Name = property.Type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
             },
         };
@@ -103,6 +104,7 @@ internal static partial class IPropertySymbolExtensions
             IsBuildable = type.IsBuildable(compilation, cancellationToken) && !type.HasAttribute(Name),
             IsBcl = type.IsBcl(),
             IsNullable = type.IsNullable(),
+            IsValueType = type.IsValueType,
             Name = type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
         };
     }
