@@ -330,6 +330,72 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
+    public void GivenBclPropertyThenDoesNotGenerateDelegateExtension(string scalar)
+    {
+        // Arrange
+        string expected = $$"""
+            using System;
+            using System.Collections.Generic;
+            using System.Linq;
+            using Fluentify.Internal;
+
+            public static partial class TestSubjectExtensions
+            {
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    TestType value)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    {{scalar}}
+                }
+            }
+            """;
+
+        var subject = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Name = "TestSubject",
+            Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
+        };
+
+        var property = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "WithTestProperty",
+            Kind = new()
+            {
+                Type = new()
+                {
+                    IsBcl = true,
+                    IsBuildable = true,
+                    Name = "TestType",
+                },
+            },
+            Name = "TestProperty",
+        };
+
+        var metadata = new Metadata
+        {
+            Constraints = [],
+            Parameters = string.Empty,
+            Subject = subject,
+        };
+
+        // Act
+        string result = property.GetExtensions(ref metadata, _ => scalar);
+
+        // Assert
+        result.ShouldBe(expected);
+    }
+
+    [Theory]
+    [InlineData("throw new NotImplementedException();")]
+    [InlineData("return new();")]
     public void GivenNonBuildablePropertyThenGeneratesDelegateExtensionThatThrowsWhenValueIsNull(string scalar)
     {
         // Arrange

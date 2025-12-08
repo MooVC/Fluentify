@@ -53,12 +53,16 @@ internal static partial class PropertyExtensions
             ? property.Kind.Type
             : property.Kind.Member;
 
+        string? scalarDelegate = property.Kind.Pattern == Pattern.Scalar && !type.IsBcl
+            ? property.GetScalarDelegateExtensionMethodBody(type)
+            : default;
+
         (string? Body, string Parameter)[] extensions =
         [
             (property.GetArrayExtensionMethodBody(scalar), $"params {member}[] values"),
             (property.GetCollectionExtensionMethodBody(scalar), $"params {member}[] values"),
             (property.GetEnumerableExtensionMethodBody(scalar), $"params {member}[] values"),
-            (property.GetScalarDelegateExtensionMethodBody(type), $"Func<{type.Name}, {type.Name}> builder"),
+            (scalarDelegate, $"Func<{type.Name}, {type.Name}> builder"),
             (property.GetScalarExtensionMethodBody(scalar), $"{parameter} value"),
         ];
 

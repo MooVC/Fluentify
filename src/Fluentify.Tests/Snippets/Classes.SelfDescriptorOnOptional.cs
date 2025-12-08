@@ -115,24 +115,6 @@ public static partial class Classes
                     };
                 }
 
-                public static global::Fluentify.Classes.Testing.SelfDescriptorOnOptional Attributes(
-                    this global::Fluentify.Classes.Testing.SelfDescriptorOnOptional subject,
-                    Func<object, object> builder)
-                {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
-
-                    var instance = subject.Attributes?.FirstOrDefault();
-
-                    if (instance is null)
-                    {
-                        instance = new object();
-                    }
-
-                    instance = builder(instance);
-
-                    return subject.Attributes(instance);
-                }
             }
         }
 

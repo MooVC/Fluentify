@@ -345,25 +345,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     {{scalar}}
                 }
 
-                public static global::TestSubject WithTestProperty(
-                    this global::TestSubject subject,
-                    Func<TestType, TestType> builder)
-                {
-                    subject.ThrowIfNull("subject");
-            
-                    builder.ThrowIfNull("builder");
-
-                    var instance = subject.TestProperty?.FirstOrDefault();
-
-                    if (instance is null)
-                    {
-                        instance = new TestType();
-                    }
-
-                    instance = builder(instance);
-
-                    return subject.WithTestProperty(instance);
-                }
             }
             """;
 

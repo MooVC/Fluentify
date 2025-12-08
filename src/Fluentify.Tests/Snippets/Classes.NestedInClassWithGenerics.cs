@@ -123,26 +123,6 @@ public static partial class Classes
                     };
                 }
 
-                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
-                    this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
-                    Func<object, object> builder)
-                    where TOutter : class
-                    where TInner : struct
-                {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
-
-                    var instance = subject.Attributes?.FirstOrDefault();
-
-                    if (instance is null)
-                    {
-                        instance = new object();
-                    }
-
-                    instance = builder(instance);
-
-                    return subject.WithAttributes(instance);
-                }
             }
         }
 

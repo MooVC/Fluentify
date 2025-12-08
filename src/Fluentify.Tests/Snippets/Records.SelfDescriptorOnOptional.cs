@@ -127,24 +127,6 @@ public static partial class Records
                     };
                 }
 
-                public static global::Fluentify.Records.Testing.SelfDescriptorOnOptional Attributes(
-                    this global::Fluentify.Records.Testing.SelfDescriptorOnOptional subject,
-                    Func<object, object> builder)
-                {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
-
-                    var instance = subject.Attributes?.FirstOrDefault();
-
-                    if (instance is null)
-                    {
-                        instance = new object();
-                    }
-
-                    instance = builder(instance);
-
-                    return subject.Attributes(instance);
-                }
             }
         }
 

@@ -10,10 +10,6 @@ internal static partial class PropertyExtensions
 {
     private static string? GetScalarDelegateExtensionMethodBody(this Property property, Type type)
     {
-        string instance = property.Kind.Pattern == Pattern.Scalar
-            ? $"subject.{property.Name}"
-            : $"subject.{property.Name}?.FirstOrDefault()";
-
         string creation = type.IsBuildable
             ? $$"""
                 if (instance is null)
@@ -31,7 +27,7 @@ internal static partial class PropertyExtensions
         return $$"""
             builder.ThrowIfNull("builder");
 
-            var instance = {{instance}};
+            var instance = subject.{{property.Name}};
 
             {{creation}}
 
