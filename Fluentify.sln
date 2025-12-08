@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.9.34728.123
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluentify", "src\Fluentify\Fluentify.csproj", "{22EEE0C5-9F8D-4709-BA2C-8AF5925FB341}"
 EndProject
@@ -56,6 +56,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Rules", "Rules", "{14CECDE5
 		docs\rules\FLTFY05.md = docs\rules\FLTFY05.md
 		docs\rules\FLTFY06.md = docs\rules\FLTFY06.md
 		docs\rules\FLTFY07.md = docs\rules\FLTFY07.md
+		docs\rules\FLTFY08.md = docs\rules\FLTFY08.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{62844182-B1F0-4244-AE6A-C7272BE585F5}"
