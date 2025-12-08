@@ -114,24 +114,6 @@ public static partial class Classes
                     };
                 }
 
-                public static global::Fluentify.Classes.Testing.Simple WithAttributes(
-                    this global::Fluentify.Classes.Testing.Simple subject,
-                    Func<object, object> builder)
-                {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
-
-                    var instance = subject.Attributes?.FirstOrDefault();
-
-                    if (instance is null)
-                    {
-                        instance = new object();
-                    }
-
-                    instance = builder(instance);
-
-                    return subject.WithAttributes(instance);
-                }
             }
         }
 

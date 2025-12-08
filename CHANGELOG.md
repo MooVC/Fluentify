@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Changed
 
 - Builder delegate overloads now reuse existing property values and throw a `NotSupportedException` when no value is available for non-buildable types or when auto instantiation is disabled.
+- Builder delegate overloads are only generated for scalar, non-BCL property types; collection properties and primitives no longer receive the builder overload.
 
 # [1.9.0] - 2025-11-29
 

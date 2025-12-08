@@ -107,24 +107,6 @@ public static partial class Classes
                 };
             }
 
-            public static global::Global WithAttributes(
-                this global::Global subject,
-                Func<object, object> builder)
-            {
-                subject.ThrowIfNull("subject");
-                builder.ThrowIfNull("builder");
-
-                var instance = subject.Attributes?.FirstOrDefault();
-
-                if (instance is null)
-                {
-                    instance = new object();
-                }
-
-                instance = builder(instance);
-
-                return subject.WithAttributes(instance);
-            }
         }
         
         #pragma warning restore CS8625

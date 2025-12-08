@@ -35,6 +35,14 @@ internal sealed partial class Type
     public bool IsNullable { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether or not the type is part of the Base Class Library.
+    /// </summary>
+    /// <value>
+    /// The value indicating whether or not the type is part of the Base Class Library.
+    /// </value>
+    public bool IsBcl { get; set; }
+
+    /// <summary>
     /// Gets or sets the name of the type.
     /// </summary>
     /// <value>
