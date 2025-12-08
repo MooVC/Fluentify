@@ -121,6 +121,26 @@ public static partial class Records
                         Dependency = value,
                     };
                 }
+
+                public static global::Fluentify.Records.Testing.SkipAutoInstantiationOnType WithDependency(
+                    this global::Fluentify.Records.Testing.SkipAutoInstantiationOnType subject,
+                    Func<global::Fluentify.Records.Testing.SkipAutoInstantiationOnType.Dependent, global::Fluentify.Records.Testing.SkipAutoInstantiationOnType.Dependent> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = subject.Dependency;
+
+                    if (instance is null)
+                    {
+                        throw new NotSupportedException("The existing value for Dependency is null and cannot be created.");
+                    }
+
+                    instance = builder(instance);
+
+                    return subject.WithDependency(instance);
+                }
             }
         }
 

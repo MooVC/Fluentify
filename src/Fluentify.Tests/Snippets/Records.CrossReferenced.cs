@@ -104,10 +104,14 @@ public static partial class Records
                     Func<global::Fluentify.Records.Testing.Simple, global::Fluentify.Records.Testing.Simple> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
-                    var instance = new global::Fluentify.Records.Testing.Simple();
+                    var instance = subject.Simple;
+
+                    if (instance is null)
+                    {
+                        instance = new global::Fluentify.Records.Testing.Simple();
+                    }
 
                     instance = builder(instance);
 

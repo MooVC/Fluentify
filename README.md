@@ -114,6 +114,8 @@ Console.WriteLine(@new.Birthday);     // Displays 1975
 
 The value associated with a given property can be automatically instantiated, as long as that type associated with the property adheres to the `new()` constraint. A second extension method is generated for the property, accepting a `Func<T, T>` delegate as its parameter, which allows for the newly instantiated value to be configured before being applied.
 
+When a property already has a value, the builder overload will reuse that instance instead of creating a new one. If the current value is `null` and the type supports parameterless construction, Fluentify will instantiate it as part of the builder workflow; otherwise, a `NotSupportedException` is thrown. This ensures that properties decorated with `[SkipAutoInstantiation]` can still participate in the builder experience when an existing value is supplied.
+
 In some scenarios it may be undesirable for a given property to allow for Auto Instantiation. This feature can be disabled by applying the `[SkipAutoInstantiation]` attribute to the property, the corresponding primary constructor parameter, or the type referenced by the property to suppress generation of the builder overload.
 
 ```csharp

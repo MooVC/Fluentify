@@ -86,10 +86,14 @@ public static partial class Classes
                     Func<global::Fluentify.Classes.Testing.Simple, global::Fluentify.Classes.Testing.Simple> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
-                    var instance = new global::Fluentify.Classes.Testing.Simple();
+                    var instance = subject.Simple;
+
+                    if (instance is null)
+                    {
+                        instance = new global::Fluentify.Classes.Testing.Simple();
+                    }
 
                     instance = builder(instance);
 

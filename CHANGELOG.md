@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Introduced analyzer `FLTFY08` to suggest when records annotated with `Fluentify` are not partial and need a generated parameterless constructor.
 
+## Changed
+
+- Builder delegate overloads now reuse existing property values and throw a `NotSupportedException` when no value is available for non-buildable types or when auto instantiation is disabled.
+
 # [1.8.2] - 2025-11-22
 
 ## Fixed

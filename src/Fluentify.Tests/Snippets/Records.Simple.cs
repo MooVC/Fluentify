@@ -132,10 +132,14 @@ public static partial class Records
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
-                    var instance = new object();
+                    var instance = subject.Attributes?.FirstOrDefault();
+
+                    if (instance is null)
+                    {
+                        instance = new object();
+                    }
 
                     instance = builder(instance);
 

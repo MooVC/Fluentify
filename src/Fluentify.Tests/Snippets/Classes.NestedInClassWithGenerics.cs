@@ -130,10 +130,14 @@ public static partial class Classes
                     where TInner : struct
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
-                    var instance = new object();
+                    var instance = subject.Attributes?.FirstOrDefault();
+
+                    if (instance is null)
+                    {
+                        instance = new object();
+                    }
 
                     instance = builder(instance);
 

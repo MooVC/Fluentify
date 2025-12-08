@@ -352,11 +352,16 @@ public sealed partial class WhenGetExtensionsIsCalled
                     subject.ThrowIfNull("subject");
             
                     builder.ThrowIfNull("builder");
-            
-                    var instance = new TestType();
-            
+
+                    var instance = subject.TestProperty?.FirstOrDefault();
+
+                    if (instance is null)
+                    {
+                        instance = new TestType();
+                    }
+
                     instance = builder(instance);
-            
+
                     return subject.WithTestProperty(instance);
                 }
             }

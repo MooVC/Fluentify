@@ -156,11 +156,16 @@ public static partial class Records
                     subject.ThrowIfNull("subject");
         
                     builder.ThrowIfNull("builder");
-        
-                    var instance = new T2();
-        
+
+                    var instance = subject.Name;
+
+                    if (instance is null)
+                    {
+                        instance = new T2();
+                    }
+
                     instance = builder(instance);
-        
+
                     return subject.WithName(instance);
                 }
  

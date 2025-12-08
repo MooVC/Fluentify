@@ -101,6 +101,26 @@ public static partial class Classes
                         Dependency = value,
                     };
                 }
+
+                public static global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType WithDependency(
+                    this global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType subject,
+                    Func<global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType.Dependent, global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType.Dependent> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = subject.Dependency;
+
+                    if (instance is null)
+                    {
+                        throw new NotSupportedException("The existing value for Dependency is null and cannot be created.");
+                    }
+
+                    instance = builder(instance);
+
+                    return subject.WithDependency(instance);
+                }
             }
         }
 
