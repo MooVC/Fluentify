@@ -27,12 +27,28 @@ internal sealed partial class Type
     public bool IsBuildable { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether or not the type represents a framework defined type.
+    /// </summary>
+    /// <value>
+    /// The value indicating whether or not the type represents a framework defined type.
+    /// </value>
+    public bool IsFrameworkType { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether or not the property is deemed to be nullable.
     /// </summary>
     /// <value>
     /// The value indicating whether or not the property is deemed to be nullable.
     /// </value>
     public bool IsNullable { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether or not the type is a value type.
+    /// </summary>
+    /// <value>
+    /// The value indicating whether or not the type is a value type.
+    /// </value>
+    public bool IsValueType { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the type.

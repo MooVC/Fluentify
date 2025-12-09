@@ -42,7 +42,9 @@ internal static partial class IPropertySymbolExtensions
             Pattern = Pattern.Scalar,
             Type = new()
             {
+                IsFrameworkType = property.Type.IsFrameworkType(),
                 IsNullable = property.Type.IsNullable(),
+                IsValueType = property.Type.IsValueType,
                 Name = property.Type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
             },
         };
@@ -100,7 +102,9 @@ internal static partial class IPropertySymbolExtensions
         return new()
         {
             IsBuildable = type.IsBuildable(compilation, cancellationToken) && !type.HasAttribute(Name),
+            IsFrameworkType = type.IsFrameworkType(),
             IsNullable = type.IsNullable(),
+            IsValueType = type.IsValueType,
             Name = type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
         };
     }

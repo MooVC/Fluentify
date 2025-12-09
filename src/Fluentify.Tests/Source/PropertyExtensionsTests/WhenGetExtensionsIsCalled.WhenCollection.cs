@@ -29,11 +29,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "List<int>",
                 },
             },
@@ -113,11 +116,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "List<int>",
                 },
             },
@@ -197,11 +203,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "List<int>",
                 },
             },
@@ -281,11 +290,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     IsNullable = true,
                     Name = "List<int>",
                 },
@@ -350,13 +362,13 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-            
+
                     builder.ThrowIfNull("builder");
-            
+
                     var instance = new TestType();
-            
+
                     instance = builder(instance);
-            
+
                     return subject.WithTestProperty(instance);
                 }
             }

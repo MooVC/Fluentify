@@ -29,6 +29,8 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Type = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
             },
@@ -93,6 +95,8 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Type = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
             },
@@ -157,6 +161,8 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Type = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
             },
@@ -221,7 +227,9 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     IsNullable = true,
+                    IsValueType = true,
                     Name = "int",
                 },
             },
@@ -237,6 +245,71 @@ public sealed partial class WhenGetExtensionsIsCalled
 
         // Act
         string result = property.GetExtensions(ref metadata, _ => scalar);
+
+        // Assert
+        result.ShouldBe(expected);
+    }
+
+    [Fact]
+    public void GivenFrameworkTypeThenDelegateExtensionIsNotGenerated()
+    {
+        // Arrange
+        const string Scalar = "throw new NotImplementedException();";
+
+        string expected = $$"""
+            using System;
+            using System.Collections.Generic;
+            using System.Linq;
+            using Fluentify.Internal;
+
+            public static partial class TestSubjectExtensions
+            {
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    string value)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    {{Scalar}}
+                }
+            }
+            """;
+
+        var subject = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Name = "TestSubject",
+            Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
+        };
+
+        var property = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "WithTestProperty",
+            Kind = new()
+            {
+                Type = new()
+                {
+                    IsFrameworkType = true,
+                    Name = "string",
+                },
+            },
+            Name = "TestProperty",
+        };
+
+        var metadata = new Metadata
+        {
+            Constraints = [],
+            Parameters = string.Empty,
+            Subject = subject,
+        };
+
+        // Act
+        string result = property.GetExtensions(ref metadata, _ => Scalar);
 
         // Assert
         result.ShouldBe(expected);
@@ -261,13 +334,18 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-            
+
                     builder.ThrowIfNull("builder");
-            
-                    var instance = new TestType();
-            
+
+                    var instance = subject.TestProperty;
+
+                    if (instance is null)
+                    {
+                        instance = new TestType();
+                    }
+
                     instance = builder(instance);
-            
+
                     return subject.WithTestProperty(instance);
                 }
 
@@ -317,6 +395,91 @@ public sealed partial class WhenGetExtensionsIsCalled
 
         // Act
         string result = property.GetExtensions(ref metadata, _ => scalar);
+
+        // Assert
+        result.ShouldBe(expected);
+    }
+
+    [Fact]
+    public void GivenNonBuildablePropertyThenGeneratesDelegateUsingExistingInstance()
+    {
+        // Arrange
+        const string Scalar = "throw new NotImplementedException();";
+
+        string expected = $$"""
+            using System;
+            using System.Collections.Generic;
+            using System.Linq;
+            using Fluentify.Internal;
+
+            public static partial class TestSubjectExtensions
+            {
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    Func<TestType, TestType> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = subject.TestProperty;
+
+                    if (instance is null)
+                    {
+                        throw new NotSupportedException();
+                    }
+
+                    instance = builder(instance);
+
+                    return subject.WithTestProperty(instance);
+                }
+
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    TestType value)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    {{Scalar}}
+                }
+            }
+            """;
+
+        var subject = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Name = "TestSubject",
+            Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
+        };
+
+        var property = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "WithTestProperty",
+            Kind = new()
+            {
+                Type = new()
+                {
+                    IsBuildable = false,
+                    Name = "TestType",
+                },
+            },
+            Name = "TestProperty",
+        };
+
+        var metadata = new Metadata
+        {
+            Constraints = [],
+            Parameters = string.Empty,
+            Subject = subject,
+        };
+
+        // Act
+        string result = property.GetExtensions(ref metadata, _ => Scalar);
 
         // Assert
         result.ShouldBe(expected);

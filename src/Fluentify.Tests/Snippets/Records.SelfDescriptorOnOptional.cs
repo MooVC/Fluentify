@@ -135,7 +135,12 @@ public static partial class Records
 
                     builder.ThrowIfNull("builder");
 
-                    var instance = new object();
+                    var instance = subject.Attributes?.LastOrDefault();
+
+                    if (instance is null)
+                    {
+                        instance = new object();
+                    }
 
                     instance = builder(instance);
 

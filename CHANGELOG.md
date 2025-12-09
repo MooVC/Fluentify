@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Introduced analyzer `FLTFY08` to suggest when records annotated with `Fluentify` are not partial and need a generated parameterless constructor.
 
+## Changed
+
+- Builder-based overloads for scalar properties now start from the existing property value, creating a new instance only when necessary and throwing a `NotSupportedException` when no value exists for non-buildable types (#103).
+- Collection builder overloads retain their original behaviour, and delegate overloads are no longer generated for value types or non-buildable framework types such as `string` (#103).
+
 # [1.8.2] - 2025-11-22
 
 ## Fixed

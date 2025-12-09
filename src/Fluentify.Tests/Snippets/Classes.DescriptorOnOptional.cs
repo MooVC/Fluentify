@@ -123,7 +123,12 @@ public static partial class Classes
 
                     builder.ThrowIfNull("builder");
 
-                    var instance = new object();
+                    var instance = subject.Attributes?.LastOrDefault();
+
+                    if (instance is null)
+                    {
+                        instance = new object();
+                    }
 
                     instance = builder(instance);
 

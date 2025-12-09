@@ -121,16 +121,21 @@ public static partial class Records
                 this global::Global subject,
                 Func<object, object> builder)
             {
-                subject.ThrowIfNull("subject");
+            subject.ThrowIfNull("subject");
 
-                builder.ThrowIfNull("builder");
+            builder.ThrowIfNull("builder");
 
-                var instance = new object();
+            var instance = subject.Attributes?.LastOrDefault();
 
-                instance = builder(instance);
-
-                return subject.WithAttributes(instance);
+            if (instance is null)
+            {
+                instance = new object();
             }
+
+            instance = builder(instance);
+
+            return subject.WithAttributes(instance);
+        }
         }
 
         #pragma warning restore CS8625

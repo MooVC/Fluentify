@@ -107,7 +107,12 @@ public static partial class Records
 
                     builder.ThrowIfNull("builder");
 
-                    var instance = new global::Fluentify.Records.Testing.Simple();
+                    var instance = subject.Simple;
+
+                    if (instance is null)
+                    {
+                        instance = new global::Fluentify.Records.Testing.Simple();
+                    }
 
                     instance = builder(instance);
 

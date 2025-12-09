@@ -147,13 +147,18 @@ public static partial class Classes
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-        
+
                     builder.ThrowIfNull("builder");
-        
-                    var instance = new T2();
-        
+
+                    var instance = subject.Name;
+
+                    if (instance is null)
+                    {
+                        instance = new T2();
+                    }
+
                     instance = builder(instance);
-        
+
                     return subject.WithName(instance);
                 }
  
