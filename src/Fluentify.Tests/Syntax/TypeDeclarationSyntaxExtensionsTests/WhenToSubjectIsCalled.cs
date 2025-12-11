@@ -27,7 +27,7 @@ public sealed class WhenToSubjectIsCalled
 
     public static readonly TheoryData<Compilation, Definition, bool, string> GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturnedData = new()
     {
-        ////{ Classes.Instance.Compilation, Classes.Instance.MultipleGenerics, false, nameof(Classes) },
+        { Classes.Instance.Compilation, Classes.Instance.MultipleGenerics, false, nameof(Classes) },
         { Records.Instance.Compilation, Records.Instance.MultipleGenerics, true, nameof(Records) },
     };
 

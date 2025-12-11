@@ -9,7 +9,7 @@ internal static partial class PropertyExtensions
 {
     private static string? GetDelegateExtensionMethodBody(this Property property, Type type)
     {
-        if (type.IsValueType || (type.IsFrameworkType && !type.IsBuildable))
+        if (type.IsFrameworkType)
         {
             return default;
         }

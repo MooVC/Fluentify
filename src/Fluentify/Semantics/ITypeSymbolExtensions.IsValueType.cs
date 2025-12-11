@@ -15,19 +15,10 @@ internal static partial class ITypeSymbolExtensions
     /// <returns>True if the <paramref name="type"/> is a value type, otherwise False.</returns>
     public static bool IsValueType(this ITypeSymbol type)
     {
-        if (type.IsValueType)
+        if (type is INamedTypeSymbol symbol
+        && (symbol.SpecialType == SpecialType.System_Nullable_T || type.NullableAnnotation == NullableAnnotation.Annotated))
         {
-            return true;
-        }
-
-        if (type.NullableAnnotation == NullableAnnotation.Annotated)
-        {
-            type = type.OriginalDefinition;
-        }
-
-        if (type is INamedTypeSymbol { SpecialType: SpecialType.System_Nullable_T } nullable)
-        {
-            type = nullable.TypeArguments[0];
+            type = symbol.TypeArguments[0];
         }
 
         return type.IsValueType;

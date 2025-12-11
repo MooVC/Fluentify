@@ -190,6 +190,7 @@ public sealed class WhenGetPropertiesIsCalled
                 Type = new()
                 {
                     IsNullable = isNullable,
+                    IsValueType = true,
                     Name = $"T1{annotation}",
                 },
             },

@@ -1,5 +1,6 @@
 ﻿namespace Fluentify.Source;
 
+using System.Text;
 using Fluentify.Model;
 
 /// <summary>
@@ -9,36 +10,42 @@ internal static partial class PropertyExtensions
 {
     private static string? GetScalarDelegateExtensionMethodBody(this Property property, Type type)
     {
-        string instance = $"var instance = subject.{property.Name};";
+        var builder = new StringBuilder("builder.ThrowIfNull(\"builder\");");
 
-        string buildable = $$"""
-            if (instance is null)
-            {
-                instance = new {{type.Name}}();
-            }
-            """;
+        builder = builder
+            .AppendLine()
+            .AppendLine()
+            .AppendLine($"var instance = subject.{property.Name};")
+            .AppendLine();
 
-        const string nonBuildable = """
-            if (instance is null)
-            {
-                throw new NotSupportedException();
-            }
-            """;
+        if (!type.IsValueType)
+        {
+            string buildable = $$"""
+                if (instance is null)
+                {
+                    instance = new {{type.Name}}();
+                }
+                """;
 
-        string initialization = type.IsBuildable
-            ? buildable
-            : nonBuildable;
+            const string nonBuildable = """
+                if (instance is null)
+                {
+                    throw new NotSupportedException();
+                }
+                """;
 
-        return $$"""
-            builder.ThrowIfNull("builder");
+            builder = type.IsBuildable
+                ? builder.AppendLine(buildable)
+                : builder.AppendLine(nonBuildable);
 
-            {{instance}}
+            builder = builder.AppendLine();
+        }
 
-            {{initialization}}
+        builder = builder
+            .AppendLine("instance = builder(instance);")
+            .AppendLine()
+            .AppendLine($"return subject.{property.Descriptor}(instance);");
 
-            instance = builder(instance);
-
-            return subject.{{property.Descriptor}}(instance);
-            """;
+        return builder.ToString();
     }
 }
