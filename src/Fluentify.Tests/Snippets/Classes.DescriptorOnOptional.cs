@@ -62,8 +62,8 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.DescriptorOnOptional
                     {
                         Age = value,
-                        Name = subject.Name,
                         Attributes = subject.Attributes,
+                        Name = subject.Name,
                     };
                 }
             }
@@ -110,8 +110,8 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.DescriptorOnOptional
                     {
                         Age = subject.Age,
-                        Name = subject.Name,
                         Attributes = value,
+                        Name = subject.Name,
                     };
                 }
 
@@ -123,12 +123,7 @@ public static partial class Classes
 
                     builder.ThrowIfNull("builder");
 
-                    var instance = subject.Attributes?.LastOrDefault();
-
-                    if (instance is null)
-                    {
-                        instance = new object();
-                    }
+                    var instance = new object();
 
                     instance = builder(instance);
 
@@ -169,8 +164,8 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.DescriptorOnOptional
                     {
                         Age = subject.Age,
-                        Name = value,
                         Attributes = subject.Attributes,
+                        Name = value,
                     };
                 }
             }

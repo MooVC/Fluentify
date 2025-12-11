@@ -110,6 +110,27 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAttributes<T>(
                     this global::Fluentify.Records.Testing.SingleGeneric<T> subject,
+                    Func<T, T> builder)
+                    where T : global::System.Collections.IEnumerable
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = subject.Attributes;
+
+                    if (instance is null)
+                    {
+                        throw new NotSupportedException();
+                    }
+
+                    instance = builder(instance);
+
+                    return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAttributes<T>(
+                    this global::Fluentify.Records.Testing.SingleGeneric<T> subject,
                     T? value)
                     where T : global::System.Collections.IEnumerable
                 {

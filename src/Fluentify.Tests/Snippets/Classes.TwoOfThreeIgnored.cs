@@ -62,8 +62,8 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.TwoOfThreeIgnored
                     {
                         Age = subject.Age,
-                        Name = subject.Name,
                         Attributes = value,
+                        Name = subject.Name,
                     };
                 }
 

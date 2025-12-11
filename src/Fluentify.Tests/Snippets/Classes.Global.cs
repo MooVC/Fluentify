@@ -57,8 +57,8 @@ public static partial class Classes
                 return new global::Global
                 {
                     Age = value,
-                    Name = subject.Name,
                     Attributes = subject.Attributes,
+                    Name = subject.Name,
                 };
             }
         }
@@ -102,8 +102,8 @@ public static partial class Classes
                 return new global::Global
                 {
                     Age = subject.Age,
-                    Name = subject.Name,
                     Attributes = value,
+                    Name = subject.Name,
                 };
             }
 
@@ -111,21 +111,16 @@ public static partial class Classes
                 this global::Global subject,
                 Func<object, object> builder)
             {
-            subject.ThrowIfNull("subject");
+                subject.ThrowIfNull("subject");
 
-            builder.ThrowIfNull("builder");
+                builder.ThrowIfNull("builder");
 
-            var instance = subject.Attributes?.LastOrDefault();
+                var instance = new object();
 
-            if (instance is null)
-            {
-                instance = new object();
+                instance = builder(instance);
+
+                return subject.WithAttributes(instance);
             }
-
-            instance = builder(instance);
-
-            return subject.WithAttributes(instance);
-        }
         }
         
         #pragma warning restore CS8625
@@ -158,8 +153,8 @@ public static partial class Classes
                 return new global::Global
                 {
                     Age = subject.Age,
-                    Name = value,
                     Attributes = subject.Attributes,
+                    Name = value,
                 };
             }
         }

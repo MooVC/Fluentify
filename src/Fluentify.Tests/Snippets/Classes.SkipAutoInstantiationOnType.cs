@@ -5,8 +5,6 @@ public static partial class Classes
     public const string SkipAutoInstantiationOnTypeContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System.Collections.Generic;
-
             [Fluentify]
             public sealed class SkipAutoInstantiationOnType
             {
@@ -89,6 +87,26 @@ public static partial class Classes
 
             public static partial class SkipAutoInstantiationOnTypeExtensions
             {
+                public static global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType WithDependency(
+                    this global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType subject,
+                    Func<global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType.Dependent, global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType.Dependent> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = subject.Dependency;
+
+                    if (instance is null)
+                    {
+                        throw new NotSupportedException();
+                    }
+
+                    instance = builder(instance);
+
+                    return subject.WithDependency(instance);
+                }
+
                 public static global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType WithDependency(
                     this global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType subject,
                     global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType.Dependent value)
