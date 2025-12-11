@@ -4,7 +4,14 @@ All notable changes to Fluentify will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# [1.9.0] - TBC
+# [2.0.0] - TBC
+
+## Changed
+
+- Builder extensions are now created for most reference types which will use the current instance assigned to the property as a starting point. When no instance is assigned, and the type adheres to the `new()` constraint, a new instance will be created, as was the case in the previous version. If, however, the type does not adhere to the `new()` constraint, a `NotSupportedException` will be thrown. **Breaking Change** 
+
+
+# [1.9.0] - 2025-11-29
 
 ## Added
 

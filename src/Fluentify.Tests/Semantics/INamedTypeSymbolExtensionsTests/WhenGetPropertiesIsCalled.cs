@@ -85,6 +85,7 @@ public sealed class WhenGetPropertiesIsCalled
         {
             Type = new()
             {
+                IsFrameworkType = true,
                 Name = "int",
             },
         },
@@ -98,6 +99,7 @@ public sealed class WhenGetPropertiesIsCalled
         {
             Type = new()
             {
+                IsFrameworkType = true,
                 Name = "string",
             },
         },
@@ -116,6 +118,7 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "bool",
                 },
             },
@@ -138,6 +141,7 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "string",
                 },
             },
@@ -271,6 +275,7 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "string",
                 },
             },
@@ -296,6 +301,7 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "int",
                 },
             },
@@ -312,6 +318,7 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "string",
                 },
             },
@@ -346,6 +353,7 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "int",
                 },
             },
@@ -382,6 +390,7 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "string",
                 },
             },

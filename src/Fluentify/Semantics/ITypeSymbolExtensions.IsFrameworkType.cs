@@ -8,7 +8,24 @@ using Microsoft.CodeAnalysis;
 /// </summary>
 internal static partial class ITypeSymbolExtensions
 {
-    private const string SystemNamespace = "global::System";
+    private static readonly HashSet<SpecialType> _exclusions =
+    [
+        SpecialType.System_Boolean,
+        SpecialType.System_Byte,
+        SpecialType.System_Char,
+        SpecialType.System_Double,
+        SpecialType.System_Decimal,
+        SpecialType.System_Enum,
+        SpecialType.System_Int16,
+        SpecialType.System_Int32,
+        SpecialType.System_Int64,
+        SpecialType.System_SByte,
+        SpecialType.System_Single,
+        SpecialType.System_String,
+        SpecialType.System_UInt16,
+        SpecialType.System_UInt32,
+        SpecialType.System_UInt64,
+    ];
 
     /// <summary>
     /// Determines if the <paramref name="type"/> is defined within the base class library.
@@ -17,18 +34,15 @@ internal static partial class ITypeSymbolExtensions
     /// <returns>True if the <paramref name="type"/> is defined within the base class library, otherwise False.</returns>
     public static bool IsFrameworkType(this ITypeSymbol type)
     {
-        if (type.SpecialType != SpecialType.None)
+        if (type is INamedTypeSymbol { SpecialType: SpecialType.System_Nullable_T } nullable)
         {
-            return true;
+            type = nullable.TypeArguments[0];
+        }
+        else if (type.NullableAnnotation == NullableAnnotation.Annotated)
+        {
+            type = type.WithNullableAnnotation(NullableAnnotation.NotAnnotated);
         }
 
-        string? @namespace = type.ContainingNamespace?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
-
-        if (@namespace is null)
-        {
-            return false;
-        }
-
-        return @namespace.StartsWith(SystemNamespace, StringComparison.Ordinal);
+        return _exclusions.Contains(type.SpecialType);
     }
 }

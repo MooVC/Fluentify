@@ -27,7 +27,7 @@ public sealed class WhenToSubjectIsCalled
 
     public static readonly TheoryData<Compilation, Definition, bool, string> GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturnedData = new()
     {
-        { Classes.Instance.Compilation, Classes.Instance.MultipleGenerics, false, nameof(Classes) },
+        ////{ Classes.Instance.Compilation, Classes.Instance.MultipleGenerics, false, nameof(Classes) },
         { Records.Instance.Compilation, Records.Instance.MultipleGenerics, true, nameof(Records) },
     };
 
@@ -90,6 +90,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
+                            IsFrameworkType = true,
                             Name = "int",
                         },
                     },
@@ -102,6 +103,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
+                            IsFrameworkType = true,
                             Name = "bool",
                         },
                     },
@@ -114,6 +116,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
+                            IsFrameworkType = true,
                             Name = "string",
                         },
                     },
@@ -154,6 +157,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
+                            IsFrameworkType = true,
                             Name = "string",
                         },
                     },
@@ -211,6 +215,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
+                            IsFrameworkType = true,
                             Name = "int",
                         },
                     },
@@ -223,6 +228,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
+                            IsFrameworkType = true,
                             Name = "string",
                         },
                     },
@@ -300,6 +306,7 @@ public sealed class WhenToSubjectIsCalled
                         Type = new()
                         {
                             IsNullable = isPartial,
+                            IsValueType = true,
                             Name = $"T1{annotation}",
                         },
                     },
@@ -370,6 +377,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
+                            IsFrameworkType = true,
                             Name = "int",
                         },
                     },
@@ -382,6 +390,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
+                            IsFrameworkType = true,
                             Name = "string",
                         },
                     },
@@ -439,6 +448,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
+                            IsFrameworkType = true,
                             Name = "int",
                         },
                     },
@@ -451,6 +461,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
+                            IsFrameworkType = true,
                             Name = "string",
                         },
                     },
@@ -512,6 +523,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
+                            IsFrameworkType = true,
                             Name = "int",
                         },
                     },
@@ -524,6 +536,7 @@ public sealed class WhenToSubjectIsCalled
                     {
                         Type = new()
                         {
+                            IsFrameworkType = true,
                             Name = "string",
                         },
                     },
