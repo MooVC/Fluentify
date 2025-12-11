@@ -143,7 +143,7 @@ public static partial class Records
 
                     var instance = subject.Attributes;
 
-                    if (instance is null)
+                    if (instance != null)
                     {
                         throw new NotSupportedException();
                     }
@@ -200,7 +200,7 @@ public static partial class Records
 
                     var instance = subject.Name;
 
-                    if (instance is null)
+                    if (instance != null)
                     {
                         instance = new T2();
                     }

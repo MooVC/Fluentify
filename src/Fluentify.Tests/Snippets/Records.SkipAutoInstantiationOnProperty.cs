@@ -119,7 +119,7 @@ public static partial class Records
 
                     var instance = subject.Dependency;
 
-                    if (instance is null)
+                    if (instance != null)
                     {
                         throw new NotSupportedException();
                     }

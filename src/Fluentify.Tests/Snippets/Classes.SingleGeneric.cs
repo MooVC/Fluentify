@@ -38,10 +38,13 @@ public static partial class Classes
         "Fluentify.Classes.Testing.SingleGenericExtensions.WithName");
 
     private const string SingleGenericWithAgeExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
+        #endif
+
         #pragma warning disable CS8625
 
-        namespace Fluentify.Records.Testing
+        namespace Fluentify.Classes.Testing
         {
             using System;
             using System.Collections.Generic;
@@ -50,30 +53,38 @@ public static partial class Classes
 
             public static partial class SingleGenericExtensions
             {
-                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAge<T>(
-                    this global::Fluentify.Records.Testing.SingleGeneric<T> subject,
+                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAge<T>(
+                    this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
                     int value)
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject with
+                    return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {
                         Age = value,
+                        Attributes = subject.Attributes,
+                        Name = subject.Name,
                     };
                 }
             }
         }
 
         #pragma warning restore CS8625
+
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable restore
+        #endif
         """;
 
     private const string SingleGenericWithAttributesExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
+        #endif
+
         #pragma warning disable CS8625
 
-        namespace Fluentify.Records.Testing
+        namespace Fluentify.Classes.Testing
         {
             using System;
             using System.Collections.Generic;
@@ -82,8 +93,8 @@ public static partial class Classes
 
             public static partial class SingleGenericExtensions
             {
-                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAttributes<T>(
-                    this global::Fluentify.Records.Testing.SingleGeneric<T> subject,
+                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAttributes<T>(
+                    this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
                     Func<T, T> builder)
                     where T : global::System.Collections.IEnumerable
                 {
@@ -93,7 +104,7 @@ public static partial class Classes
 
                     var instance = subject.Attributes;
 
-                    if (instance is null)
+                    if (instance != null)
                     {
                         throw new NotSupportedException();
                     }
@@ -103,30 +114,38 @@ public static partial class Classes
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAttributes<T>(
-                    this global::Fluentify.Records.Testing.SingleGeneric<T> subject,
-                    T? value)
+                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAttributes<T>(
+                    this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
+                    T value)
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject with
+                    return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {
+                        Age = subject.Age,
                         Attributes = value,
+                        Name = subject.Name,
                     };
                 }
             }
         }
 
         #pragma warning restore CS8625
+
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable restore
+        #endif
         """;
 
     private const string SingleGenericWithNameExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
+        #endif
+
         #pragma warning disable CS8625
 
-        namespace Fluentify.Records.Testing
+        namespace Fluentify.Classes.Testing
         {
             using System;
             using System.Collections.Generic;
@@ -135,15 +154,17 @@ public static partial class Classes
 
             public static partial class SingleGenericExtensions
             {
-                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithName<T>(
-                    this global::Fluentify.Records.Testing.SingleGeneric<T> subject,
+                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithName<T>(
+                    this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
                     string value)
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject with
+                    return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {
+                        Age = subject.Age,
+                        Attributes = subject.Attributes,
                         Name = value,
                     };
                 }
@@ -151,6 +172,9 @@ public static partial class Classes
         }
 
         #pragma warning restore CS8625
+
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable restore
+        #endif
         """;
 }

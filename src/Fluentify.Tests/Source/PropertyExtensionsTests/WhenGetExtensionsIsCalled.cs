@@ -339,7 +339,7 @@ public sealed partial class WhenGetExtensionsIsCalled
 
                     var instance = subject.TestProperty;
 
-                    if (instance is null)
+                    if (instance != null)
                     {
                         instance = new TestType();
                     }
@@ -424,7 +424,7 @@ public sealed partial class WhenGetExtensionsIsCalled
 
                     var instance = subject.TestProperty;
 
-                    if (instance is null)
+                    if (instance != null)
                     {
                         throw new NotSupportedException();
                     }
