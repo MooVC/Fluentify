@@ -83,7 +83,9 @@ public abstract partial class FluentifyGenerator<T>
     {
         var metadata = subject.ToMetadata();
 
-        foreach (Property property in subject.Properties.Where(property => !property.IsIgnored))
+        foreach (Property property in subject.Properties
+            .Where(property => !property.IsIgnored)
+            .OrderBy(property => property.Name))
         {
             string? GetScalar(Property property)
             {

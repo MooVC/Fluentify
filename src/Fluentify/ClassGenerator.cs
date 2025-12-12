@@ -54,7 +54,7 @@ public sealed class ClassGenerator
     {
         var initializers = new StringBuilder();
 
-        foreach (Property member in subject.Properties)
+        foreach (Property member in subject.Properties.OrderBy(property => property.Name))
         {
             string initializer = member == property
                 ? $"{member.Name} = value"
