@@ -109,7 +109,7 @@ public static partial class Records
 
                     var instance = subject.Simple;
 
-                    if (instance != null)
+                    if (ReferenceEquals(instance, null))
                     {
                         instance = new global::Fluentify.Records.Testing.Simple();
                     }

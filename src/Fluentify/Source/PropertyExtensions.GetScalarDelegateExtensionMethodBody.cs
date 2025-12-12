@@ -21,14 +21,14 @@ internal static partial class PropertyExtensions
         if (!type.IsValueType)
         {
             string buildable = $$"""
-                if (instance != null)
+                if (ReferenceEquals(instance, null))
                 {
                     instance = new {{type.Name}}();
                 }
                 """;
 
             const string nonBuildable = """
-                if (instance != null)
+                if (ReferenceEquals(instance, null))
                 {
                     throw new NotSupportedException();
                 }

@@ -97,7 +97,7 @@ public static partial class Classes
 
                     var instance = subject.Dependency;
 
-                    if (instance != null)
+                    if (ReferenceEquals(instance, null))
                     {
                         throw new NotSupportedException();
                     }

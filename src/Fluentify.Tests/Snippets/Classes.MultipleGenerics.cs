@@ -128,7 +128,7 @@ public static partial class Classes
         
                     var instance = subject.Attributes;
         
-                    if (instance != null)
+                    if (ReferenceEquals(instance, null))
                     {
                         throw new NotSupportedException();
                     }
@@ -193,7 +193,7 @@ public static partial class Classes
 
                     var instance = subject.Name;
 
-                    if (instance != null)
+                    if (ReferenceEquals(instance, null))
                     {
                         instance = new T2();
                     }

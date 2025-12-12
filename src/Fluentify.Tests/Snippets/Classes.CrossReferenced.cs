@@ -91,7 +91,7 @@ public static partial class Classes
 
                     var instance = subject.Simple;
 
-                    if (instance != null)
+                    if (ReferenceEquals(instance, null))
                     {
                         instance = new global::Fluentify.Classes.Testing.Simple();
                     }
