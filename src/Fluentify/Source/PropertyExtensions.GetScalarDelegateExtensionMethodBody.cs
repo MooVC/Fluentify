@@ -23,7 +23,7 @@ internal static partial class PropertyExtensions
             string buildable = $$"""
                 if (ReferenceEquals(instance, null))
                 {
-                    instance = new {{type.Name}}();
+                    instance = {{type.Initialization}};
                 }
                 """;
 

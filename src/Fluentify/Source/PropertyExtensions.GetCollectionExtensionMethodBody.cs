@@ -24,7 +24,7 @@ internal static partial class PropertyExtensions
         Kind kind = property.Kind;
 
         return $$"""
-            {{kind}} value = new();
+            {{kind}} value = {{property.Kind.Type.TargetTypedInitialization}};
 
             if (subject.{{property.Name}} != null)
             {

@@ -19,12 +19,28 @@ internal sealed partial class Type
     public static readonly Type Unspecified = new();
 
     /// <summary>
+    /// Gets or sets the expression to use when initializing the type explicitly.
+    /// </summary>
+    /// <value>
+    /// The expression to use when initializing the type explicitly.
+    /// </value>
+    public string Initialization { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets a value indicating whether or not the type adheres to the new() constraint.
     /// </summary>
     /// <value>
     /// The value indicating whether or not the type adheres to the new() constraint.
     /// </value>
     public bool IsBuildable { get; set; }
+
+    /// <summary>
+    /// Gets or sets the expression to use when initializing the type via target typed new().
+    /// </summary>
+    /// <value>
+    /// The expression to use when initializing the type via target typed new().
+    /// </value>
+    public string TargetTypedInitialization { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets a value indicating whether or not the type represents a framework defined type.

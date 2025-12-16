@@ -27,7 +27,7 @@ internal static partial class PropertyExtensions
         return $$"""
             builder.ThrowIfNull("builder");
 
-            var instance = new {{type.Name}}();
+            var instance = {{type.Initialization}};
 
             instance = builder(instance);
 

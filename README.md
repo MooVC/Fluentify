@@ -140,6 +140,32 @@ public sealed class Movie
 }
 ```
 
+If a type does not meet the `new()` constraint, apply the `[SkipAutoInitialization]` attribute to the type or property to indicate that no default constructor is available. When a suitable factory exists, the `[AutoInitiateWith]` attribute can be used instead to reference a static property or parameterless static method that returns the target type.
+
+```csharp
+[AutoInitiateWith(nameof(Default))]
+public sealed class Actor
+{
+    private Actor()
+    {
+    }
+
+    public static Actor Default => new(string.Empty);
+
+    public Actor(string name)
+    {
+        Name = name;
+    }
+
+    public string Name { get; init; }
+}
+
+public sealed class Movie
+{
+    public Actor Lead { get; init; }
+}
+```
+
 ## Collection Parameterization 
 
 Values can be appended to a list as long as the property type is `T[]`, `IEnumerable<T>`, `IReadOnlyCollection<T>`, `IReadOnlyList<T>`. Property types that derive from `ICollection<T>` and adhere to the `new()` constraint are also supported. Unlike with scalar properties, the generated extension method accepts a `params T[]`, allowing for one or more values to be specified in a single invocation.
