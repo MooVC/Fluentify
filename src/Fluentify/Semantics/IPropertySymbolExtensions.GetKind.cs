@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Semantics;
+namespace Fluentify.Semantics;
 
 using Fluentify.Model;
 using Microsoft.CodeAnalysis;
@@ -37,19 +37,33 @@ internal static partial class IPropertySymbolExtensions
     /// <returns>The <see cref="Kind"/> that encapsulates the information relating to the data type of the <paramref name="property"/>.</returns>
     public static Kind GetKind(this IPropertySymbol property, Compilation compilation, CancellationToken cancellationToken)
     {
+        bool hasSkipAutoInstantiation = property.HasSkipAutoInstantiation();
+        bool hasInitialization = property.TryGetInitialization(out Initialization initialization);
+        Initialization typeInitialization = default;
+        bool hasTypeInitialization = !hasInitialization && property.Type.TryGetInitialization(out typeInitialization);
+        bool isBuildable = property.Type.IsBuildable(compilation, cancellationToken)
+            || hasInitialization
+            || hasTypeInitialization;
+
+        Initialization effectiveInitialization = hasInitialization ? initialization : typeInitialization;
+
         var kind = new Kind
         {
             Pattern = Pattern.Scalar,
             Type = new()
             {
+                Initialization = GetInitialization(effectiveInitialization, property.Type, explicitInitialization: true),
                 IsFrameworkType = property.Type.IsFrameworkType(),
                 IsNullable = property.Type.IsNullable(),
                 IsValueType = property.Type.IsValueType(),
                 Name = property.Type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
+                TargetTypedInitialization = GetInitialization(effectiveInitialization, property.Type, explicitInitialization: false),
             },
         };
 
-        kind.Type.IsBuildable = !property.HasSkipAutoInstantiation() && property.Type.IsBuildable(compilation, cancellationToken);
+        kind.Type.IsBuildable = !hasSkipAutoInstantiation
+            && !property.HasSkipAutoInitialization()
+            && isBuildable;
 
         _ = Array.Exists(_strategies, strategy => strategy(compilation, kind, property, cancellationToken));
 
@@ -99,14 +113,36 @@ internal static partial class IPropertySymbolExtensions
 
     private static Type GetType(Compilation compilation, ITypeSymbol type, CancellationToken cancellationToken)
     {
+        bool hasInitialization = type.TryGetInitialization(out Initialization initialization);
+        bool isBuildable = (type.IsBuildable(compilation, cancellationToken) || hasInitialization)
+            && !type.HasAttribute(SkipAutoInitializationAttributeGenerator.Name);
+
         return new()
         {
-            IsBuildable = type.IsBuildable(compilation, cancellationToken) && !type.HasAttribute(Name),
+            Initialization = GetInitialization(initialization, type, explicitInitialization: true),
+            IsBuildable = isBuildable && !type.HasAttribute(Name),
             IsFrameworkType = type.IsFrameworkType(),
             IsNullable = type.IsNullable(),
             IsValueType = type.IsValueType(),
             Name = type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
+            TargetTypedInitialization = GetInitialization(initialization, type, explicitInitialization: false),
         };
+    }
+
+    private static string GetInitialization(Initialization initialization, ITypeSymbol type, bool explicitInitialization)
+    {
+        string value = explicitInitialization ? initialization.Explicit : initialization.TargetTyped;
+
+        if (!string.IsNullOrWhiteSpace(value))
+        {
+            return value;
+        }
+
+        string name = type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+
+        return explicitInitialization
+            ? $"new {name}()"
+            : "new()";
     }
 
     private static bool IsType(this IPropertySymbol property, out ITypeSymbol element, params string[] names)
