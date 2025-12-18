@@ -25,27 +25,4 @@ internal static partial class INamedTypeSymbolExtensions
             .Select(property => property.Map(compilation, cancellationToken))
             .ToArray();
     }
-
-    private static Property Map(this IPropertySymbol property, Compilation compilation, CancellationToken cancellationToken)
-    {
-        Kind kind = property.GetKind(compilation, cancellationToken);
-        bool isIgnored = property.HasIgnore();
-        string? descriptor = default;
-
-        if (!isIgnored)
-        {
-            descriptor = property.GetDescriptor();
-        }
-
-        descriptor ??= property.GetDefaultDescriptor();
-
-        return new Property
-        {
-            Accessibility = property.DeclaredAccessibility,
-            Descriptor = descriptor,
-            IsIgnored = isIgnored,
-            Kind = kind,
-            Name = property.Name,
-        };
-    }
 }

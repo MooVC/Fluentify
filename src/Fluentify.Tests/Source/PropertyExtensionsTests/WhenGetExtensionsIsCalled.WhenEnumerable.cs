@@ -32,11 +32,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Enumerable,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = type,
                 },
             },
@@ -114,11 +117,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Enumerable,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = type,
                 },
             },
@@ -196,11 +202,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Enumerable,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = type,
                 },
             },
@@ -278,11 +287,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Enumerable,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     IsNullable = true,
                     Name = type,
                 },
@@ -392,11 +404,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Enumerable,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = type,
                 },
             },
@@ -458,13 +473,13 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-            
+
                     builder.ThrowIfNull("builder");
-            
+
                     var instance = new TestType();
-            
+
                     instance = builder(instance);
-            
+
                     return subject.WithTestProperty(instance);
                 }
             }

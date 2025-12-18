@@ -28,8 +28,8 @@ public static partial class Classes
             CrossReferencedWithDescriptionExtensions,
             CrossReferencedWithSimpleExtensions,
             SimpleWithAgeExtensions,
-            SimpleWithNameExtensions,
-            SimpleWithAttributesExtensions);
+            SimpleWithAttributesExtensions,
+            SimpleWithNameExtensions);
 
         DescriptorOnIgnored = new(
             DescriptorOnIgnoredContent,
@@ -41,64 +41,64 @@ public static partial class Classes
             DescriptorOnOptionalContent,
             nameof(DescriptorOnOptional),
             DescriptorOnOptionalWithAgeExtensions,
-            DescriptorOnOptionalWithNameExtensions,
-            DescriptorOnOptionalAttributedWithExtensions);
+            DescriptorOnOptionalAttributedWithExtensions,
+            DescriptorOnOptionalWithNameExtensions);
 
         DescriptorOnRequired = new(
             DescriptorOnRequiredContent,
             nameof(DescriptorOnRequired),
             DescriptorOnRequiredAgedExtensions,
-            DescriptorOnRequiredWithNameExtensions,
-            DescriptorOnRequiredWithAttributesExtensions);
+            DescriptorOnRequiredWithAttributesExtensions,
+            DescriptorOnRequiredWithNameExtensions);
 
         Global = new(
             GlobalContent,
             nameof(Global),
             GlobalWithAgeExtensions,
-            GlobalWithNameExtensions,
-            GlobalWithAttributesExtensions);
+            GlobalWithAttributesExtensions,
+            GlobalWithNameExtensions);
 
         InvalidDescriptor = new(
             InvalidDescriptorContent,
             nameof(InvalidDescriptor),
             InvalidDescriptorWithAgeExtensions,
-            InvalidDescriptorWithNameExtensions,
-            InvalidDescriptorWithAttributesExtensions);
+            InvalidDescriptorWithAttributesExtensions,
+            InvalidDescriptorWithNameExtensions);
 
         MultipleGenerics = new(
             MultipleGenericsContent,
             nameof(MultipleGenerics),
             MultipleGenericsWithAgeExtensions,
-            MultipleGenericsWithNameExtensions,
-            MultipleGenericsWithAttributesExtensions);
+            MultipleGenericsWithAttributesExtensions,
+            MultipleGenericsWithNameExtensions);
 
         NestedInClass = new(
             NestedInClassContent,
             nameof(NestedInClass),
             NestedInClassWithAgeExtensions,
-            NestedInClassWithNameExtensions,
-            NestedInClassWithAttributesExtensions);
+            NestedInClassWithAttributesExtensions,
+            NestedInClassWithNameExtensions);
 
         NestedInClassWithGenerics = new(
             NestedInClassWithGenericsContent,
             nameof(NestedInClassWithGenerics),
             NestedInClassWithGenericsWithAgeExtensions,
-            NestedInClassWithGenericsWithNameExtensions,
-            NestedInClassWithGenericsWithAttributesExtensions);
+            NestedInClassWithGenericsWithAttributesExtensions,
+            NestedInClassWithGenericsWithNameExtensions);
 
         NestedInStruct = new(
             NestedInStructContent,
             nameof(NestedInStruct),
             NestedInStructWithAgeExtensions,
-            NestedInStructWithNameExtensions,
-            NestedInStructWithAttributesExtensions);
+            NestedInStructWithAttributesExtensions,
+            NestedInStructWithNameExtensions);
 
         NestedInStructWithGenerics = new(
             NestedInStructWithGenericsContent,
             nameof(NestedInStructWithGenerics),
             NestedInStructWithGenericsWithAgeExtensions,
-            NestedInStructWithGenericsWithNameExtensions,
-            NestedInStructWithGenericsWithAttributesExtensions);
+            NestedInStructWithGenericsWithAttributesExtensions,
+            NestedInStructWithGenericsWithNameExtensions);
 
         OneOfThreeIgnored = new(
             OneOfThreeIgnoredContent,
@@ -115,9 +115,9 @@ public static partial class Classes
         SelfDescriptorOnOptional = new(
             SelfDescriptorOnOptionalContent,
             nameof(SelfDescriptorOnOptional),
+            SelfDescriptorOnOptionalAttributesExtensions,
             SelfDescriptorOnOptionalWithAgeExtensions,
-            SelfDescriptorOnOptionalWithNameExtensions,
-            SelfDescriptorOnOptionalAttributesExtensions);
+            SelfDescriptorOnOptionalWithNameExtensions);
 
         SelfDescriptorOnRequired = new(
             SelfDescriptorOnRequiredContent,
@@ -130,8 +130,8 @@ public static partial class Classes
             SimpleContent,
             nameof(Simple),
             SimpleWithAgeExtensions,
-            SimpleWithNameExtensions,
-            SimpleWithAttributesExtensions);
+            SimpleWithAttributesExtensions,
+            SimpleWithNameExtensions);
 
         Single = new(SingleContent, nameof(Single), SingleWithAgeExtensions);
 
@@ -139,8 +139,8 @@ public static partial class Classes
             SingleGenericContent,
             nameof(SingleGeneric),
             SingleGenericWithAgeExtensions,
-            SingleGenericWithNameExtensions,
-            SingleGenericWithAttributesExtensions);
+            SingleGenericWithAttributesExtensions,
+            SingleGenericWithNameExtensions);
 
         SkipAutoInstantiationOnProperty = new(
             SkipAutoInstantiationOnPropertyContent,

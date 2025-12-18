@@ -112,7 +112,7 @@ Console.WriteLine(@new.Birthday);     // Displays 1975
 
 ## Auto Instantiation 
 
-The value associated with a given property can be automatically instantiated, as long as that type associated with the property adheres to the `new()` constraint. A second extension method is generated for the property, accepting a `Func<T, T>` delegate as its parameter, which allows for the newly instantiated value to be configured before being applied.
+The value associated with a given property can be automatically instantiated, as long as that type associated with the property adheres to the `new()` constraint. For scalar properties, a second extension method is generated, accepting a `Func<T, T>` delegate as its parameter, which allows for the existing value to be configured before being applied. If the existing value is `null` and the type is buildable, a new instance is created. If the existing value is `null` and the type cannot be automatically instantiated, a `NotSupportedException` is thrown. Delegate overloads are not generated for value types or framework types such as `string`, and collection builder overloads continue to create a new element rather than reusing the current value.
 
 In some scenarios it may be undesirable for a given property to allow for Auto Instantiation. This feature can be disabled by applying the `[SkipAutoInstantiation]` attribute to the property, the corresponding primary constructor parameter, or the type referenced by the property to suppress generation of the builder overload.
 
