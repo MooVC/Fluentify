@@ -22,7 +22,7 @@ If applicable, add screenshots to help explain your problem.
 **Environment (please complete the following information):**
 - Fluentify Version: [2.0.0]
 - .NET Version (Your Project): [NET 10]
-- IDE: [Visual Studio 2026 v18.1.0]
+- IDE: [Visual Studio 2026 v18.1.1]
 
 **Additional context**
 Add any other context about the problem here.

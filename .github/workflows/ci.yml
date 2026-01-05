@@ -20,7 +20,7 @@ on:
 env:
   configuration: 'Debug'
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
-  solution: 'Fluentify.sln'
+  solution: 'Fluentify.slnx'
 
 permissions:
   contents: read

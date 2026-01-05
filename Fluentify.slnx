@@ -1,0 +1,59 @@
+<Solution>
+  <Folder Name="/Actions/">
+    <File Path=".github/dependabot.yml" />
+    <File Path=".github/workflows/cd.yml" />
+    <File Path=".github/workflows/ci.yml" />
+  </Folder>
+  <Folder Name="/Analyzers/">
+    <File Path=".editorconfig" />
+    <File Path="analyzers/code.ruleset" />
+    <File Path="analyzers/tests.ruleset" />
+  </Folder>
+  <Folder Name="/Build/">
+    <File Path="build/Libraries.props" />
+    <File Path="build/Roslyn.props" />
+    <File Path="build/Tests.props" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Folder Name="/Code/">
+    <Project Path="src/Fluentify/Fluentify.csproj" />
+  </Folder>
+  <Folder Name="/Configuration/">
+    <File Path=".filenesting.json" />
+    <File Path=".github/CODEOWNERS" />
+    <File Path=".gitignore" />
+    <File Path=".runsettings" />
+    <File Path="codecov.yml" />
+    <File Path="nuget.config" />
+  </Folder>
+  <Folder Name="/Documentation/">
+    <File Path=".github/CODE_OF_CONDUCT.md" />
+    <File Path=".github/CONTRIBUTING.md" />
+    <File Path=".github/SECURITY.md" />
+    <File Path="AGENTS.md" />
+    <File Path="CHANGELOG.md" />
+    <File Path="LICENSE" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Documentation/Rules/">
+    <File Path="docs/rules/FLTFY01.md" />
+    <File Path="docs/rules/FLTFY02.md" />
+    <File Path="docs/rules/FLTFY03.md" />
+    <File Path="docs/rules/FLTFY04.md" />
+    <File Path="docs/rules/FLTFY05.md" />
+    <File Path="docs/rules/FLTFY06.md" />
+    <File Path="docs/rules/FLTFY07.md" />
+  </Folder>
+  <Folder Name="/Solution Items/" />
+  <Folder Name="/Templates/">
+    <File Path=".github/ISSUE_TEMPLATE/bug_report.md" />
+    <File Path=".github/ISSUE_TEMPLATE/feature_request.md" />
+    <File Path=".github/pull_request_template.md" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="src/Fluentify.Console.Tests/Fluentify.Console.Tests.csproj" />
+    <Project Path="src/Fluentify.Console/Fluentify.Console.csproj" />
+    <Project Path="src/Fluentify.Tests/Fluentify.Tests.csproj" />
+  </Folder>
+</Solution>
