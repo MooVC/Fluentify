@@ -9,7 +9,7 @@ on:
 env:
   configuration: 'Release'
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
-  solution: 'Fluentify.sln'
+  solution: 'Fluentify.slnx'
 
 permissions:
   packages: write
