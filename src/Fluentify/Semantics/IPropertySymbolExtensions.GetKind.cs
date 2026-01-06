@@ -19,12 +19,29 @@ internal static partial class IPropertySymbolExtensions
     private const string ImmutableSortedSet = "global::System.Collections.Immutable.ImmutableSortedSet<T>";
     private const int ExpectedArgumentsForCollectionType = 1;
 
+    private static readonly string[] _collections =
+    [
+        Enumerable,
+        ImmutableArray,
+        ImmutableHashSet,
+        ImmutableList,
+        ImmutableSortedSet,
+        ReadOnlyCollection,
+        ReadOnlyList,
+    ];
+
     private static readonly IsMatch[] _strategies =
     [
         IsArray,
         IsCollection,
         IsEnumerable,
     ];
+
+    private static readonly SymbolDisplayFormat _fullyQualifiedNonNullable = new(
+        globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Included,
+        typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces,
+        genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters | SymbolDisplayGenericsOptions.IncludeVariance,
+        miscellaneousOptions: SymbolDisplayMiscellaneousOptions.ExpandNullable | SymbolDisplayMiscellaneousOptions.UseSpecialTypes);
 
     private delegate bool IsMatch(Compilation compilation, Kind kind, IPropertySymbol property, CancellationToken cancellationToken);
 
@@ -38,26 +55,29 @@ internal static partial class IPropertySymbolExtensions
     public static Kind GetKind(this IPropertySymbol property, Compilation compilation, CancellationToken cancellationToken)
     {
         bool hasSkipAutoInstantiation = property.HasSkipAutoInstantiation();
-        bool hasInitialization = property.TryGetInitialization(out Initialization initialization);
-        Initialization typeInitialization = default;
+        bool hasInitialization = property.TryGetInitialization(out string initialization);
+
+        string typeInitialization = initialization;
         bool hasTypeInitialization = !hasInitialization && property.Type.TryGetInitialization(out typeInitialization);
+
         bool isBuildable = property.Type.IsBuildable(compilation, cancellationToken)
             || hasInitialization
             || hasTypeInitialization;
 
-        Initialization effectiveInitialization = hasInitialization ? initialization : typeInitialization;
+        string effectiveInitialization = hasInitialization
+            ? initialization
+            : typeInitialization;
 
         var kind = new Kind
         {
             Pattern = Pattern.Scalar,
             Type = new()
             {
-                Initialization = GetInitialization(effectiveInitialization, property.Type, explicitInitialization: true),
+                Initialization = GetInitialization(effectiveInitialization, property.Type),
                 IsFrameworkType = property.Type.IsFrameworkType(),
                 IsNullable = property.Type.IsNullable(),
                 IsValueType = property.Type.IsValueType(),
                 Name = property.Type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
-                TargetTypedInitialization = GetInitialization(effectiveInitialization, property.Type, explicitInitialization: false),
             },
         };
 
@@ -100,7 +120,7 @@ internal static partial class IPropertySymbolExtensions
     {
         if (property.Type is not INamedTypeSymbol type
          || type.TypeArguments.Length != ExpectedArgumentsForCollectionType
-         || !type.OriginalDefinition.IsType(Enumerable, ImmutableArray, ImmutableHashSet, ImmutableList, ImmutableSortedSet, ReadOnlyCollection, ReadOnlyList))
+         || !type.OriginalDefinition.IsType(_collections))
         {
             return false;
         }
@@ -113,41 +133,50 @@ internal static partial class IPropertySymbolExtensions
 
     private static Type GetType(Compilation compilation, ITypeSymbol type, CancellationToken cancellationToken)
     {
-        bool hasInitialization = type.TryGetInitialization(out Initialization initialization);
-        bool isBuildable = (type.IsBuildable(compilation, cancellationToken) || hasInitialization)
-            && !type.HasAttribute(SkipAutoInitializationAttributeGenerator.Name);
+        bool hasInitialization = type.TryGetInitialization(out string initialization);
+
+        bool isBuildable = (hasInitialization || type.IsBuildable(compilation, cancellationToken))
+            && !type.HasAttribute(Name);
 
         return new()
         {
-            Initialization = GetInitialization(initialization, type, explicitInitialization: true),
+            Initialization = GetInitialization(initialization, type),
             IsBuildable = isBuildable && !type.HasAttribute(Name),
             IsFrameworkType = type.IsFrameworkType(),
             IsNullable = type.IsNullable(),
             IsValueType = type.IsValueType(),
             Name = type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
-            TargetTypedInitialization = GetInitialization(initialization, type, explicitInitialization: false),
         };
     }
 
-    private static string GetInitialization(Initialization initialization, ITypeSymbol type, bool explicitInitialization)
+    private static string GetInitialization(string initialization, ITypeSymbol type)
     {
-        string value = explicitInitialization ? initialization.Explicit : initialization.TargetTyped;
+        return GetInitialization(initialization, name => $"new {name}()", type);
+    }
 
-        if (!string.IsNullOrWhiteSpace(value))
+    private static string GetInitialization(string initialization, Func<string, string> initializer, ITypeSymbol type)
+    {
+        if (!string.IsNullOrWhiteSpace(initialization))
         {
-            return value;
+            return initialization;
         }
 
-        string name = type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
+        string name;
 
-        return explicitInitialization
-            ? $"new {name}()"
-            : "new()";
+        if (type is INamedTypeSymbol named && named.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T)
+        {
+            type = named.TypeArguments[0].WithNullableAnnotation(NullableAnnotation.NotAnnotated);
+        }
+
+        name = type.ToDisplayString(NullableFlowState.NotNull, _fullyQualifiedNonNullable);
+
+        return initializer(name);
     }
 
     private static bool IsType(this IPropertySymbol property, out ITypeSymbol element, params string[] names)
     {
-        foreach (INamedTypeSymbol @interface in property.Type.AllInterfaces.Where(@interface => @interface.TypeArguments.Length == ExpectedArgumentsForCollectionType))
+        foreach (INamedTypeSymbol @interface in property.Type.AllInterfaces
+            .Where(@interface => @interface.TypeArguments.Length == ExpectedArgumentsForCollectionType))
         {
             if (@interface.OriginalDefinition is INamedTypeSymbol type && type.IsType(names))
             {

@@ -44,6 +44,9 @@
     <File Path="docs/rules/FLTFY05.md" />
     <File Path="docs/rules/FLTFY06.md" />
     <File Path="docs/rules/FLTFY07.md" />
+    <File Path="docs/rules/FLTFY08.md" />
+    <File Path="docs/rules/FLTFY09.md" />
+    <File Path="docs/rules/FLTFY10.md" />
   </Folder>
   <Folder Name="/Solution Items/" />
   <Folder Name="/Templates/">

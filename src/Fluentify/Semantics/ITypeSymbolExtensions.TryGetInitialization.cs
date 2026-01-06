@@ -1,7 +1,7 @@
 namespace Fluentify.Semantics;
 
+using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
-using static Fluentify.Semantics.AutoInitiationResolver;
 
 /// <summary>
 /// Provides extensions relating to <see cref="ITypeSymbol"/>.
@@ -14,9 +14,9 @@ internal static partial class ITypeSymbolExtensions
     /// <param name="type">The type for which the initialization is to be resolved.</param>
     /// <param name="initialization">The resolved initialization expressions, when available.</param>
     /// <returns>True if initialization expressions can be resolved, otherwise False.</returns>
-    public static bool TryGetInitialization(this ITypeSymbol type, out Initialization initialization)
+    public static bool TryGetInitialization(this ITypeSymbol type, out string initialization)
     {
-        initialization = default;
+        initialization = string.Empty;
 
         if (type.HasAttribute(SkipAutoInitializationAttributeGenerator.Name))
         {
@@ -30,6 +30,6 @@ internal static partial class ITypeSymbolExtensions
             return false;
         }
 
-        return TryResolve(type, member, out initialization);
+        return type.TryResolve(ref member, out initialization);
     }
 }

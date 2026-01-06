@@ -1,8 +1,7 @@
 namespace Fluentify.SkipAutoInitializationAttributeAnalyzerTests;
 
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
+using Fluentify.Snippets;
 using Microsoft.CodeAnalysis.Testing;
 using Microsoft.CodeAnalysis.Text;
 
@@ -11,10 +10,10 @@ public sealed class WhenExecuted
 {
     public WhenExecuted()
         : base(
-            ReferenceAssemblies.Net.Net80,
-            LanguageVersion.CSharp12,
-            typeof(FluentifyAttributeGenerator),
+            Classes.ReferenceAssemblies,
+            Classes.LanguageVersion,
             typeof(AutoInitiateWithAttributeGenerator),
+            typeof(FluentifyAttributeGenerator),
             typeof(SkipAutoInitializationAttributeGenerator))
     {
     }
@@ -24,14 +23,14 @@ public sealed class WhenExecuted
     {
         // Arrange
         TestCode = """
-using Fluentify;
+            using Fluentify;
 
-[AutoInitiateWith(nameof(Default))]
-public sealed class Sample
-{
-    public static Sample Default => new();
-}
-""";
+            [AutoInitiateWith(nameof(Default))]
+            public sealed class Sample
+            {
+                public static Sample Default => new Sample();
+            }
+            """;
 
         // Act & Assert
         await ActAndAssertAsync();
@@ -44,15 +43,15 @@ public sealed class Sample
         ExpectedDiagnostics.Add(GetExpectedConflictingAttributesRule(new LinePosition(3, 1), "Sample"));
 
         TestCode = """
-using Fluentify;
+            using Fluentify;
 
-[SkipAutoInitialization]
-[AutoInitiateWith(nameof(Default))]
-public sealed class Sample
-{
-    public static Sample Default => new();
-}
-""";
+            [SkipAutoInitialization]
+            [AutoInitiateWith(nameof(Default))]
+            public sealed class Sample
+            {
+                public static Sample Default => new Sample();
+            }
+            """;
 
         // Act & Assert
         await ActAndAssertAsync();

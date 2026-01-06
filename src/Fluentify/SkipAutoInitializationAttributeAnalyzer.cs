@@ -1,6 +1,7 @@
 namespace Fluentify;
 
 using System.Collections.Immutable;
+using Fluentify.Semantics;
 using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -30,6 +31,9 @@ public sealed class SkipAutoInitializationAttributeAnalyzer
     /// <summary>
     /// Gets the descriptor associated with the conflicting attributes rule (FLTFY10).
     /// </summary>
+    /// <value>
+    /// The descriptor associated with the conflicting attributes rule (FLTFY10).
+    /// </value>
     internal static DiagnosticDescriptor ConflictingAttributesRule { get; } = new(
         "FLTFY10",
         GetResourceString(nameof(ConflictingAttributesRuleTitle)),

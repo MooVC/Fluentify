@@ -1,8 +1,7 @@
 namespace Fluentify.AutoInitiateWithAttributeAnalyzerTests;
 
 using System.Threading.Tasks;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
+using Fluentify.Snippets;
 using Microsoft.CodeAnalysis.Testing;
 using Microsoft.CodeAnalysis.Text;
 
@@ -10,7 +9,7 @@ public sealed class WhenExecuted
     : AnalyzerTests<AutoInitiateWithAttributeAnalyzer, AutoInitiateWithAttributeGenerator>
 {
     public WhenExecuted()
-        : base(ReferenceAssemblies.Net.Net80, LanguageVersion.CSharp12)
+        : base(Classes.ReferenceAssemblies, Classes.LanguageVersion)
     {
     }
 
@@ -19,14 +18,14 @@ public sealed class WhenExecuted
     {
         // Arrange
         TestCode = """
-using Fluentify;
+            using Fluentify;
 
-[AutoInitiateWith(nameof(Default))]
-public sealed class Sample
-{
-    public static Sample Default => new();
-}
-""";
+            [AutoInitiateWith(nameof(Default))]
+            public sealed class Sample
+            {
+                public static Sample Default => new Sample();
+            }
+            """;
 
         // Act & Assert
         await ActAndAssertAsync();
@@ -39,13 +38,17 @@ public sealed class Sample
         ExpectedDiagnostics.Add(GetExpectedInvalidTargetRule("Missing", new LinePosition(2, 1), "Sample"));
 
         TestCode = """
-using Fluentify;
+            using Fluentify;
 
-[AutoInitiateWith(nameof(Missing))]
-public sealed class Sample
-{
-}
-""";
+            [AutoInitiateWith(nameof(Missing))]
+            public sealed class Sample
+            {
+            }
+
+            public sealed class Missing
+            {
+            }
+            """;
 
         // Act & Assert
         await ActAndAssertAsync();
@@ -58,14 +61,14 @@ public sealed class Sample
         ExpectedDiagnostics.Add(GetExpectedInvalidTargetRule("Create", new LinePosition(2, 1), "Sample"));
 
         TestCode = """
-using Fluentify;
+            using Fluentify;
 
-[AutoInitiateWith(nameof(Create))]
-public sealed class Sample
-{
-    public static Sample Create(int value) => new();
-}
-""";
+            [AutoInitiateWith(nameof(Create))]
+            public sealed class Sample
+            {
+                public static Sample Create(int value) => new Sample();
+            }
+            """;
 
         // Act & Assert
         await ActAndAssertAsync();
@@ -74,7 +77,7 @@ public sealed class Sample
     private static DiagnosticResult GetExpectedInvalidTargetRule(string member, LinePosition position, string type)
     {
         return new DiagnosticResult(AutoInitiateWithAttributeAnalyzer.InvalidTargetRule)
-            .WithArguments(member, type)
+            .WithArguments(type, member)
             .WithLocation(position);
     }
 }

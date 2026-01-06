@@ -9,7 +9,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using static Fluentify.AutoInitiateWithAttributeAnalyzer_Resources;
 using static Fluentify.AutoInitiateWithAttributeGenerator;
-using static Fluentify.Semantics.AutoInitiationResolver;
 
 /// <summary>
 /// Analyzes usage of the AutoInitiateWith attribute to ensure the referenced member exists and is valid.
@@ -33,6 +32,9 @@ public sealed class AutoInitiateWithAttributeAnalyzer
     /// <summary>
     /// Gets the descriptor associated with the invalid target rule (FLTFY09).
     /// </summary>
+    /// <value>
+    /// The descriptor associated with the invalid target rule (FLTFY09).
+    /// </value>
     internal static DiagnosticDescriptor InvalidTargetRule { get; } = new(
         "FLTFY09",
         GetResourceString(nameof(InvalidTargetRuleTitle)),
@@ -51,19 +53,21 @@ public sealed class AutoInitiateWithAttributeAnalyzer
             return;
         }
 
-        if (!attribute.TryGetMember(out string member))
+        string member = string.Empty;
+
+        if (attribute is not null && !attribute.TryGetMember(out member))
         {
             return;
         }
 
-        if (TryResolve(type, member, out _))
+        if (type.TryResolve(ref member, out _))
         {
             return;
         }
 
-        string name = type.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat);
+        string name = type!.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat);
 
-        Raise(context, InvalidTargetRule, syntax.GetLocation(), member, name);
+        Raise(context, InvalidTargetRule, syntax.GetLocation(), name, member);
     }
 
     private static AttributeData? GetAttribute(SyntaxNodeAnalysisContext context, AttributeSyntax syntax, ISymbol target)

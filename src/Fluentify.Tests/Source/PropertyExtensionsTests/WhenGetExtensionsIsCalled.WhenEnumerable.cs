@@ -492,6 +492,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             Properties = [],
             Type = new()
             {
+                Initialization = "new global::TestSubject()",
                 Name = "global::TestSubject",
             },
         };
@@ -504,12 +505,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    Initialization = "new TestType()",
                     IsBuildable = true,
                     Name = "TestType",
                 },
                 Pattern = Pattern.Enumerable,
                 Type = new()
                 {
+                    Initialization = $"new {type}()",
                     Name = type,
                 },
             },

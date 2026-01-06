@@ -19,14 +19,6 @@ internal sealed partial class Type
     public static readonly Type Unspecified = new();
 
     /// <summary>
-    /// Gets or sets the expression to use when initializing the type explicitly.
-    /// </summary>
-    /// <value>
-    /// The expression to use when initializing the type explicitly.
-    /// </value>
-    public string Initialization { get; set; } = string.Empty;
-
-    /// <summary>
     /// Gets or sets a value indicating whether or not the type adheres to the new() constraint.
     /// </summary>
     /// <value>
@@ -35,12 +27,12 @@ internal sealed partial class Type
     public bool IsBuildable { get; set; }
 
     /// <summary>
-    /// Gets or sets the expression to use when initializing the type via target typed new().
+    /// Gets or sets the expression to use when initializing the type explicitly.
     /// </summary>
     /// <value>
-    /// The expression to use when initializing the type via target typed new().
+    /// The expression to use when initializing the type explicitly.
     /// </value>
-    public string TargetTypedInitialization { get; set; } = string.Empty;
+    public string Initialization { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets a value indicating whether or not the type represents a framework defined type.
@@ -83,6 +75,21 @@ internal sealed partial class Type
         if (IsNullable && !Name.EndsWith(NullableAnnotation))
         {
             return string.Concat(Name, NullableAnnotation);
+        }
+
+        return Name;
+    }
+
+    public string ToString(bool includeNullability)
+    {
+        if (includeNullability)
+        {
+            return ToString();
+        }
+
+        if (IsNullable && Name.EndsWith(NullableAnnotation))
+        {
+            return Name.Substring(0, Name.Length - 1);
         }
 
         return Name;
