@@ -140,7 +140,7 @@ public sealed class Movie
 }
 ```
 
-In some cases, it may also be desirable that a specific instance be used instead of that provided by the default constructor, or when no default constructor exists. In these cases, use the `[AutoInitiateWith]` attribute to reference a static property or a parameterless static factory method that returns the target type.
+In some cases, it may also be desirable that a specific instance be used instead of that provided by the default constructor, or when no default constructor exists. In these cases, use the `[AutoInitiateWith]` attribute to reference a static field, property or a parameterless static factory method that returns the target type.
 
 ```csharp
 [AutoInitiateWith(nameof(Default))]

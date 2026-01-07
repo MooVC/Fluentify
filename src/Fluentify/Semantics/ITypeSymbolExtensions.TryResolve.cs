@@ -3,6 +3,7 @@ namespace Fluentify.Semantics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Xml.Linq;
 using Microsoft.CodeAnalysis;
 
 /// <summary>
@@ -46,7 +47,7 @@ internal static partial class ITypeSymbolExtensions
 
         IEnumerable<ISymbol> candidates = target
             .GetMembers(member)
-            .Where(candidate => candidate.IsStatic);
+            .Where(candidate => candidate.IsStatic && candidate.DeclaredAccessibility >= Accessibility.Internal);
 
         foreach (ISymbol candidate in candidates)
         {
@@ -59,6 +60,13 @@ internal static partial class ITypeSymbolExtensions
             }
 
             if (candidate is IPropertySymbol property && SymbolEqualityComparer.Default.Equals(property.Type, target))
+            {
+                initialization = $"{name}.{member}";
+
+                return true;
+            }
+
+            if (candidate is IFieldSymbol field && SymbolEqualityComparer.Default.Equals(field.Type, target))
             {
                 initialization = $"{name}.{member}";
 

@@ -29,7 +29,7 @@ The `AutoInitiateWith` attribute references a member that does not exist, is not
 
 ## Rule Description
 
-`AutoInitiateWith` allows a static property or parameterless static factory method to be used. When the attribute references a member that cannot be resolved, `Fluentify` cannot determine how to create a default value.
+`AutoInitiateWith` allows a static field, property or parameterless static factory method to be used. When the attribute references a member that cannot be resolved, `Fluentify` cannot determine how to create a default value.
 
 For example:
 
@@ -49,7 +49,7 @@ In this case, the `Create` method requires a parameter, so the analyzer flags th
 
 ## How to Fix Violations
 
-Update the attribute to reference a static property or parameterless static factory method that returns the target type, or remove the attribute if no such member is available.
+Update the attribute to reference a static field, property or parameterless static factory method that returns the target type, or remove the attribute if no such member is available.
 
 ```csharp
 [AutoInitiateWith(nameof(Default))]
