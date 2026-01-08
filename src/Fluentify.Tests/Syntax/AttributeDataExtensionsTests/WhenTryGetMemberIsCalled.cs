@@ -31,8 +31,7 @@ public sealed class WhenTryGetMemberIsCalled
     public void GivenStringLiteralArgumentThenMemberIsReturned()
     {
         // Arrange
-        var attribute = GetAttributeFromSource(
-            """
+        AttributeData attribute = GetAttributeFromSource("""
             using Fluentify;
 
             public sealed class Sample
@@ -54,8 +53,7 @@ public sealed class WhenTryGetMemberIsCalled
     public void GivenNameofArgumentThenMemberIsReturned()
     {
         // Arrange
-        var attribute = GetAttributeFromSource(
-            """
+        AttributeData attribute = GetAttributeFromSource("""
             using Fluentify;
 
             public sealed class Sample
@@ -81,8 +79,7 @@ public sealed class WhenTryGetMemberIsCalled
     public void GivenAttributeWithoutArgumentsThenFalseIsReturned()
     {
         // Arrange
-        var attribute = GetAttributeFromSource(
-            """
+        AttributeData attribute = GetAttributeFromSource("""
             using Fluentify;
 
             public sealed class Sample
@@ -104,13 +101,10 @@ public sealed class WhenTryGetMemberIsCalled
     public void GivenConstructorArgumentFromMetadataThenMemberIsReturned()
     {
         // Arrange
-        var attribute = GetAttributeFromMetadata(
-            """
-            using Fluentify;
-
+        AttributeData attribute = GetAttributeFromMetadata("""
             public sealed class Sample
             {
-                [AutoInitiateWith("Build")]
+                [Fluentify.AutoInitiateWith("Build")]
                 public int Value { get; }
             }
             """);
@@ -125,35 +119,36 @@ public sealed class WhenTryGetMemberIsCalled
 
     private static AttributeData GetAttributeFromSource(string source)
     {
-        var compilation = CreateCompilation($"{AttributeSource}\n\n{source}");
-        var type = compilation.GetTypeByMetadataName("Sample")!;
-        var property = type.GetMembers().OfType<IPropertySymbol>().Single();
+        Compilation compilation = CreateCompilation($"{AttributeSource}\n\n{source}");
+        INamedTypeSymbol type = compilation.GetTypeByMetadataName("Sample")!;
+        IPropertySymbol property = type.GetMembers().OfType<IPropertySymbol>().Single();
 
         return property.GetAttributes().Single();
     }
 
     private static AttributeData GetAttributeFromMetadata(string source)
     {
-        var compilation = CreateCompilation($"{AttributeSource}\n\n{source}");
+        Compilation compilation = CreateCompilation($"{AttributeSource}\n\n{source}");
 
         using var stream = new MemoryStream();
-        var emitResult = compilation.Emit(stream);
+        EmitResult emitResult = compilation.Emit(stream);
         emitResult.Success.ShouldBeTrue();
 
-        var reference = MetadataReference.CreateFromImage(stream.ToArray());
+        PortableExecutableReference reference = MetadataReference.CreateFromImage(stream.ToArray());
+
         var metadataCompilation = CSharpCompilation.Create(
             "Metadata",
             references: GetReferences().Add(reference));
 
-        var type = metadataCompilation.GetTypeByMetadataName("Sample")!;
-        var property = type.GetMembers().OfType<IPropertySymbol>().Single();
+        INamedTypeSymbol type = metadataCompilation.GetTypeByMetadataName("Sample")!;
+        IPropertySymbol property = type.GetMembers().OfType<IPropertySymbol>().Single();
 
         return property.GetAttributes().Single();
     }
 
     private static Compilation CreateCompilation(string source)
     {
-        var tree = CSharpSyntaxTree.ParseText(source);
+        SyntaxTree tree = CSharpSyntaxTree.ParseText(source);
 
         return CSharpCompilation.Create(
             "Fluentify.Tests",

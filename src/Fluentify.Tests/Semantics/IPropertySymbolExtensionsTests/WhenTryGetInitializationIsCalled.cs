@@ -12,16 +12,14 @@ public sealed class WhenTryGetInitializationIsCalled
     private const string SkippedTypeName = "Demo.SkippedType";
     private const string TypeWithAttributeName = "Demo.TypeWithAttribute";
 
-    private static readonly Compilation Compilation = CreateCompilation();
+    private static readonly Compilation _compilation = CreateCompilation();
 
     [Fact]
     public void GivenPropertyWithAutoInitiateWithAttributeThenInitializationIsReturned()
     {
-        // Arrange
-        var property = GetProperty(PropertySampleName, "Property");
-
-        // Act
-        bool result = property.TryGetInitialization(out string initialization);
+        // Arrange & Act
+        bool result = GetProperty(PropertySampleName, "Property")
+            .TryGetInitialization(out string initialization);
 
         // Assert
         result.ShouldBeTrue();
@@ -32,7 +30,7 @@ public sealed class WhenTryGetInitializationIsCalled
     public void GivenRecordParameterWithAutoInitiateWithAttributeThenInitializationIsReturned()
     {
         // Arrange
-        var property = GetProperty(RecordSampleName, "Value");
+        IPropertySymbol property = GetProperty(RecordSampleName, "Value");
 
         // Act
         bool result = property.TryGetInitialization(out string initialization);
@@ -46,7 +44,7 @@ public sealed class WhenTryGetInitializationIsCalled
     public void GivenPropertyWithMissingMemberThenFalseIsReturned()
     {
         // Arrange
-        var property = GetProperty(PropertySampleName, "Missing");
+        IPropertySymbol property = GetProperty(PropertySampleName, "Missing");
 
         // Act
         bool result = property.TryGetInitialization(out string initialization);
@@ -60,7 +58,7 @@ public sealed class WhenTryGetInitializationIsCalled
     public void GivenPropertyWithSkipAutoInitializationThenFalseIsReturned()
     {
         // Arrange
-        var property = GetProperty(PropertySampleName, "Skipped");
+        IPropertySymbol property = GetProperty(PropertySampleName, "Skipped");
 
         // Act
         bool result = property.TryGetInitialization(out string initialization);
@@ -74,7 +72,7 @@ public sealed class WhenTryGetInitializationIsCalled
     public void GivenPropertyWithTypeInitializationThenInitializationIsReturned()
     {
         // Arrange
-        var property = GetProperty(PropertySampleName, "TypeInitialization");
+        IPropertySymbol property = GetProperty(PropertySampleName, "TypeInitialization");
 
         // Act
         bool result = property.TryGetInitialization(out string initialization);
@@ -88,7 +86,7 @@ public sealed class WhenTryGetInitializationIsCalled
     public void GivenPropertyWithSkippedTypeThenFalseIsReturned()
     {
         // Arrange
-        var property = GetProperty(SkippedTypeName, "Property");
+        IPropertySymbol property = GetProperty(SkippedTypeName, "Property");
 
         // Act
         bool result = property.TryGetInitialization(out string initialization);
@@ -102,7 +100,7 @@ public sealed class WhenTryGetInitializationIsCalled
     public void GivenPropertyWithoutAutoInitiateWithAttributeThenFalseIsReturned()
     {
         // Arrange
-        var property = GetProperty(TypeWithAttributeName, "Property");
+        IPropertySymbol property = GetProperty(TypeWithAttributeName, "Property");
 
         // Act
         bool result = property.TryGetInitialization(out string initialization);
@@ -114,7 +112,7 @@ public sealed class WhenTryGetInitializationIsCalled
 
     private static IPropertySymbol GetProperty(string typeName, string propertyName)
     {
-        var type = Compilation.GetTypeByMetadataName(typeName)!;
+        INamedTypeSymbol type = _compilation.GetTypeByMetadataName(typeName)!;
 
         return type
             .GetMembers()
@@ -124,26 +122,28 @@ public sealed class WhenTryGetInitializationIsCalled
 
     private static Compilation CreateCompilation()
     {
-        var tree = CSharpSyntaxTree.ParseText(
-            """
+        SyntaxTree tree = CSharpSyntaxTree.ParseText("""
             namespace Fluentify
             {
                 using System;
 
-                internal sealed class AutoInitiateWithAttribute : Attribute
+                internal sealed class AutoInitiateWithAttribute
+                    : Attribute
                 {
                     public AutoInitiateWithAttribute(string factory)
                     {
                     }
                 }
 
-                internal sealed class SkipAutoInitializationAttribute : Attribute
+                internal sealed class SkipAutoInitializationAttribute
+                    : Attribute
                 {
                 }
             }
 
             namespace Demo
             {
+                [Fluentify.AutoInitiateWith(nameof(Build))]
                 public sealed class Widget
                 {
                     public static Widget Build() => new Widget();
@@ -155,11 +155,11 @@ public sealed class WhenTryGetInitializationIsCalled
                     public static WidgetWithInitialization Build() => new WidgetWithInitialization();
                 }
 
-                public sealed record RecordSample([Fluentify.AutoInitiateWith(nameof(Widget.Build))] Widget Value);
+                public sealed record RecordSample(Widget Value);
 
                 public sealed class PropertySample
                 {
-                    [Fluentify.AutoInitiateWith(nameof(Widget.Build))]
+                    [Fluentify.AutoInitiateWith(nameof(LocalBuild))]
                     public Widget Property { get; } = new Widget();
 
                     [Fluentify.AutoInitiateWith("Missing")]
@@ -169,6 +169,11 @@ public sealed class WhenTryGetInitializationIsCalled
                     public Widget Skipped { get; } = new Widget();
 
                     public WidgetWithInitialization TypeInitialization { get; } = new WidgetWithInitialization();
+
+                    internal static Widget LocalBuild()
+                    {
+                        return new Widget();
+                    }
                 }
 
                 [Fluentify.AutoInitiateWith(nameof(Build))]

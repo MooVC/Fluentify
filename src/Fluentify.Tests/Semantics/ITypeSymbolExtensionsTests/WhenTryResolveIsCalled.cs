@@ -14,15 +14,15 @@ public sealed class WhenTryResolveIsCalled
     private const string PrivateMember = "Secret";
     private const string WhitespaceMember = " ";
 
-    private static readonly Compilation Compilation = CreateCompilation();
-    private static readonly INamedTypeSymbol FactoryType = Compilation.GetTypeByMetadataName("Demo.Factory")!;
+    private static readonly Compilation _compilation = CreateCompilation();
+    private static readonly INamedTypeSymbol _factoryType = _compilation.GetTypeByMetadataName("Demo.Factory")!;
 
     [Fact]
     public void GivenNullTargetThenFalseIsReturned()
     {
         // Arrange
-        ITypeSymbol? target = null;
-        var member = MethodMember;
+        ITypeSymbol? target = default;
+        string member = MethodMember;
 
         // Act
         bool result = target.TryResolve(ref member, out string initialization);
@@ -36,10 +36,10 @@ public sealed class WhenTryResolveIsCalled
     public void GivenWhitespaceMemberThenFalseIsReturned()
     {
         // Arrange
-        var member = WhitespaceMember;
+        string member = WhitespaceMember;
 
         // Act
-        bool result = FactoryType.TryResolve(ref member, out string initialization);
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
 
         // Assert
         result.ShouldBeFalse();
@@ -50,10 +50,10 @@ public sealed class WhenTryResolveIsCalled
     public void GivenStaticMethodReturningTypeThenInitializationIsReturned()
     {
         // Arrange
-        var member = MethodMember;
+        string member = MethodMember;
 
         // Act
-        bool result = FactoryType.TryResolve(ref member, out string initialization);
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
 
         // Assert
         result.ShouldBeTrue();
@@ -64,10 +64,10 @@ public sealed class WhenTryResolveIsCalled
     public void GivenStaticPropertyReturningTypeThenInitializationIsReturned()
     {
         // Arrange
-        var member = DefaultMember;
+        string member = DefaultMember;
 
         // Act
-        bool result = FactoryType.TryResolve(ref member, out string initialization);
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
 
         // Assert
         result.ShouldBeTrue();
@@ -78,10 +78,10 @@ public sealed class WhenTryResolveIsCalled
     public void GivenStaticFieldReturningTypeThenInitializationIsReturned()
     {
         // Arrange
-        var member = InstanceFieldMember;
+        string member = InstanceFieldMember;
 
         // Act
-        bool result = FactoryType.TryResolve(ref member, out string initialization);
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
 
         // Assert
         result.ShouldBeTrue();
@@ -92,10 +92,10 @@ public sealed class WhenTryResolveIsCalled
     public void GivenPrivateMemberThenFalseIsReturned()
     {
         // Arrange
-        var member = PrivateMember;
+        string member = PrivateMember;
 
         // Act
-        bool result = FactoryType.TryResolve(ref member, out string initialization);
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
 
         // Assert
         result.ShouldBeFalse();
@@ -106,10 +106,10 @@ public sealed class WhenTryResolveIsCalled
     public void GivenMethodWithParametersThenFalseIsReturned()
     {
         // Arrange
-        var member = MethodWithParametersMember;
+        string member = MethodWithParametersMember;
 
         // Act
-        bool result = FactoryType.TryResolve(ref member, out string initialization);
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
 
         // Assert
         result.ShouldBeFalse();
@@ -120,10 +120,10 @@ public sealed class WhenTryResolveIsCalled
     public void GivenNameofExpressionThenMemberIsExtracted()
     {
         // Arrange
-        var member = "nameof(Default)";
+        string member = "nameof(Default)";
 
         // Act
-        bool result = FactoryType.TryResolve(ref member, out string initialization);
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
 
         // Assert
         result.ShouldBeTrue();
@@ -133,8 +133,7 @@ public sealed class WhenTryResolveIsCalled
 
     private static Compilation CreateCompilation()
     {
-        var tree = CSharpSyntaxTree.ParseText(
-            """
+        SyntaxTree tree = CSharpSyntaxTree.ParseText("""
             namespace Demo
             {
                 public sealed class Factory

@@ -11,13 +11,13 @@ public sealed class WhenTryGetInitializationIsCalled
     private const string SkippedTypeName = "Demo.Skipped";
     private const string WithInitializationTypeName = "Demo.WithInitialization";
 
-    private static readonly Compilation Compilation = CreateCompilation();
+    private static readonly Compilation _compilation = CreateCompilation();
 
     [Fact]
     public void GivenTypeWithAutoInitiateWithAttributeThenInitializationIsReturned()
     {
         // Arrange
-        var type = Compilation.GetTypeByMetadataName(WithInitializationTypeName)!;
+        INamedTypeSymbol type = _compilation.GetTypeByMetadataName(WithInitializationTypeName)!;
 
         // Act
         bool result = type.TryGetInitialization(out string initialization);
@@ -31,7 +31,7 @@ public sealed class WhenTryGetInitializationIsCalled
     public void GivenTypeWithSkipAutoInitializationThenFalseIsReturned()
     {
         // Arrange
-        var type = Compilation.GetTypeByMetadataName(SkippedTypeName)!;
+        INamedTypeSymbol type = _compilation.GetTypeByMetadataName(SkippedTypeName)!;
 
         // Act
         bool result = type.TryGetInitialization(out string initialization);
@@ -45,7 +45,7 @@ public sealed class WhenTryGetInitializationIsCalled
     public void GivenTypeWithMissingMemberThenFalseIsReturned()
     {
         // Arrange
-        var type = Compilation.GetTypeByMetadataName(MissingTypeName)!;
+        INamedTypeSymbol type = _compilation.GetTypeByMetadataName(MissingTypeName)!;
 
         // Act
         bool result = type.TryGetInitialization(out string initialization);
@@ -57,8 +57,7 @@ public sealed class WhenTryGetInitializationIsCalled
 
     private static Compilation CreateCompilation()
     {
-        var tree = CSharpSyntaxTree.ParseText(
-            """
+        SyntaxTree tree = CSharpSyntaxTree.ParseText("""
             namespace Fluentify
             {
                 using System;

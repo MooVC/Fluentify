@@ -11,16 +11,16 @@ public sealed class WhenGetKindIsCalled
 {
     private const string SampleTypeName = "Demo.Sample";
 
-    private static readonly Compilation Compilation = CreateCompilation();
+    private static readonly Compilation _compilation = CreateCompilation();
 
     [Fact]
     public void GivenArrayPropertyThenKindIsArray()
     {
         // Arrange
-        var property = GetProperty("ArrayItems");
+        IPropertySymbol property = GetProperty("ArrayItems");
 
         // Act
-        var kind = property.GetKind(Compilation, CancellationToken.None);
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
 
         // Assert
         kind.Pattern.ShouldBe(Pattern.Array);
@@ -31,10 +31,10 @@ public sealed class WhenGetKindIsCalled
     public void GivenCollectionPropertyThenKindIsCollection()
     {
         // Arrange
-        var property = GetProperty("CollectionItems");
+        IPropertySymbol property = GetProperty("CollectionItems");
 
         // Act
-        var kind = property.GetKind(Compilation, CancellationToken.None);
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
 
         // Assert
         kind.Pattern.ShouldBe(Pattern.Collection);
@@ -45,10 +45,10 @@ public sealed class WhenGetKindIsCalled
     public void GivenImmutableArrayPropertyThenKindIsEnumerable()
     {
         // Arrange
-        var property = GetProperty("ImmutableItems");
+        IPropertySymbol property = GetProperty("ImmutableItems");
 
         // Act
-        var kind = property.GetKind(Compilation, CancellationToken.None);
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
 
         // Assert
         kind.Pattern.ShouldBe(Pattern.Enumerable);
@@ -59,10 +59,10 @@ public sealed class WhenGetKindIsCalled
     public void GivenNullablePropertyThenInitializationUsesNonNullableType()
     {
         // Arrange
-        var property = GetProperty("NullableElement");
+        IPropertySymbol property = GetProperty("NullableElement");
 
         // Act
-        var kind = property.GetKind(Compilation, CancellationToken.None);
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
 
         // Assert
         kind.Type.IsNullable.ShouldBeTrue();
@@ -73,10 +73,10 @@ public sealed class WhenGetKindIsCalled
     public void GivenSkipAutoInstantiationThenTypeIsNotBuildable()
     {
         // Arrange
-        var property = GetProperty("SkipAutoInstantiationElement");
+        IPropertySymbol property = GetProperty("SkipAutoInstantiationElement");
 
         // Act
-        var kind = property.GetKind(Compilation, CancellationToken.None);
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
 
         // Assert
         kind.Type.IsBuildable.ShouldBeFalse();
@@ -84,7 +84,7 @@ public sealed class WhenGetKindIsCalled
 
     private static IPropertySymbol GetProperty(string propertyName)
     {
-        var type = Compilation.GetTypeByMetadataName(SampleTypeName)!;
+        INamedTypeSymbol type = _compilation.GetTypeByMetadataName(SampleTypeName)!;
 
         return type
             .GetMembers()
@@ -94,8 +94,7 @@ public sealed class WhenGetKindIsCalled
 
     private static Compilation CreateCompilation()
     {
-        var tree = CSharpSyntaxTree.ParseText(
-            """
+        SyntaxTree tree = CSharpSyntaxTree.ParseText("""
             #nullable enable
 
             namespace Fluentify
@@ -145,7 +144,7 @@ public sealed class WhenGetKindIsCalled
 
                     public ImmutableArray<Element> ImmutableItems { get; } = ImmutableArray<Element>.Empty;
 
-                    public Element? NullableElement { get; } = null;
+                    public Element? NullableElement { get; } = default;
 
                     [Fluentify.SkipAutoInstantiation]
                     public Element SkipAutoInstantiationElement { get; } = new Element();
