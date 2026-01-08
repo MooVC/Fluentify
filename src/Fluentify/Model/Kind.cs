@@ -44,4 +44,9 @@ internal sealed partial class Kind
     {
         return Type.ToString();
     }
+
+    public string ToString(bool includeNullability)
+    {
+        return Type.ToString(includeNullability);
+    }
 }

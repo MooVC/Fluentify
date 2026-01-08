@@ -77,7 +77,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 {
                     subject.ThrowIfNull("subject");
 
-                    List<int> value = new();
+                    List<int> value = new List<int>();
             
                     if (subject.TestProperty != null)
                     {
@@ -104,6 +104,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             Properties = [],
             Type = new()
             {
+                Initialization = "new global::TestSubject()",
                 Name = "global::TestSubject",
             },
         };
@@ -116,6 +117,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    Initialization = "new int()",
                     IsFrameworkType = true,
                     IsValueType = true,
                     Name = "int",
@@ -123,6 +125,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
+                    Initialization = "new int()",
                     IsFrameworkType = true,
                     Name = "List<int>",
                 },
@@ -164,7 +167,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 {
                     subject.ThrowIfNull("subject");
 
-                    List<int> value = new();
+                    List<int> value = new List<int>();
             
                     if (subject.TestProperty != null)
                     {
@@ -203,6 +206,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    Initialization = "new int()",
                     IsFrameworkType = true,
                     IsValueType = true,
                     Name = "int",
@@ -210,6 +214,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
+                    Initialization = "new int()",
                     IsFrameworkType = true,
                     Name = "List<int>",
                 },
@@ -233,7 +238,7 @@ public sealed partial class WhenGetExtensionsIsCalled
 
     [Theory]
     [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
+    [InlineData("return new int();")]
     public void GivenNullablePropertyWhenCollectionThenGeneratesExtensionWithNullableType(string scalar)
     {
         string expected = $$"""
@@ -250,7 +255,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 {
                     subject.ThrowIfNull("subject");
             
-                    List<int>? value = new();
+                    List<int>? value = new List<int>();
             
                     if (subject.TestProperty != null)
                     {
@@ -278,6 +283,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             Properties = [],
             Type = new()
             {
+                Initialization = "new global::TestSubject()",
                 Name = "global::TestSubject",
             },
         };
@@ -290,6 +296,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    Initialization = "new int()",
                     IsFrameworkType = true,
                     IsValueType = true,
                     Name = "int",
@@ -297,6 +304,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
+                    Initialization = "new int()",
                     IsFrameworkType = true,
                     IsNullable = true,
                     Name = "List<int>",
@@ -339,7 +347,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 {
                     subject.ThrowIfNull("subject");
             
-                    List<TestType> value = new();
+                    List<TestType> value = new List<TestType>();
             
                     if (subject.TestProperty != null)
                     {
@@ -381,6 +389,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             Properties = [],
             Type = new()
             {
+                Initialization = "new global::TestSubject()",
                 Name = "global::TestSubject",
             },
         };
@@ -393,12 +402,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    Initialization = "new TestType()",
                     IsBuildable = true,
                     Name = "TestType",
                 },
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
+                    Initialization = "new TestType()",
                     Name = "List<TestType>",
                 },
             },

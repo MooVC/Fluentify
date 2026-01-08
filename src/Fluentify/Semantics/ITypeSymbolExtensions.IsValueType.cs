@@ -8,6 +8,8 @@ using Microsoft.CodeAnalysis;
 /// </summary>
 internal static partial class ITypeSymbolExtensions
 {
+    private const int ExpectedArgumentsForNullableType = 1;
+
     /// <summary>
     /// Determines if the <paramref name="type"/> is a value type.
     /// </summary>
@@ -16,9 +18,11 @@ internal static partial class ITypeSymbolExtensions
     public static bool IsValueType(this ITypeSymbol type)
     {
         if (type is INamedTypeSymbol symbol
-        && (symbol.SpecialType == SpecialType.System_Nullable_T || type.NullableAnnotation == NullableAnnotation.Annotated))
+            && (symbol.SpecialType == SpecialType.System_Nullable_T || type.NullableAnnotation == NullableAnnotation.Annotated))
         {
-            type = symbol.TypeArguments[0];
+            type = symbol.TypeArguments.Length == ExpectedArgumentsForNullableType
+                ? symbol.TypeArguments[0]
+                : symbol.OriginalDefinition;
         }
 
         return type.IsValueType;

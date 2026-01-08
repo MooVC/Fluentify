@@ -20,6 +20,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="AutoInitiateWithAttributeAnalyzer.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AutoInitiateWithAttributeAnalyzer.Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="ClassAnalyzer.Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -40,6 +45,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>IgnoreAttributeAnalyzer.Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="SkipAutoInitializationAttributeAnalyzer.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SkipAutoInitializationAttributeAnalyzer.Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Analyzer.Resources.resx">
@@ -49,6 +59,10 @@
     <EmbeddedResource Update="AttributeAnalyzer.Resources.resx">
       <LastGenOutput>AttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="AutoInitiateWithAttributeAnalyzer.Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AutoInitiateWithAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="ClassAnalyzer.Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -65,6 +79,10 @@
     <EmbeddedResource Update="IgnoreAttributeAnalyzer.Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>IgnoreAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SkipAutoInitializationAttributeAnalyzer.Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SkipAutoInitializationAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -114,7 +114,7 @@ Console.WriteLine(@new.Birthday);     // Displays 1975
 
 The value associated with a given property can be automatically instantiated, as long as that type associated with the property adheres to the `new()` constraint. For scalar properties, a second extension method is generated, accepting a `Func<T, T>` delegate as its parameter, which allows for the existing value to be configured before being applied. If the existing value is `null` and the type is buildable, a new instance is created. If the existing value is `null` and the type cannot be automatically instantiated, a `NotSupportedException` is thrown. Delegate overloads are not generated for value types or framework types such as `string`, and collection builder overloads continue to create a new element rather than reusing the current value.
 
-In some scenarios it may be undesirable for a given property to allow for Auto Instantiation. This feature can be disabled by applying the `[SkipAutoInstantiation]` attribute to the property, the corresponding primary constructor parameter, or the type referenced by the property to suppress generation of the builder overload.
+In some scenarios it may be undesirable for a given property to allow for Auto Instantiation. This feature can be disabled by applying the `SkipAutoInstantiation]` attribute to the property, the corresponding primary constructor parameter, or the type referenced by the property to suppress generation of the builder overload.
 
 ```csharp
 public sealed class Movie
@@ -137,6 +137,28 @@ public sealed class Movie
 {
     public Actor Lead { get; init; }
     public Actor Supporting { get; init; }
+}
+```
+
+In some cases, it may also be desirable that a specific instance be used instead of that provided by the default constructor, or when no default constructor exists. In these cases, use the `[AutoInitiateWith]` attribute to reference a static field, property or a parameterless static factory method that returns the target type.
+
+```csharp
+[AutoInitiateWith(nameof(Default))]
+public sealed class Actor
+{
+    public Actor(string name)
+    {
+        Name = name;
+    }
+
+    public static Actor Default => new(string.Empty);
+
+    public string Name { get; init; }
+}
+
+public sealed class Movie
+{
+    public Actor Lead { get; init; }
 }
 ```
 
