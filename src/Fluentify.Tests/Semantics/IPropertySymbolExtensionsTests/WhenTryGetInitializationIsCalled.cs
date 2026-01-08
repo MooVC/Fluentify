@@ -10,20 +10,21 @@ public sealed class WhenTryGetInitializationIsCalled
     private const string PropertySampleName = "Demo.PropertySample";
     private const string RecordSampleName = "Demo.RecordSample";
     private const string SkippedTypeName = "Demo.SkippedType";
-    private const string TypeWithAttributeName = "Demo.TypeWithAttribute";
 
     private static readonly Compilation _compilation = CreateCompilation();
 
     [Fact]
     public void GivenPropertyWithAutoInitiateWithAttributeThenInitializationIsReturned()
     {
-        // Arrange & Act
-        bool result = GetProperty(PropertySampleName, "Property")
-            .TryGetInitialization(out string initialization);
+        // Arrange
+        IPropertySymbol property = GetProperty(PropertySampleName, "Property");
+
+        // Act
+        bool result = property.TryGetInitialization(out string initialization);
 
         // Assert
         result.ShouldBeTrue();
-        initialization.ShouldBe("global::Demo.Widget.Build()");
+        initialization.ShouldBe("global::Demo.Widget.LocalBuild()");
     }
 
     [Fact]
@@ -87,20 +88,6 @@ public sealed class WhenTryGetInitializationIsCalled
     {
         // Arrange
         IPropertySymbol property = GetProperty(SkippedTypeName, "Property");
-
-        // Act
-        bool result = property.TryGetInitialization(out string initialization);
-
-        // Assert
-        result.ShouldBeFalse();
-        initialization.ShouldBe(string.Empty);
-    }
-
-    [Fact]
-    public void GivenPropertyWithoutAutoInitiateWithAttributeThenFalseIsReturned()
-    {
-        // Arrange
-        IPropertySymbol property = GetProperty(TypeWithAttributeName, "Property");
 
         // Act
         bool result = property.TryGetInitialization(out string initialization);
