@@ -74,6 +74,49 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
+    [Fact]
+    public async Task GivenPropertyWithMissingMemberThenDiagnosticIsRaised()
+    {
+        // Arrange
+        ExpectedDiagnostics.Add(GetExpectedInvalidTargetRule("Missing", new LinePosition(4, 5), "Sample"));
+
+        TestCode = """
+            using Fluentify;
+
+            public sealed class Sample
+            {
+                [AutoInitiateWith("Missing")]
+                public Sample Property { get; } = new Sample();
+
+                public static Sample Create() => new Sample();
+            }
+            """;
+
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
+
+    [Fact]
+    public async Task GivenParameterWithValidMemberThenNoDiagnosticIsRaised()
+    {
+        // Arrange
+        TestCode = """
+            using Fluentify;
+
+            public sealed class Sample
+            {
+                public Sample([AutoInitiateWith(nameof(Create))] Sample dependency)
+                {
+                }
+
+                public static Sample Create() => new Sample(null);
+            }
+            """;
+
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
+
     private static DiagnosticResult GetExpectedInvalidTargetRule(string member, LinePosition position, string type)
     {
         return new DiagnosticResult(AutoInitiateWithAttributeAnalyzer.InvalidTargetRule)

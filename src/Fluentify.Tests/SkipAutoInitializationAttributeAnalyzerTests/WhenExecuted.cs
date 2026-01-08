@@ -57,6 +57,26 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
+    [Fact]
+    public async Task GivenAttributeOnPropertyThenNoDiagnosticIsRaised()
+    {
+        // Arrange
+        TestCode = """
+            using Fluentify;
+
+            public sealed class Sample
+            {
+                [AutoInitiateWith(nameof(Create))]
+                public Sample Property { get; } = new Sample();
+
+                public static Sample Create() => new Sample();
+            }
+            """;
+
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
+
     private static DiagnosticResult GetExpectedConflictingAttributesRule(LinePosition position, string type)
     {
         return new DiagnosticResult(SkipAutoInitializationAttributeAnalyzer.ConflictingAttributesRule)

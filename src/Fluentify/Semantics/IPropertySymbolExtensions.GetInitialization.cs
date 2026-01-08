@@ -36,6 +36,7 @@ internal static partial class IPropertySymbolExtensions
             return false;
         }
 
-        return property.Type.TryResolve(ref member, out initialization);
+        return property.ContainingType.TryResolve(property.Type, ref member, out initialization)
+            || property.Type.TryResolve(property.Type, ref member, out initialization);
     }
 }

@@ -60,7 +60,7 @@ public sealed class AutoInitiateWithAttributeAnalyzer
             return;
         }
 
-        if (type.TryResolve(ref member, out _))
+        if (type.TryResolve(type, ref member, out _))
         {
             return;
         }
