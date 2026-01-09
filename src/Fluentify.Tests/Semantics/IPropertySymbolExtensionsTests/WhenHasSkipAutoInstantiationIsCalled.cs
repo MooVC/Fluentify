@@ -83,6 +83,34 @@ public sealed class WhenHasSkipAutoInstantiationIsCalled
     }
 
     [Fact]
+    public void GivenArrayElementWithSkipAutoInstantiationAttributeThenReturnsTrue()
+    {
+        // Arrange
+        INamedTypeSymbol @class = Substitute.For<INamedTypeSymbol>();
+        _ = @class.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat).Returns($"Fluentify.{Name}Attribute");
+
+        AttributeData data = Substitute.For<AttributeData>();
+        _ = data.AttributeClass.Returns(@class);
+
+        ITypeSymbol elementType = Substitute.For<ITypeSymbol>();
+        _ = elementType.GetAttributes().Returns([data]);
+
+        IArrayTypeSymbol arrayType = Substitute.For<IArrayTypeSymbol>();
+        _ = arrayType.GetAttributes().Returns([]);
+        _ = arrayType.ElementType.Returns(elementType);
+
+        IPropertySymbol property = Substitute.For<IPropertySymbol>();
+        _ = property.Type.Returns(arrayType);
+        _ = property.GetAttributes().Returns([]);
+
+        // Act
+        bool result = property.HasSkipAutoInstantiation();
+
+        // Assert
+        result.ShouldBeTrue();
+    }
+
+    [Fact]
     public void GivenPropertyWithoutSkipAutoInstantiationAttributeThenReturnsFalse()
     {
         // Arrange
