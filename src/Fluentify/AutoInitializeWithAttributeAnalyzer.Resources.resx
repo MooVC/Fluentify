@@ -59,10 +59,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InvalidTargetRuleDescription" xml:space="preserve">
-    <value>The AutoInitiateWith attribute must reference a static property or parameterless static method on the target type that returns the target type.</value>
+    <value>The AutoInitializeWith attribute must reference a static property or parameterless static method on the target type that returns the target type.</value>
   </data>
   <data name="InvalidTargetRuleMessageFormat" xml:space="preserve">
-    <value>AutoInitiateWith target '{0}' must be a static property or parameterless static method that returns '{1}'.</value>
+    <value>AutoInitializeWith target '{0}' must be a static property or parameterless static method that returns '{1}'.</value>
   </data>
   <data name="InvalidTargetRuleTitle" xml:space="preserve">
     <value>Auto initiate target is invalid</value>

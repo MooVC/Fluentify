@@ -14,7 +14,7 @@ public abstract partial class WhenExecuted
         typeof(DescriptorAttributeGenerator),
         typeof(FluentifyAttributeGenerator),
         typeof(IgnoreAttributeGenerator),
-        typeof(SkipAutoInstantiationAttributeGenerator),
+        typeof(SkipAutoInitializationAttributeGenerator),
     ];
 
     protected WhenExecuted(ReferenceAssemblies assemblies, LanguageVersion languageVersion)

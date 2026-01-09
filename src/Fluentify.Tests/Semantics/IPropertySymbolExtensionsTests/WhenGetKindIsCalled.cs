@@ -70,10 +70,10 @@ public sealed class WhenGetKindIsCalled
     }
 
     [Fact]
-    public void GivenSkipAutoInstantiationThenTypeIsNotBuildable()
+    public void GivenSkipAutoInitializationThenTypeIsNotBuildable()
     {
         // Arrange
-        IPropertySymbol property = GetProperty("SkipAutoInstantiationElement");
+        IPropertySymbol property = GetProperty("SkipAutoInitializationElement");
 
         // Act
         Kind kind = property.GetKind(_compilation, CancellationToken.None);
@@ -101,9 +101,9 @@ public sealed class WhenGetKindIsCalled
             {
                 using System;
 
-                internal sealed class AutoInitiateWithAttribute : Attribute
+                internal sealed class AutoInitializeWithAttribute : Attribute
                 {
-                    public AutoInitiateWithAttribute(string factory)
+                    public AutoInitializeWithAttribute(string factory)
                     {
                     }
                 }
@@ -112,7 +112,7 @@ public sealed class WhenGetKindIsCalled
                 {
                 }
 
-                internal sealed class SkipAutoInstantiationAttribute : Attribute
+                internal sealed class SkipAutoInitializationAttribute : Attribute
                 {
                 }
             }
@@ -146,8 +146,8 @@ public sealed class WhenGetKindIsCalled
 
                     public Element? NullableElement { get; } = default;
 
-                    [Fluentify.SkipAutoInstantiation]
-                    public Element SkipAutoInstantiationElement { get; } = new Element();
+                    [Fluentify.SkipAutoInitialization]
+                    public Element SkipAutoInitializationElement { get; } = new Element();
                 }
             }
             """);

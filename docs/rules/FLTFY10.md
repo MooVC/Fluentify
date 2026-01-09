@@ -1,4 +1,4 @@
-# FLTFY10: AutoInitiateWith ignored when SkipAutoInitialization is present
+# FLTFY10: AutoInitializeWith ignored when SkipAutoInitialization is present
 
 <table>
 <tr>
@@ -25,16 +25,16 @@
 
 ## Cause
 
-Both `SkipAutoInitialization` and `AutoInitiateWith` are applied to the same type.
+Both `SkipAutoInitialization` and `AutoInitializeWith` are applied to the same type.
 
 ## Rule Description
 
-`SkipAutoInitialization` indicates that a type cannot be automatically instantiated. When `AutoInitiateWith` is also applied to the same type, the skip attribute takes precedence and the auto initiation path is ignored. The analyzer highlights the conflict to avoid confusion.
+`SkipAutoInitialization` indicates that a type cannot be automatically instantiated. When `AutoInitializeWith` is also applied to the same type, the skip attribute takes precedence and the auto initiation path is ignored. The analyzer highlights the conflict to avoid confusion.
 
 For example:
 
 ```csharp
-[AutoInitiateWith(nameof(Default))]
+[AutoInitializeWith(nameof(Default))]
 [SkipAutoInitialization]
 public sealed class Dependent
 {
@@ -46,10 +46,10 @@ In this scenario, the `Default` property will not be used because the type expli
 
 ## How to Fix Violations
 
-Remove the `AutoInitiateWith` attribute when `SkipAutoInitialization` is present, or remove `SkipAutoInitialization` if the type should be eligible for auto initiation.
+Remove the `AutoInitializeWith` attribute when `SkipAutoInitialization` is present, or remove `SkipAutoInitialization` if the type should be eligible for auto initiation.
 
 ```csharp
-[AutoInitiateWith(nameof(Default))]
+[AutoInitializeWith(nameof(Default))]
 public sealed class Dependent
 {
     public static Dependent Default => new();
@@ -58,16 +58,16 @@ public sealed class Dependent
 
 ## How to Suppress Violations
 
-It is not recommended to suppress the rule. Instead, decide whether or not the type should use `AutoInitiateWith` or `SkipAutoInitialization`. Once the decision is made, remove the other attribute.
+It is not recommended to suppress the rule. Instead, decide whether or not the type should use `AutoInitializeWith` or `SkipAutoInitialization`. Once the decision is made, remove the other attribute.
 
 If suppression is desired, one of the following approaches can be used:
 
 ```csharp
-#pragma warning disable FLTFY10 // AutoInitiateWith ignored when SkipAutoInitialization is present
-[AutoInitiateWith(nameof(Default))]
+#pragma warning disable FLTFY10 // AutoInitializeWith ignored when SkipAutoInitialization is present
+[AutoInitializeWith(nameof(Default))]
 [SkipAutoInitialization]
 public sealed class Dependent
-#pragma warning restore FLTFY10 // AutoInitiateWith ignored when SkipAutoInitialization is present
+#pragma warning restore FLTFY10 // AutoInitializeWith ignored when SkipAutoInitialization is present
 ```
 
 or alternatively:
@@ -76,9 +76,9 @@ or alternatively:
 using System.Diagnostics.CodeAnalysis;
 using Fluentify;
 
-[AutoInitiateWith(nameof(Default))]
+[AutoInitializeWith(nameof(Default))]
 [SkipAutoInitialization]
-[SuppressMessage("Design", "FLTFY10:AutoInitiateWith ignored when SkipAutoInitialization is present", Justification = "Explanation for suppression")]
+[SuppressMessage("Design", "FLTFY10:AutoInitializeWith ignored when SkipAutoInitialization is present", Justification = "Explanation for suppression")]
 public sealed class Dependent
 ```
 
@@ -87,7 +87,7 @@ public sealed class Dependent
 It is not recommended to disable the rule, as this may result in some confusion if expected extension methods are not present.
 
 ```ini
-# Disable FLTFY10: AutoInitiateWith ignored when SkipAutoInitialization is present
+# Disable FLTFY10: AutoInitializeWith ignored when SkipAutoInitialization is present
 [*.cs]
 dotnet_diagnostic.FLTFY10.severity = none
 ```

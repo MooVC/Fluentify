@@ -2,7 +2,7 @@ namespace Fluentify.Semantics;
 
 using Fluentify.Model;
 using Microsoft.CodeAnalysis;
-using static Fluentify.SkipAutoInstantiationAttributeGenerator;
+using static Fluentify.SkipAutoInitializationAttributeGenerator;
 
 /// <summary>
 /// Provides extensions relating to <see cref="IPropertySymbol"/>.
@@ -54,7 +54,7 @@ internal static partial class IPropertySymbolExtensions
     /// <returns>The <see cref="Kind"/> that encapsulates the information relating to the data type of the <paramref name="property"/>.</returns>
     public static Kind GetKind(this IPropertySymbol property, Compilation compilation, CancellationToken cancellationToken)
     {
-        bool hasSkipAutoInstantiation = property.HasSkipAutoInstantiation();
+        bool hasSkipAutoInitialization = property.HasSkipAutoInitialization();
         bool hasInitialization = property.TryGetInitialization(out string initialization);
 
         string typeInitialization = initialization;
@@ -81,7 +81,7 @@ internal static partial class IPropertySymbolExtensions
             },
         };
 
-        kind.Type.IsBuildable = !hasSkipAutoInstantiation
+        kind.Type.IsBuildable = !hasSkipAutoInitialization
             && !property.HasSkipAutoInitialization()
             && isBuildable;
 

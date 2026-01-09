@@ -14,7 +14,7 @@ public sealed class WhenTryGetInitializationIsCalled
     private static readonly Compilation _compilation = CreateCompilation();
 
     [Fact]
-    public void GivenPropertyWithAutoInitiateWithAttributeThenInitializationIsReturned()
+    public void GivenPropertyWithAutoInitializeWithAttributeThenInitializationIsReturned()
     {
         // Arrange
         IPropertySymbol property = GetProperty(PropertySampleName, "Property");
@@ -28,7 +28,7 @@ public sealed class WhenTryGetInitializationIsCalled
     }
 
     [Fact]
-    public void GivenRecordParameterWithAutoInitiateWithAttributeThenInitializationIsReturned()
+    public void GivenRecordParameterWithAutoInitializeWithAttributeThenInitializationIsReturned()
     {
         // Arrange
         IPropertySymbol property = GetProperty(RecordSampleName, "Value");
@@ -114,10 +114,10 @@ public sealed class WhenTryGetInitializationIsCalled
             {
                 using System;
 
-                internal sealed class AutoInitiateWithAttribute
+                internal sealed class AutoInitializeWithAttribute
                     : Attribute
                 {
-                    public AutoInitiateWithAttribute(string factory)
+                    public AutoInitializeWithAttribute(string factory)
                     {
                     }
                 }
@@ -130,13 +130,13 @@ public sealed class WhenTryGetInitializationIsCalled
 
             namespace Demo
             {
-                [Fluentify.AutoInitiateWith(nameof(Build))]
+                [Fluentify.AutoInitializeWith(nameof(Build))]
                 public sealed class Widget
                 {
                     public static Widget Build() => new Widget();
                 }
 
-                [Fluentify.AutoInitiateWith(nameof(Build))]
+                [Fluentify.AutoInitializeWith(nameof(Build))]
                 public sealed class WidgetWithInitialization
                 {
                     public static WidgetWithInitialization Build() => new WidgetWithInitialization();
@@ -146,10 +146,10 @@ public sealed class WhenTryGetInitializationIsCalled
 
                 public sealed class PropertySample
                 {
-                    [Fluentify.AutoInitiateWith(nameof(LocalBuild))]
+                    [Fluentify.AutoInitializeWith(nameof(LocalBuild))]
                     public Widget Property { get; } = new Widget();
 
-                    [Fluentify.AutoInitiateWith("Missing")]
+                    [Fluentify.AutoInitializeWith("Missing")]
                     public Widget Missing { get; } = new Widget();
 
                     [Fluentify.SkipAutoInitialization]
@@ -163,7 +163,7 @@ public sealed class WhenTryGetInitializationIsCalled
                     }
                 }
 
-                [Fluentify.AutoInitiateWith(nameof(Build))]
+                [Fluentify.AutoInitializeWith(nameof(Build))]
                 public sealed class TypeWithAttribute
                 {
                     public static TypeWithAttribute Build() => new TypeWithAttribute();
@@ -174,7 +174,7 @@ public sealed class WhenTryGetInitializationIsCalled
                 [Fluentify.SkipAutoInitialization]
                 public sealed class SkippedType
                 {
-                    [Fluentify.AutoInitiateWith(nameof(Widget.Build))]
+                    [Fluentify.AutoInitializeWith(nameof(Widget.Build))]
                     public Widget Property { get; } = new Widget();
                 }
             }
