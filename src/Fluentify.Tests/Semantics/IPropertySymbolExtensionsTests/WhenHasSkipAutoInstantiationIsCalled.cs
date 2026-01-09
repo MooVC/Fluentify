@@ -1,5 +1,6 @@
 namespace Fluentify.Semantics.IPropertySymbolExtensionsTests;
 
+using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using static Fluentify.SkipAutoInstantiationAttributeGenerator;
 
@@ -44,6 +45,34 @@ public sealed class WhenHasSkipAutoInstantiationIsCalled
 
         IPropertySymbol property = Substitute.For<IPropertySymbol>();
         _ = property.Type.Returns(type);
+        _ = property.GetAttributes().Returns([]);
+
+        // Act
+        bool result = property.HasSkipAutoInstantiation();
+
+        // Assert
+        result.ShouldBeTrue();
+    }
+
+    [Fact]
+    public void GivenTypeArgumentWithSkipAutoInstantiationAttributeThenReturnsTrue()
+    {
+        // Arrange
+        INamedTypeSymbol @class = Substitute.For<INamedTypeSymbol>();
+        _ = @class.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat).Returns($"Fluentify.{Name}Attribute");
+
+        AttributeData data = Substitute.For<AttributeData>();
+        _ = data.AttributeClass.Returns(@class);
+
+        ITypeSymbol elementType = Substitute.For<ITypeSymbol>();
+        _ = elementType.GetAttributes().Returns([data]);
+
+        INamedTypeSymbol collectionType = Substitute.For<INamedTypeSymbol>();
+        _ = collectionType.GetAttributes().Returns([]);
+        _ = collectionType.TypeArguments.Returns(ImmutableArray.Create(elementType));
+
+        IPropertySymbol property = Substitute.For<IPropertySymbol>();
+        _ = property.Type.Returns(collectionType);
         _ = property.GetAttributes().Returns([]);
 
         // Act
