@@ -1,9 +1,9 @@
-namespace Fluentify.SkipAutoInstantiationAttributeGeneratorTests;
+namespace Fluentify.SkipAutoInitializationAttributeGeneratorTests;
 
 using Fluentify.Snippets;
 
 public sealed class WhenExecuted
-    : GeneratorTests<SkipAutoInstantiationAttributeGenerator>
+    : GeneratorTests<SkipAutoInitializationAttributeGenerator>
 {
     public WhenExecuted()
         : base(Classes.ReferenceAssemblies, Classes.LanguageVersion)
@@ -14,7 +14,7 @@ public sealed class WhenExecuted
     public async Task GivenAnAssemblyThenTheAttributeIsGenerated()
     {
         // Arrange
-        Attributes.SkipAutoInstantiation.IsExpectedIn(TestState);
+        Attributes.SkipAutoInitialization.IsExpectedIn(TestState);
 
         // Act & Assert
         await ActAndAssertAsync();

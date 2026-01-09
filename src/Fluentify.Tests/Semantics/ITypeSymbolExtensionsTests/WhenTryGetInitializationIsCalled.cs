@@ -14,7 +14,7 @@ public sealed class WhenTryGetInitializationIsCalled
     private static readonly Compilation _compilation = CreateCompilation();
 
     [Fact]
-    public void GivenTypeWithAutoInitiateWithAttributeThenInitializationIsReturned()
+    public void GivenTypeWithAutoInitializeWithAttributeThenInitializationIsReturned()
     {
         // Arrange
         INamedTypeSymbol type = _compilation.GetTypeByMetadataName(WithInitializationTypeName)!;
@@ -62,9 +62,9 @@ public sealed class WhenTryGetInitializationIsCalled
             {
                 using System;
 
-                internal sealed class AutoInitiateWithAttribute : Attribute
+                internal sealed class AutoInitializeWithAttribute : Attribute
                 {
-                    public AutoInitiateWithAttribute(string factory)
+                    public AutoInitializeWithAttribute(string factory)
                     {
                     }
                 }
@@ -76,20 +76,20 @@ public sealed class WhenTryGetInitializationIsCalled
 
             namespace Demo
             {
-                [Fluentify.AutoInitiateWith(nameof(Create))]
+                [Fluentify.AutoInitializeWith(nameof(Create))]
                 public sealed class WithInitialization
                 {
                     public static WithInitialization Create() => new WithInitialization();
                 }
 
                 [Fluentify.SkipAutoInitialization]
-                [Fluentify.AutoInitiateWith(nameof(Create))]
+                [Fluentify.AutoInitializeWith(nameof(Create))]
                 public sealed class Skipped
                 {
                     public static Skipped Create() => new Skipped();
                 }
 
-                [Fluentify.AutoInitiateWith("Missing")]
+                [Fluentify.AutoInitializeWith("Missing")]
                 public sealed class Missing
                 {
                 }

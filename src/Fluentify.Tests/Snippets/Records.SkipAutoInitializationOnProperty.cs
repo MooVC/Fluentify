@@ -2,15 +2,15 @@ namespace Fluentify.Snippets;
 
 public static partial class Records
 {
-    public const string SkipAutoInstantiationOnPropertyContent = """
+    public const string SkipAutoInitializationOnPropertyContent = """
         namespace Fluentify.Records.Testing
         {
             using System.Collections.Generic;
 
             [Fluentify]
-            public sealed partial record SkipAutoInstantiationOnProperty(
+            public sealed partial record SkipAutoInitializationOnProperty(
                 int Age,
-                [SkipAutoInstantiation] SkipAutoInstantiationOnProperty.Dependent Dependency)
+                [SkipAutoInitialization] SkipAutoInitializationOnProperty.Dependent Dependency)
             {
                 public sealed class Dependent
                 {
@@ -20,24 +20,24 @@ public static partial class Records
         }
         """;
 
-    public static readonly Declared SkipAutoInstantiationOnProperty;
+    public static readonly Declared SkipAutoInitializationOnProperty;
 
-    public static readonly Generated SkipAutoInstantiationOnPropertyConstructor = new(
-        SkipAutoInstantiationOnPropertyConstructorContent,
+    public static readonly Generated SkipAutoInitializationOnPropertyConstructor = new(
+        SkipAutoInitializationOnPropertyConstructorContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.SkipAutoInstantiationOnProperty.ctor");
+        "Fluentify.Records.Testing.SkipAutoInitializationOnProperty.ctor");
 
-    public static readonly Generated SkipAutoInstantiationOnPropertyWithAgeExtensions = new(
-        SkipAutoInstantiationOnPropertyWithAgeExtensionsContent,
+    public static readonly Generated SkipAutoInitializationOnPropertyWithAgeExtensions = new(
+        SkipAutoInitializationOnPropertyWithAgeExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.SkipAutoInstantiationOnPropertyExtensions.WithAge");
+        "Fluentify.Records.Testing.SkipAutoInitializationOnPropertyExtensions.WithAge");
 
-    public static readonly Generated SkipAutoInstantiationOnPropertyWithDependencyExtensions = new(
-        SkipAutoInstantiationOnPropertyWithDependencyExtensionsContent,
+    public static readonly Generated SkipAutoInitializationOnPropertyWithDependencyExtensions = new(
+        SkipAutoInitializationOnPropertyWithDependencyExtensionsContent,
         typeof(RecordGenerator),
-        "Fluentify.Records.Testing.SkipAutoInstantiationOnPropertyExtensions.WithDependency");
+        "Fluentify.Records.Testing.SkipAutoInitializationOnPropertyExtensions.WithDependency");
 
-    private const string SkipAutoInstantiationOnPropertyConstructorContent = """
+    private const string SkipAutoInitializationOnPropertyConstructorContent = """
         #nullable enable
         #pragma warning disable CS8625
 
@@ -45,15 +45,15 @@ public static partial class Records
         {
             using System.Diagnostics.CodeAnalysis;
 
-            partial record SkipAutoInstantiationOnProperty
+            partial record SkipAutoInitializationOnProperty
             {
                 #pragma warning disable CS8604
 
                 #if NET7_0_OR_GREATER
                 [SetsRequiredMembers]
                 #endif
-                public SkipAutoInstantiationOnProperty()
-                    : this(default(int), default(global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty.Dependent))
+                public SkipAutoInitializationOnProperty()
+                    : this(default(int), default(global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty.Dependent))
                 {
                 }
 
@@ -65,7 +65,7 @@ public static partial class Records
         #nullable restore
         """;
 
-    private const string SkipAutoInstantiationOnPropertyWithAgeExtensionsContent = """
+    private const string SkipAutoInitializationOnPropertyWithAgeExtensionsContent = """
         #nullable enable
         #pragma warning disable CS8625
 
@@ -76,10 +76,10 @@ public static partial class Records
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class SkipAutoInstantiationOnPropertyExtensions
+            public static partial class SkipAutoInitializationOnPropertyExtensions
             {
-                public static global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty WithAge(
-                    this global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty subject,
+                public static global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty WithAge(
+                    this global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty subject,
                     int value)
                 {
                     subject.ThrowIfNull("subject");
@@ -96,7 +96,7 @@ public static partial class Records
         #nullable restore
         """;
 
-    private const string SkipAutoInstantiationOnPropertyWithDependencyExtensionsContent = """
+    private const string SkipAutoInitializationOnPropertyWithDependencyExtensionsContent = """
         #nullable enable
         #pragma warning disable CS8625
 
@@ -107,11 +107,11 @@ public static partial class Records
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class SkipAutoInstantiationOnPropertyExtensions
+            public static partial class SkipAutoInitializationOnPropertyExtensions
             {
-                public static global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty WithDependency(
-                    this global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty subject,
-                    Func<global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty.Dependent, global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty.Dependent> builder)
+                public static global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty WithDependency(
+                    this global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty subject,
+                    Func<global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty.Dependent, global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty.Dependent> builder)
                 {
                     subject.ThrowIfNull("subject");
 
@@ -129,9 +129,9 @@ public static partial class Records
                     return subject.WithDependency(instance);
                 }
 
-                public static global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty WithDependency(
-                    this global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty subject,
-                    global::Fluentify.Records.Testing.SkipAutoInstantiationOnProperty.Dependent value)
+                public static global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty WithDependency(
+                    this global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty subject,
+                    global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty.Dependent value)
                 {
                     subject.ThrowIfNull("subject");
 

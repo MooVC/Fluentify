@@ -59,12 +59,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ConflictingAttributesRuleDescription" xml:space="preserve">
-    <value>SkipAutoInitialization takes precedence over AutoInitiateWith when applied to the same type. Remove AutoInitiateWith to avoid confusion.</value>
+    <value>SkipAutoInitialization takes precedence over AutoInitializeWith when applied to the same type. Remove AutoInitializeWith to avoid confusion.</value>
   </data>
   <data name="ConflictingAttributesRuleMessageFormat" xml:space="preserve">
-    <value>AutoInitiateWith on '{0}' will be ignored because SkipAutoInitialization is also applied.</value>
+    <value>AutoInitializeWith on '{0}' will be ignored because SkipAutoInitialization is also applied.</value>
   </data>
   <data name="ConflictingAttributesRuleTitle" xml:space="preserve">
-    <value>AutoInitiateWith ignored when SkipAutoInitialization is present</value>
+    <value>AutoInitializeWith ignored when SkipAutoInitialization is present</value>
   </data>
 </root>

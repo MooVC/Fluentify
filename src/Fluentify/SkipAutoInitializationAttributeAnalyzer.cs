@@ -6,11 +6,11 @@ using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using static Fluentify.AutoInitiateWithAttributeGenerator;
+using static Fluentify.AutoInitializeWithAttributeGenerator;
 using static Fluentify.SkipAutoInitializationAttributeAnalyzer_Resources;
 
 /// <summary>
-/// Analyzes usage of AutoInitiateWith when SkipAutoInitialization is also applied to the same type.
+/// Analyzes usage of AutoInitializeWith when SkipAutoInitialization is also applied to the same type.
 /// </summary>
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
 public sealed class SkipAutoInitializationAttributeAnalyzer
@@ -20,7 +20,7 @@ public sealed class SkipAutoInitializationAttributeAnalyzer
     /// Facilitates construction of the analyzer.
     /// </summary>
     public SkipAutoInitializationAttributeAnalyzer()
-        : base(AutoInitiateWithAttributeGenerator.Name)
+        : base(AutoInitializeWithAttributeGenerator.Name)
     {
     }
 

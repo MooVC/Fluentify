@@ -61,7 +61,7 @@ namespace Fluentify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SkipAutoInitialization takes precedence over AutoInitiateWith when applied to the same type. Remove AutoInitiateWith to avoid confusion..
+        ///   Looks up a localized string similar to SkipAutoInitialization takes precedence over AutoInitializeWith when applied to the same type. Remove AutoInitializeWith to avoid confusion..
         /// </summary>
         internal static string ConflictingAttributesRuleDescription {
             get {
@@ -70,7 +70,7 @@ namespace Fluentify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AutoInitiateWith on &apos;{0}&apos; will be ignored because SkipAutoInitialization is also applied..
+        ///   Looks up a localized string similar to AutoInitializeWith on &apos;{0}&apos; will be ignored because SkipAutoInitialization is also applied..
         /// </summary>
         internal static string ConflictingAttributesRuleMessageFormat {
             get {
@@ -79,7 +79,7 @@ namespace Fluentify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AutoInitiateWith ignored when SkipAutoInitialization is present.
+        ///   Looks up a localized string similar to AutoInitializeWith ignored when SkipAutoInitialization is present.
         /// </summary>
         internal static string ConflictingAttributesRuleTitle {
             get {

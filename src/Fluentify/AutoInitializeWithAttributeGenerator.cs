@@ -5,16 +5,16 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
 /// <summary>
-/// Generates the AutoInitiateWith attribute, used to denote the static member to call when automatically instantiating a type.
+/// Generates the AutoInitializeWith attribute, used to denote the static member to call when automatically instantiating a type.
 /// </summary>
 [Generator(LanguageNames.CSharp)]
-public sealed class AutoInitiateWithAttributeGenerator
+public sealed class AutoInitializeWithAttributeGenerator
     : IIncrementalGenerator
 {
     /// <summary>
     /// The name of the attribute that will be output by the generator.
     /// </summary>
-    internal const string Name = "AutoInitiateWith";
+    internal const string Name = "AutoInitializeWith";
 
     /// <summary>
     /// The source code that will be output by the generator.

@@ -8,15 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Added
 
-- Introduced `SkipAutoInitialization` and `AutoInitiateWith` attributes with analyzers to validate initialization sources and highlight conflicting usage.
+- Introduced `SkipAutoInitialization` and `AutoInitializeWith` attributes with analyzers to validate initialization sources and highlight conflicting usage.
 
 ## Changed
 
 - Builder extensions are now created for most reference types which will use the current instance assigned to the property as a starting point. When no instance is assigned, and the type adheres to the `new()` constraint, a new instance will be created, as was the case in the previous version. If, however, the type does not adhere to the `new()` constraint, a `NotSupportedException` will be thrown. **Breaking Change**
-
-## Fixed
-
-- `SkipAutoInstantiation` is now respected when applied to collection element types such as `ImmutableArray<T>`.
 
 # [1.9.0] - 2025-11-29
 
@@ -33,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Fixed
 
-- Types annotated with `SkipAutoInstantiation` no longer have auto instantiation overloads generated when the type serves as a argument to a collection property (#96).
+- Types annotated with `SkipAutoInitialization` no longer have auto instantiation overloads generated when the type serves as a argument to a collection property (#96).
 
 # [1.8.1] - 2025-11-21
 
@@ -46,7 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Added
 
-- Introduced the `SkipAutoInstantiation` attribute, allowing consumers to opt out of generating builder-based overloads when a type, or a specific property, should not be automatically instantiated.
+- Introduced the `SkipAutoInitialization` attribute, allowing consumers to opt out of generating builder-based overloads when a type, or a specific property, should not be automatically instantiated.
 
 # [1.7.0] - 2025-10-17
 

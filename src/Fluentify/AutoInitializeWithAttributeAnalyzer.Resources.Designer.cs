@@ -22,14 +22,14 @@ namespace Fluentify {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AutoInitiateWithAttributeAnalyzer_Resources {
+    internal class AutoInitializeWithAttributeAnalyzer_Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AutoInitiateWithAttributeAnalyzer_Resources() {
+        internal AutoInitializeWithAttributeAnalyzer_Resources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Fluentify {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fluentify.AutoInitiateWithAttributeAnalyzer.Resources", typeof(AutoInitiateWithAttributeAnalyzer_Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fluentify.AutoInitializeWithAttributeAnalyzer.Resources", typeof(AutoInitializeWithAttributeAnalyzer_Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace Fluentify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The AutoInitiateWith attribute must reference a static property or parameterless static method on the target type that returns the target type..
+        ///   Looks up a localized string similar to The AutoInitializeWith attribute must reference a static property or parameterless static method on the target type that returns the target type..
         /// </summary>
         internal static string InvalidTargetRuleDescription {
             get {
@@ -70,7 +70,7 @@ namespace Fluentify {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AutoInitiateWith target &apos;{0}&apos; must be a static property or parameterless static method that returns &apos;{1}&apos;..
+        ///   Looks up a localized string similar to AutoInitializeWith target &apos;{0}&apos; must be a static property or parameterless static method that returns &apos;{1}&apos;..
         /// </summary>
         internal static string InvalidTargetRuleMessageFormat {
             get {

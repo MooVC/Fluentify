@@ -14,13 +14,13 @@ public sealed class WhenTryGetMemberIsCalled
         {
             using System;
 
-            internal sealed class AutoInitiateWithAttribute : Attribute
+            internal sealed class AutoInitializeWithAttribute : Attribute
             {
-                public AutoInitiateWithAttribute()
+                public AutoInitializeWithAttribute()
                 {
                 }
 
-                public AutoInitiateWithAttribute(string factory)
+                public AutoInitializeWithAttribute(string factory)
                 {
                 }
             }
@@ -36,7 +36,7 @@ public sealed class WhenTryGetMemberIsCalled
 
             public sealed class Sample
             {
-                [AutoInitiateWith("Create")]
+                [AutoInitializeWith("Create")]
                 public int Value { get; }
             }
             """);
@@ -58,7 +58,7 @@ public sealed class WhenTryGetMemberIsCalled
 
             public sealed class Sample
             {
-                [AutoInitiateWith(nameof(Create))]
+                [AutoInitializeWith(nameof(Create))]
                 public int Value { get; }
 
                 public static void Create()
@@ -84,7 +84,7 @@ public sealed class WhenTryGetMemberIsCalled
 
             public sealed class Sample
             {
-                [AutoInitiateWith]
+                [AutoInitializeWith]
                 public int Value { get; }
             }
             """);
@@ -104,7 +104,7 @@ public sealed class WhenTryGetMemberIsCalled
         AttributeData attribute = GetAttributeFromMetadata("""
             public sealed class Sample
             {
-                [Fluentify.AutoInitiateWith("Build")]
+                [Fluentify.AutoInitializeWith("Build")]
                 public int Value { get; }
             }
             """);

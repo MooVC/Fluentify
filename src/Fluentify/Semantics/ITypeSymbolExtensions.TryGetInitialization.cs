@@ -23,7 +23,7 @@ internal static partial class ITypeSymbolExtensions
             return false;
         }
 
-        AttributeData? attribute = type.GetAttribute(AutoInitiateWithAttributeGenerator.Name);
+        AttributeData? attribute = type.GetAttribute(AutoInitializeWithAttributeGenerator.Name);
 
         if (attribute is null || !attribute.TryGetMember(out string member))
         {

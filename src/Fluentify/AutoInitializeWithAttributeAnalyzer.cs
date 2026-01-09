@@ -7,20 +7,20 @@ using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using static Fluentify.AutoInitiateWithAttributeAnalyzer_Resources;
-using static Fluentify.AutoInitiateWithAttributeGenerator;
+using static Fluentify.AutoInitializeWithAttributeAnalyzer_Resources;
+using static Fluentify.AutoInitializeWithAttributeGenerator;
 
 /// <summary>
-/// Analyzes usage of the AutoInitiateWith attribute to ensure the referenced member exists and is valid.
+/// Analyzes usage of the AutoInitializeWith attribute to ensure the referenced member exists and is valid.
 /// </summary>
 [DiagnosticAnalyzer(LanguageNames.CSharp)]
-public sealed class AutoInitiateWithAttributeAnalyzer
+public sealed class AutoInitializeWithAttributeAnalyzer
     : AttributeAnalyzer
 {
     /// <summary>
     /// Facilitates construction of the analyzer.
     /// </summary>
-    public AutoInitiateWithAttributeAnalyzer()
+    public AutoInitializeWithAttributeAnalyzer()
         : base(Name)
     {
     }
@@ -79,7 +79,7 @@ public sealed class AutoInitiateWithAttributeAnalyzer
 
     private static LocalizableResourceString GetResourceString(string name)
     {
-        return new(name, ResourceManager, typeof(AutoInitiateWithAttributeAnalyzer_Resources));
+        return new(name, ResourceManager, typeof(AutoInitializeWithAttributeAnalyzer_Resources));
     }
 
     private static bool TryGetTarget(SyntaxNodeAnalysisContext context, AttributeSyntax syntax, out AttributeData? attribute, out ITypeSymbol? type)

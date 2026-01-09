@@ -6,26 +6,26 @@ using Microsoft.CodeAnalysis.Testing;
 using Microsoft.CodeAnalysis.Text;
 
 public sealed class WhenExecuted
-    : AnalyzerTests<SkipAutoInitializationAttributeAnalyzer, AutoInitiateWithAttributeGenerator>
+    : AnalyzerTests<SkipAutoInitializationAttributeAnalyzer, AutoInitializeWithAttributeGenerator>
 {
     public WhenExecuted()
         : base(
             Classes.ReferenceAssemblies,
             Classes.LanguageVersion,
-            typeof(AutoInitiateWithAttributeGenerator),
+            typeof(AutoInitializeWithAttributeGenerator),
             typeof(FluentifyAttributeGenerator),
             typeof(SkipAutoInitializationAttributeGenerator))
     {
     }
 
     [Fact]
-    public async Task GivenAutoInitiateWithOnlyThenNoDiagnosticIsRaised()
+    public async Task GivenAutoInitializeWithOnlyThenNoDiagnosticIsRaised()
     {
         // Arrange
         TestCode = """
             using Fluentify;
 
-            [AutoInitiateWith(nameof(Default))]
+            [AutoInitializeWith(nameof(Default))]
             public sealed class Sample
             {
                 public static Sample Default => new Sample();
@@ -46,7 +46,7 @@ public sealed class WhenExecuted
             using Fluentify;
 
             [SkipAutoInitialization]
-            [AutoInitiateWith(nameof(Default))]
+            [AutoInitializeWith(nameof(Default))]
             public sealed class Sample
             {
                 public static Sample Default => new Sample();
@@ -66,7 +66,7 @@ public sealed class WhenExecuted
 
             public sealed class Sample
             {
-                [AutoInitiateWith(nameof(Create))]
+                [AutoInitializeWith(nameof(Create))]
                 public Sample Property { get; } = new Sample();
 
                 public static Sample Create() => new Sample();

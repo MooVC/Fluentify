@@ -1,10 +1,11 @@
 ﻿namespace Fluentify.Console.Record;
 
 [Fluentify]
-public sealed partial record SkipAutoInstantiationOnProperty(
+public sealed partial record SkipAutoInitializationOnType(
     int Age,
-    [SkipAutoInstantiation] SkipAutoInstantiationOnProperty.Dependent Dependency)
+    SkipAutoInitializationOnType.Dependent Dependency)
 {
+    [SkipAutoInitialization]
     public sealed class Dependent
     {
         public string Name { get; set; } = string.Empty;

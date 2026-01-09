@@ -2,17 +2,17 @@ namespace Fluentify.Snippets;
 
 public static partial class Classes
 {
-    public const string SkipAutoInstantiationOnTypeContent = """
+    public const string SkipAutoInitializationOnTypeContent = """
         namespace Fluentify.Classes.Testing
         {
             [Fluentify]
-            public sealed class SkipAutoInstantiationOnType
+            public sealed class SkipAutoInitializationOnType
             {
                 public int Age { get; set; }
 
                 public Dependent Dependency { get; set; }
 
-                [SkipAutoInstantiation]
+                [SkipAutoInitialization]
                 public sealed class Dependent
                 {
                     public string Name { get; set; }
@@ -21,19 +21,19 @@ public static partial class Classes
         }
         """;
 
-    public static readonly Declared SkipAutoInstantiationOnType;
+    public static readonly Declared SkipAutoInitializationOnType;
 
-    public static readonly Generated SkipAutoInstantiationOnTypeWithAgeExtensions = new(
-        SkipAutoInstantiationOnTypeWithAgeExtensionsContent,
+    public static readonly Generated SkipAutoInitializationOnTypeWithAgeExtensions = new(
+        SkipAutoInitializationOnTypeWithAgeExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.SkipAutoInstantiationOnTypeExtensions.WithAge");
+        "Fluentify.Classes.Testing.SkipAutoInitializationOnTypeExtensions.WithAge");
 
-    public static readonly Generated SkipAutoInstantiationOnTypeWithDependencyExtensions = new(
-        SkipAutoInstantiationOnTypeWithDependencyExtensionsContent,
+    public static readonly Generated SkipAutoInitializationOnTypeWithDependencyExtensions = new(
+        SkipAutoInitializationOnTypeWithDependencyExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.SkipAutoInstantiationOnTypeExtensions.WithDependency");
+        "Fluentify.Classes.Testing.SkipAutoInitializationOnTypeExtensions.WithDependency");
 
-    private const string SkipAutoInstantiationOnTypeWithAgeExtensionsContent = """
+    private const string SkipAutoInitializationOnTypeWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
         #endif
@@ -47,15 +47,15 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class SkipAutoInstantiationOnTypeExtensions
+            public static partial class SkipAutoInitializationOnTypeExtensions
             {
-                public static global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType WithAge(
-                    this global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType subject,
+                public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType WithAge(
+                    this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject,
                     int value)
                 {
                     subject.ThrowIfNull("subject");
 
-                    return new global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType
+                    return new global::Fluentify.Classes.Testing.SkipAutoInitializationOnType
                     {
                         Age = value,
                         Dependency = subject.Dependency,
@@ -71,7 +71,7 @@ public static partial class Classes
         #endif
         """;
 
-    private const string SkipAutoInstantiationOnTypeWithDependencyExtensionsContent = """
+    private const string SkipAutoInitializationOnTypeWithDependencyExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
         #endif
@@ -85,11 +85,11 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class SkipAutoInstantiationOnTypeExtensions
+            public static partial class SkipAutoInitializationOnTypeExtensions
             {
-                public static global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType WithDependency(
-                    this global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType subject,
-                    Func<global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType.Dependent, global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType.Dependent> builder)
+                public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType WithDependency(
+                    this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject,
+                    Func<global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent, global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent> builder)
                 {
                     subject.ThrowIfNull("subject");
 
@@ -107,13 +107,13 @@ public static partial class Classes
                     return subject.WithDependency(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType WithDependency(
-                    this global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType subject,
-                    global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType.Dependent value)
+                public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType WithDependency(
+                    this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject,
+                    global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent value)
                 {
                     subject.ThrowIfNull("subject");
 
-                    return new global::Fluentify.Classes.Testing.SkipAutoInstantiationOnType
+                    return new global::Fluentify.Classes.Testing.SkipAutoInitializationOnType
                     {
                         Age = subject.Age,
                         Dependency = value,

@@ -207,19 +207,19 @@ public static partial class Records
             SingleGenericWithAttributesExtensions,
             SingleGenericWithNameExtensions);
 
-        SkipAutoInstantiationOnProperty = new(
-            SkipAutoInstantiationOnPropertyContent,
-            nameof(SkipAutoInstantiationOnProperty),
-            SkipAutoInstantiationOnPropertyConstructor,
-            SkipAutoInstantiationOnPropertyWithAgeExtensions,
-            SkipAutoInstantiationOnPropertyWithDependencyExtensions);
+        SkipAutoInitializationOnProperty = new(
+            SkipAutoInitializationOnPropertyContent,
+            nameof(SkipAutoInitializationOnProperty),
+            SkipAutoInitializationOnPropertyConstructor,
+            SkipAutoInitializationOnPropertyWithAgeExtensions,
+            SkipAutoInitializationOnPropertyWithDependencyExtensions);
 
-        SkipAutoInstantiationOnType = new(
-            SkipAutoInstantiationOnTypeContent,
-            nameof(SkipAutoInstantiationOnType),
-            SkipAutoInstantiationOnTypeConstructor,
-            SkipAutoInstantiationOnTypeWithAgeExtensions,
-            SkipAutoInstantiationOnTypeWithDependencyExtensions);
+        SkipAutoInitializationOnType = new(
+            SkipAutoInitializationOnTypeContent,
+            nameof(SkipAutoInitializationOnType),
+            SkipAutoInitializationOnTypeConstructor,
+            SkipAutoInitializationOnTypeWithAgeExtensions,
+            SkipAutoInitializationOnTypeWithDependencyExtensions);
 
         TwoOfThreeIgnored = new(
             TwoOfThreeIgnoredContent,

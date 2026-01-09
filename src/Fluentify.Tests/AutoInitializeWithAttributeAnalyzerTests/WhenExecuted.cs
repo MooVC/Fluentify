@@ -1,4 +1,4 @@
-namespace Fluentify.AutoInitiateWithAttributeAnalyzerTests;
+namespace Fluentify.AutoInitializeWithAttributeAnalyzerTests;
 
 using System.Threading.Tasks;
 using Fluentify.Snippets;
@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Testing;
 using Microsoft.CodeAnalysis.Text;
 
 public sealed class WhenExecuted
-    : AnalyzerTests<AutoInitiateWithAttributeAnalyzer, AutoInitiateWithAttributeGenerator>
+    : AnalyzerTests<AutoInitializeWithAttributeAnalyzer, AutoInitializeWithAttributeGenerator>
 {
     public WhenExecuted()
         : base(Classes.ReferenceAssemblies, Classes.LanguageVersion)
@@ -20,7 +20,7 @@ public sealed class WhenExecuted
         TestCode = """
             using Fluentify;
 
-            [AutoInitiateWith(nameof(Default))]
+            [AutoInitializeWith(nameof(Default))]
             public sealed class Sample
             {
                 public static Sample Default => new Sample();
@@ -40,7 +40,7 @@ public sealed class WhenExecuted
         TestCode = """
             using Fluentify;
 
-            [AutoInitiateWith(nameof(Missing))]
+            [AutoInitializeWith(nameof(Missing))]
             public sealed class Sample
             {
             }
@@ -63,7 +63,7 @@ public sealed class WhenExecuted
         TestCode = """
             using Fluentify;
 
-            [AutoInitiateWith(nameof(Create))]
+            [AutoInitializeWith(nameof(Create))]
             public sealed class Sample
             {
                 public static Sample Create(int value) => new Sample();
@@ -85,7 +85,7 @@ public sealed class WhenExecuted
 
             public sealed class Sample
             {
-                [AutoInitiateWith("Missing")]
+                [AutoInitializeWith("Missing")]
                 public Sample Property { get; } = new Sample();
 
                 public static Sample Create() => new Sample();
@@ -105,7 +105,7 @@ public sealed class WhenExecuted
 
             public sealed class Sample
             {
-                public Sample([AutoInitiateWith(nameof(Create))] Sample dependency)
+                public Sample([AutoInitializeWith(nameof(Create))] Sample dependency)
                 {
                 }
 
@@ -119,7 +119,7 @@ public sealed class WhenExecuted
 
     private static DiagnosticResult GetExpectedInvalidTargetRule(string member, LinePosition position, string type)
     {
-        return new DiagnosticResult(AutoInitiateWithAttributeAnalyzer.InvalidTargetRule)
+        return new DiagnosticResult(AutoInitializeWithAttributeAnalyzer.InvalidTargetRule)
             .WithArguments(type, member)
             .WithLocation(position);
     }

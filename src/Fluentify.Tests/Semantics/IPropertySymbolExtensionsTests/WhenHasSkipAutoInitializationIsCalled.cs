@@ -2,12 +2,12 @@ namespace Fluentify.Semantics.IPropertySymbolExtensionsTests;
 
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
-using static Fluentify.SkipAutoInstantiationAttributeGenerator;
+using static Fluentify.SkipAutoInitializationAttributeGenerator;
 
-public sealed class WhenHasSkipAutoInstantiationIsCalled
+public sealed class WhenHasSkipAutoInitializationIsCalled
 {
     [Fact]
-    public void GivenPropertyWithSkipAutoInstantiationAttributeThenReturnsTrue()
+    public void GivenPropertyWithSkipAutoInitializationAttributeThenReturnsTrue()
     {
         // Arrange
         INamedTypeSymbol @class = Substitute.For<INamedTypeSymbol>();
@@ -24,14 +24,14 @@ public sealed class WhenHasSkipAutoInstantiationIsCalled
         _ = property.Type.Returns(type);
 
         // Act
-        bool result = property.HasSkipAutoInstantiation();
+        bool result = property.HasSkipAutoInitialization();
 
         // Assert
         result.ShouldBeTrue();
     }
 
     [Fact]
-    public void GivenTypeWithSkipAutoInstantiationAttributeThenReturnsTrue()
+    public void GivenTypeWithSkipAutoInitializationAttributeThenReturnsTrue()
     {
         // Arrange
         INamedTypeSymbol @class = Substitute.For<INamedTypeSymbol>();
@@ -48,14 +48,14 @@ public sealed class WhenHasSkipAutoInstantiationIsCalled
         _ = property.GetAttributes().Returns([]);
 
         // Act
-        bool result = property.HasSkipAutoInstantiation();
+        bool result = property.HasSkipAutoInitialization();
 
         // Assert
         result.ShouldBeTrue();
     }
 
     [Fact]
-    public void GivenTypeArgumentWithSkipAutoInstantiationAttributeThenReturnsTrue()
+    public void GivenTypeArgumentWithSkipAutoInitializationAttributeThenReturnsTrue()
     {
         // Arrange
         INamedTypeSymbol @class = Substitute.For<INamedTypeSymbol>();
@@ -69,21 +69,21 @@ public sealed class WhenHasSkipAutoInstantiationIsCalled
 
         INamedTypeSymbol collectionType = Substitute.For<INamedTypeSymbol>();
         _ = collectionType.GetAttributes().Returns([]);
-        _ = collectionType.TypeArguments.Returns(ImmutableArray.Create(elementType));
+        _ = collectionType.TypeArguments.Returns([elementType]);
 
         IPropertySymbol property = Substitute.For<IPropertySymbol>();
         _ = property.Type.Returns(collectionType);
         _ = property.GetAttributes().Returns([]);
 
         // Act
-        bool result = property.HasSkipAutoInstantiation();
+        bool result = property.HasSkipAutoInitialization();
 
         // Assert
         result.ShouldBeTrue();
     }
 
     [Fact]
-    public void GivenArrayElementWithSkipAutoInstantiationAttributeThenReturnsTrue()
+    public void GivenArrayElementWithSkipAutoInitializationAttributeThenReturnsTrue()
     {
         // Arrange
         INamedTypeSymbol @class = Substitute.For<INamedTypeSymbol>();
@@ -104,14 +104,14 @@ public sealed class WhenHasSkipAutoInstantiationIsCalled
         _ = property.GetAttributes().Returns([]);
 
         // Act
-        bool result = property.HasSkipAutoInstantiation();
+        bool result = property.HasSkipAutoInitialization();
 
         // Assert
         result.ShouldBeTrue();
     }
 
     [Fact]
-    public void GivenPropertyWithoutSkipAutoInstantiationAttributeThenReturnsFalse()
+    public void GivenPropertyWithoutSkipAutoInitializationAttributeThenReturnsFalse()
     {
         // Arrange
         INamedTypeSymbol @class = Substitute.For<INamedTypeSymbol>();
@@ -128,7 +128,7 @@ public sealed class WhenHasSkipAutoInstantiationIsCalled
         _ = property.Type.Returns(type);
 
         // Act
-        bool result = property.HasSkipAutoInstantiation();
+        bool result = property.HasSkipAutoInitialization();
 
         // Assert
         result.ShouldBeFalse();
@@ -146,7 +146,7 @@ public sealed class WhenHasSkipAutoInstantiationIsCalled
         _ = property.Type.Returns(type);
 
         // Act
-        bool result = property.HasSkipAutoInstantiation();
+        bool result = property.HasSkipAutoInitialization();
 
         // Assert
         result.ShouldBeFalse();

@@ -16,6 +16,31 @@ internal static partial class IPropertySymbolExtensions
     /// <returns>True if the SkipAutoInitialization attribute is present on the <paramref name="property"/>, otherwise False.</returns>
     public static bool HasSkipAutoInitialization(this IPropertySymbol property)
     {
-        return property.HasAttribute(Name) || (property.Type is not null && property.Type.HasAttribute(Name));
+        if (property.HasAttribute(Name))
+        {
+            return true;
+        }
+
+        if (property.Type is null)
+        {
+            return false;
+        }
+
+        if (property.Type.HasAttribute(Name))
+        {
+            return true;
+        }
+
+        if (property.Type is IArrayTypeSymbol arrayType)
+        {
+            return arrayType.ElementType.HasAttribute(Name);
+        }
+
+        if (property.Type is INamedTypeSymbol namedType)
+        {
+            return namedType.TypeArguments.Any(type => type.HasAttribute(Name));
+        }
+
+        return false;
     }
 }

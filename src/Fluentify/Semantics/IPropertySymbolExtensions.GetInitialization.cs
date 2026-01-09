@@ -2,7 +2,7 @@ namespace Fluentify.Semantics;
 
 using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
-using static Fluentify.AutoInitiateWithAttributeGenerator;
+using static Fluentify.AutoInitializeWithAttributeGenerator;
 
 /// <summary>
 /// Provides extensions relating to <see cref="IPropertySymbol"/>.
