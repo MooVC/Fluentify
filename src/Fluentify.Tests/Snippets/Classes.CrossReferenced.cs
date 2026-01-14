@@ -89,7 +89,12 @@ public static partial class Classes
 
                     builder.ThrowIfNull("builder");
 
-                    var instance = new global::Fluentify.Classes.Testing.Simple();
+                    var instance = subject.Simple;
+
+                    if (ReferenceEquals(instance, null))
+                    {
+                        instance = new global::Fluentify.Classes.Testing.Simple();
+                    }
 
                     instance = builder(instance);
 

@@ -80,6 +80,24 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> WithAge<T1, T2, T3>(
                     this global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> subject,
+                    Func<T1?, T1?> builder)
+                    where T1 : struct
+                    where T2 : class, new()
+                    where T3 : global::System.Collections.Generic.IEnumerable<string>
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = subject.Age;
+
+                    instance = builder(instance);
+
+                    return subject.WithAge(instance);
+                }
+
+                public static global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> WithAge<T1, T2, T3>(
+                    this global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> subject,
                     T1? value)
                     where T1 : struct
                     where T2 : class, new()
@@ -112,6 +130,29 @@ public static partial class Records
 
             public static partial class MultipleGenericsExtensions
             {
+                public static global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> WithAttributes<T1, T2, T3>(
+                    this global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> subject,
+                    Func<T3, T3> builder)
+                    where T1 : struct
+                    where T2 : class, new()
+                    where T3 : global::System.Collections.Generic.IEnumerable<string>
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = subject.Attributes;
+
+                    if (ReferenceEquals(instance, null))
+                    {
+                        throw new NotSupportedException();
+                    }
+
+                    instance = builder(instance);
+
+                    return subject.WithAttributes(instance);
+                }
+
                 public static global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> WithAttributes<T1, T2, T3>(
                     this global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> subject,
                     T3 value)
@@ -154,16 +195,21 @@ public static partial class Records
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-        
+
                     builder.ThrowIfNull("builder");
-        
-                    var instance = new T2();
-        
+
+                    var instance = subject.Name;
+
+                    if (ReferenceEquals(instance, null))
+                    {
+                        instance = new T2();
+                    }
+
                     instance = builder(instance);
-        
+
                     return subject.WithName(instance);
                 }
- 
+
                 public static global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> WithName<T1, T2, T3>(
                     this global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> subject,
                     T2? value)

@@ -4,17 +4,32 @@ All notable changes to Fluentify will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# [1.9.0] - TBC
+# [2.0.0] - TBC
+
+## Added
+
+- Introduced `SkipAutoInitialization` and `AutoInitializeWith` attributes with analyzers to validate initialization sources and highlight conflicting usage.
+
+## Changed
+
+- Builder extensions are now created for most reference types which will use the current instance assigned to the property as a starting point. When no instance is assigned, and the type adheres to the `new()` constraint, a new instance will be created, as was the case in the previous version. If, however, the type does not adhere to the `new()` constraint, a `NotSupportedException` will be thrown. **Breaking Change**
+
+# [1.9.0] - 2025-11-29
 
 ## Added
 
 - Introduced analyzer `FLTFY08` to suggest when records annotated with `Fluentify` are not partial and need a generated parameterless constructor.
 
+## Changed
+
+- Builder-based overloads for scalar properties now start from the existing property value, creating a new instance only when necessary and throwing a `NotSupportedException` when no value exists for non-buildable types (#103).
+- Collection builder overloads retain their original behaviour, and delegate overloads are no longer generated for value types or non-buildable framework types such as `string` (#103).
+
 # [1.8.2] - 2025-11-22
 
 ## Fixed
 
-- Types annotated with `SkipAutoInstantiation` no longer have auto instantiation overloads generated when the type serves as a argument to a collection property (#96).
+- Types annotated with `SkipAutoInitialization` no longer have auto instantiation overloads generated when the type serves as a argument to a collection property (#96).
 
 # [1.8.1] - 2025-11-21
 
@@ -27,7 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Added
 
-- Introduced the `SkipAutoInstantiation` attribute, allowing consumers to opt out of generating builder-based overloads when a type, or a specific property, should not be automatically instantiated.
+- Introduced the `SkipAutoInitialization` attribute, allowing consumers to opt out of generating builder-based overloads when a type, or a specific property, should not be automatically instantiated.
 
 # [1.7.0] - 2025-10-17
 

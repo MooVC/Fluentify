@@ -61,8 +61,8 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.Simple
                     {
                         Age = value,
-                        Name = subject.Name,
                         Attributes = subject.Attributes,
+                        Name = subject.Name,
                     };
                 }
             }
@@ -109,8 +109,8 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.Simple
                     {
                         Age = subject.Age,
-                        Name = subject.Name,
                         Attributes = value,
+                        Name = subject.Name,
                     };
                 }
 
@@ -163,8 +163,8 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.Simple
                     {
                         Age = subject.Age,
-                        Name = value,
                         Attributes = subject.Attributes,
+                        Name = value,
                     };
                 }
             }

@@ -41,7 +41,7 @@ public static partial class Classes
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
         #endif
-        
+
         #pragma warning disable CS8625
 
         namespace Fluentify.Classes.Testing
@@ -63,15 +63,15 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {
                         Age = value,
-                        Name = subject.Name,
                         Attributes = subject.Attributes,
+                        Name = subject.Name,
                     };
                 }
             }
         }
 
         #pragma warning restore CS8625
-        
+
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable restore
         #endif
@@ -81,7 +81,7 @@ public static partial class Classes
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
         #endif
-        
+
         #pragma warning disable CS8625
 
         namespace Fluentify.Classes.Testing
@@ -95,6 +95,27 @@ public static partial class Classes
             {
                 public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAttributes<T>(
                     this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
+                    Func<T, T> builder)
+                    where T : global::System.Collections.IEnumerable
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = subject.Attributes;
+
+                    if (ReferenceEquals(instance, null))
+                    {
+                        throw new NotSupportedException();
+                    }
+
+                    instance = builder(instance);
+
+                    return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAttributes<T>(
+                    this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
                     T value)
                     where T : global::System.Collections.IEnumerable
                 {
@@ -103,15 +124,15 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {
                         Age = subject.Age,
-                        Name = subject.Name,
                         Attributes = value,
+                        Name = subject.Name,
                     };
                 }
             }
         }
 
         #pragma warning restore CS8625
-        
+
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable restore
         #endif
@@ -121,7 +142,7 @@ public static partial class Classes
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
         #endif
-        
+
         #pragma warning disable CS8625
 
         namespace Fluentify.Classes.Testing
@@ -143,15 +164,15 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {
                         Age = subject.Age,
-                        Name = value,
                         Attributes = subject.Attributes,
+                        Name = value,
                     };
                 }
             }
         }
 
         #pragma warning restore CS8625
-        
+
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable restore
         #endif

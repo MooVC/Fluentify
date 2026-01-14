@@ -51,7 +51,7 @@ public sealed class WhenIsRetiredIsCalled
         };
 
         // Act
-        SimpleWithBoolean actual = original.IsRetired(default);
+        SimpleWithBoolean actual = original.IsRetired(default(bool?));
 
         // Assert
         actual.ShouldNotBeSameAs(original);
