@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.9.34728.123
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11408.102 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fluentify", "src\Fluentify\Fluentify.csproj", "{22EEE0C5-9F8D-4709-BA2C-8AF5925FB341}"
 EndProject
@@ -63,6 +63,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configurat
 		.filenesting.json = .filenesting.json
 		.gitignore = .gitignore
 		.runsettings = .runsettings
+		AGENTS.md = AGENTS.md
 		codecov.yml = codecov.yml
 		.github\CODEOWNERS = .github\CODEOWNERS
 		nuget.config = nuget.config
@@ -74,6 +75,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{
 		.github\ISSUE_TEMPLATE\feature_request.md = .github\ISSUE_TEMPLATE\feature_request.md
 		.github\pull_request_template.md = .github\pull_request_template.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code", "Code", "{00363A13-FF79-4417-8930-D63CE29EA911}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A3ED5053-9F3C-4B41-A760-5B8134222D19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +107,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{22EEE0C5-9F8D-4709-BA2C-8AF5925FB341} = {00363A13-FF79-4417-8930-D63CE29EA911}
+		{DB71C87A-00F7-4B8C-8D75-8EAAB4BD8E24} = {A3ED5053-9F3C-4B41-A760-5B8134222D19}
+		{25FAA0FE-0B5A-489F-8145-DF74C9BADD81} = {A3ED5053-9F3C-4B41-A760-5B8134222D19}
+		{4CAAA913-C6DD-4FD2-AF51-BCB89E6DD44F} = {A3ED5053-9F3C-4B41-A760-5B8134222D19}
 		{14CECDE5-92C5-4ADC-A1B7-8BC089588D0B} = {E9DE67A5-339C-4BA3-BD91-F9E0937B3BFF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

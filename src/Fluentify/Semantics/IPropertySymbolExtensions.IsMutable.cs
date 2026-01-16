@@ -34,8 +34,8 @@ internal static partial class IPropertySymbolExtensions
             return !property.IsIndexer;
         }
 
-        return IsExplicitlyDeclaredInstanceProperty(property)
-            && IsIndexless(property)
+        return IsIndexless(property)
+            && IsExplicitlyDeclaredInstanceProperty(property)
             && IsAccessible(property.DeclaredAccessibility)
             && IsInitializable(property);
     }
