@@ -306,13 +306,15 @@ Rule ID                          | Category | Severity | Notes
 :--------------------------------|:---------|:---------|:-------------------------------------------------------------------------
 [FLTFY01](docs/rules/FLTFY01.md) | Design   | Warning  | Class must have an accessible parameterless constructor to use Fluentify
 [FLTFY02](docs/rules/FLTFY02.md) | Usage    | Info     | Descriptor is disregarded from consideration by Fluentify
-[FLTFY03](docs/rules/FLTFY03.md) | Usage    | Info     | Type does not utilize Fluentify
+[FLTFY03](docs/rules/FLTFY03.md) | Usage    | Info     | Type does not utilize Fluentify (Descriptor)
 [FLTFY04](docs/rules/FLTFY04.md) | Naming   | Warning  | Descriptor must adhere to the naming conventions for Methods
-[FLTFY05](docs/rules/FLTFY05.md) | Usage    | Info     | Type does not utilize Fluentify
+[FLTFY05](docs/rules/FLTFY05.md) | Usage    | Info     | Type does not utilize Fluentify (Ignore)
 [FLTFY06](docs/rules/FLTFY06.md) | Usage    | Info     | Property is already disregarded from consideration by Fluentify
 [FLTFY07](docs/rules/FLTFY07.md) | Usage    | Info     | Specified descriptor is already the default used by Fluentify
 [FLTFY08](docs/rules/FLTFY08.md) | Design   | Info     | Record should be partial to allow Fluentify to generate a parameterless constructor
-[FLTFY11](docs/rules/FLTFY11.md) | Usage    | Info     | Type does not utilize Fluentify
+[FLTFY09](docs/rules/FLTFY09.md) | Usage    | Warning  | Auto initiate target is invalid
+[FLTFY10](docs/rules/FLTFY10.md) | Usage    | Info     | AutoInitializeWith ignored when SkipAutoInitialization is present
+[FLTFY11](docs/rules/FLTFY11.md) | Usage    | Info     | Type does not utilize Fluentify (Hide)
 [FLTFY12](docs/rules/FLTFY12.md) | Usage    | Info     | Hide is disregarded when Ignore is applied
 
 ## Building a Service
