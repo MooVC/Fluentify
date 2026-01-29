@@ -8,9 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Added
 
-- Introduced `SkipAutoInitialization` and `AutoInitializeWith` attributes with analyzers to validate initialization sources and highlight conflicting usage.
-- Added the `Hide` attribute to generate internal Fluentify extension methods, along with analyzers `FLTFY11` and `FLTFY12` to validate usage and conflicts with `Ignore`.
-- Added an internal `With` extension for classes so callers can construct copies using optional property factories.
+- `AutoInitializeWith` attribute to instruct `Fluentify` to initialize a type using a static property or method defined within a given type.
+  - `FLTFY09` to inform engineers when the target for initialization is not valid for use with the `AutoInitializeWith` attribute.
+- `Hide` attribute to instruct `Fluentify` to generate an extension methods with internal scope for the annotated property.
+  - `FLTFY11` to inform engineers when `Hide` has been placed on a property of a type that is not annotated with `Fluentify`.
+  - `FLTFY12` to inform engineers when `Hide` has been placed on a property that is `Ignored` by `Fluentify`.
+- `SkipAutoInitialization` attribute to instruct `Fluentify` that a builder extension method should not be generated for a specific type, or a property.
+  - `FLTFY10` to inform engineers when the target for initialization has been annotated with the `AutoInitializeWith` attribute, which will be ignored by `Fluentify` in the presence of the `SkipAutoInitialization`.
+- `With` extension for all classes, enabling engineers to construct copies using optional property factories.
+  - The `With` extension is intended to simplify the process of authoring manual extension methods.
 
 ## Changed
 
