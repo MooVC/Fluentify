@@ -35,6 +35,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>DescriptorAttributeAnalyzer.Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="HideAttributeAnalyzer.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HideAttributeAnalyzer.Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="RecordAnalyzer.Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -71,6 +76,10 @@
     <EmbeddedResource Update="DescriptorAttributeAnalyzer.Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DescriptorAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="HideAttributeAnalyzer.Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>HideAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="RecordAnalyzer.Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

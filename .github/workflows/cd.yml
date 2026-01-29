@@ -73,6 +73,12 @@ jobs:
     - name: Pack Solution
       run: dotnet pack ${{ env.solution }} --configuration ${{ env.configuration }} --no-build --output ./artifacts -p:Version=${{ env.semantic }}
 
+    - name: Upload Packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget-packages
+        path: ./artifacts/*.nupkg
+
     - name: Publish Packages to GitHub
       run: dotnet nuget push **/Fluentify*.nupkg --source "https://nuget.pkg.github.com/MooVC/index.json" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
       env:
@@ -80,3 +86,109 @@ jobs:
         
     - name: Publish Packages to NuGet
       run: dotnet nuget push **/Fluentify*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+  deprecate:
+    name: Deprecate Previous Package Versions
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+    - name: Use .NET SDKs
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: | 
+          10.0.x
+
+    - name: Extract and Format Version from Tag
+      run: |
+        $rawTag = '${{ github.ref_name }}'
+        $semantic = $rawTag -replace '^v', '' -replace '(alpha|beta|rc)0+', '$1.' 
+        $numeric = ($semantic -split "-")[0] + ".0"
+        
+        echo "version=$numeric" >> $env:GITHUB_ENV
+        echo "semantic=$semantic" >> $env:GITHUB_ENV
+        echo "informational=$rawTag" >> $env:GITHUB_ENV
+      shell: pwsh
+
+    - name: Download Packages
+      uses: actions/download-artifact@v4
+      with:
+        name: nuget-packages
+        path: ./artifacts
+
+    - name: Deprecate Previous Versions on NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: |
+        $ErrorActionPreference = 'Stop'
+        $currentVersion = '${{ env.semantic }}'
+        $packages = Get-ChildItem -Path ./artifacts -Filter *.nupkg
+        if (-not $packages) {
+          throw 'No NuGet packages found to determine package IDs.'
+        }
+
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+        $null = [System.Reflection.Assembly]::Load('NuGet.Versioning')
+
+        foreach ($package in $packages) {
+          $archive = [IO.Compression.ZipFile]::OpenRead($package.FullName)
+          try {
+            $nuspecEntry = $archive.Entries | Where-Object { $_.FullName -like '*.nuspec' } | Select-Object -First 1
+            if (-not $nuspecEntry) {
+              throw "Missing nuspec in package $($package.Name)."
+            }
+            $reader = New-Object IO.StreamReader($nuspecEntry.Open())
+            try {
+              [xml]$nuspec = $reader.ReadToEnd()
+            } finally {
+              $reader.Dispose()
+            }
+          } finally {
+            $archive.Dispose()
+          }
+
+          $packageId = $nuspec.package.metadata.id
+          if (-not $packageId) {
+            throw "Unable to determine package ID for $($package.Name)."
+          }
+
+          $packageIndexUrl = "https://api.nuget.org/v3-flatcontainer/$($packageId.ToLowerInvariant())/index.json"
+          $maxAttempts = 60
+          $delaySeconds = 360
+          $versions = $null
+
+          for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+            $response = Invoke-RestMethod -Uri $packageIndexUrl -Method Get
+            if ($response.versions -contains $currentVersion) {
+              $versions = $response.versions
+              break
+            }
+
+            Write-Host "Waiting for $packageId $currentVersion to appear on NuGet (attempt $attempt of $maxAttempts)."
+            Start-Sleep -Seconds $delaySeconds
+            $delaySeconds = 60
+          }
+
+          if (-not $versions) {
+            throw "Package $packageId $currentVersion did not appear on NuGet after $maxAttempts attempts."
+          }
+
+          $currentNugetVersion = [NuGet.Versioning.NuGetVersion]::Parse($currentVersion)
+          $parsedVersions = $versions | ForEach-Object { [NuGet.Versioning.NuGetVersion]::Parse($_) }
+          $sameTypeVersions = if ($currentNugetVersion.IsPrerelease) {
+            $parsedVersions | Where-Object { $_.IsPrerelease }
+          } else {
+            $parsedVersions | Where-Object { -not $_.IsPrerelease }
+          }
+
+          $previousVersion = $sameTypeVersions | Where-Object { $_ -ne $currentNugetVersion } | Sort-Object -Descending | Select-Object -First 1
+          if (-not $previousVersion) {
+            Write-Host "No previous $packageId version of the same type found. Skipping deprecation."
+            continue
+          }
+
+          $previousVersionText = $previousVersion.ToNormalizedString()
+          Write-Host "Deprecating $packageId $previousVersionText in favor of $currentVersion."
+          dotnet nuget deprecate $packageId $previousVersionText --source https://api.nuget.org/v3/index.json --api-key $env:NUGET_API_KEY --reason Other --message "Deprecated in favor of $currentVersion."
+        }
+      shell: pwsh

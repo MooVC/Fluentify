@@ -161,9 +161,9 @@ public sealed partial class WhenGetExtensionsIsCalled
             using System.Linq;
             using Fluentify.Internal;
 
-            internal static partial class TestSubjectExtensions
+            public static partial class TestSubjectExtensions
             {
-                public static global::TestSubject WithTestProperty(
+                internal static global::TestSubject WithTestProperty(
                     this global::TestSubject subject,
                     params int[] values)
                 {

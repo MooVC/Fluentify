@@ -43,6 +43,7 @@ internal static partial class INamedTypeSymbolExtensions
     {
         Kind kind = property.GetKind(compilation, cancellationToken);
         bool isIgnored = property.HasIgnore();
+        bool isHidden = !isIgnored && property.HasHide();
         string? descriptor = default;
 
         if (!isIgnored)
@@ -56,6 +57,7 @@ internal static partial class INamedTypeSymbolExtensions
         {
             Accessibility = property.DeclaredAccessibility,
             Descriptor = descriptor,
+            IsHidden = isHidden,
             IsIgnored = isIgnored,
             Kind = kind,
             Name = property.Name,
