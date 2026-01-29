@@ -10,6 +10,7 @@ public sealed class WhenExecuted
         typeof(ClassGenerator),
         typeof(DescriptorAttributeGenerator),
         typeof(FluentifyAttributeGenerator),
+        typeof(HideAttributeGenerator),
         typeof(IgnoreAttributeGenerator),
         typeof(InternalExtensionsGenerator),
         typeof(SkipAutoInitializationAttributeGenerator),
@@ -29,6 +30,7 @@ public sealed class WhenExecuted
 
         Attributes.Descriptor.IsExpectedIn(TestState);
         Attributes.Fluentify.IsExpectedIn(TestState);
+        Attributes.Hide.IsExpectedIn(TestState);
         Attributes.Ignore.IsExpectedIn(TestState);
         Extensions.Internal.IsExpectedIn(TestState);
         Attributes.SkipAutoInitialization.IsExpectedIn(TestState);

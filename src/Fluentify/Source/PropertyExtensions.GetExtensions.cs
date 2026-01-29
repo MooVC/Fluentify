@@ -20,11 +20,14 @@ internal static partial class PropertyExtensions
     /// </returns>
     public static string GetExtensions(this Property property, ref Metadata metadata, Func<Property, string?> scalar)
     {
-        string accessibility = metadata.Subject.Accessibility < Accessibility.Public || property.Accessibility < Accessibility.Public
+        bool isInternal = metadata.Subject.Accessibility < Accessibility.Public
+            || property.Accessibility < Accessibility.Public
+            || property.IsHidden;
+        string accessibility = isInternal
             ? "internal"
             : "public";
 
-        string methods = property.GetExtensionMethods(ref metadata, scalar);
+        string methods = property.GetExtensionMethods(ref metadata, scalar, accessibility);
 
         if (string.IsNullOrEmpty(methods))
         {
@@ -44,7 +47,7 @@ internal static partial class PropertyExtensions
             """;
     }
 
-    private static string GetExtensionMethods(this Property property, ref Metadata metadata, Func<Property, string?> scalar)
+    private static string GetExtensionMethods(this Property property, ref Metadata metadata, Func<Property, string?> scalar, string accessibility)
     {
         string parameter = property.Kind.ToString();
         string member = property.Kind.Member.ToString();
@@ -62,10 +65,14 @@ internal static partial class PropertyExtensions
             (property.GetScalarExtensionMethodBody(scalar), $"{parameter} value"),
         ];
 
-        return property.GetExtensionMethods(extensions, ref metadata);
+        return property.GetExtensionMethods(extensions, ref metadata, accessibility);
     }
 
-    private static string GetExtensionMethods(this Property property, (string? Body, string Parameter)[] extensions, ref Metadata metadata)
+    private static string GetExtensionMethods(
+        this Property property,
+        (string? Body, string Parameter)[] extensions,
+        ref Metadata metadata,
+        string accessibility)
     {
         string constraints = string.Join("\r\n", metadata.Constraints);
         string method = string.Concat(property.Descriptor, metadata.Parameters);
@@ -74,7 +81,7 @@ internal static partial class PropertyExtensions
         string GetMethod(string body, string parameter)
         {
             string signature = $"""
-                public static {type} {method}(
+                {accessibility} static {type} {method}(
                     this {type} subject,
                     {parameter})
                 """;

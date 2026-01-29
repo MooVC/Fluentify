@@ -272,6 +272,32 @@ _ = actor
     .WithSurname("Brooks");
 ```
 
+## Property Hiding
+
+Specific properties can have their Fluentify extension method(s) scoped to `internal` by applying the `Hide` attribute:
+
+### Record Type Usage
+
+```csharp
+[Fluentify]
+public record Actor([Hide] int Birthday, string FirstName, string Surname);
+```
+
+### Class Type Usage
+
+```csharp
+[Fluentify]
+public class Actor
+{
+    [Hide]
+    public int Birthday { get; init; }
+    public string FirstName { get; init; }
+    public string Surname { get; init; }
+}
+```
+
+When both `Hide` and `Ignore` are applied, `Ignore` takes precedence and no extension methods are generated for the property.
+
 ## Analyzers
 
 Fluentify includes several analyzers to assist engineers with its usage. These are:
@@ -286,6 +312,8 @@ Rule ID                          | Category | Severity | Notes
 [FLTFY06](docs/rules/FLTFY06.md) | Usage    | Info     | Property is already disregarded from consideration by Fluentify
 [FLTFY07](docs/rules/FLTFY07.md) | Usage    | Info     | Specified descriptor is already the default used by Fluentify
 [FLTFY08](docs/rules/FLTFY08.md) | Design   | Info     | Record should be partial to allow Fluentify to generate a parameterless constructor
+[FLTFY11](docs/rules/FLTFY11.md) | Usage    | Info     | Type does not utilize Fluentify
+[FLTFY12](docs/rules/FLTFY12.md) | Usage    | Info     | Hide is disregarded when Ignore is applied
 
 ## Building a Service
 

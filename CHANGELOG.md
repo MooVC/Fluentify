@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Added
 
 - Introduced `SkipAutoInitialization` and `AutoInitializeWith` attributes with analyzers to validate initialization sources and highlight conflicting usage.
+- Added the `Hide` attribute to generate internal Fluentify extension methods, along with analyzers `FLTFY11` and `FLTFY12` to validate usage and conflicts with `Ignore`.
 
 ## Changed
 

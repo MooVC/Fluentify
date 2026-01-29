@@ -23,6 +23,22 @@ public static class Attributes
         typeof(FluentifyAttributeGenerator),
         "FluentifyAttribute");
 
+    public static readonly Generated Hide = new(
+        $$"""
+            namespace Fluentify
+            {
+                using System;
+
+                [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
+                internal sealed class HideAttribute
+                    : Attribute
+                {
+                }
+            }
+            """,
+        typeof(HideAttributeGenerator),
+        "HideAttribute");
+
     public static readonly Generated Ignore = new(
         $$"""
             namespace Fluentify
