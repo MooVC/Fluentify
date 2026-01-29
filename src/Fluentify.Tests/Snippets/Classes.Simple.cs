@@ -36,6 +36,11 @@ public static partial class Classes
         typeof(ClassGenerator),
         "Fluentify.Classes.Testing.SimpleExtensions.WithName");
 
+    public static readonly Generated SimpleWithExtensions = new(
+        SimpleWithExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.SimpleExtensions.With");
+
     private const string SimpleWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
@@ -127,6 +132,49 @@ public static partial class Classes
                     instance = builder(instance);
 
                     return subject.WithAttributes(instance);
+                }
+            }
+        }
+
+        #pragma warning restore CS8625
+        
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable restore
+        #endif
+        """;
+
+    private const string SimpleWithExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable enable
+        #endif
+        
+        #pragma warning disable CS8625
+
+        namespace Fluentify.Classes.Testing
+        {
+            using System;
+            using Fluentify.Internal;
+
+            public static partial class SimpleExtensions
+            {
+                internal static global::Fluentify.Classes.Testing.Simple With(
+                    this global::Fluentify.Classes.Testing.Simple subject,
+                    Func<int> age = default,
+                    Func<global::System.Collections.Generic.IReadOnlyList<object>> attributes = default,
+                    Func<string> name = default)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
+                    var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
+                    var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+
+                    return new global::Fluentify.Classes.Testing.Simple
+                    {
+                        Age = ageValue,
+                        Attributes = attributesValue,
+                        Name = nameValue,
+                    };
                 }
             }
         }
