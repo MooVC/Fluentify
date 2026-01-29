@@ -20,14 +20,13 @@ internal static partial class PropertyExtensions
     /// </returns>
     public static string GetExtensions(this Property property, ref Metadata metadata, Func<Property, string?> scalar)
     {
-        bool isInternal = metadata.Subject.Accessibility < Accessibility.Public
-            || property.Accessibility < Accessibility.Public
-            || property.IsHidden;
+        bool isInternal = metadata.Subject.Accessibility < Accessibility.Public;
+
         string accessibility = isInternal
             ? "internal"
             : "public";
 
-        string methods = property.GetExtensionMethods(ref metadata, scalar, accessibility);
+        string methods = property.GetExtensionMethods(ref metadata, scalar, isInternal);
 
         if (string.IsNullOrEmpty(methods))
         {
@@ -47,7 +46,7 @@ internal static partial class PropertyExtensions
             """;
     }
 
-    private static string GetExtensionMethods(this Property property, ref Metadata metadata, Func<Property, string?> scalar, string accessibility)
+    private static string GetExtensionMethods(this Property property, ref Metadata metadata, Func<Property, string?> scalar, bool isInternal)
     {
         string parameter = property.Kind.ToString();
         string member = property.Kind.Member.ToString();
@@ -65,18 +64,22 @@ internal static partial class PropertyExtensions
             (property.GetScalarExtensionMethodBody(scalar), $"{parameter} value"),
         ];
 
-        return property.GetExtensionMethods(extensions, ref metadata, accessibility);
+        return property.GetExtensionMethods(extensions, ref metadata, isInternal);
     }
 
     private static string GetExtensionMethods(
         this Property property,
         (string? Body, string Parameter)[] extensions,
         ref Metadata metadata,
-        string accessibility)
+        bool isInternal)
     {
         string constraints = string.Join("\r\n", metadata.Constraints);
         string method = string.Concat(property.Descriptor, metadata.Parameters);
         string type = metadata.Subject.Type.ToString();
+
+        string accessibility = isInternal || property.Accessibility < Accessibility.Public || property.IsHidden
+            ? "internal"
+            : "public";
 
         string GetMethod(string body, string parameter)
         {
