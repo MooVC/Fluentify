@@ -50,8 +50,8 @@ jobs:
         } else {
           $rawTag = git describe --tags (git rev-list --tags --max-count=1)
         }
-
-        $semantic = $rawTag -replace '^v', '' -replace 'beta0+', 'beta.' 
+        
+        $semantic = $rawTag -replace '^v', '' -replace '(alpha|beta|rc)0+', '$1.' 
         $numeric = ($semantic -split "-")[0] + ".0"
         
         echo "version=$numeric" >> $env:GITHUB_ENV
@@ -128,7 +128,6 @@ jobs:
         }
 
         Add-Type -AssemblyName System.IO.Compression.FileSystem
-        $null = [System.Reflection.Assembly]::Load('NuGet.Versioning')
 
         foreach ($package in $packages) {
           $archive = [IO.Compression.ZipFile]::OpenRead($package.FullName)
@@ -173,21 +172,21 @@ jobs:
             throw "Package $packageId $currentVersion did not appear on NuGet after $maxAttempts attempts."
           }
 
-          $currentNugetVersion = [NuGet.Versioning.NuGetVersion]::Parse($currentVersion)
-          $parsedVersions = $versions | ForEach-Object { [NuGet.Versioning.NuGetVersion]::Parse($_) }
-          $sameTypeVersions = if ($currentNugetVersion.IsPrerelease) {
+          $currentSemanticVersion = [System.Management.Automation.SemanticVersion]::Parse($currentVersion)
+          $parsedVersions = $versions | ForEach-Object { [System.Management.Automation.SemanticVersion]::Parse($_) }
+          $sameTypeVersions = if ($currentSemanticVersion.IsPrerelease) {
             $parsedVersions | Where-Object { $_.IsPrerelease }
           } else {
             $parsedVersions | Where-Object { -not $_.IsPrerelease }
           }
 
-          $previousVersion = $sameTypeVersions | Where-Object { $_ -ne $currentNugetVersion } | Sort-Object -Descending | Select-Object -First 1
+          $previousVersion = $sameTypeVersions | Where-Object { $_ -ne $currentSemanticVersion } | Sort-Object -Descending | Select-Object -First 1
           if (-not $previousVersion) {
             Write-Host "No previous $packageId version of the same type found. Skipping deprecation."
             continue
           }
 
-          $previousVersionText = $previousVersion.ToNormalizedString()
+          $previousVersionText = $previousVersion.ToString()
           Write-Host "Deprecating $packageId $previousVersionText in favor of $currentVersion."
           dotnet nuget deprecate $packageId $previousVersionText --source https://api.nuget.org/v3/index.json --api-key $env:NUGET_API_KEY --reason Other --message "Deprecated in favor of $currentVersion."
         }
