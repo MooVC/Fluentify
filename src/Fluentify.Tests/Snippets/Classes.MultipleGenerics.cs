@@ -39,6 +39,11 @@ public static partial class Classes
         typeof(ClassGenerator),
         "Fluentify.Classes.Testing.MultipleGenericsExtensions.WithName");
 
+    public static readonly Generated MultipleGenericsWithExtensions = new(
+        MultipleGenericsWithExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.MultipleGenericsExtensions.With");
+
     private const string MultipleGenericsWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
@@ -217,6 +222,52 @@ public static partial class Classes
                         Age = subject.Age,
                         Attributes = subject.Attributes,
                         Name = value,
+                    };
+                }
+            }
+        }
+
+        #pragma warning restore CS8625
+
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable restore
+        #endif
+        """;
+
+    private const string MultipleGenericsWithExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable enable
+        #endif
+
+        #pragma warning disable CS8625
+
+        namespace Fluentify.Classes.Testing
+        {
+            using System;
+            using Fluentify.Internal;
+
+            public static partial class MultipleGenericsExtensions
+            {
+                internal static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> With<T1, T2, T3>(
+                    this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject,
+                    Func<T1> age = default,
+                    Func<T3> attributes = default,
+                    Func<T2> name = default)
+                    where T1 : struct
+                    where T2 : class, new()
+                    where T3 : global::System.Collections.Generic.IEnumerable<string>
+                {
+                    subject.ThrowIfNull("subject");
+
+                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
+                    var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
+                    var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+
+                    return new global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3>
+                    {
+                        Age = ageValue,
+                        Attributes = attributesValue,
+                        Name = nameValue,
                     };
                 }
             }

@@ -33,6 +33,11 @@ public static partial class Classes
         typeof(ClassGenerator),
         "Fluentify.Classes.Testing.SkipAutoInitializationOnTypeExtensions.WithDependency");
 
+    public static readonly Generated SkipAutoInitializationOnTypeWithExtensions = new(
+        SkipAutoInitializationOnTypeWithExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.SkipAutoInitializationOnTypeExtensions.With");
+
     private const string SkipAutoInitializationOnTypeWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
@@ -117,6 +122,46 @@ public static partial class Classes
                     {
                         Age = subject.Age,
                         Dependency = value,
+                    };
+                }
+            }
+        }
+
+        #pragma warning restore CS8625
+
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable restore
+        #endif
+        """;
+
+    private const string SkipAutoInitializationOnTypeWithExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable enable
+        #endif
+
+        #pragma warning disable CS8625
+
+        namespace Fluentify.Classes.Testing
+        {
+            using System;
+            using Fluentify.Internal;
+
+            public static partial class SkipAutoInitializationOnTypeExtensions
+            {
+                internal static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType With(
+                    this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject,
+                    Func<int> age = default,
+                    Func<global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent> dependency = default)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
+                    var dependencyValue = ReferenceEquals(dependency, null) ? subject.Dependency : dependency();
+
+                    return new global::Fluentify.Classes.Testing.SkipAutoInitializationOnType
+                    {
+                        Age = ageValue,
+                        Dependency = dependencyValue,
                     };
                 }
             }

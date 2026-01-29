@@ -13,151 +13,180 @@ public static partial class Classes
     [SuppressMessage("Minor Code Smell", "S3963:\"static\" fields should be initialized inline", Justification = "Needed due to order constraint.")]
     static Classes()
     {
-        AllThreeIgnored = new(AllThreeIgnoredContent, nameof(AllThreeIgnored));
+        AllThreeIgnored = new(
+            AllThreeIgnoredContent,
+            nameof(AllThreeIgnored),
+            AllThreeIgnoredWithExtensions);
 
         Boolean = new(
             BooleanContent,
             nameof(Boolean),
             BooleanWithAgeExtensions,
             BooleanWithNameExtensions,
-            BooleanIsRetiredExtensions);
+            BooleanIsRetiredExtensions,
+            BooleanWithExtensions);
 
         CrossReferenced = new(
             [CrossReferencedContent, SimpleContent],
             nameof(CrossReferenced),
             CrossReferencedWithDescriptionExtensions,
             CrossReferencedWithSimpleExtensions,
+            CrossReferencedWithExtensions,
             SimpleWithAgeExtensions,
             SimpleWithAttributesExtensions,
-            SimpleWithNameExtensions);
+            SimpleWithNameExtensions,
+            SimpleWithExtensions);
 
         DescriptorOnIgnored = new(
             DescriptorOnIgnoredContent,
             nameof(DescriptorOnIgnored),
             DescriptorOnIgnoredWithAgeExtensions,
-            DescriptorOnIgnoredWithAttributesExtensions);
+            DescriptorOnIgnoredWithAttributesExtensions,
+            DescriptorOnIgnoredWithExtensions);
 
         DescriptorOnOptional = new(
             DescriptorOnOptionalContent,
             nameof(DescriptorOnOptional),
             DescriptorOnOptionalWithAgeExtensions,
             DescriptorOnOptionalAttributedWithExtensions,
-            DescriptorOnOptionalWithNameExtensions);
+            DescriptorOnOptionalWithNameExtensions,
+            DescriptorOnOptionalWithExtensions);
 
         DescriptorOnRequired = new(
             DescriptorOnRequiredContent,
             nameof(DescriptorOnRequired),
             DescriptorOnRequiredAgedExtensions,
             DescriptorOnRequiredWithAttributesExtensions,
-            DescriptorOnRequiredWithNameExtensions);
+            DescriptorOnRequiredWithNameExtensions,
+            DescriptorOnRequiredWithExtensions);
 
         Global = new(
             GlobalContent,
             nameof(Global),
             GlobalWithAgeExtensions,
             GlobalWithAttributesExtensions,
-            GlobalWithNameExtensions);
+            GlobalWithNameExtensions,
+            GlobalWithExtensions);
 
         InvalidDescriptor = new(
             InvalidDescriptorContent,
             nameof(InvalidDescriptor),
             InvalidDescriptorWithAgeExtensions,
             InvalidDescriptorWithAttributesExtensions,
-            InvalidDescriptorWithNameExtensions);
+            InvalidDescriptorWithNameExtensions,
+            InvalidDescriptorWithExtensions);
 
         MultipleGenerics = new(
             MultipleGenericsContent,
             nameof(MultipleGenerics),
             MultipleGenericsWithAgeExtensions,
             MultipleGenericsWithAttributesExtensions,
-            MultipleGenericsWithNameExtensions);
+            MultipleGenericsWithNameExtensions,
+            MultipleGenericsWithExtensions);
 
         NestedInClass = new(
             NestedInClassContent,
             nameof(NestedInClass),
             NestedInClassWithAgeExtensions,
             NestedInClassWithAttributesExtensions,
-            NestedInClassWithNameExtensions);
+            NestedInClassWithNameExtensions,
+            NestedInClassWithExtensions);
 
         NestedInClassWithGenerics = new(
             NestedInClassWithGenericsContent,
             nameof(NestedInClassWithGenerics),
             NestedInClassWithGenericsWithAgeExtensions,
             NestedInClassWithGenericsWithAttributesExtensions,
-            NestedInClassWithGenericsWithNameExtensions);
+            NestedInClassWithGenericsWithNameExtensions,
+            NestedInClassWithGenericsWithExtensions);
 
         NestedInStruct = new(
             NestedInStructContent,
             nameof(NestedInStruct),
             NestedInStructWithAgeExtensions,
             NestedInStructWithAttributesExtensions,
-            NestedInStructWithNameExtensions);
+            NestedInStructWithNameExtensions,
+            NestedInStructWithExtensions);
 
         NestedInStructWithGenerics = new(
             NestedInStructWithGenericsContent,
             nameof(NestedInStructWithGenerics),
             NestedInStructWithGenericsWithAgeExtensions,
             NestedInStructWithGenericsWithAttributesExtensions,
-            NestedInStructWithGenericsWithNameExtensions);
+            NestedInStructWithGenericsWithNameExtensions,
+            NestedInStructWithGenericsWithExtensions);
 
         OneOfThreeIgnored = new(
             OneOfThreeIgnoredContent,
             nameof(OneOfThreeIgnored),
             OneOfThreeIgnoredWithAgeExtensions,
-            OneOfThreeIgnoredWithAttributesExtensions);
+            OneOfThreeIgnoredWithAttributesExtensions,
+            OneOfThreeIgnoredWithExtensions);
 
         SelfDescriptorOnIgnored = new(
             SelfDescriptorOnIgnoredContent,
             nameof(SelfDescriptorOnIgnored),
             SelfDescriptorOnIgnoredWithAgeExtensions,
-            SelfDescriptorOnIgnoredWithAttributesExtensions);
+            SelfDescriptorOnIgnoredWithAttributesExtensions,
+            SelfDescriptorOnIgnoredWithExtensions);
 
         SelfDescriptorOnOptional = new(
             SelfDescriptorOnOptionalContent,
             nameof(SelfDescriptorOnOptional),
             SelfDescriptorOnOptionalAttributesExtensions,
             SelfDescriptorOnOptionalWithAgeExtensions,
-            SelfDescriptorOnOptionalWithNameExtensions);
+            SelfDescriptorOnOptionalWithNameExtensions,
+            SelfDescriptorOnOptionalWithExtensions);
 
         SelfDescriptorOnRequired = new(
             SelfDescriptorOnRequiredContent,
             nameof(SelfDescriptorOnRequired),
             SelfDescriptorOnRequiredAgeExtensions,
             SelfDescriptorOnRequiredNameExtensions,
-            SelfDescriptorOnRequiredWithAttributesExtensions);
+            SelfDescriptorOnRequiredWithAttributesExtensions,
+            SelfDescriptorOnRequiredWithExtensions);
 
         Simple = new(
             SimpleContent,
             nameof(Simple),
             SimpleWithAgeExtensions,
             SimpleWithAttributesExtensions,
-            SimpleWithNameExtensions);
+            SimpleWithNameExtensions,
+            SimpleWithExtensions);
 
-        Single = new(SingleContent, nameof(Single), SingleWithAgeExtensions);
+        Single = new(
+            SingleContent,
+            nameof(Single),
+            SingleWithAgeExtensions,
+            SingleWithExtensions);
 
         SingleGeneric = new(
             SingleGenericContent,
             nameof(SingleGeneric),
             SingleGenericWithAgeExtensions,
             SingleGenericWithAttributesExtensions,
-            SingleGenericWithNameExtensions);
+            SingleGenericWithNameExtensions,
+            SingleGenericWithExtensions);
 
         SkipAutoInitializationOnProperty = new(
             SkipAutoInitializationOnPropertyContent,
             nameof(SkipAutoInitializationOnProperty),
             SkipAutoInitializationOnPropertyWithAgeExtensions,
-            SkipAutoInitializationOnPropertyWithDependencyExtensions);
+            SkipAutoInitializationOnPropertyWithDependencyExtensions,
+            SkipAutoInitializationOnPropertyWithExtensions);
 
         SkipAutoInitializationOnType = new(
             SkipAutoInitializationOnTypeContent,
             nameof(SkipAutoInitializationOnType),
             SkipAutoInitializationOnTypeWithAgeExtensions,
-            SkipAutoInitializationOnTypeWithDependencyExtensions);
+            SkipAutoInitializationOnTypeWithDependencyExtensions,
+            SkipAutoInitializationOnTypeWithExtensions);
 
         TwoOfThreeIgnored = new(
             TwoOfThreeIgnoredContent,
             nameof(TwoOfThreeIgnored),
-            TwoOfThreeIgnoredWithAttributesExtensions);
+            TwoOfThreeIgnoredWithAttributesExtensions,
+            TwoOfThreeIgnoredWithExtensions);
 
         Unannotated = new(UnannotatedContent, nameof(Unannotated));
         Unsupported = new(UnsupportedContent, nameof(Unsupported));

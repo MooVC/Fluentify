@@ -34,6 +34,11 @@ public static partial class Classes
         typeof(ClassGenerator),
         "GlobalExtensions.WithName");
 
+    public static readonly Generated GlobalWithExtensions = new(
+        GlobalWithExtensionsContent,
+        typeof(ClassGenerator),
+        "GlobalExtensions.With");
+
     private const string GlobalWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
@@ -155,6 +160,46 @@ public static partial class Classes
                     Age = subject.Age,
                     Attributes = subject.Attributes,
                     Name = value,
+                };
+            }
+        }
+
+        #pragma warning restore CS8625
+        
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable restore
+        #endif
+        """;
+
+    private const string GlobalWithExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable enable
+        #endif
+        
+        #pragma warning disable CS8625
+
+        using System;
+        using Fluentify.Internal;
+
+        public static partial class GlobalExtensions
+        {
+            internal static global::Global With(
+                this global::Global subject,
+                Func<int> age = default,
+                Func<global::System.Collections.Generic.IReadOnlyList<object>> attributes = default,
+                Func<string> name = default)
+            {
+                subject.ThrowIfNull("subject");
+
+                var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
+                var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
+                var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+
+                return new global::Global
+                {
+                    Age = ageValue,
+                    Attributes = attributesValue,
+                    Name = nameValue,
                 };
             }
         }

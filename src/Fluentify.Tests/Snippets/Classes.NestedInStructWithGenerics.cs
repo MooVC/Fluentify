@@ -41,6 +41,11 @@ public static partial class Classes
         typeof(ClassGenerator),
         "Fluentify.Classes.Testing.Outter.NestedInStructWithGenericsExtensions.WithName");
 
+    public static readonly Generated NestedInStructWithGenericsWithExtensions = new(
+        NestedInStructWithGenericsWithExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.Outter.NestedInStructWithGenericsExtensions.With");
+
     private const string NestedInStructWithGenericsWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
@@ -185,6 +190,51 @@ public static partial class Classes
 
         #pragma warning restore CS8625
         
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable restore
+        #endif
+        """;
+
+    private const string NestedInStructWithGenericsWithExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable enable
+        #endif
+
+        #pragma warning disable CS8625
+
+        namespace Fluentify.Classes.Testing
+        {
+            using System;
+            using Fluentify.Internal;
+
+            public static partial class NestedInStructWithGenericsExtensions
+            {
+                internal static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> With<TOutter, TInner>(
+                    this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> subject,
+                    Func<int> age = default,
+                    Func<global::System.Collections.Generic.IReadOnlyList<object>> attributes = default,
+                    Func<string> name = default)
+                    where TOutter : class
+                    where TInner : struct
+                {
+                    subject.ThrowIfNull("subject");
+
+                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
+                    var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
+                    var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+
+                    return new global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner>
+                    {
+                        Age = ageValue,
+                        Attributes = attributesValue,
+                        Name = nameValue,
+                    };
+                }
+            }
+        }
+
+        #pragma warning restore CS8625
+
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable restore
         #endif

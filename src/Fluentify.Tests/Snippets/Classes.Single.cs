@@ -25,6 +25,11 @@ public static partial class Classes
         typeof(ClassGenerator),
         "Fluentify.Classes.Testing.SingleExtensions.WithAge");
 
+    public static readonly Generated SingleWithExtensions = new(
+        SingleWithExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.SingleExtensions.With");
+
     private const string SingleWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
@@ -50,6 +55,43 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.Single
                     {
                         Age = value,
+                    };
+                }
+            }
+        }
+
+        #pragma warning restore CS8625
+        
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable restore
+        #endif
+        """;
+
+    private const string SingleWithExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable enable
+        #endif
+        
+        #pragma warning disable CS8625
+
+        namespace Fluentify.Classes.Testing
+        {
+            using System;
+            using Fluentify.Internal;
+
+            public static partial class SingleExtensions
+            {
+                internal static global::Fluentify.Classes.Testing.Single With(
+                    this global::Fluentify.Classes.Testing.Single subject,
+                    Func<int> age = default)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
+
+                    return new global::Fluentify.Classes.Testing.Single
+                    {
+                        Age = ageValue,
                     };
                 }
             }

@@ -39,6 +39,11 @@ public static partial class Classes
         typeof(ClassGenerator),
         "Fluentify.Classes.Testing.Outter.NestedInClassExtensions.WithName");
 
+    public static readonly Generated NestedInClassWithExtensions = new(
+        NestedInClassWithExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.Outter.NestedInClassExtensions.With");
+
     private const string NestedInClassWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
@@ -168,6 +173,49 @@ public static partial class Classes
                         Age = subject.Age,
                         Attributes = subject.Attributes,
                         Name = value,
+                    };
+                }
+            }
+        }
+
+        #pragma warning restore CS8625
+        
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable restore
+        #endif
+        """;
+
+    private const string NestedInClassWithExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable enable
+        #endif
+        
+        #pragma warning disable CS8625
+
+        namespace Fluentify.Classes.Testing
+        {
+            using System;
+            using Fluentify.Internal;
+
+            public static partial class NestedInClassExtensions
+            {
+                internal static global::Fluentify.Classes.Testing.Outter.NestedInClass With(
+                    this global::Fluentify.Classes.Testing.Outter.NestedInClass subject,
+                    Func<int> age = default,
+                    Func<global::System.Collections.Generic.IReadOnlyList<object>> attributes = default,
+                    Func<string> name = default)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
+                    var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
+                    var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+
+                    return new global::Fluentify.Classes.Testing.Outter.NestedInClass
+                    {
+                        Age = ageValue,
+                        Attributes = attributesValue,
+                        Name = nameValue,
                     };
                 }
             }
