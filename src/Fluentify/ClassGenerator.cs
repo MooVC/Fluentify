@@ -31,7 +31,7 @@ public sealed class ClassGenerator
         yield return new Source
         {
             Content = subject.GetWithExtensions(),
-            Hint = GetWithHint(subject),
+            Hint = GetHint(subject, name: $"{subject.Name}Extensions.With"),
         };
     }
 
@@ -78,24 +78,5 @@ public sealed class ClassGenerator
         }
 
         return initializers.ToString();
-    }
-
-    private static string GetWithHint(Subject subject)
-    {
-        string name = subject.Name;
-
-        if (subject.Nesting.Count > 0)
-        {
-            IEnumerable<string> names = subject.Nesting
-                .Reverse()
-                .Select(parent => parent.Name)
-                .Union([name]);
-
-            name = string.Join(".", names);
-        }
-
-        name = $"{name}Extensions.With";
-
-        return $"{name}.g.cs";
     }
 }

@@ -2,6 +2,7 @@ namespace Fluentify.Source;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using Fluentify.Model;
@@ -21,14 +22,13 @@ internal static partial class SubjectExtensions
     /// </returns>
     public static string GetWithExtensions(this Subject subject)
     {
-        Metadata metadata = subject.ToMetadata();
-        IReadOnlyList<Property> properties = subject.Properties
-            .OrderBy(property => property.Name)
-            .ToArray();
+        var metadata = subject.ToMetadata();
 
+        IReadOnlyList<Property> properties = [.. subject.Properties.OrderBy(property => property.Name)];
         string type = subject.Type.ToString();
         string constraints = string.Join("\r\n", metadata.Constraints);
         string methodName = string.Concat("With", metadata.Parameters);
+
         string accessibility = subject.Accessibility < Accessibility.Public
             ? "internal"
             : "public";
@@ -60,7 +60,7 @@ internal static partial class SubjectExtensions
 
                 return new {{type}}
                 {
-                    {{initializers.Indent()}}
+                    {{initializers.Indent(times: 2)}}
                 };
             }
             """;
@@ -76,6 +76,7 @@ internal static partial class SubjectExtensions
             """;
     }
 
+    [SuppressMessage("Minor Code Smell", "S3267:Loops should be simplified with \"LINQ\" expressions", Justification = "False positive.")]
     private static string BuildInitializers(IReadOnlyList<Property> properties)
     {
         var initializers = new StringBuilder();
@@ -83,6 +84,7 @@ internal static partial class SubjectExtensions
         foreach (Property property in properties)
         {
             string name = ToParameterName(property.Name);
+
             initializers = initializers.AppendLine($"{property.Name} = {name}Value,");
         }
 
@@ -93,7 +95,7 @@ internal static partial class SubjectExtensions
     {
         var parameters = new StringBuilder();
 
-        for (var index = 0; index < properties.Count; index++)
+        for (int index = 0; index < properties.Count; index++)
         {
             Property property = properties[index];
             string name = ToParameterName(property.Name);
@@ -110,6 +112,7 @@ internal static partial class SubjectExtensions
         return parameters.ToString();
     }
 
+    [SuppressMessage("Minor Code Smell", "S3267:Loops should be simplified with \"LINQ\" expressions", Justification = "False positive.")]
     private static string BuildValues(IReadOnlyList<Property> properties)
     {
         var values = new StringBuilder();
@@ -131,6 +134,6 @@ internal static partial class SubjectExtensions
             return name;
         }
 
-        return string.Concat(char.ToLowerInvariant(name[0]), name.AsSpan(1));
+        return string.Concat(char.ToLowerInvariant(name[0]), name.Substring(1));
     }
 }
