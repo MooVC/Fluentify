@@ -182,6 +182,12 @@ public static partial class Classes
             SkipAutoInitializationOnTypeWithDependencyExtensions,
             SkipAutoInitializationOnTypeWithExtensions);
 
+        SubjectProperty = new(
+            SubjectPropertyContent,
+            nameof(SubjectProperty),
+            SubjectPropertyWithSubjectExtensions,
+            SubjectPropertyWithExtensions);
+
         TwoOfThreeIgnored = new(
             TwoOfThreeIgnoredContent,
             nameof(TwoOfThreeIgnored),
