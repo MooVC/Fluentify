@@ -188,6 +188,11 @@ jobs:
 
           $previousVersionText = $previousVersion.ToString()
           Write-Host "Deprecating $packageId $previousVersionText in favor of $currentVersion."
-          dotnet nuget deprecate $packageId $previousVersionText --source https://api.nuget.org/v3/index.json --api-key $env:NUGET_API_KEY --reason Other --message "Deprecated in favor of $currentVersion."
+          $deprecateBody = @{
+            versions = $previousVersionText
+            isOther = $true
+            message = "Deprecated in favor of $currentVersion."
+          }
+          Invoke-RestMethod -Uri "https://www.nuget.org/api/v2/package/$packageId/deprecations" -Method Put -Headers @{ 'X-NuGet-ApiKey' = $env:NUGET_API_KEY } -ContentType 'application/x-www-form-urlencoded' -Body $deprecateBody
         }
       shell: pwsh
