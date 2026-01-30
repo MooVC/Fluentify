@@ -134,6 +134,13 @@ internal static partial class SubjectExtensions
             return name;
         }
 
-        return string.Concat(char.ToLowerInvariant(name[0]), name.Substring(1));
+        name = string.Concat(char.ToLowerInvariant(name[0]), name.Substring(1));
+
+        if (Keywords.IsReserved(name))
+        {
+            return string.Concat("@", name);
+        }
+
+        return name;
     }
 }
