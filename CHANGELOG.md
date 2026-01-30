@@ -22,6 +22,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Builder extensions are now created for most reference types which will use the current instance assigned to the property as a starting point. When no instance is assigned, and the type adheres to the `new()` constraint, a new instance will be created, as was the case in the previous version. If, however, the type does not adhere to the `new()` constraint, a `NotSupportedException` will be thrown. **Breaking Change**
 
+## Fixed
+
+- Resolved a naming conflict in `With` extension parameters when a type includes a `Subject` property.
+
 # [1.9.0] - 2025-11-29
 
 ## Added
