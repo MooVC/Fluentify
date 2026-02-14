@@ -5,11 +5,16 @@ on:
     tags:
       - '*'
   workflow_dispatch:
+    inputs:
+      unlist_only:
+        default: false
+        description: 'Run the build without publishing and then run the unlist job.'
+        type: boolean
 
 env:
   configuration: 'Release'
   NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
-  solution: 'Fluentify.sln'
+  solution: 'Fluentify.slnx'
 
 permissions:
   packages: write
@@ -25,7 +30,7 @@ jobs:
       uses: actions/checkout@v6.0.2
       with:
         fetch-depth: 0
-        
+
     - name: Use .NET SDKs
       uses: actions/setup-dotnet@v5
       with:
@@ -50,8 +55,8 @@ jobs:
         } else {
           $rawTag = git describe --tags (git rev-list --tags --max-count=1)
         }
-
-        $semantic = $rawTag -replace '^v', '' -replace 'beta0+', 'beta.' 
+        
+        $semantic = $rawTag -replace '^v', '' -replace '(alpha|beta|rc)0+', '$1.' 
         $numeric = ($semantic -split "-")[0] + ".0"
         
         echo "version=$numeric" >> $env:GITHUB_ENV
@@ -73,10 +78,153 @@ jobs:
     - name: Pack Solution
       run: dotnet pack ${{ env.solution }} --configuration ${{ env.configuration }} --no-build --output ./artifacts -p:Version=${{ env.semantic }}
 
+    - name: Upload Packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget-packages
+        path: ./artifacts/*.nupkg
+
     - name: Publish Packages to GitHub
+      if: ${{ github.event_name != 'workflow_dispatch' || inputs.unlist_only != 'true' }}
       run: dotnet nuget push **/Fluentify*.nupkg --source "https://nuget.pkg.github.com/MooVC/index.json" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Publish Packages to NuGet
+      if: ${{ github.event_name != 'workflow_dispatch' || inputs.unlist_only != 'true' }}
       run: dotnet nuget push **/Fluentify*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+  unlist:
+    name: Unlist Previous Pre-release Package Versions
+    runs-on: windows-latest
+    needs: build
+    if: ${{ needs.build.result == 'success' }}
+
+    steps:
+    - name: Use .NET SDKs
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: | 
+          10.0.x
+
+    - name: Extract and Format Version from Tag
+      run: |
+        $rawTag = '${{ github.ref_name }}'
+        $semantic = $rawTag -replace '^v', '' -replace '(alpha|beta|rc)0+', '$1.' 
+        $numeric = ($semantic -split "-")[0] + ".0"
+        
+        echo "version=$numeric" >> $env:GITHUB_ENV
+        echo "semantic=$semantic" >> $env:GITHUB_ENV
+        echo "informational=$rawTag" >> $env:GITHUB_ENV
+      shell: pwsh
+
+    - name: Download Packages
+      uses: actions/download-artifact@v4
+      with:
+        name: nuget-packages
+        path: ./artifacts
+
+    - name: Unlist Previous Pre-release Versions on NuGet
+      env:
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+      run: |
+        $ErrorActionPreference = 'Stop'
+        $currentVersion = '${{ env.semantic }}'
+        $packages = Get-ChildItem -Path ./artifacts -Filter *.nupkg
+        if (-not $packages) {
+          throw 'No NuGet packages found to determine package IDs.'
+        }
+
+        Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+        foreach ($package in $packages) {
+          $archive = [IO.Compression.ZipFile]::OpenRead($package.FullName)
+          try {
+            $nuspecEntry = $archive.Entries | Where-Object { $_.FullName -like '*.nuspec' } | Select-Object -First 1
+            if (-not $nuspecEntry) {
+              throw "Missing nuspec in package $($package.Name)."
+            }
+            $reader = New-Object IO.StreamReader($nuspecEntry.Open())
+            try {
+              [xml]$nuspec = $reader.ReadToEnd()
+            } finally {
+              $reader.Dispose()
+            }
+          } finally {
+            $archive.Dispose()
+          }
+
+          $packageId = $nuspec.package.metadata.id
+          if (-not $packageId) {
+            throw "Unable to determine package ID for $($package.Name)."
+          }
+
+          $packageIndexUrl = "https://api.nuget.org/v3-flatcontainer/$($packageId.ToLowerInvariant())/index.json"
+          $maxAttempts = 60
+          $delaySeconds = 60
+          $versions = $null
+
+          for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+            $response = Invoke-RestMethod -Uri $packageIndexUrl -Method Get
+            if ($response.versions -contains $currentVersion) {
+              $versions = $response.versions
+              break
+            }
+
+            Write-Host "Waiting $delaySeconds seconds for $packageId $currentVersion to appear on NuGet (attempt $attempt of $maxAttempts)."
+            Start-Sleep -Seconds $delaySeconds
+          }
+
+          if (-not $versions) {
+            throw "Package $packageId $currentVersion did not appear on NuGet after $maxAttempts attempts."
+          }
+
+          $currentIsPrerelease = $currentVersion -like '*-*'
+          $candidateVersions = if ($currentIsPrerelease) {
+            $versions | Where-Object { $_ -like '*-*' -and $_ -ne $currentVersion }
+          } else {
+            $versions | Where-Object { $_ -like '*-*' }
+          }
+
+          $previousVersions = $candidateVersions | Sort-Object -Descending -Unique
+          if (-not $previousVersions) {
+            Write-Host "No previous $packageId pre-release versions to unlist. Skipping unlisting."
+            continue
+          }
+          $registrationIndexUrl = "https://api.nuget.org/v3/registration5-gz-semver2/$($packageId.ToLowerInvariant())/index.json"
+          $registrationIndex = Invoke-RestMethod -Uri $registrationIndexUrl -Method Get
+          $registrationItems = @()
+          foreach ($item in $registrationIndex.items) {
+            if ($item.items) {
+              $registrationItems += $item.items
+            } else {
+              $page = Invoke-RestMethod -Uri $item.'@id' -Method Get
+              $registrationItems += $page.items
+            }
+          }
+
+          foreach ($previousVersionText in $previousVersions) {
+            $previousEntry = $registrationItems | Where-Object { $_.catalogEntry.version -eq $previousVersionText } | Select-Object -First 1
+            if (-not $previousEntry) {
+              Write-Host "Unable to find registration entry for $packageId $previousVersionText. Skipping unlisting."
+              continue
+            }
+
+            $isListed = $previousEntry.listed
+            if ($null -eq $isListed) {
+              $isListed = $previousEntry.catalogEntry.listed
+            }
+            if ($null -eq $isListed) {
+              $isListed = $true
+            }
+
+            if (-not $isListed) {
+              Write-Host "Package $packageId $previousVersionText is already unlisted. Skipping unlisting."
+              continue
+            }
+
+            Write-Host "Unlisting $packageId $previousVersionText."
+            dotnet nuget delete $packageId $previousVersionText --api-key $env:NUGET_API_KEY --source https://api.nuget.org/v3/index.json --non-interactive
+          }
+        }
+      shell: pwsh

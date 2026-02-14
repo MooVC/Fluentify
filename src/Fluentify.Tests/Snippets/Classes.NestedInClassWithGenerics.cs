@@ -41,6 +41,11 @@ public static partial class Classes
         typeof(ClassGenerator),
         "Fluentify.Classes.Testing.Outter.NestedInClassWithGenericsExtensions.WithName");
 
+    public static readonly Generated NestedInClassWithGenericsWithExtensions = new(
+        NestedInClassWithGenericsWithExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.Outter.NestedInClassWithGenericsExtensions.With");
+
     private const string NestedInClassWithGenericsWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
@@ -68,8 +73,8 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>
                     {
                         Age = value,
-                        Name = subject.Name,
                         Attributes = subject.Attributes,
+                        Name = subject.Name,
                     };
                 }
             }
@@ -118,8 +123,8 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>
                     {
                         Age = subject.Age,
-                        Name = subject.Name,
                         Attributes = value,
+                        Name = subject.Name,
                     };
                 }
 
@@ -176,8 +181,8 @@ public static partial class Classes
                     return new global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>
                     {
                         Age = subject.Age,
-                        Name = value,
                         Attributes = subject.Attributes,
+                        Name = value,
                     };
                 }
             }
@@ -185,6 +190,51 @@ public static partial class Classes
 
         #pragma warning restore CS8625
         
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable restore
+        #endif
+        """;
+
+    private const string NestedInClassWithGenericsWithExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable enable
+        #endif
+
+        #pragma warning disable CS8625
+
+        namespace Fluentify.Classes.Testing
+        {
+            using System;
+            using Fluentify.Internal;
+
+            public static partial class NestedInClassWithGenericsExtensions
+            {
+                internal static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> With<TOutter, TInner>(
+                    this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
+                    Func<int> age = default,
+                    Func<global::System.Collections.Generic.IReadOnlyList<object>> attributes = default,
+                    Func<string> name = default)
+                    where TOutter : class
+                    where TInner : struct
+                {
+                    subject.ThrowIfNull("subject");
+
+                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
+                    var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
+                    var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+
+                    return new global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>
+                    {
+                        Age = ageValue,
+                        Attributes = attributesValue,
+                        Name = nameValue,
+                    };
+                }
+            }
+        }
+
+        #pragma warning restore CS8625
+
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable restore
         #endif

@@ -20,6 +20,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="AutoInitializeWithAttributeAnalyzer.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AutoInitializeWithAttributeAnalyzer.Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="ClassAnalyzer.Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -29,6 +34,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DescriptorAttributeAnalyzer.Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="HideAttributeAnalyzer.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HideAttributeAnalyzer.Resources.resx</DependentUpon>
     </Compile>
     <Compile Update="RecordAnalyzer.Resources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -40,6 +50,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>IgnoreAttributeAnalyzer.Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="SkipAutoInitializationAttributeAnalyzer.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SkipAutoInitializationAttributeAnalyzer.Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Analyzer.Resources.resx">
@@ -50,6 +65,10 @@
       <LastGenOutput>AttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="AutoInitializeWithAttributeAnalyzer.Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AutoInitializeWithAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="ClassAnalyzer.Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ClassAnalyzer.Resources.Designer.cs</LastGenOutput>
@@ -58,6 +77,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>DescriptorAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="HideAttributeAnalyzer.Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>HideAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="RecordAnalyzer.Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>RecordAnalyzer.Resources.Designer.cs</LastGenOutput>
@@ -65,6 +88,10 @@
     <EmbeddedResource Update="IgnoreAttributeAnalyzer.Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>IgnoreAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SkipAutoInitializationAttributeAnalyzer.Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SkipAutoInitializationAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

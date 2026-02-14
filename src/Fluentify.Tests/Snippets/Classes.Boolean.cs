@@ -34,6 +34,11 @@ public static partial class Classes
         typeof(ClassGenerator),
         "Fluentify.Classes.Testing.BooleanExtensions.IsRetired");
 
+    public static readonly Generated BooleanWithExtensions = new(
+        BooleanWithExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.BooleanExtensions.With");
+
     private const string BooleanWithAgeExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
@@ -139,6 +144,49 @@ public static partial class Classes
                         Age = subject.Age,
                         IsRetired = value,
                         Name = subject.Name,
+                    };
+                }
+            }
+        }
+
+        #pragma warning restore CS8625
+        
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable restore
+        #endif
+        """;
+
+    private const string BooleanWithExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable enable
+        #endif
+        
+        #pragma warning disable CS8625
+
+        namespace Fluentify.Classes.Testing
+        {
+            using System;
+            using Fluentify.Internal;
+
+            public static partial class BooleanExtensions
+            {
+                internal static global::Fluentify.Classes.Testing.Boolean With(
+                    this global::Fluentify.Classes.Testing.Boolean subject,
+                    Func<int> age = default,
+                    Func<bool> isRetired = default,
+                    Func<string> name = default)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
+                    var isRetiredValue = ReferenceEquals(isRetired, null) ? subject.IsRetired : isRetired();
+                    var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+
+                    return new global::Fluentify.Classes.Testing.Boolean
+                    {
+                        Age = ageValue,
+                        IsRetired = isRetiredValue,
+                        Name = nameValue,
                     };
                 }
             }

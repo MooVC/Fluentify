@@ -1,5 +1,6 @@
 ﻿namespace Fluentify.Source;
 
+using System.Text;
 using Fluentify.Model;
 
 /// <summary>
@@ -9,19 +10,42 @@ internal static partial class PropertyExtensions
 {
     private static string? GetScalarDelegateExtensionMethodBody(this Property property, Type type)
     {
-        if (!type.IsBuildable)
+        var builder = new StringBuilder("builder.ThrowIfNull(\"builder\");");
+
+        builder = builder
+            .AppendLine()
+            .AppendLine()
+            .AppendLine($"var instance = subject.{property.Name};")
+            .AppendLine();
+
+        if (!type.IsValueType)
         {
-            return default;
+            string buildable = $$"""
+                if (ReferenceEquals(instance, null))
+                {
+                    instance = {{type.Initialization}};
+                }
+                """;
+
+            const string nonBuildable = """
+                if (ReferenceEquals(instance, null))
+                {
+                    throw new NotSupportedException();
+                }
+                """;
+
+            builder = type.IsBuildable
+                ? builder.AppendLine(buildable)
+                : builder.AppendLine(nonBuildable);
+
+            builder = builder.AppendLine();
         }
 
-        return $$"""
-            builder.ThrowIfNull("builder");
+        builder = builder
+            .AppendLine("instance = builder(instance);")
+            .AppendLine()
+            .AppendLine($"return subject.{property.Descriptor}(instance);");
 
-            var instance = new {{type.Name}}();
-
-            instance = builder(instance);
-
-            return subject.{{property.Descriptor}}(instance);
-            """;
+        return builder.ToString();
     }
 }

@@ -110,16 +110,16 @@ Console.WriteLine(original.Birthday); // Displays 1942
 Console.WriteLine(@new.Birthday);     // Displays 1975
 ```
 
-## Auto Instantiation 
+## Auto Initialization
 
-The value associated with a given property can be automatically instantiated, as long as that type associated with the property adheres to the `new()` constraint. A second extension method is generated for the property, accepting a `Func<T, T>` delegate as its parameter, which allows for the newly instantiated value to be configured before being applied.
+The value associated with a given property can be automatically instantiated, as long as that type associated with the property adheres to the `new()` constraint. For scalar properties, a second extension method is generated, accepting a `Func<T, T>` delegate as its parameter, which allows for the existing value to be configured before being applied. If the existing value is `null` and the type is buildable, a new instance is created. If the existing value is `null` and the type cannot be automatically instantiated, a `NotSupportedException` is thrown. Delegate overloads are not generated for value types or framework types such as `string`, and collection builder overloads continue to create a new element rather than reusing the current value.
 
-In some scenarios it may be undesirable for a given property to allow for Auto Instantiation. This feature can be disabled by applying the `[SkipAutoInstantiation]` attribute to the property, the corresponding primary constructor parameter, or the type referenced by the property to suppress generation of the builder overload.
+In some scenarios it may be undesirable for a given property to allow for Auto Instantiation. This feature can be disabled by applying the `SkipAutoInitialization]` attribute to the property, the corresponding primary constructor parameter, or the type referenced by the property to suppress generation of the builder overload.
 
 ```csharp
 public sealed class Movie
 {
-    [SkipAutoInstantiation]
+    [SkipAutoInitialization]
     public Actor Lead { get; init; }
 }
 ```
@@ -127,7 +127,7 @@ public sealed class Movie
 When multiple properties share the same type, it may be desirable to annotate the type to prevent the builder overload from being generated on any property that uses that type.
 
 ```csharp
-[SkipAutoInstantiation]
+[SkipAutoInitialization]
 public sealed class Actor
 {
     public string Name { get; init; }
@@ -137,6 +137,28 @@ public sealed class Movie
 {
     public Actor Lead { get; init; }
     public Actor Supporting { get; init; }
+}
+```
+
+In some cases, it may also be desirable that a specific instance be used instead of that provided by the default constructor, or when no default constructor exists. In these cases, use the `[AutoInitializeWith]` attribute to reference a static field, property or a parameterless static factory method that returns the target type.
+
+```csharp
+[AutoInitializeWith(nameof(Default))]
+public sealed class Actor
+{
+    public Actor(string name)
+    {
+        Name = name;
+    }
+
+    public static Actor Default => new(string.Empty);
+
+    public string Name { get; init; }
+}
+
+public sealed class Movie
+{
+    public Actor Lead { get; init; }
 }
 ```
 
@@ -250,6 +272,32 @@ _ = actor
     .WithSurname("Brooks");
 ```
 
+## Property Hiding
+
+Specific properties can have their Fluentify extension method(s) scoped to `internal` by applying the `Hide` attribute:
+
+### Record Type Usage
+
+```csharp
+[Fluentify]
+public record Actor([Hide] int Birthday, string FirstName, string Surname);
+```
+
+### Class Type Usage
+
+```csharp
+[Fluentify]
+public class Actor
+{
+    [Hide]
+    public int Birthday { get; init; }
+    public string FirstName { get; init; }
+    public string Surname { get; init; }
+}
+```
+
+When both `Hide` and `Ignore` are applied, `Ignore` takes precedence and no extension methods are generated for the property.
+
 ## Analyzers
 
 Fluentify includes several analyzers to assist engineers with its usage. These are:
@@ -258,12 +306,16 @@ Rule ID                          | Category | Severity | Notes
 :--------------------------------|:---------|:---------|:-------------------------------------------------------------------------
 [FLTFY01](docs/rules/FLTFY01.md) | Design   | Warning  | Class must have an accessible parameterless constructor to use Fluentify
 [FLTFY02](docs/rules/FLTFY02.md) | Usage    | Info     | Descriptor is disregarded from consideration by Fluentify
-[FLTFY03](docs/rules/FLTFY03.md) | Usage    | Info     | Type does not utilize Fluentify
+[FLTFY03](docs/rules/FLTFY03.md) | Usage    | Info     | Type does not utilize Fluentify (Descriptor)
 [FLTFY04](docs/rules/FLTFY04.md) | Naming   | Warning  | Descriptor must adhere to the naming conventions for Methods
-[FLTFY05](docs/rules/FLTFY05.md) | Usage    | Info     | Type does not utilize Fluentify
+[FLTFY05](docs/rules/FLTFY05.md) | Usage    | Info     | Type does not utilize Fluentify (Ignore)
 [FLTFY06](docs/rules/FLTFY06.md) | Usage    | Info     | Property is already disregarded from consideration by Fluentify
 [FLTFY07](docs/rules/FLTFY07.md) | Usage    | Info     | Specified descriptor is already the default used by Fluentify
 [FLTFY08](docs/rules/FLTFY08.md) | Design   | Info     | Record should be partial to allow Fluentify to generate a parameterless constructor
+[FLTFY09](docs/rules/FLTFY09.md) | Usage    | Warning  | Auto initiate target is invalid
+[FLTFY10](docs/rules/FLTFY10.md) | Usage    | Info     | AutoInitializeWith ignored when SkipAutoInitialization is present
+[FLTFY11](docs/rules/FLTFY11.md) | Usage    | Info     | Type does not utilize Fluentify (Hide)
+[FLTFY12](docs/rules/FLTFY12.md) | Usage    | Info     | Hide is disregarded when Ignore is applied
 
 ## Building a Service
 

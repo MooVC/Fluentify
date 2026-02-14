@@ -37,33 +37,39 @@ public abstract partial class FluentifyGenerator<T>
     /// </summary>
     /// <param name="subject">The subject for which the context is generated.</param>
     /// <param name="property">The property for which the context was generated.</param>
+    /// <param name="name">The preferred hint name.</param>
     /// <param name="suffix">An optional suffix for the hint.</param>
     /// <returns>The unique hint name.</returns>
-    private protected static string GetHint(Subject subject, Property? property = default, string? suffix = default)
+    private protected static string GetHint(Subject subject, Property? property = default, string? name = default, string? suffix = default)
     {
-        string name = subject.Name;
+        string prefix = string.Empty;
 
         if (subject.Nesting.Count > 0)
         {
             IEnumerable<string> names = subject.Nesting
                 .Reverse()
-                .Select(parent => parent.Name)
-                .Union([name]);
+                .Select(parent => parent.Name);
 
-            name = string.Join(".", names);
+            prefix = string.Join(".", names);
+            prefix = string.Concat(prefix, ".");
         }
 
-        if (property is not null)
+        if (name is null)
         {
-            name = $"{name}Extensions.{property.Descriptor}";
+            name = subject.Name;
+
+            if (property is not null)
+            {
+                name = $"{name}Extensions.{property.Descriptor}";
+            }
+
+            if (suffix is not null)
+            {
+                name = $"{name}.{suffix}";
+            }
         }
 
-        if (suffix is not null)
-        {
-            name = $"{name}.{suffix}";
-        }
-
-        return $"{name}.g.cs";
+        return $"{prefix}{name}.g.cs";
     }
 
     /// <summary>
@@ -83,7 +89,9 @@ public abstract partial class FluentifyGenerator<T>
     {
         var metadata = subject.ToMetadata();
 
-        foreach (Property property in subject.Properties.Where(property => !property.IsIgnored))
+        foreach (Property property in subject.Properties
+            .Where(property => !property.IsIgnored)
+            .OrderBy(property => property.Name))
         {
             string? GetScalar(Property property)
             {

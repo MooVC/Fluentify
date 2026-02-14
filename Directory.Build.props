@@ -12,6 +12,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/MooVC/fluentify</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageTags>Analyzer;Analyzers;Api;Builder;CSharp;Dotnet;Fluent;Generator;Roslyn;Source</PackageTags>
     <Product>Fluentify</Product>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -47,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="../../README.md" Pack="true" PackagePath="" />
+    <None Include="../../icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
   <Import Condition="'$(IsLibraryProject)' == 'true'" Project="build/Libraries.props" />
   <Import Condition="'$(IsRoslynProject)' == 'true'" Project="build/Roslyn.props" />

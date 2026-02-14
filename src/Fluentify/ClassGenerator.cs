@@ -1,8 +1,10 @@
 ﻿namespace Fluentify;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Fluentify.Model;
+using Fluentify.Source;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -16,9 +18,21 @@ public sealed class ClassGenerator
     /// <inheritdoc/>
     private protected override IEnumerable<Source> GetSource(Subject subject)
     {
-        return subject.HasDefaultConstructor
-            ? base.GetSource(subject)
-            : [];
+        if (!subject.HasDefaultConstructor)
+        {
+            yield break;
+        }
+
+        foreach (Source source in base.GetSource(subject))
+        {
+            yield return source;
+        }
+
+        yield return new Source
+        {
+            Content = subject.GetWithExtensions(),
+            Hint = GetHint(subject, name: $"{subject.Name}Extensions.With"),
+        };
     }
 
     /// <inheritdoc/>
@@ -54,7 +68,7 @@ public sealed class ClassGenerator
     {
         var initializers = new StringBuilder();
 
-        foreach (Property member in subject.Properties)
+        foreach (Property member in subject.Properties.OrderBy(property => property.Name))
         {
             string initializer = member == property
                 ? $"{member.Name} = value"

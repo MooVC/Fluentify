@@ -43,6 +43,14 @@ internal sealed partial class Property
     public bool IsIgnored { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether or not the property has been annotated with the Hide attribute.
+    /// </summary>
+    /// <value>
+    /// A value indicating whether or not the property has been annotated with the Hide attribute.
+    /// </value>
+    public bool IsHidden { get; set; }
+
+    /// <summary>
     /// Gets or sets the name of the property as defined within the subject.
     /// </summary>
     /// <value>
