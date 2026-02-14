@@ -136,6 +136,11 @@ internal static partial class SubjectExtensions
 
         name = string.Concat(char.ToLowerInvariant(name[0]), name.Substring(1));
 
+        if (string.Equals(name, "subject", StringComparison.Ordinal))
+        {
+            return "subject1";
+        }
+
         if (Keywords.IsReserved(name))
         {
             return string.Concat("@", name);
