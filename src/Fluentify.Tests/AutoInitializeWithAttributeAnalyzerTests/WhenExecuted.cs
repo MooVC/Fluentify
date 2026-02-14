@@ -117,6 +117,25 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
+
+    [Fact]
+    public async Task GivenStaticFieldReturningTypeThenNoDiagnosticIsRaised()
+    {
+        // Arrange
+        TestCode = """
+            using Fluentify;
+
+            [AutoInitializeWith(nameof(Default))]
+            public sealed class Sample
+            {
+                public static Sample Default = new Sample();
+            }
+            """;
+
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
+
     private static DiagnosticResult GetExpectedInvalidTargetRule(string member, LinePosition position, string type)
     {
         return new DiagnosticResult(AutoInitializeWithAttributeAnalyzer.InvalidTargetRule)

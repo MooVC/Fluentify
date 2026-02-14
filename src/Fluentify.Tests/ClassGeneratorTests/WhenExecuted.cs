@@ -21,6 +21,38 @@ public sealed class WhenExecuted
     {
     }
 
+
+    [Fact]
+    public async Task GivenClassWithoutDefaultConstructorThenNoClassGeneratorSourceIsProduced()
+    {
+        // Arrange
+        TestCode = """
+            using Fluentify;
+
+            namespace Demo;
+
+            [Fluentify]
+            public sealed class Sample
+            {
+                public Sample(int value)
+                {
+                }
+
+                public int Value { get; }
+            }
+            """;
+
+        Attributes.Descriptor.IsExpectedIn(TestState);
+        Attributes.Fluentify.IsExpectedIn(TestState);
+        Attributes.Hide.IsExpectedIn(TestState);
+        Attributes.Ignore.IsExpectedIn(TestState);
+        Extensions.Internal.IsExpectedIn(TestState);
+        Attributes.SkipAutoInitialization.IsExpectedIn(TestState);
+
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
+
     [Theory]
     [Declared(typeof(Classes))]
     public async Task GivenAClassTheExpectedSourceIsGenerated(Declared declared)
