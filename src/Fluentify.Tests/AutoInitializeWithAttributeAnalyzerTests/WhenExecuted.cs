@@ -117,7 +117,6 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-
     [Fact]
     public async Task GivenStaticFieldReturningTypeThenNoDiagnosticIsRaised()
     {

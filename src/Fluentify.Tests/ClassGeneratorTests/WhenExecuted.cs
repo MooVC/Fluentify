@@ -21,7 +21,6 @@ public sealed class WhenExecuted
     {
     }
 
-
     [Fact]
     public async Task GivenClassWithoutDefaultConstructorThenNoClassGeneratorSourceIsProduced()
     {
