@@ -47,6 +47,21 @@ public sealed class WhenTryResolveIsCalled
     }
 
     [Fact]
+    public void GivenNullTypeForOverloadThenFalseIsReturned()
+    {
+        // Arrange
+        ITypeSymbol? type = default;
+        string member = MethodMember;
+
+        // Act
+        bool result = _factoryType.TryResolve(type, ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeFalse();
+        initialization.ShouldBe(string.Empty);
+    }
+
+    [Fact]
     public void GivenStaticMethodReturningTypeThenInitializationIsReturned()
     {
         // Arrange
@@ -129,6 +144,21 @@ public sealed class WhenTryResolveIsCalled
         result.ShouldBeTrue();
         member.ShouldBe(DefaultMember);
         initialization.ShouldBe("global::Demo.Factory.Default");
+    }
+
+    [Fact]
+    public void GivenNameofExpressionWithMemberAccessThenFalseIsReturned()
+    {
+        // Arrange
+        string member = "nameof(Factory.Default)";
+
+        // Act
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeFalse();
+        member.ShouldBe("Factory.Default");
+        initialization.ShouldBe(string.Empty);
     }
 
     private static Compilation CreateCompilation()
