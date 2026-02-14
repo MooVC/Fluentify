@@ -10,17 +10,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `AutoInitializeWith` attribute to instruct `Fluentify` to initialize a type using a static property or method defined within a given type.
   - `FLTFY09` to inform engineers when the target for initialization is not valid for use with the `AutoInitializeWith` attribute.
+  - `FLTFY10` to inform engineers when the target for initialization has been annotated with the `AutoInitializeWith` attribute, which will be ignored by `Fluentify` in the presence of the `SkipAutoInitialization`.
 - `Hide` attribute to instruct `Fluentify` to generate an extension methods with internal scope for the annotated property.
   - `FLTFY11` to inform engineers when `Hide` has been placed on a property of a type that is not annotated with `Fluentify`.
   - `FLTFY12` to inform engineers when `Hide` has been placed on a property that is `Ignored` by `Fluentify`.
-- `SkipAutoInitialization` attribute to instruct `Fluentify` that a builder extension method should not be generated for a specific type, or a property.
-  - `FLTFY10` to inform engineers when the target for initialization has been annotated with the `AutoInitializeWith` attribute, which will be ignored by `Fluentify` in the presence of the `SkipAutoInitialization`.
 - `With` extension for all classes, enabling engineers to construct copies using optional property factories.
   - The `With` extension is intended to simplify the process of authoring manual extension methods.
 
 ## Changed
 
 - Builder extensions are now created for most reference types which will use the current instance assigned to the property as a starting point. When no instance is assigned, and the type adheres to the `new()` constraint, a new instance will be created, as was the case in the previous version. If, however, the type does not adhere to the `new()` constraint, a `NotSupportedException` will be thrown. **Breaking Change**
+
+# [1.9.1] - 2026-01-16
+
+## Fixed
+
+- `IsMutable` now excludes indexer properties from being reported as mutable.
 
 # [1.9.0] - 2025-11-29
 
