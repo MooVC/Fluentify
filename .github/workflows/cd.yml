@@ -5,6 +5,11 @@ on:
     tags:
       - '*'
   workflow_dispatch:
+    inputs:
+      unlist_only:
+        default: false
+        description: 'Run the build without publishing and then run the unlist job.'
+        type: boolean
 
 env:
   configuration: 'Release'
@@ -22,10 +27,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v6.0.1
+      uses: actions/checkout@v6.0.2
       with:
         fetch-depth: 0
-        
+
     - name: Use .NET SDKs
       uses: actions/setup-dotnet@v5
       with:
@@ -33,7 +38,7 @@ jobs:
           10.0.x
 
     - name: Cache NuGet Packages
-      uses: actions/cache@v5.0.1
+      uses: actions/cache@v5.0.3
       with:
         path: ${{ github.workspace }}/.nuget/packages
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
@@ -80,17 +85,20 @@ jobs:
         path: ./artifacts/*.nupkg
 
     - name: Publish Packages to GitHub
+      if: ${{ github.event_name != 'workflow_dispatch' || inputs.unlist_only != 'true' }}
       run: dotnet nuget push **/Fluentify*.nupkg --source "https://nuget.pkg.github.com/MooVC/index.json" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Publish Packages to NuGet
+      if: ${{ github.event_name != 'workflow_dispatch' || inputs.unlist_only != 'true' }}
       run: dotnet nuget push **/Fluentify*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
-  deprecate:
-    name: Deprecate Previous Package Versions
+  unlist:
+    name: Unlist Previous Pre-release Package Versions
     runs-on: windows-latest
     needs: build
+    if: ${{ needs.build.result == 'success' }}
 
     steps:
     - name: Use .NET SDKs
@@ -116,7 +124,7 @@ jobs:
         name: nuget-packages
         path: ./artifacts
 
-    - name: Deprecate Previous Versions on NuGet
+    - name: Unlist Previous Pre-release Versions on NuGet
       env:
         NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
       run: |
@@ -153,7 +161,7 @@ jobs:
 
           $packageIndexUrl = "https://api.nuget.org/v3-flatcontainer/$($packageId.ToLowerInvariant())/index.json"
           $maxAttempts = 60
-          $delaySeconds = 360
+          $delaySeconds = 60
           $versions = $null
 
           for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
@@ -163,31 +171,60 @@ jobs:
               break
             }
 
-            Write-Host "Waiting for $packageId $currentVersion to appear on NuGet (attempt $attempt of $maxAttempts)."
+            Write-Host "Waiting $delaySeconds seconds for $packageId $currentVersion to appear on NuGet (attempt $attempt of $maxAttempts)."
             Start-Sleep -Seconds $delaySeconds
-            $delaySeconds = 60
           }
 
           if (-not $versions) {
             throw "Package $packageId $currentVersion did not appear on NuGet after $maxAttempts attempts."
           }
 
-          $currentSemanticVersion = [System.Management.Automation.SemanticVersion]::Parse($currentVersion)
-          $parsedVersions = $versions | ForEach-Object { [System.Management.Automation.SemanticVersion]::Parse($_) }
-          $sameTypeVersions = if ($currentSemanticVersion.IsPrerelease) {
-            $parsedVersions | Where-Object { $_.IsPrerelease }
+          $currentIsPrerelease = $currentVersion -like '*-*'
+          $candidateVersions = if ($currentIsPrerelease) {
+            $versions | Where-Object { $_ -like '*-*' -and $_ -ne $currentVersion }
           } else {
-            $parsedVersions | Where-Object { -not $_.IsPrerelease }
+            $versions | Where-Object { $_ -like '*-*' }
           }
 
-          $previousVersion = $sameTypeVersions | Where-Object { $_ -ne $currentSemanticVersion } | Sort-Object -Descending | Select-Object -First 1
-          if (-not $previousVersion) {
-            Write-Host "No previous $packageId version of the same type found. Skipping deprecation."
+          $previousVersions = $candidateVersions | Sort-Object -Descending -Unique
+          if (-not $previousVersions) {
+            Write-Host "No previous $packageId pre-release versions to unlist. Skipping unlisting."
             continue
           }
+          $registrationIndexUrl = "https://api.nuget.org/v3/registration5-gz-semver2/$($packageId.ToLowerInvariant())/index.json"
+          $registrationIndex = Invoke-RestMethod -Uri $registrationIndexUrl -Method Get
+          $registrationItems = @()
+          foreach ($item in $registrationIndex.items) {
+            if ($item.items) {
+              $registrationItems += $item.items
+            } else {
+              $page = Invoke-RestMethod -Uri $item.'@id' -Method Get
+              $registrationItems += $page.items
+            }
+          }
 
-          $previousVersionText = $previousVersion.ToString()
-          Write-Host "Deprecating $packageId $previousVersionText in favor of $currentVersion."
-          dotnet nuget deprecate $packageId $previousVersionText --source https://api.nuget.org/v3/index.json --api-key $env:NUGET_API_KEY --reason Other --message "Deprecated in favor of $currentVersion."
+          foreach ($previousVersionText in $previousVersions) {
+            $previousEntry = $registrationItems | Where-Object { $_.catalogEntry.version -eq $previousVersionText } | Select-Object -First 1
+            if (-not $previousEntry) {
+              Write-Host "Unable to find registration entry for $packageId $previousVersionText. Skipping unlisting."
+              continue
+            }
+
+            $isListed = $previousEntry.listed
+            if ($null -eq $isListed) {
+              $isListed = $previousEntry.catalogEntry.listed
+            }
+            if ($null -eq $isListed) {
+              $isListed = $true
+            }
+
+            if (-not $isListed) {
+              Write-Host "Package $packageId $previousVersionText is already unlisted. Skipping unlisting."
+              continue
+            }
+
+            Write-Host "Unlisting $packageId $previousVersionText."
+            dotnet nuget delete $packageId $previousVersionText --api-key $env:NUGET_API_KEY --source https://api.nuget.org/v3/index.json --non-interactive
+          }
         }
       shell: pwsh
