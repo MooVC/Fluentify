@@ -34,9 +34,11 @@ internal static partial class ITypeSymbolExtensions
     /// <returns>True if the <paramref name="type"/> is defined within the base class library, otherwise False.</returns>
     public static bool IsFrameworkType(this ITypeSymbol type)
     {
-        if (type is INamedTypeSymbol { SpecialType: SpecialType.System_Nullable_T } nullable)
+        if (type is INamedTypeSymbol named
+            && named.ConstructedFrom.SpecialType == SpecialType.System_Nullable_T
+            && named.TypeArguments.Length == 1)
         {
-            type = nullable.TypeArguments[0];
+            type = named.TypeArguments[0];
         }
         else if (type.NullableAnnotation == NullableAnnotation.Annotated)
         {
