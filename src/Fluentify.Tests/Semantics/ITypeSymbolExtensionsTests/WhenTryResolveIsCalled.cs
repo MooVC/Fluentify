@@ -62,6 +62,36 @@ public sealed class WhenTryResolveIsCalled
     }
 
     [Fact]
+    public void GivenNullSourceForOverloadThenFalseIsReturned()
+    {
+        // Arrange
+        ITypeSymbol? source = default;
+        string member = MethodMember;
+
+        // Act
+        bool result = source.TryResolve(_factoryType, ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeFalse();
+        initialization.ShouldBe(string.Empty);
+    }
+
+    [Fact]
+    public void GivenNameofExpressionWithWhitespaceThenMemberIsExtracted()
+    {
+        // Arrange
+        string member = "nameof( Default )";
+
+        // Act
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeTrue();
+        member.ShouldBe(DefaultMember);
+        initialization.ShouldBe("global::Demo.Factory.Default");
+    }
+
+    [Fact]
     public void GivenStaticMethodReturningTypeThenInitializationIsReturned()
     {
         // Arrange

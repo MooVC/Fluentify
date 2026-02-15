@@ -44,4 +44,21 @@ public sealed class WhenHasHideIsCalled
         // Assert
         result.ShouldBeFalse();
     }
+
+    [Fact]
+    public void GivenSymbolWithAttributeMissingClassThenReturnsFalse()
+    {
+        // Arrange
+        AttributeData attribute = Substitute.For<AttributeData>();
+        _ = attribute.AttributeClass.Returns((INamedTypeSymbol?)null);
+
+        ISymbol symbol = Substitute.For<ISymbol>();
+        _ = symbol.GetAttributes().Returns([attribute]);
+
+        // Act
+        bool result = symbol.HasHide();
+
+        // Assert
+        result.ShouldBeFalse();
+    }
 }

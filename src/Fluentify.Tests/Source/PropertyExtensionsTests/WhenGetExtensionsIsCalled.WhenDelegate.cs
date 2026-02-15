@@ -77,6 +77,41 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldContain("instance = builder(instance);");
     }
 
+    [Fact]
+    public void GivenNonScalarWithFrameworkTypeThenDelegateExtensionIsNotGenerated()
+    {
+        // Arrange
+        var property = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "WithItems",
+            Kind = new()
+            {
+                Pattern = Pattern.Collection,
+                Member = new()
+                {
+                    Initialization = "new global::System.String()",
+                    IsBuildable = true,
+                    IsFrameworkType = true,
+                    Name = "string",
+                },
+                Type = new()
+                {
+                    Name = "global::System.Collections.Generic.ICollection<string>",
+                },
+            },
+            Name = "Items",
+        };
+
+        var metadata = CreateMetadata();
+
+        // Act
+        string result = property.GetExtensions(ref metadata, _ => "return subject;");
+
+        // Assert
+        result.ShouldNotContain("Func<string, string> builder");
+    }
+
     private static Metadata CreateMetadata()
     {
         return new Metadata

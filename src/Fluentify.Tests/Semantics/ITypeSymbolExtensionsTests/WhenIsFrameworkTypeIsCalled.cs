@@ -36,6 +36,19 @@ public sealed class WhenIsFrameworkTypeIsCalled
     }
 
     [Fact]
+    public void GivenAnnotatedNullableCustomTypeThenReturnsFalse()
+    {
+        // Arrange
+        ITypeSymbol type = GetPropertyType("NullableDependency");
+
+        // Act
+        bool result = type.IsFrameworkType();
+
+        // Assert
+        result.ShouldBeFalse();
+    }
+
+    [Fact]
     public void GivenCustomTypeThenReturnsFalse()
     {
         // Arrange
@@ -73,6 +86,8 @@ public sealed class WhenIsFrameworkTypeIsCalled
                     public int? Age { get; } = 42;
 
                     public Dependency Dependency { get; } = new Dependency();
+
+                    public Dependency? NullableDependency { get; } = new Dependency();
 
                     public string Name { get; } = string.Empty;
                 }
