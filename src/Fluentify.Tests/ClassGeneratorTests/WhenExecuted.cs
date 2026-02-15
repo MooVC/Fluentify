@@ -26,18 +26,19 @@ public sealed class WhenExecuted
     {
         // Arrange
         TestCode = """
-            using Fluentify;
-
-            namespace Demo;
-
-            [Fluentify]
-            public sealed class Sample
+            namespace Demo
             {
-                public Sample(int value)
-                {
-                }
+                using Fluentify;
 
-                public int Value { get; }
+                [Fluentify]
+                public sealed class Sample
+                {
+                    public Sample(int value)
+                    {
+                    }
+            
+                    public int Value { get; }
+                }
             }
             """;
 
