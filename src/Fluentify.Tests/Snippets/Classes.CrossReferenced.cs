@@ -27,6 +27,11 @@ public static partial class Classes
         typeof(ClassGenerator),
         "Fluentify.Classes.Testing.CrossReferencedExtensions.WithSimple");
 
+    public static readonly Generated CrossReferencedWithExtensions = new(
+        CrossReferencedWithExtensionsContent,
+        typeof(ClassGenerator),
+        "Fluentify.Classes.Testing.CrossReferencedExtensions.With");
+
     private const string CrossReferencedWithDescriptionExtensionsContent = """
         #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
         #nullable enable
@@ -89,7 +94,12 @@ public static partial class Classes
 
                     builder.ThrowIfNull("builder");
 
-                    var instance = new global::Fluentify.Classes.Testing.Simple();
+                    var instance = subject.Simple;
+
+                    if (ReferenceEquals(instance, null))
+                    {
+                        instance = new global::Fluentify.Classes.Testing.Simple();
+                    }
 
                     instance = builder(instance);
 
@@ -106,6 +116,46 @@ public static partial class Classes
                     {
                         Description = subject.Description,
                         Simple = value,
+                    };
+                }
+            }
+        }
+
+        #pragma warning restore CS8625
+        
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable restore
+        #endif
+        """;
+
+    private const string CrossReferencedWithExtensionsContent = """
+        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        #nullable enable
+        #endif
+        
+        #pragma warning disable CS8625
+
+        namespace Fluentify.Classes.Testing
+        {
+            using System;
+            using Fluentify.Internal;
+
+            public static partial class CrossReferencedExtensions
+            {
+                internal static global::Fluentify.Classes.Testing.CrossReferenced With(
+                    this global::Fluentify.Classes.Testing.CrossReferenced subject,
+                    Func<string> description = default,
+                    Func<global::Fluentify.Classes.Testing.Simple> simple = default)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    var descriptionValue = ReferenceEquals(description, null) ? subject.Description : description();
+                    var simpleValue = ReferenceEquals(simple, null) ? subject.Simple : simple();
+
+                    return new global::Fluentify.Classes.Testing.CrossReferenced
+                    {
+                        Description = descriptionValue,
+                        Simple = simpleValue,
                     };
                 }
             }

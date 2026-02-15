@@ -85,6 +85,8 @@ public sealed class WhenGetPropertiesIsCalled
         {
             Type = new()
             {
+                Initialization = "new int()",
+                IsFrameworkType = true,
                 Name = "int",
             },
         },
@@ -98,6 +100,8 @@ public sealed class WhenGetPropertiesIsCalled
         {
             Type = new()
             {
+                Initialization = "new string()",
+                IsFrameworkType = true,
                 Name = "string",
             },
         },
@@ -116,6 +120,8 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = "new bool()",
+                    IsFrameworkType = true,
                     Name = "bool",
                 },
             },
@@ -138,6 +144,8 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = "new string()",
+                    IsFrameworkType = true,
                     Name = "string",
                 },
             },
@@ -151,6 +159,7 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = $"new global::Fluentify.{type}.Testing.Simple()",
                     IsBuildable = true,
                     Name = $"global::Fluentify.{type}.Testing.Simple",
                 },
@@ -185,7 +194,9 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = "new T1()",
                     IsNullable = isNullable,
+                    IsValueType = true,
                     Name = $"T1{annotation}",
                 },
             },
@@ -199,6 +210,7 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = "new T3()",
                     Name = "T3",
                 },
             },
@@ -212,6 +224,7 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = "new T2()",
                     IsBuildable = true,
                     IsNullable = isNullable,
                     Name = "T2",
@@ -247,6 +260,7 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = "new T()",
                     IsNullable = isNullable,
                     Name = "T",
                 },
@@ -271,6 +285,8 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = "new string()",
+                    IsFrameworkType = true,
                     Name = "string",
                 },
             },
@@ -296,6 +312,8 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = "new int()",
+                    IsFrameworkType = true,
                     Name = "int",
                 },
             },
@@ -312,6 +330,8 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = "new string()",
+                    IsFrameworkType = true,
                     Name = "string",
                 },
             },
@@ -346,6 +366,8 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = "new int()",
+                    IsFrameworkType = true,
                     Name = "int",
                 },
             },
@@ -382,6 +404,8 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = "new string()",
+                    IsFrameworkType = true,
                     Name = "string",
                 },
             },
@@ -417,6 +441,7 @@ public sealed class WhenGetPropertiesIsCalled
             {
                 Type = new()
                 {
+                    Initialization = "new IReadOnlyList<object>()",
                     IsNullable = isNullable,
                     Name = $"IReadOnlyList<object>{annotation}",
                 },

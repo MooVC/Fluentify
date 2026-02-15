@@ -29,11 +29,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Array,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "int[]",
                 },
             },
@@ -108,11 +111,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Array,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "int[]",
                 },
             },
@@ -145,9 +151,9 @@ public sealed partial class WhenGetExtensionsIsCalled
             using System.Linq;
             using Fluentify.Internal;
 
-            internal static partial class TestSubjectExtensions
+            public static partial class TestSubjectExtensions
             {
-                public static global::TestSubject WithTestProperty(
+                internal static global::TestSubject WithTestProperty(
                     this global::TestSubject subject,
                     params int[] values)
                 {
@@ -187,11 +193,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Array,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     Name = "int[]",
                 },
             },
@@ -266,11 +275,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    IsFrameworkType = true,
+                    IsValueType = true,
                     Name = "int",
                 },
                 Pattern = Pattern.Array,
                 Type = new()
                 {
+                    IsFrameworkType = true,
                     IsNullable = true,
                     Name = "int[]",
                 },
@@ -330,13 +342,13 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-            
+
                     builder.ThrowIfNull("builder");
-            
+
                     var instance = new TestType();
-            
+
                     instance = builder(instance);
-            
+
                     return subject.WithTestProperty(instance);
                 }
             }
@@ -349,6 +361,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             Properties = [],
             Type = new()
             {
+                Initialization = "new global::TestSubject()",
                 Name = "global::TestSubject",
             },
         };
@@ -361,12 +374,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
+                    Initialization = "new TestType()",
                     IsBuildable = true,
                     Name = "TestType",
                 },
                 Pattern = Pattern.Array,
                 Type = new()
                 {
+                    Initialization = "new TestType()",
                     Name = "TestType[]",
                 },
             },

@@ -27,12 +27,36 @@ internal sealed partial class Type
     public bool IsBuildable { get; set; }
 
     /// <summary>
+    /// Gets or sets the expression to use when initializing the type explicitly.
+    /// </summary>
+    /// <value>
+    /// The expression to use when initializing the type explicitly.
+    /// </value>
+    public string Initialization { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether or not the type represents a framework defined type.
+    /// </summary>
+    /// <value>
+    /// The value indicating whether or not the type represents a framework defined type.
+    /// </value>
+    public bool IsFrameworkType { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether or not the property is deemed to be nullable.
     /// </summary>
     /// <value>
     /// The value indicating whether or not the property is deemed to be nullable.
     /// </value>
     public bool IsNullable { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether or not the type is a value type.
+    /// </summary>
+    /// <value>
+    /// The value indicating whether or not the type is a value type.
+    /// </value>
+    public bool IsValueType { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the type.
@@ -51,6 +75,21 @@ internal sealed partial class Type
         if (IsNullable && !Name.EndsWith(NullableAnnotation))
         {
             return string.Concat(Name, NullableAnnotation);
+        }
+
+        return Name;
+    }
+
+    public string ToString(bool includeNullability)
+    {
+        if (includeNullability)
+        {
+            return ToString();
+        }
+
+        if (IsNullable && Name.EndsWith(NullableAnnotation))
+        {
+            return Name.Substring(0, Name.Length - 1);
         }
 
         return Name;

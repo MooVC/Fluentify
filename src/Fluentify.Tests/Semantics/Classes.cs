@@ -26,8 +26,8 @@ internal sealed class Classes
             SelfDescriptorOnRequiredContent,
             SimpleContent,
             SingleGenericContent,
-            SkipAutoInstantiationOnPropertyContent,
-            SkipAutoInstantiationOnTypeContent,
+            SkipAutoInitializationOnPropertyContent,
+            SkipAutoInitializationOnTypeContent,
             TwoOfThreeIgnoredContent,
             UnannotatedContent,
             UnsupportedContent)

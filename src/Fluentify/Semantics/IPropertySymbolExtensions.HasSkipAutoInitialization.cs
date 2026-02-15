@@ -1,0 +1,46 @@
+namespace Fluentify.Semantics;
+
+using Microsoft.CodeAnalysis;
+
+using static Fluentify.SkipAutoInitializationAttributeGenerator;
+
+/// <summary>
+/// Provides extensions relating to <see cref="IPropertySymbol"/>.
+/// </summary>
+internal static partial class IPropertySymbolExtensions
+{
+    /// <summary>
+    /// Determines whether or not the <paramref name="property"/> provided is annotated with the SkipAutoInitialization attribute.
+    /// </summary>
+    /// <param name="property">The property to be checked for the presence of the SkipAutoInitialization attribute.</param>
+    /// <returns>True if the SkipAutoInitialization attribute is present on the <paramref name="property"/>, otherwise False.</returns>
+    public static bool HasSkipAutoInitialization(this IPropertySymbol property)
+    {
+        if (property.HasAttribute(Name))
+        {
+            return true;
+        }
+
+        if (property.Type is null)
+        {
+            return false;
+        }
+
+        if (property.Type.HasAttribute(Name))
+        {
+            return true;
+        }
+
+        if (property.Type is IArrayTypeSymbol arrayType)
+        {
+            return arrayType.ElementType.HasAttribute(Name);
+        }
+
+        if (property.Type is INamedTypeSymbol namedType)
+        {
+            return namedType.TypeArguments.Any(type => type.HasAttribute(Name));
+        }
+
+        return false;
+    }
+}

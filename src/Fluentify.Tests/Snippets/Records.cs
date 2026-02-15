@@ -19,8 +19,8 @@ public static partial class Records
             BooleanContent,
             nameof(Boolean),
             BooleanConstructor,
-            BooleanWithAgeExtensions,
             BooleanIsRetiredExtensions,
+            BooleanWithAgeExtensions,
             BooleanWithNameExtensions);
 
         CrossReferenced = new(
@@ -31,8 +31,8 @@ public static partial class Records
             CrossReferencedWithSimpleExtensions,
             SimpleConstructor,
             SimpleWithAgeExtensions,
-            SimpleWithNameExtensions,
-            SimpleWithAttributesExtensions);
+            SimpleWithAttributesExtensions,
+            SimpleWithNameExtensions);
 
         DescriptorOnIgnored = new(
             DescriptorOnIgnoredContent,
@@ -45,105 +45,105 @@ public static partial class Records
             DescriptorOnOptionalContent,
             nameof(DescriptorOnOptional),
             DescriptorOnOptionalConstructor,
+            DescriptorOnOptionalAttributedWithExtensions,
             DescriptorOnOptionalWithAgeExtensions,
-            DescriptorOnOptionalWithNameExtensions,
-            DescriptorOnOptionalAttributedWithExtensions);
+            DescriptorOnOptionalWithNameExtensions);
 
         DescriptorOnRequired = new(
             DescriptorOnRequiredContent,
             nameof(DescriptorOnRequired),
             DescriptorOnRequiredConstructor,
             DescriptorOnRequiredAgedExtensions,
-            DescriptorOnRequiredWithNameExtensions,
-            DescriptorOnRequiredWithAttributesExtensions);
+            DescriptorOnRequiredWithAttributesExtensions,
+            DescriptorOnRequiredWithNameExtensions);
 
         Global = new(
             GlobalContent,
             nameof(Global),
             GlobalConstructor,
             GlobalWithAgeExtensions,
-            GlobalWithNameExtensions,
-            GlobalWithAttributesExtensions);
+            GlobalWithAttributesExtensions,
+            GlobalWithNameExtensions);
 
         InvalidDescriptor = new(
             InvalidDescriptorContent,
             nameof(InvalidDescriptor),
             InvalidDescriptorConstructor,
             InvalidDescriptorWithAgeExtensions,
-            InvalidDescriptorWithNameExtensions,
-            InvalidDescriptorWithAttributesExtensions);
+            InvalidDescriptorWithAttributesExtensions,
+            InvalidDescriptorWithNameExtensions);
 
         MultipleGenerics = new(
             MultipleGenericsContent,
             nameof(MultipleGenerics),
             MultipleGenericsConstructor,
             MultipleGenericsWithAgeExtensions,
-            MultipleGenericsWithNameExtensions,
-            MultipleGenericsWithAttributesExtensions);
+            MultipleGenericsWithAttributesExtensions,
+            MultipleGenericsWithNameExtensions);
 
         NestedInClass = new(
             NestedInClassContent,
             nameof(NestedInClass),
             NestedInClassConstructor,
             NestedInClassWithAgeExtensions,
-            NestedInClassWithNameExtensions,
-            NestedInClassWithAttributesExtensions);
+            NestedInClassWithAttributesExtensions,
+            NestedInClassWithNameExtensions);
 
         NestedInClassWithGenerics = new(
             NestedInClassWithGenericsContent,
             nameof(NestedInClassWithGenerics),
             NestedInClassWithGenericsConstructor,
             NestedInClassWithGenericsWithAgeExtensions,
-            NestedInClassWithGenericsWithNameExtensions,
-            NestedInClassWithGenericsWithAttributesExtensions);
+            NestedInClassWithGenericsWithAttributesExtensions,
+            NestedInClassWithGenericsWithNameExtensions);
 
         NestedInInterface = new(
             NestedInInterfaceContent,
             nameof(NestedInInterface),
             NestedInInterfaceConstructor,
             NestedInInterfaceWithAgeExtensions,
-            NestedInInterfaceWithNameExtensions,
-            NestedInInterfaceWithAttributesExtensions);
+            NestedInInterfaceWithAttributesExtensions,
+            NestedInInterfaceWithNameExtensions);
 
         NestedInInterfaceWithGenerics = new(
             NestedInInterfaceWithGenericsContent,
             nameof(NestedInInterfaceWithGenerics),
             NestedInInterfaceWithGenericsConstructor,
             NestedInInterfaceWithGenericsWithAgeExtensions,
-            NestedInInterfaceWithGenericsWithNameExtensions,
-            NestedInInterfaceWithGenericsWithAttributesExtensions);
+            NestedInInterfaceWithGenericsWithAttributesExtensions,
+            NestedInInterfaceWithGenericsWithNameExtensions);
 
         NestedInRecord = new(
             NestedInRecordContent,
             nameof(NestedInRecord),
             NestedInRecordConstructor,
             NestedInRecordWithAgeExtensions,
-            NestedInRecordWithNameExtensions,
-            NestedInRecordWithAttributesExtensions);
+            NestedInRecordWithAttributesExtensions,
+            NestedInRecordWithNameExtensions);
 
         NestedInRecordWithGenerics = new(
             NestedInRecordWithGenericsContent,
             nameof(NestedInRecordWithGenerics),
             NestedInRecordWithGenericsConstructor,
             NestedInRecordWithGenericsWithAgeExtensions,
-            NestedInRecordWithGenericsWithNameExtensions,
-            NestedInRecordWithGenericsWithAttributesExtensions);
+            NestedInRecordWithGenericsWithAttributesExtensions,
+            NestedInRecordWithGenericsWithNameExtensions);
 
         NestedInStruct = new(
             NestedInStructContent,
             nameof(NestedInStruct),
             NestedInStructConstructor,
             NestedInStructWithAgeExtensions,
-            NestedInStructWithNameExtensions,
-            NestedInStructWithAttributesExtensions);
+            NestedInStructWithAttributesExtensions,
+            NestedInStructWithNameExtensions);
 
         NestedInStructWithGenerics = new(
             NestedInStructWithGenericsContent,
             nameof(NestedInStructWithGenerics),
             NestedInStructWithGenericsConstructor,
             NestedInStructWithGenericsWithAgeExtensions,
-            NestedInStructWithGenericsWithNameExtensions,
-            NestedInStructWithGenericsWithAttributesExtensions);
+            NestedInStructWithGenericsWithAttributesExtensions,
+            NestedInStructWithGenericsWithNameExtensions);
 
         OneOfThreeIgnored = new(
             OneOfThreeIgnoredContent,
@@ -163,9 +163,9 @@ public static partial class Records
             SelfDescriptorOnOptionalContent,
             nameof(SelfDescriptorOnOptional),
             SelfDescriptorOnOptionalConstructor,
+            SelfDescriptorOnOptionalAttributesExtensions,
             SelfDescriptorOnOptionalWithAgeExtensions,
-            SelfDescriptorOnOptionalWithNameExtensions,
-            SelfDescriptorOnOptionalAttributesExtensions);
+            SelfDescriptorOnOptionalWithNameExtensions);
 
         SelfDescriptorOnRequired = new(
             SelfDescriptorOnRequiredContent,
@@ -180,22 +180,22 @@ public static partial class Records
             nameof(Simple),
             SimpleConstructor,
             SimpleWithAgeExtensions,
-            SimpleWithNameExtensions,
-            SimpleWithAttributesExtensions);
+            SimpleWithAttributesExtensions,
+            SimpleWithNameExtensions);
 
         SimpleWithDefaultConstructor = new(
             SimpleWithDefaultConstructorContent,
             nameof(SimpleWithDefaultConstructor),
             SimpleWithDefaultConstructorWithAgeExtensions,
-            SimpleWithDefaultConstructorWithNameExtensions,
-            SimpleWithDefaultConstructorWithAttributesExtensions);
+            SimpleWithDefaultConstructorWithAttributesExtensions,
+            SimpleWithDefaultConstructorWithNameExtensions);
 
         SimpleWithoutPartial = new(
             SimpleWithoutPartialContent,
             nameof(SimpleWithoutPartial),
             SimpleWithoutPartialWithAgeExtensions,
-            SimpleWithoutPartialWithNameExtensions,
-            SimpleWithoutPartialWithAttributesExtensions);
+            SimpleWithoutPartialWithAttributesExtensions,
+            SimpleWithoutPartialWithNameExtensions);
 
         Single = new(SingleContent, nameof(Single), SingleConstructor, SingleWithAgeExtensions);
 
@@ -204,22 +204,22 @@ public static partial class Records
             nameof(SingleGeneric),
             SingleGenericConstructor,
             SingleGenericWithAgeExtensions,
-            SingleGenericWithNameExtensions,
-            SingleGenericWithAttributesExtensions);
+            SingleGenericWithAttributesExtensions,
+            SingleGenericWithNameExtensions);
 
-        SkipAutoInstantiationOnProperty = new(
-            SkipAutoInstantiationOnPropertyContent,
-            nameof(SkipAutoInstantiationOnProperty),
-            SkipAutoInstantiationOnPropertyConstructor,
-            SkipAutoInstantiationOnPropertyWithAgeExtensions,
-            SkipAutoInstantiationOnPropertyWithDependencyExtensions);
+        SkipAutoInitializationOnProperty = new(
+            SkipAutoInitializationOnPropertyContent,
+            nameof(SkipAutoInitializationOnProperty),
+            SkipAutoInitializationOnPropertyConstructor,
+            SkipAutoInitializationOnPropertyWithAgeExtensions,
+            SkipAutoInitializationOnPropertyWithDependencyExtensions);
 
-        SkipAutoInstantiationOnType = new(
-            SkipAutoInstantiationOnTypeContent,
-            nameof(SkipAutoInstantiationOnType),
-            SkipAutoInstantiationOnTypeConstructor,
-            SkipAutoInstantiationOnTypeWithAgeExtensions,
-            SkipAutoInstantiationOnTypeWithDependencyExtensions);
+        SkipAutoInitializationOnType = new(
+            SkipAutoInitializationOnTypeContent,
+            nameof(SkipAutoInitializationOnType),
+            SkipAutoInitializationOnTypeConstructor,
+            SkipAutoInitializationOnTypeWithAgeExtensions,
+            SkipAutoInitializationOnTypeWithDependencyExtensions);
 
         TwoOfThreeIgnored = new(
             TwoOfThreeIgnoredContent,

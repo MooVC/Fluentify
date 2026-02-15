@@ -38,7 +38,7 @@ internal static partial class TypeDeclarationSyntaxExtensions
             return default;
         }
 
-        IReadOnlyList<Property> properties = type.GetProperties(compilation, cancellationToken);
+        IReadOnlyList<Property> properties = type.GetAllProperties(compilation, cancellationToken);
 
         if (properties.Count == 0)
         {

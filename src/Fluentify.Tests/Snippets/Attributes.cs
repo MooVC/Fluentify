@@ -23,6 +23,22 @@ public static class Attributes
         typeof(FluentifyAttributeGenerator),
         "FluentifyAttribute");
 
+    public static readonly Generated Hide = new(
+        $$"""
+            namespace Fluentify
+            {
+                using System;
+
+                [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
+                internal sealed class HideAttribute
+                    : Attribute
+                {
+                }
+            }
+            """,
+        typeof(HideAttributeGenerator),
+        "HideAttribute");
+
     public static readonly Generated Ignore = new(
         $$"""
             namespace Fluentify
@@ -39,19 +55,19 @@ public static class Attributes
         typeof(IgnoreAttributeGenerator),
         "IgnoreAttribute");
 
-    public static readonly Generated SkipAutoInstantiation = new(
+    public static readonly Generated SkipAutoInitialization = new(
         $$"""
             namespace Fluentify
             {
                 using System;
 
                 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
-                internal sealed class SkipAutoInstantiationAttribute
+                internal sealed class SkipAutoInitializationAttribute
                     : Attribute
                 {
                 }
             }
             """,
-        typeof(SkipAutoInstantiationAttributeGenerator),
-        "SkipAutoInstantiationAttribute");
+        typeof(SkipAutoInitializationAttributeGenerator),
+        "SkipAutoInitializationAttribute");
 }
