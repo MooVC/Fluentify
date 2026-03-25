@@ -23,7 +23,7 @@ jobs:
 
   build:
     name: Build, Test & Publish
-    runs-on: windows-latest
+    runs-on: windows-2025
 
     steps:
     - name: Checkout
@@ -96,7 +96,7 @@ jobs:
 
   unlist:
     name: Unlist Previous Pre-release Package Versions
-    runs-on: windows-latest
+    runs-on: windows-2025
     needs: build
     if: ${{ needs.build.result == 'success' }}
 
