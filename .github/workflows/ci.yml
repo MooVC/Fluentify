@@ -29,14 +29,14 @@ permissions:
 jobs:
   build:
     name: Build & Test
-    runs-on: windows-latest
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout
       uses: actions/checkout@v6.0.2
       with:
         fetch-depth: 0
-        
+
     - name: Use .NET SDKs
       uses: actions/setup-dotnet@v5
       with:
