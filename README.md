@@ -2,6 +2,16 @@
 
 Fluentify is a .NET Roslyn Source Generator designed to automate the creation of Fluent APIs. This tool enables engineers to rapidly develop rich, expressive, and maintainable APIs with ease. Utilizing Fluentify allows for cleaner code, easier maintenance, and more expressive interactions within your C# .NET applications.
 
+## Why engineers evaluating the Fluent Builder pattern use Fluentify
+
+- **Fast adoption**: annotate a model with `[Fluentify]` and generated extensions become available during compilation.
+- **Safer onboarding**: built-in diagnostics (`FLTFY01`-`FLTFY12`) explain common setup mistakes and provide guided fixes.
+- **Immutable by default**: generated calls return updated copies, helping teams preserve predictable state transitions.
+- **Production ready**: supports classes, records, nested types, descriptors, optional auto initialization, and collection append patterns.
+- **Easy discovery**: full examples and rule documentation are available in this repository and in the NuGet package README.
+
+If you are exploring how to introduce a fluent builder approach in an existing codebase, Fluentify can help your team standardize the pattern without requiring manual builder boilerplate.
+
 If you are unfamiliar with Fluent Builder pattern, please review [Building Complex Objects in a Simple Way with C#](https://www.youtube.com/watch?v=kjxf3T4tRh4) by [Gui Ferreira](https://www.youtube.com/@gui.ferreira). Using its example, with Fluentify, we can transform how we configure movies from this:
 
 ```csharp
@@ -48,6 +58,12 @@ To install Fluentify, use the following command in your package manager console:
 
 ```shell
 install-package Fluentify
+```
+
+Or install via the .NET CLI:
+
+```shell
+dotnet add package Fluentify
 ```
 
 ## Usage
