@@ -13,7 +13,7 @@
     <PackageProjectUrl>https://github.com/MooVC/fluentify</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageTags>Analyzer;Analyzers;Api;Builder;CSharp;Dotnet;Fluent;Generator;Roslyn;Source</PackageTags>
+    <PackageTags>Analyzer;Analyzers;Api;Builder;BuilderPattern;CSharp;Dotnet;Fluent;FluentBuilder;Generator;Roslyn;Source;SourceGenerator</PackageTags>
     <Product>Fluentify</Product>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryType>git</RepositoryType>
