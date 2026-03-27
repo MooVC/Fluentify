@@ -27,6 +27,7 @@ public sealed class DescriptorAttributeAnalyzer
     /// <inheritdoc/>
     public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics { get; } = ImmutableArray.Create(
         DisregardedRule,
+        DuplicateDescriptorRule,
         MissingFluentifyRule,
         RedundantRule,
         ValidNamingRule);
@@ -46,6 +47,23 @@ public sealed class DescriptorAttributeAnalyzer
         isEnabledByDefault: true,
         description: GetResourceString(nameof(DisregardedRuleDescription)),
         helpLinkUri: GetHelpLinkUri("FLTFY02"));
+
+
+    /// <summary>
+    /// Gets the descriptor associated with the duplicate descriptor rule (FLTFY13).
+    /// </summary>
+    /// <value>
+    /// The descriptor associated with the duplicate descriptor rule (FLTFY13).
+    /// </value>
+    internal static DiagnosticDescriptor DuplicateDescriptorRule { get; } = new(
+        "FLTFY13",
+        GetResourceString(nameof(DuplicateDescriptorRuleTitle)),
+        GetResourceString(nameof(DuplicateDescriptorRuleMessageFormat)),
+        "Usage",
+        DiagnosticSeverity.Error,
+        isEnabledByDefault: true,
+        description: GetResourceString(nameof(DuplicateDescriptorRuleDescription)),
+        helpLinkUri: GetHelpLinkUri("FLTFY13"));
 
     /// <summary>
     /// Gets the descriptor associated with the missing fluentify rule (FLTFY03).
@@ -110,10 +128,97 @@ public sealed class DescriptorAttributeAnalyzer
         {
             Raise(context, DisregardedRule, location, name);
         }
+        else if (IsViolatingDuplicateDescriptorRule(context, syntax, ref descriptor, out location, out string duplicate, out name, out string typeName))
+        {
+            Raise(context, DuplicateDescriptorRule, location, descriptor, name, duplicate, typeName);
+        }
         else if (IsViolatingRedundantRule(property, syntax, ref descriptor, out location, out name))
         {
             Raise(context, RedundantRule, location, descriptor, name);
         }
+    }
+
+
+    private static IPropertySymbol? GetProperty(SyntaxNodeAnalysisContext context, AttributeSyntax syntax)
+    {
+        ISymbol? symbol = syntax.GetParent<PropertyDeclarationSyntax>(context)
+            ?? syntax.GetParent<ParameterSyntax>(context);
+
+        if (symbol is IPropertySymbol property)
+        {
+            return property;
+        }
+
+        if (symbol is IParameterSymbol parameter && parameter.ContainingType is INamedTypeSymbol type)
+        {
+            return type
+                .GetMembers(parameter.Name)
+                .OfType<IPropertySymbol>()
+                .FirstOrDefault();
+        }
+
+        return default;
+    }
+
+    private static int GetStart(IPropertySymbol property)
+    {
+        return property
+            .Locations
+            .FirstOrDefault()?.SourceSpan.Start
+            ?? int.MaxValue;
+    }
+
+    private static bool IsViolatingDuplicateDescriptorRule(
+        SyntaxNodeAnalysisContext context,
+        AttributeSyntax syntax,
+        ref string descriptor,
+        out Location location,
+        out string duplicate,
+        out string name,
+        out string @class)
+    {
+        IPropertySymbol? property = GetProperty(context, syntax);
+
+        if (property is null || property.ContainingType is not INamedTypeSymbol type)
+        {
+            location = Location.None;
+            duplicate = string.Empty;
+            name = string.Empty;
+            @class = string.Empty;
+
+            return false;
+        }
+
+        descriptor = descriptor == string.Empty
+            ? property.GetDescriptor() ?? string.Empty
+            : descriptor;
+
+        int position = GetStart(property);
+
+        IPropertySymbol? conflicting = type
+            .GetMembers()
+            .OfType<IPropertySymbol>()
+            .Where(candidate => candidate.HasAttribute(Name))
+            .Where(candidate => !SymbolEqualityComparer.Default.Equals(candidate, property))
+            .Where(candidate => GetStart(candidate) < position)
+            .FirstOrDefault(candidate => string.Equals(candidate.GetDescriptor(), descriptor, StringComparison.Ordinal));
+
+        if (conflicting is null)
+        {
+            location = Location.None;
+            duplicate = string.Empty;
+            name = string.Empty;
+            @class = string.Empty;
+
+            return false;
+        }
+
+        location = syntax.GetLocation();
+        duplicate = conflicting.Name;
+        name = property.Name;
+        @class = type.Name;
+
+        return true;
     }
 
     private static bool IsViolatingRedundantRule(ISymbol? property, AttributeSyntax syntax, ref string descriptor, out Location location, out string name)

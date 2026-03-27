@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 # [Unreleased]
 
+## Added
+
+- `FLTFY13` now raises an error when multiple properties on the same type use the same `Descriptor` value.
+
 ## Changed
 
 - Improved package and repository discoverability for engineers researching fluent builder implementations by expanding README positioning content and NuGet metadata keywords.

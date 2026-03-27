@@ -88,6 +88,33 @@ namespace Fluentify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Descriptor values must be unique across properties on the same type to avoid extension method name collisions..
+        /// </summary>
+        internal static string DuplicateDescriptorRuleDescription {
+            get {
+                return ResourceManager.GetString("DuplicateDescriptorRuleDescription", _resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descriptor &apos;{0}&apos; for Property &apos;{1}&apos; duplicates Property &apos;{2}&apos; on type &apos;{3}&apos;..
+        /// </summary>
+        internal static string DuplicateDescriptorRuleMessageFormat {
+            get {
+                return ResourceManager.GetString("DuplicateDescriptorRuleMessageFormat", _resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descriptor must be unique within a type.
+        /// </summary>
+        internal static string DuplicateDescriptorRuleTitle {
+            get {
+                return ResourceManager.GetString("DuplicateDescriptorRuleTitle", _resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Property and its Descriptor are not considered by Fluentify because the type has not been annotated with the Fluentify attribute..
         /// </summary>
         internal static string MissingFluentifyRuleDescription {

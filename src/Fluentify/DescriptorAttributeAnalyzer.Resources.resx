@@ -126,6 +126,15 @@
   <data name="DisregardedRuleTitle" xml:space="preserve">
     <value>Descriptor is disregarded from consideration by Fluentify</value>
   </data>
+  <data name="DuplicateDescriptorRuleTitle" xml:space="preserve">
+    <value>Descriptor must be unique within a type</value>
+  </data>
+  <data name="DuplicateDescriptorRuleMessageFormat" xml:space="preserve">
+    <value>Descriptor '{0}' for Property '{1}' duplicates Property '{2}' on type '{3}'.</value>
+  </data>
+  <data name="DuplicateDescriptorRuleDescription" xml:space="preserve">
+    <value>Descriptor values must be unique across properties on the same type to avoid extension method name collisions.</value>
+  </data>
   <data name="MissingFluentifyRuleDescription" xml:space="preserve">
     <value>The Property and its Descriptor are not considered by Fluentify because the type has not been annotated with the Fluentify attribute.</value>
   </data>

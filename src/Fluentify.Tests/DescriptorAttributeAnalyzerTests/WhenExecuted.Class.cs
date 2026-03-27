@@ -127,6 +127,55 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
+
+        [Fact]
+        public async Task GivenADuplicateDescriptorWhenFluentifyIsAppliedToTheClassThenDuplicateDescriptorRuleIsRaised()
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedDuplicateDescriptorRule("Update", "SecondProperty", "FirstProperty", "TestClass", new LinePosition(7, 5)));
+
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public class TestClass
+                {
+                    [Descriptor("Update")]
+                    public string FirstProperty { get; set; }
+
+                    [Descriptor("Update")]
+                    public string SecondProperty { get; set; }
+                }
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenAPropertySharingADescriptorWithAnIgnoredPropertyWhenFluentifyIsAppliedToTheClassThenNoDuplicateDescriptorRuleIsRaised()
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedDisregardedRule("FirstProperty", new LinePosition(5, 5)));
+
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public class TestClass
+                {
+                    [Descriptor("Update")]
+                    [Ignore]
+                    public string FirstProperty { get; set; }
+
+                    [Descriptor("Update")]
+                    public string SecondProperty { get; set; }
+                }
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
         [Fact]
         public async Task GivenAValidDescriptorOnABooleanWhenFluentifyIsAppliedToTheClassThenNoDiagnosticIsRaised()
         {
