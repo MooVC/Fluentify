@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
 /// <summary>
-/// Generates an extension method that checks if the supplied value is null, thereby enabling support for all versions from .NET Standard 2.0 and above.
+/// Generates an extension method that checks if the supplied value is <see langword="null" />, thereby enabling support for all versions from .NET Standard 2.0 and above.
 /// </summary>
 [Generator(LanguageNames.CSharp)]
 public sealed class InternalExtensionsGenerator

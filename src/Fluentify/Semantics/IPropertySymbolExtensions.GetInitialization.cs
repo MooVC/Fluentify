@@ -17,7 +17,7 @@ internal static partial class IPropertySymbolExtensions
     /// the out parameter.</remarks>
     /// <param name="property">The property symbol for which to obtain the initialization value.</param>
     /// <param name="initialization">When this method returns, contains the resolved initialization value if available; otherwise, an empty string.</param>
-    /// <returns>true if an initialization value was successfully resolved; otherwise, false.</returns>
+    /// <returns><see langword="true" /> if an initialization value was successfully resolved; otherwise, <see langword="false" />.</returns>
     public static bool TryGetInitialization(this IPropertySymbol property, out string initialization)
     {
         initialization = string.Empty;
