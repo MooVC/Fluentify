@@ -22,7 +22,7 @@ internal static partial class ITypeSymbolExtensions
     /// itself, and constructs an initialization expression if successful.
     /// </summary>
     /// <param name="source">The type symbol to search for a static member. Can be <see langword="null"/>.</param>
-    /// <param name="member">The name of the static method or property to resolve. Must not be null, empty, or whitespace.</param>
+    /// <param name="member">The name of the static method or property to resolve. Must not be <see langword="null" />, empty, or whitespace.</param>
     /// <param name="initialization">When this method returns <see langword="true"/>, contains the constructed initialization expression for the
     /// resolved member; otherwise, contains the default value.</param>
     /// <returns>
@@ -44,7 +44,7 @@ internal static partial class ITypeSymbolExtensions
     /// </summary>
     /// <param name="source">The type symbol to search for a static member. Can be <see langword="null"/>.</param>
     /// <param name="type">The type symbol required for instantiation. Can be <see langword="null"/>.</param>
-    /// <param name="member">The name of the static method or property to resolve. Must not be null, empty, or whitespace.</param>
+    /// <param name="member">The name of the static method or property to resolve. Must not be <see langword="null" />, empty, or whitespace.</param>
     /// <param name="initialization">When this method returns <see langword="true"/>, contains the constructed initialization expression for the
     /// resolved member; otherwise, contains the default value.</param>
     /// <returns>
