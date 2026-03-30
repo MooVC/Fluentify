@@ -15,7 +15,7 @@
 </tr>
 <tr>
   <td>Severity</td>
-  <td>Warning</td>
+  <td>Info</td>
 </tr>
 <tr>
   <td>Is Enabled By Default</td>

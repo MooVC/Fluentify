@@ -332,6 +332,7 @@ Rule ID                          | Category | Severity | Notes
 [FLTFY10](docs/rules/FLTFY10.md) | Usage    | Info     | AutoInitializeWith ignored when SkipAutoInitialization is present
 [FLTFY11](docs/rules/FLTFY11.md) | Usage    | Info     | Type does not utilize Fluentify (Hide)
 [FLTFY12](docs/rules/FLTFY12.md) | Usage    | Info     | Hide is disregarded when Ignore is applied
+[FLTFY13](docs/rules/FLTFY13.md) | Usage    | Error    | Descriptor must be unique within a type
 
 ## Building a Service
 

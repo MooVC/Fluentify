@@ -48,7 +48,6 @@ public sealed class DescriptorAttributeAnalyzer
         description: GetResourceString(nameof(DisregardedRuleDescription)),
         helpLinkUri: GetHelpLinkUri("FLTFY02"));
 
-
     /// <summary>
     /// Gets the descriptor associated with the duplicate descriptor rule (FLTFY13).
     /// </summary>
@@ -138,7 +137,6 @@ public sealed class DescriptorAttributeAnalyzer
         }
     }
 
-
     private static IPropertySymbol? GetProperty(SyntaxNodeAnalysisContext context, AttributeSyntax syntax)
     {
         ISymbol? symbol = syntax.GetParent<PropertyDeclarationSyntax>(context)
@@ -194,14 +192,15 @@ public sealed class DescriptorAttributeAnalyzer
             : descriptor;
 
         int position = GetStart(property);
+        string match = descriptor;
 
         IPropertySymbol? conflicting = type
             .GetMembers()
             .OfType<IPropertySymbol>()
-            .Where(candidate => candidate.HasAttribute(Name))
+            .Where(candidate => candidate.HasAttribute(Name) && !candidate.HasIgnore())
             .Where(candidate => !SymbolEqualityComparer.Default.Equals(candidate, property))
             .Where(candidate => GetStart(candidate) < position)
-            .FirstOrDefault(candidate => string.Equals(candidate.GetDescriptor(), descriptor, StringComparison.Ordinal));
+            .FirstOrDefault(candidate => string.Equals(candidate.GetDescriptor(), match, StringComparison.Ordinal));
 
         if (conflicting is null)
         {

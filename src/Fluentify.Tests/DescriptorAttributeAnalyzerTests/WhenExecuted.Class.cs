@@ -127,12 +127,11 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-
         [Fact]
         public async Task GivenADuplicateDescriptorWhenFluentifyIsAppliedToTheClassThenDuplicateDescriptorRuleIsRaised()
         {
             // Arrange
-            ExpectedDiagnostics.Add(GetExpectedDuplicateDescriptorRule("Update", "SecondProperty", "FirstProperty", "TestClass", new LinePosition(7, 5)));
+            ExpectedDiagnostics.Add(GetExpectedDuplicateDescriptorRule("Update", "SecondProperty", "FirstProperty", "TestClass", new LinePosition(8, 5)));
 
             TestCode = $$"""
                 using Fluentify;
@@ -176,6 +175,7 @@ public partial class WhenExecuted
             // Act & Assert
             await ActAndAssertAsync();
         }
+
         [Fact]
         public async Task GivenAValidDescriptorOnABooleanWhenFluentifyIsAppliedToTheClassThenNoDiagnosticIsRaised()
         {

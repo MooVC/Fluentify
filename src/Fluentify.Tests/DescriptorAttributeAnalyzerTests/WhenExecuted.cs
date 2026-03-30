@@ -27,7 +27,12 @@ public abstract partial class WhenExecuted
         return GetExpected(position, DescriptorAttributeAnalyzer.DisregardedRule, member);
     }
 
-    protected static DiagnosticResult GetExpectedDuplicateDescriptorRule(string descriptor, string member, string duplicate, string @class, LinePosition position)
+    protected static DiagnosticResult GetExpectedDuplicateDescriptorRule(
+        string descriptor,
+        string member,
+        string duplicate,
+        string @class,
+        LinePosition position)
     {
         return GetExpected(position, DescriptorAttributeAnalyzer.DuplicateDescriptorRule, descriptor, member, duplicate, @class);
     }

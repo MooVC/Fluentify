@@ -1,12 +1,19 @@
-﻿## Release 2.0.0
+﻿## Release 2.1.0
+
+Rule ID | Category | Severity | Notes
+--------|----------|----------|-------
+FLTFY13 | Design   | Error    | FLTFY13_DescriptorAttributeAnalyzer, [Documentation](https://github.com/MooVC/Fluentify/blob/master/docs/rules/FLTFY13.md)
+
+## Release 2.0.0
 
 ### New Rules
 
 Rule ID | Category | Severity | Notes
 --------|----------|----------|-------
-FLTFY08 | Design   | Warning  | FLTFY08_RecordAnalyzer, [Documentation](https://github.com/MooVC/Fluentify/blob/master/docs/rules/FLTFY08.md)
 FLTFY09 | Usage    | Warning  | FLTFY09_AutoInitializeWithAttributeAnalyzer, [Documentation](https://github.com/MooVC/Fluentify/blob/master/docs/rules/FLTFY09.md)
 FLTFY10 | Usage    | Info     | FLTFY10_SkipAutoInitializationAttributeAnalyzer, [Documentation](https://github.com/MooVC/Fluentify/blob/master/docs/rules/FLTFY10.md)
+FLTFY11 | Usage    | Info     | FLTFY11_HideAttributeAnalyzer, [Documentation](https://github.com/MooVC/Fluentify/blob/master/docs/rules/FLTFY11.md)
+FLTFY12 | Usage    | Info     | FLTFY12_HideAttributeAnalyzer, [Documentation](https://github.com/MooVC/Fluentify/blob/master/docs/rules/FLTFY12.md)
 
 
 ## Release 1.9.0
