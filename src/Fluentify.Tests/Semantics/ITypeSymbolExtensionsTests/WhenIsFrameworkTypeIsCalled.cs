@@ -10,16 +10,16 @@ public sealed class WhenIsFrameworkTypeIsCalled
     private static readonly Compilation _compilation = CreateCompilation();
 
     [Fact]
-    public void GivenStringThenReturnsTrue()
+    public void GivenAnnotatedNullableCustomTypeThenReturnsFalse()
     {
         // Arrange
-        ITypeSymbol type = GetPropertyType("Name");
+        ITypeSymbol type = GetPropertyType("NullableDependency");
 
         // Act
         bool result = type.IsFrameworkType();
 
         // Assert
-        result.ShouldBeTrue();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -36,19 +36,6 @@ public sealed class WhenIsFrameworkTypeIsCalled
     }
 
     [Fact]
-    public void GivenAnnotatedNullableCustomTypeThenReturnsFalse()
-    {
-        // Arrange
-        ITypeSymbol type = GetPropertyType("NullableDependency");
-
-        // Act
-        bool result = type.IsFrameworkType();
-
-        // Assert
-        result.ShouldBeFalse();
-    }
-
-    [Fact]
     public void GivenCustomTypeThenReturnsFalse()
     {
         // Arrange
@@ -59,6 +46,19 @@ public sealed class WhenIsFrameworkTypeIsCalled
 
         // Assert
         result.ShouldBeFalse();
+    }
+
+    [Fact]
+    public void GivenStringThenReturnsTrue()
+    {
+        // Arrange
+        ITypeSymbol type = GetPropertyType("Name");
+
+        // Act
+        bool result = type.IsFrameworkType();
+
+        // Assert
+        result.ShouldBeTrue();
     }
 
     private static ITypeSymbol GetPropertyType(string name)

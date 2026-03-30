@@ -8,7 +8,9 @@ using Microsoft.CodeAnalysis.CSharp;
 public sealed class WhenTryGetInitializationIsCalled
 {
     private const string MissingTypeName = "Demo.Missing";
+
     private const string SkippedTypeName = "Demo.Skipped";
+
     private const string WithInitializationTypeName = "Demo.WithInitialization";
 
     private static readonly Compilation _compilation = CreateCompilation();
@@ -28,10 +30,10 @@ public sealed class WhenTryGetInitializationIsCalled
     }
 
     [Fact]
-    public void GivenTypeWithSkipAutoInitializationThenFalseIsReturned()
+    public void GivenTypeWithMissingMemberThenFalseIsReturned()
     {
         // Arrange
-        INamedTypeSymbol type = _compilation.GetTypeByMetadataName(SkippedTypeName)!;
+        INamedTypeSymbol type = _compilation.GetTypeByMetadataName(MissingTypeName)!;
 
         // Act
         bool result = type.TryGetInitialization(out string initialization);
@@ -42,10 +44,10 @@ public sealed class WhenTryGetInitializationIsCalled
     }
 
     [Fact]
-    public void GivenTypeWithMissingMemberThenFalseIsReturned()
+    public void GivenTypeWithSkipAutoInitializationThenFalseIsReturned()
     {
         // Arrange
-        INamedTypeSymbol type = _compilation.GetTypeByMetadataName(MissingTypeName)!;
+        INamedTypeSymbol type = _compilation.GetTypeByMetadataName(SkippedTypeName)!;
 
         // Act
         bool result = type.TryGetInitialization(out string initialization);

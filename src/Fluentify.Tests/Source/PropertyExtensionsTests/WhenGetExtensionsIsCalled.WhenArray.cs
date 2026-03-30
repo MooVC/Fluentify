@@ -60,7 +60,7 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
-    public void GivenPublicPropertyAndPublicSubjectWhenArrayThenGeneratesPublicExtension(string scalar)
+    public void GivenBuildablePropertyWhenArrayThenGeneratesDelegateExtension(string scalar)
     {
         // Arrange
         string expected = $$"""
@@ -73,21 +73,36 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 public static global::TestSubject WithTestProperty(
                     this global::TestSubject subject,
-                    params int[] values)
+                    params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
-
-                    int[] value = values;
-
+            
+                    TestType[] value = values;
+            
                     if (subject.TestProperty != null)
                     {
-                        value = new int[value.Length + subject.TestProperty.Length];
-
+                        value = new TestType[value.Length + subject.TestProperty.Length];
+            
                         subject.TestProperty.CopyTo(value, 0);
                         values.CopyTo(value, subject.TestProperty.Length);
                     }
-
+            
                     {{scalar}}
+                }
+
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    Func<TestType, TestType> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = new TestType();
+
+                    instance = builder(instance);
+
+                    return subject.WithTestProperty(instance);
                 }
             }
             """;
@@ -99,6 +114,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             Properties = [],
             Type = new()
             {
+                Initialization = "new global::TestSubject()",
                 Name = "global::TestSubject",
             },
         };
@@ -111,15 +127,15 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
-                    IsFrameworkType = true,
-                    IsValueType = true,
-                    Name = "int",
+                    Initialization = "new TestType()",
+                    IsBuildable = true,
+                    Name = "TestType",
                 },
                 Pattern = Pattern.Array,
                 Type = new()
                 {
-                    IsFrameworkType = true,
-                    Name = "int[]",
+                    Initialization = "new TestType()",
+                    Name = "TestType[]",
                 },
             },
             Name = "TestProperty",
@@ -307,7 +323,7 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
-    public void GivenBuildablePropertyWhenArrayThenGeneratesDelegateExtension(string scalar)
+    public void GivenPublicPropertyAndPublicSubjectWhenArrayThenGeneratesPublicExtension(string scalar)
     {
         // Arrange
         string expected = $$"""
@@ -320,36 +336,21 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 public static global::TestSubject WithTestProperty(
                     this global::TestSubject subject,
-                    params TestType[] values)
+                    params int[] values)
                 {
                     subject.ThrowIfNull("subject");
-            
-                    TestType[] value = values;
-            
+
+                    int[] value = values;
+
                     if (subject.TestProperty != null)
                     {
-                        value = new TestType[value.Length + subject.TestProperty.Length];
-            
+                        value = new int[value.Length + subject.TestProperty.Length];
+
                         subject.TestProperty.CopyTo(value, 0);
                         values.CopyTo(value, subject.TestProperty.Length);
                     }
-            
+
                     {{scalar}}
-                }
-
-                public static global::TestSubject WithTestProperty(
-                    this global::TestSubject subject,
-                    Func<TestType, TestType> builder)
-                {
-                    subject.ThrowIfNull("subject");
-
-                    builder.ThrowIfNull("builder");
-
-                    var instance = new TestType();
-
-                    instance = builder(instance);
-
-                    return subject.WithTestProperty(instance);
                 }
             }
             """;
@@ -361,7 +362,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             Properties = [],
             Type = new()
             {
-                Initialization = "new global::TestSubject()",
                 Name = "global::TestSubject",
             },
         };
@@ -374,15 +374,15 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
-                    Initialization = "new TestType()",
-                    IsBuildable = true,
-                    Name = "TestType",
+                    IsFrameworkType = true,
+                    IsValueType = true,
+                    Name = "int",
                 },
                 Pattern = Pattern.Array,
                 Type = new()
                 {
-                    Initialization = "new TestType()",
-                    Name = "TestType[]",
+                    IsFrameworkType = true,
+                    Name = "int[]",
                 },
             },
             Name = "TestProperty",

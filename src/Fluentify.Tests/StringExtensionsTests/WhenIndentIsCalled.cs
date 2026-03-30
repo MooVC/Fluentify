@@ -16,19 +16,6 @@ public sealed class WhenIndentIsCalled
     }
 
     [Fact]
-    public void GivenSingleLineStringThenReturnsSameString()
-    {
-        // Arrange
-        string input = "This is a test.";
-
-        // Act
-        string result = input.Indent();
-
-        // Assert
-        result.ShouldBe(input);
-    }
-
-    [Fact]
     public void GivenMultilineStringThenIndentsNonBlankLinesAfterSkip()
     {
         // Arrange
@@ -98,5 +85,18 @@ public sealed class WhenIndentIsCalled
 
         // Assert
         result.ShouldBe(expected);
+    }
+
+    [Fact]
+    public void GivenSingleLineStringThenReturnsSameString()
+    {
+        // Arrange
+        string input = "This is a test.";
+
+        // Act
+        string result = input.Indent();
+
+        // Assert
+        result.ShouldBe(input);
     }
 }

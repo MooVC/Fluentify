@@ -46,20 +46,6 @@ public sealed class WhenGetDescriptorIsCalled
     };
 
     [Theory]
-    [MemberData(nameof(GivenPropertyWithDescriptorThenTheDescriptorIsReturnedData))]
-    public void GivenPropertyWithDescriptorThenTheDescriptorIsReturned(string? descriptor, string property, Definition definition)
-    {
-        // Arrange
-        IPropertySymbol symbol = definition.GetProperty(property);
-
-        // Act
-        string? actual = symbol.GetDescriptor();
-
-        // Assert
-        actual.ShouldBe(descriptor);
-    }
-
-    [Theory]
     [MemberData(nameof(GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturnedData))]
     public void GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturned(Definition definition)
     {
@@ -77,5 +63,19 @@ public sealed class WhenGetDescriptorIsCalled
             // Assert
             descriptor.ShouldBeNull();
         }
+    }
+
+    [Theory]
+    [MemberData(nameof(GivenPropertyWithDescriptorThenTheDescriptorIsReturnedData))]
+    public void GivenPropertyWithDescriptorThenTheDescriptorIsReturned(string? descriptor, string property, Definition definition)
+    {
+        // Arrange
+        IPropertySymbol symbol = definition.GetProperty(property);
+
+        // Act
+        string? actual = symbol.GetDescriptor();
+
+        // Assert
+        actual.ShouldBe(descriptor);
     }
 }

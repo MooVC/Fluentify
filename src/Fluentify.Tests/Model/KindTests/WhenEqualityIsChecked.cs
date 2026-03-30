@@ -3,33 +3,11 @@
 public abstract class WhenEqualityIsChecked
 {
     [Fact]
-    public void GivenIdenticalInstancesThenTheyAreEqual()
+    public void GivenBothInstancesAreNullThenTheyAreEqual()
     {
         // Arrange
-        var instance1 = new Kind
-        {
-            Member = new()
-            {
-                Name = "string",
-            },
-            Pattern = Pattern.Array,
-            Type = new()
-            {
-                Name = "string[]",
-            },
-        };
-        var instance2 = new Kind
-        {
-            Member = new()
-            {
-                Name = "string",
-            },
-            Pattern = Pattern.Array,
-            Type = new()
-            {
-                Name = "string[]",
-            },
-        };
+        Kind? instance1 = default;
+        Kind? instance2 = default;
 
         // Act
         bool areEqual = AreEqual(instance1, instance2);
@@ -145,6 +123,42 @@ public abstract class WhenEqualityIsChecked
     }
 
     [Fact]
+    public void GivenIdenticalInstancesThenTheyAreEqual()
+    {
+        // Arrange
+        var instance1 = new Kind
+        {
+            Member = new()
+            {
+                Name = "string",
+            },
+            Pattern = Pattern.Array,
+            Type = new()
+            {
+                Name = "string[]",
+            },
+        };
+        var instance2 = new Kind
+        {
+            Member = new()
+            {
+                Name = "string",
+            },
+            Pattern = Pattern.Array,
+            Type = new()
+            {
+                Name = "string[]",
+            },
+        };
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        areEqual.ShouldBeTrue();
+    }
+
+    [Fact]
     public void GivenOneInstanceIsNullThenTheyAreNotEqual()
     {
         // Arrange
@@ -166,20 +180,6 @@ public abstract class WhenEqualityIsChecked
 
         // Assert
         areEqual.ShouldBeFalse();
-    }
-
-    [Fact]
-    public void GivenBothInstancesAreNullThenTheyAreEqual()
-    {
-        // Arrange
-        Kind? instance1 = default;
-        Kind? instance2 = default;
-
-        // Act
-        bool areEqual = AreEqual(instance1, instance2);
-
-        // Assert
-        areEqual.ShouldBeTrue();
     }
 
     [Fact]

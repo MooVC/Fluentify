@@ -15,14 +15,14 @@ public partial class WhenExecuted
         }
 
         [Fact]
-        public async Task GivenAnImutablePropertyWithoutIgnoreWhenFluentifyIsNotAppliedToTheRecordThenNoDiagnosticIsRaised()
+        public async Task GivenAMutablePropertyWithIgnoreWhenFluentifyIsAppliedToTheRecordThenNoDiagnosticIsRaised()
         {
             // Arrange
             TestCode = """
-                public record TestRecord
-                {
-                    public string Property { get; } = string.Empty;
-                }
+                using Fluentify;
+
+                [Fluentify]
+                public record TestRecord([Ignore] string Property);
                 """;
 
             // Act & Assert
@@ -30,10 +30,16 @@ public partial class WhenExecuted
         }
 
         [Fact]
-        public async Task GivenAMutablePropertyWithoutIgnoreWhenFluentifyIsNotAppliedToTheRecordThenNoDiagnosticIsRaised()
+        public async Task GivenAMutablePropertyWithIgnoreWhenFluentifyIsNotAppliedToTheRecordThenMissingFluentifyRuleIsRaised()
         {
             // Arrange
-            TestCode = "public record TestRecord(string Property);";
+            ExpectedDiagnostics.Add(GetExpectedMissingFluentifyRule("Property", new LinePosition(2, 61)));
+
+            TestCode = """
+                using Fluentify;
+
+                public record TestRecordWithMutablePropertyWithoutFluentify([Ignore] string Property);
+                """;
 
             // Act & Assert
             await ActAndAssertAsync();
@@ -55,14 +61,30 @@ public partial class WhenExecuted
         }
 
         [Fact]
-        public async Task GivenAMutablePropertyWithIgnoreWhenFluentifyIsAppliedToTheRecordThenNoDiagnosticIsRaised()
+        public async Task GivenAMutablePropertyWithoutIgnoreWhenFluentifyIsNotAppliedToTheRecordThenNoDiagnosticIsRaised()
         {
             // Arrange
+            TestCode = "public record TestRecord(string Property);";
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenAnImmutablePropertyWithIgnoreWhenFluentifyIsAppliedToTheRecordThenRedundantUsageRuleIsRaised()
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedRedundantUsageRule(new LinePosition(5, 4), "ImmutablePropertyOnRecordWithFluentify"));
+
             TestCode = """
                 using Fluentify;
 
                 [Fluentify]
-                public record TestRecord([Ignore] string Property);
+                public record TestRecordWithImmutablePropertyWithFluentify
+                {
+                    [Ignore]
+                    public string ImmutablePropertyOnRecordWithFluentify { get; } = string.Empty;
+                }
                 """;
 
             // Act & Assert
@@ -90,35 +112,13 @@ public partial class WhenExecuted
         }
 
         [Fact]
-        public async Task GivenAMutablePropertyWithIgnoreWhenFluentifyIsNotAppliedToTheRecordThenMissingFluentifyRuleIsRaised()
+        public async Task GivenAnImutablePropertyWithoutIgnoreWhenFluentifyIsNotAppliedToTheRecordThenNoDiagnosticIsRaised()
         {
             // Arrange
-            ExpectedDiagnostics.Add(GetExpectedMissingFluentifyRule("Property", new LinePosition(2, 61)));
-
             TestCode = """
-                using Fluentify;
-
-                public record TestRecordWithMutablePropertyWithoutFluentify([Ignore] string Property);
-                """;
-
-            // Act & Assert
-            await ActAndAssertAsync();
-        }
-
-        [Fact]
-        public async Task GivenAnImmutablePropertyWithIgnoreWhenFluentifyIsAppliedToTheRecordThenRedundantUsageRuleIsRaised()
-        {
-            // Arrange
-            ExpectedDiagnostics.Add(GetExpectedRedundantUsageRule(new LinePosition(5, 4), "ImmutablePropertyOnRecordWithFluentify"));
-
-            TestCode = """
-                using Fluentify;
-
-                [Fluentify]
-                public record TestRecordWithImmutablePropertyWithFluentify
+                public record TestRecord
                 {
-                    [Ignore]
-                    public string ImmutablePropertyOnRecordWithFluentify { get; } = string.Empty;
+                    public string Property { get; } = string.Empty;
                 }
                 """;
 

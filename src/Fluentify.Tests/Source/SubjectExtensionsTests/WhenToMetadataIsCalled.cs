@@ -5,26 +5,6 @@ using Fluentify.Model;
 public sealed class WhenToMetadataIsCalled
 {
     [Fact]
-    public void GivenSubjectWithoutGenericsThenMetadataHasNoConstraintsAndEmptyParameters()
-    {
-        // Arrange
-        var subject = new Subject
-        {
-            Name = "TestClass",
-            Generics = [],
-            Properties = [],
-        };
-
-        // Act
-        var metadata = subject.ToMetadata();
-
-        // Assert
-        metadata.Constraints.ShouldBeEmpty();
-        metadata.Parameters.ShouldBeEmpty();
-        metadata.Subject.ShouldBe(subject);
-    }
-
-    [Fact]
     public void GivenSubjectWithGenericsThenMetadataContainsConstraintsAndParameters()
     {
         // Arrange
@@ -60,6 +40,26 @@ public sealed class WhenToMetadataIsCalled
         ]);
 
         metadata.Parameters.ShouldBe("<T, U>");
+        metadata.Subject.ShouldBe(subject);
+    }
+
+    [Fact]
+    public void GivenSubjectWithoutGenericsThenMetadataHasNoConstraintsAndEmptyParameters()
+    {
+        // Arrange
+        var subject = new Subject
+        {
+            Name = "TestClass",
+            Generics = [],
+            Properties = [],
+        };
+
+        // Act
+        var metadata = subject.ToMetadata();
+
+        // Assert
+        metadata.Constraints.ShouldBeEmpty();
+        metadata.Parameters.ShouldBeEmpty();
         metadata.Subject.ShouldBe(subject);
     }
 }

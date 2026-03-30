@@ -2,20 +2,6 @@
 
 public sealed class WhenWithDescriptionIsCalled
 {
-    [Fact]
-    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
-    {
-        // Arrange
-        CrossReferenced? subject = default;
-
-        // Act
-        Func<CrossReferenced> act = () => subject!.WithDescription("Cross Referenced");
-
-        // Assert
-        act.ShouldThrow<ArgumentNullException>()
-            .ParamName.ShouldBe(nameof(subject));
-    }
-
     [Theory]
     [InlineData("Cross Referenced")]
     [InlineData("")]
@@ -36,5 +22,19 @@ public sealed class WhenWithDescriptionIsCalled
         actual.ShouldNotBeSameAs(original);
         actual.Description.ShouldBe(description);
         actual.Simple.ShouldBe(original.Simple);
+    }
+
+    [Fact]
+    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
+    {
+        // Arrange
+        CrossReferenced? subject = default;
+
+        // Act
+        Func<CrossReferenced> act = () => subject!.WithDescription("Cross Referenced");
+
+        // Assert
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 }

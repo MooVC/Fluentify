@@ -3,20 +3,6 @@
 public sealed class WhenWithNumbersIsCalled
 {
     [Fact]
-    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
-    {
-        // Arrange
-        SimpleWithEnumerables? subject = default;
-
-        // Act
-        Func<SimpleWithEnumerables> act = () => subject!.WithNumbers(1, 2);
-
-        // Assert
-        act.ShouldThrow<ArgumentNullException>()
-            .ParamName.ShouldBe(nameof(subject));
-    }
-
-    [Fact]
     public void GivenAttributesThenTheValueIsApplied()
     {
         // Arrange
@@ -43,5 +29,19 @@ public sealed class WhenWithNumbersIsCalled
         actual.Name.ShouldBe(original.Name);
         actual.Names.ShouldBeEquivalentTo(original.Names);
         actual.Numbers.ShouldBeEquivalentTo(expected);
+    }
+
+    [Fact]
+    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
+    {
+        // Arrange
+        SimpleWithEnumerables? subject = default;
+
+        // Act
+        Func<SimpleWithEnumerables> act = () => subject!.WithNumbers(1, 2);
+
+        // Assert
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 }

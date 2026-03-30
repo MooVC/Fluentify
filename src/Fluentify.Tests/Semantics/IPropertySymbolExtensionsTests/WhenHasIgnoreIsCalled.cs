@@ -26,6 +26,20 @@ public sealed class WhenHasIgnoreIsCalled
     }
 
     [Fact]
+    public void GivenPropertyWithNoAttributesThenReturnsFalse()
+    {
+        // Arrange
+        IPropertySymbol property = Substitute.For<IPropertySymbol>();
+        _ = property.GetAttributes().Returns([]);
+
+        // Act
+        bool result = property.HasIgnore();
+
+        // Assert
+        result.ShouldBeFalse();
+    }
+
+    [Fact]
     public void GivenPropertyWithoutIgnoreAttributeThenReturnsFalse()
     {
         // Arrange
@@ -37,20 +51,6 @@ public sealed class WhenHasIgnoreIsCalled
 
         IPropertySymbol property = Substitute.For<IPropertySymbol>();
         _ = property.GetAttributes().Returns([data]);
-
-        // Act
-        bool result = property.HasIgnore();
-
-        // Assert
-        result.ShouldBeFalse();
-    }
-
-    [Fact]
-    public void GivenPropertyWithNoAttributesThenReturnsFalse()
-    {
-        // Arrange
-        IPropertySymbol property = Substitute.For<IPropertySymbol>();
-        _ = property.GetAttributes().Returns([]);
 
         // Act
         bool result = property.HasIgnore();

@@ -31,6 +31,116 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
+        [Fact]
+        public async Task GivenADuplicateDescriptorWhenFluentifyIsAppliedToTheRecordThenDuplicateDescriptorRuleIsRaised()
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedDuplicateDescriptorRule("Update", "SecondProperty", "FirstProperty", "TestRecord", new LinePosition(3, 71)));
+
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public record TestRecord([Descriptor("Update")] string FirstProperty, [Descriptor("Update")] string SecondProperty);
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenAPropertySharingADescriptorWithAnIgnoredPropertyWhenFluentifyIsAppliedToTheRecordThenNoDuplicateDescriptorRuleIsRaised()
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedDisregardedRule("FirstProperty", new LinePosition(3, 26)));
+
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public record TestRecord([Descriptor("Update"), Ignore] string FirstProperty, [Descriptor("Update")] string SecondProperty);
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenARedundantSelfDescriptorOnANonBooleanWhenFluentifyIsAppliedToTheClassThenDisregardedRuleIsRaised()
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedRedundantRule("WithName", "Name", new LinePosition(3, 26)));
+
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public record TestRecord([Descriptor("WithName")] string Name);
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenASelfDescriptorOnABooleanWhenFluentifyIsAppliedToTheClassThenDisregardedRuleIsRaised()
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedRedundantRule("IsActive", "IsActive", new LinePosition(3, 26)));
+
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public record TestRecord([Descriptor] bool IsActive);
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenASelfDescriptorOnANonBooleanWhenFluentifyIsAppliedToTheClassThenThenNoDiagnosticIsRaised()
+        {
+            // Arrange
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public record TestRecord([Descriptor] string Name);
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Theory]
+        [InlineData("CalculateTotalPrice")]
+        [InlineData("GenerateReport")]
+        [InlineData("SendEmailNotification")]
+        [InlineData("ValidateUserCredentials")]
+        [InlineData("ParseJsonResponse")]
+        [InlineData("UpdateDatabaseRecord")]
+        [InlineData("ConvertCurrency")]
+        [InlineData("FetchWeatherData")]
+        [InlineData("ResizeImage")]
+        [InlineData("ProcessOrder")]
+        public async Task GivenAValidDescriptorOnAnIgnoredPropertyWhenFluentifyIsAppliedToTheRecordThenDisregardedRuleIsRaised(string descriptor)
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedDisregardedRule("IgnoredPropertyWithValidDiscriptor", new LinePosition(3, 26)));
+
+            TestCode = $$"""
+                using Fluentify;
+
+                [Fluentify]
+                public record TestRecord([Descriptor("{{descriptor}}"), Ignore] string IgnoredPropertyWithValidDiscriptor);
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
         [Theory]
         [InlineData("CalculateTotalPrice")]
         [InlineData("GenerateReport")]
@@ -77,116 +187,6 @@ public partial class WhenExecuted
 
                 [Fluentify]
                 public record TestRecord([Descriptor("{{descriptor}}")] string Property);
-                """;
-
-            // Act & Assert
-            await ActAndAssertAsync();
-        }
-
-        [Theory]
-        [InlineData("CalculateTotalPrice")]
-        [InlineData("GenerateReport")]
-        [InlineData("SendEmailNotification")]
-        [InlineData("ValidateUserCredentials")]
-        [InlineData("ParseJsonResponse")]
-        [InlineData("UpdateDatabaseRecord")]
-        [InlineData("ConvertCurrency")]
-        [InlineData("FetchWeatherData")]
-        [InlineData("ResizeImage")]
-        [InlineData("ProcessOrder")]
-        public async Task GivenAValidDescriptorOnAnIgnoredPropertyWhenFluentifyIsAppliedToTheRecordThenDisregardedRuleIsRaised(string descriptor)
-        {
-            // Arrange
-            ExpectedDiagnostics.Add(GetExpectedDisregardedRule("IgnoredPropertyWithValidDiscriptor", new LinePosition(3, 26)));
-
-            TestCode = $$"""
-                using Fluentify;
-
-                [Fluentify]
-                public record TestRecord([Descriptor("{{descriptor}}"), Ignore] string IgnoredPropertyWithValidDiscriptor);
-                """;
-
-            // Act & Assert
-            await ActAndAssertAsync();
-        }
-
-        [Fact]
-        public async Task GivenADuplicateDescriptorWhenFluentifyIsAppliedToTheRecordThenDuplicateDescriptorRuleIsRaised()
-        {
-            // Arrange
-            ExpectedDiagnostics.Add(GetExpectedDuplicateDescriptorRule("Update", "SecondProperty", "FirstProperty", "TestRecord", new LinePosition(3, 71)));
-
-            TestCode = $$"""
-                using Fluentify;
-
-                [Fluentify]
-                public record TestRecord([Descriptor("Update")] string FirstProperty, [Descriptor("Update")] string SecondProperty);
-                """;
-
-            // Act & Assert
-            await ActAndAssertAsync();
-        }
-
-        [Fact]
-        public async Task GivenAPropertySharingADescriptorWithAnIgnoredPropertyWhenFluentifyIsAppliedToTheRecordThenNoDuplicateDescriptorRuleIsRaised()
-        {
-            // Arrange
-            ExpectedDiagnostics.Add(GetExpectedDisregardedRule("FirstProperty", new LinePosition(3, 26)));
-
-            TestCode = $$"""
-                using Fluentify;
-
-                [Fluentify]
-                public record TestRecord([Descriptor("Update"), Ignore] string FirstProperty, [Descriptor("Update")] string SecondProperty);
-                """;
-
-            // Act & Assert
-            await ActAndAssertAsync();
-        }
-
-        [Fact]
-        public async Task GivenASelfDescriptorOnANonBooleanWhenFluentifyIsAppliedToTheClassThenThenNoDiagnosticIsRaised()
-        {
-            // Arrange
-            TestCode = $$"""
-                using Fluentify;
-
-                [Fluentify]
-                public record TestRecord([Descriptor] string Name);
-                """;
-
-            // Act & Assert
-            await ActAndAssertAsync();
-        }
-
-        [Fact]
-        public async Task GivenARedundantSelfDescriptorOnANonBooleanWhenFluentifyIsAppliedToTheClassThenDisregardedRuleIsRaised()
-        {
-            // Arrange
-            ExpectedDiagnostics.Add(GetExpectedRedundantRule("WithName", "Name", new LinePosition(3, 26)));
-
-            TestCode = $$"""
-                using Fluentify;
-
-                [Fluentify]
-                public record TestRecord([Descriptor("WithName")] string Name);
-                """;
-
-            // Act & Assert
-            await ActAndAssertAsync();
-        }
-
-        [Fact]
-        public async Task GivenASelfDescriptorOnABooleanWhenFluentifyIsAppliedToTheClassThenDisregardedRuleIsRaised()
-        {
-            // Arrange
-            ExpectedDiagnostics.Add(GetExpectedRedundantRule("IsActive", "IsActive", new LinePosition(3, 26)));
-
-            TestCode = $$"""
-                using Fluentify;
-
-                [Fluentify]
-                public record TestRecord([Descriptor] bool IsActive);
                 """;
 
             // Act & Assert

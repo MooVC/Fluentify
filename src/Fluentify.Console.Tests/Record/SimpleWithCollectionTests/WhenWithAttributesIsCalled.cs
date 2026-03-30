@@ -3,20 +3,6 @@
 public sealed class WhenWithAttributesIsCalled
 {
     [Fact]
-    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
-    {
-        // Arrange
-        SimpleWithCollection? subject = default;
-
-        // Act
-        Func<SimpleWithCollection> act = () => subject!.WithAttributes(new object());
-
-        // Assert
-        act.ShouldThrow<ArgumentNullException>()
-            .ParamName.ShouldBe(nameof(subject));
-    }
-
-    [Fact]
     public void GivenAttributesThenTheValueIsApplied()
     {
         // Arrange
@@ -39,5 +25,19 @@ public sealed class WhenWithAttributesIsCalled
         actual.Age.ShouldBe(original.Age);
         actual.Attributes.ShouldBe(expected);
         actual.Name.ShouldBe(original.Name);
+    }
+
+    [Fact]
+    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
+    {
+        // Arrange
+        SimpleWithCollection? subject = default;
+
+        // Act
+        Func<SimpleWithCollection> act = () => subject!.WithAttributes(new object());
+
+        // Assert
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 }

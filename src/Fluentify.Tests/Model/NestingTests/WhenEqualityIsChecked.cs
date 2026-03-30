@@ -3,60 +3,6 @@
 public abstract class WhenEqualityIsChecked
 {
     [Fact]
-    public void GivenIdenticalInstancesThenTheyAreDeemedEqual()
-    {
-        // Arrange
-        var instance1 = new Nesting
-        {
-            Declaration = "partial class",
-            Generics = [new Generic { Name = "T" }],
-            Name = "Simple",
-            Qualification = "Complex",
-        };
-
-        var instance2 = new Nesting
-        {
-            Declaration = "partial class",
-            Generics = [new Generic { Name = "T" }],
-            Name = "Simple",
-            Qualification = "Complex",
-        };
-
-        // Act
-        bool areEqual = AreEqual(instance1, instance2);
-
-        // Assert
-        areEqual.ShouldBeTrue();
-    }
-
-    [Fact]
-    public void GivenDifferentDeclarationThenTheyAreDeemedNotEqual()
-    {
-        // Arrange
-        var instance1 = new Nesting
-        {
-            Declaration = "partial class",
-            Generics = [new Generic { Name = "T" }],
-            Name = "Simple",
-            Qualification = "Complex",
-        };
-
-        var instance2 = new Nesting
-        {
-            Declaration = "struct",
-            Generics = [new Generic { Name = "T" }],
-            Name = "Simple",
-            Qualification = "Complex",
-        };
-
-        // Act
-        bool areEqual = AreEqual(instance1, instance2);
-
-        // Assert
-        areEqual.ShouldBeFalse();
-    }
-
-    [Fact]
     public void GivenADifferentGenericsThenTheyAreNotDeemedEqual()
     {
         // Arrange
@@ -138,6 +84,74 @@ public abstract class WhenEqualityIsChecked
     }
 
     [Fact]
+    public void GivenBothInstancesAreNullThenTheyAreDeemedEqual()
+    {
+        // Arrange
+        Nesting? instance1 = default;
+        Nesting? instance2 = default;
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        areEqual.ShouldBeTrue();
+    }
+
+    [Fact]
+    public void GivenDifferentDeclarationThenTheyAreDeemedNotEqual()
+    {
+        // Arrange
+        var instance1 = new Nesting
+        {
+            Declaration = "partial class",
+            Generics = [new Generic { Name = "T" }],
+            Name = "Simple",
+            Qualification = "Complex",
+        };
+
+        var instance2 = new Nesting
+        {
+            Declaration = "struct",
+            Generics = [new Generic { Name = "T" }],
+            Name = "Simple",
+            Qualification = "Complex",
+        };
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        areEqual.ShouldBeFalse();
+    }
+
+    [Fact]
+    public void GivenIdenticalInstancesThenTheyAreDeemedEqual()
+    {
+        // Arrange
+        var instance1 = new Nesting
+        {
+            Declaration = "partial class",
+            Generics = [new Generic { Name = "T" }],
+            Name = "Simple",
+            Qualification = "Complex",
+        };
+
+        var instance2 = new Nesting
+        {
+            Declaration = "partial class",
+            Generics = [new Generic { Name = "T" }],
+            Name = "Simple",
+            Qualification = "Complex",
+        };
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        areEqual.ShouldBeTrue();
+    }
+
+    [Fact]
     public void GivenOneInstanceIsNullThenTheyAreDeemedNotEqual()
     {
         // Arrange
@@ -154,20 +168,6 @@ public abstract class WhenEqualityIsChecked
 
         // Assert
         areEqual.ShouldBeFalse();
-    }
-
-    [Fact]
-    public void GivenBothInstancesAreNullThenTheyAreDeemedEqual()
-    {
-        // Arrange
-        Nesting? instance1 = default;
-        Nesting? instance2 = default;
-
-        // Act
-        bool areEqual = AreEqual(instance1, instance2);
-
-        // Assert
-        areEqual.ShouldBeTrue();
     }
 
     [Fact]

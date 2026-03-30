@@ -15,54 +15,6 @@ public partial class WhenExecuted
         }
 
         [Fact]
-        public async Task GivenAnImutablePropertyWithoutIgnoreWhenFluentifyIsNotAppliedToTheClassThenNoDiagnosticIsRaised()
-        {
-            // Arrange
-            TestCode = """
-                public class TestClass
-                {
-                    public string Property { get; }
-                }
-                """;
-
-            // Act & Assert
-            await ActAndAssertAsync();
-        }
-
-        [Fact]
-        public async Task GivenAMutablePropertyWithoutIgnoreWhenFluentifyIsNotAppliedToTheClassThenNoDiagnosticIsRaised()
-        {
-            // Arrange
-            TestCode = """
-                public class TestClass
-                {
-                    public string Property { get; set; }
-                }
-                """;
-
-            // Act & Assert
-            await ActAndAssertAsync();
-        }
-
-        [Fact]
-        public async Task GivenAMutablePropertyWithoutIgnoreWhenFluentifyIsAppliedToTheClassThenNoDiagnosticIsRaised()
-        {
-            // Arrange
-            TestCode = """
-                using Fluentify;
-
-                [Fluentify]
-                public class TestClass
-                {
-                    public string Property { get; set; }
-                }
-                """;
-
-            // Act & Assert
-            await ActAndAssertAsync();
-        }
-
-        [Fact]
         public async Task GivenAMutablePropertyWithIgnoreWhenFluentifyIsAppliedToTheClassThenNoDiagnosticIsRaised()
         {
             // Arrange
@@ -74,26 +26,6 @@ public partial class WhenExecuted
                 {
                     [Ignore]
                     public string Property { get; set; }
-                }
-                """;
-
-            // Act & Assert
-            await ActAndAssertAsync();
-        }
-
-        [Fact]
-        public async Task GivenAnImmutablePropertyWithIgnoreWhenFluentifyIsNotAppliedToTheClassThenMissingFluentifyRuleIsRaised()
-        {
-            // Arrange
-            ExpectedDiagnostics.Add(GetExpectedMissingFluentifyRule("Property", new LinePosition(4, 5)));
-
-            TestCode = """
-                using Fluentify;
-
-                public class TestClassWithImmutablePropertyWithoutFluentify
-                {
-                    [Ignore]
-                    public string Property { get; }
                 }
                 """;
 
@@ -122,6 +54,39 @@ public partial class WhenExecuted
         }
 
         [Fact]
+        public async Task GivenAMutablePropertyWithoutIgnoreWhenFluentifyIsAppliedToTheClassThenNoDiagnosticIsRaised()
+        {
+            // Arrange
+            TestCode = """
+                using Fluentify;
+
+                [Fluentify]
+                public class TestClass
+                {
+                    public string Property { get; set; }
+                }
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenAMutablePropertyWithoutIgnoreWhenFluentifyIsNotAppliedToTheClassThenNoDiagnosticIsRaised()
+        {
+            // Arrange
+            TestCode = """
+                public class TestClass
+                {
+                    public string Property { get; set; }
+                }
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
         public async Task GivenAnImmutablePropertyWithIgnoreWhenFluentifyIsAppliedToTheClassThenRedundantUsageRuleIsRaised()
         {
             // Arrange
@@ -135,6 +100,41 @@ public partial class WhenExecuted
                 {
                     [Ignore]
                     public string ImmutablePropertyOnClassWithFluentify { get; } = string.Empty;
+                }
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenAnImmutablePropertyWithIgnoreWhenFluentifyIsNotAppliedToTheClassThenMissingFluentifyRuleIsRaised()
+        {
+            // Arrange
+            ExpectedDiagnostics.Add(GetExpectedMissingFluentifyRule("Property", new LinePosition(4, 5)));
+
+            TestCode = """
+                using Fluentify;
+
+                public class TestClassWithImmutablePropertyWithoutFluentify
+                {
+                    [Ignore]
+                    public string Property { get; }
+                }
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenAnImutablePropertyWithoutIgnoreWhenFluentifyIsNotAppliedToTheClassThenNoDiagnosticIsRaised()
+        {
+            // Arrange
+            TestCode = """
+                public class TestClass
+                {
+                    public string Property { get; }
                 }
                 """;
 

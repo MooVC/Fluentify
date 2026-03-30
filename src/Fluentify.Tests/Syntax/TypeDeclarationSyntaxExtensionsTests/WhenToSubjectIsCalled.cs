@@ -57,19 +57,6 @@ public sealed class WhenToSubjectIsCalled
         { Records.Instance.Compilation, Records.Instance.Unsupported },
     };
 
-    [Fact]
-    public void GivenNullSyntaxThenNoSubjectIsReturned()
-    {
-        // Arrange
-        TypeDeclarationSyntax? syntax = default;
-
-        // Act
-        var subject = syntax.ToSubject(Classes.Instance.Compilation, CancellationToken.None);
-
-        // Assert
-        subject.ShouldBeNull();
-    }
-
     [Theory]
     [MemberData(nameof(GivenABooleanTypeThenTheExpectedSubjectIsReturnedData))]
     public void GivenABooleanTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
@@ -588,6 +575,19 @@ public sealed class WhenToSubjectIsCalled
 
         // Assert
         actual.ShouldBe(expected);
+    }
+
+    [Fact]
+    public void GivenNullSyntaxThenNoSubjectIsReturned()
+    {
+        // Arrange
+        TypeDeclarationSyntax? syntax = default;
+
+        // Act
+        var subject = syntax.ToSubject(Classes.Instance.Compilation, CancellationToken.None);
+
+        // Assert
+        subject.ShouldBeNull();
     }
 
     [Theory]

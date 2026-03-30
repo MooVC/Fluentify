@@ -14,16 +14,18 @@ public sealed class WhenExecuted
     }
 
     [Fact]
-    public async Task GivenStaticPropertyReturningTypeThenNoDiagnosticIsRaised()
+    public async Task GivenMethodWithParametersThenDiagnosticIsRaised()
     {
         // Arrange
+        ExpectedDiagnostics.Add(GetExpectedInvalidTargetRule("Create", new LinePosition(2, 1), "Sample"));
+
         TestCode = """
             using Fluentify;
 
-            [AutoInitializeWith(nameof(Default))]
+            [AutoInitializeWith(nameof(Create))]
             public sealed class Sample
             {
-                public static Sample Default => new Sample();
+                public static Sample Create(int value) => new Sample();
             }
             """;
 
@@ -55,18 +57,19 @@ public sealed class WhenExecuted
     }
 
     [Fact]
-    public async Task GivenMethodWithParametersThenDiagnosticIsRaised()
+    public async Task GivenParameterWithValidMemberThenNoDiagnosticIsRaised()
     {
         // Arrange
-        ExpectedDiagnostics.Add(GetExpectedInvalidTargetRule("Create", new LinePosition(2, 1), "Sample"));
-
         TestCode = """
             using Fluentify;
 
-            [AutoInitializeWith(nameof(Create))]
             public sealed class Sample
             {
-                public static Sample Create(int value) => new Sample();
+                public Sample([AutoInitializeWith(nameof(Create))] Sample dependency)
+                {
+                }
+
+                public static Sample Create() => new Sample(null);
             }
             """;
 
@@ -97,27 +100,6 @@ public sealed class WhenExecuted
     }
 
     [Fact]
-    public async Task GivenParameterWithValidMemberThenNoDiagnosticIsRaised()
-    {
-        // Arrange
-        TestCode = """
-            using Fluentify;
-
-            public sealed class Sample
-            {
-                public Sample([AutoInitializeWith(nameof(Create))] Sample dependency)
-                {
-                }
-
-                public static Sample Create() => new Sample(null);
-            }
-            """;
-
-        // Act & Assert
-        await ActAndAssertAsync();
-    }
-
-    [Fact]
     public async Task GivenStaticFieldReturningTypeThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -128,6 +110,24 @@ public sealed class WhenExecuted
             public sealed class Sample
             {
                 public static Sample Default = new Sample();
+            }
+            """;
+
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
+
+    [Fact]
+    public async Task GivenStaticPropertyReturningTypeThenNoDiagnosticIsRaised()
+    {
+        // Arrange
+        TestCode = """
+            using Fluentify;
+
+            [AutoInitializeWith(nameof(Default))]
+            public sealed class Sample
+            {
+                public static Sample Default => new Sample();
             }
             """;
 

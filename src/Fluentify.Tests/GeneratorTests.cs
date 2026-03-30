@@ -10,6 +10,7 @@ public abstract class GeneratorTests<TGenerator>
     where TGenerator : new()
 {
     private readonly Type[] _generators;
+
     private readonly LanguageVersion _languageVersion;
 
     protected GeneratorTests(ReferenceAssemblies assemblies, LanguageVersion languageVersion, params Type[] generators)

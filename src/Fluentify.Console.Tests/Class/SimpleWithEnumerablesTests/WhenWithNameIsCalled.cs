@@ -2,20 +2,6 @@
 
 public sealed class WhenWithNameIsCalled
 {
-    [Fact]
-    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
-    {
-        // Arrange
-        SimpleWithEnumerables? subject = default;
-
-        // Act
-        Func<SimpleWithEnumerables> act = () => subject!.WithName("Avery Brooks");
-
-        // Assert
-        act.ShouldThrow<ArgumentNullException>()
-            .ParamName.ShouldBe(nameof(subject));
-    }
-
     [Theory]
     [InlineData("Avery Brooks")]
     [InlineData("")]
@@ -42,5 +28,19 @@ public sealed class WhenWithNameIsCalled
         actual.Name.ShouldBeEquivalentTo(name);
         actual.Names.ShouldBeEquivalentTo(original.Names);
         actual.Numbers.ShouldBeEquivalentTo(original.Numbers);
+    }
+
+    [Fact]
+    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
+    {
+        // Arrange
+        SimpleWithEnumerables? subject = default;
+
+        // Act
+        Func<SimpleWithEnumerables> act = () => subject!.WithName("Avery Brooks");
+
+        // Assert
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 }

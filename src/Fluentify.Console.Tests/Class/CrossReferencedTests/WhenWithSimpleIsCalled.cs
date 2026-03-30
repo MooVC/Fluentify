@@ -3,17 +3,24 @@
 public sealed class WhenWithSimpleIsCalled
 {
     [Fact]
-    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
+    public void GivenABuilderThenTheValueIsApplied()
     {
         // Arrange
-        CrossReferenced? subject = default;
+        var original = new CrossReferenced
+        {
+            Description = "Cross Referenced",
+            Simple = new(),
+        };
+
+        var expected = new Simple();
 
         // Act
-        Func<CrossReferenced> act = () => subject!.WithSimple(new Simple());
+        CrossReferenced actual = original.WithSimple(_ => expected);
 
         // Assert
-        act.ShouldThrow<ArgumentNullException>()
-            .ParamName.ShouldBe(nameof(subject));
+        actual.ShouldNotBeSameAs(original);
+        actual.Description.ShouldBe(original.Description);
+        actual.Simple.ShouldBe(expected);
     }
 
     [Fact]
@@ -38,23 +45,16 @@ public sealed class WhenWithSimpleIsCalled
     }
 
     [Fact]
-    public void GivenABuilderThenTheValueIsApplied()
+    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange
-        var original = new CrossReferenced
-        {
-            Description = "Cross Referenced",
-            Simple = new(),
-        };
-
-        var expected = new Simple();
+        CrossReferenced? subject = default;
 
         // Act
-        CrossReferenced actual = original.WithSimple(_ => expected);
+        Func<CrossReferenced> act = () => subject!.WithSimple(new Simple());
 
         // Assert
-        actual.ShouldNotBeSameAs(original);
-        actual.Description.ShouldBe(original.Description);
-        actual.Simple.ShouldBe(expected);
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 }

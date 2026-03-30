@@ -14,16 +14,6 @@ public sealed class WhenExecuted
     }
 
     [Fact]
-    public async Task GivenARecordWithoutFluentifyThenNoDiagnosticIsRaised()
-    {
-        // Arrange
-        TestCode = "public record UnannotatedRecord(string Name);";
-
-        // Act & Assert
-        await ActAndAssertAsync();
-    }
-
-    [Fact]
     public async Task GivenAPartialRecordWithFluentifyThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -72,6 +62,16 @@ public sealed class WhenExecuted
             [Fluentify]
             public record AnnotatedRecord(string Name);
             """;
+
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
+
+    [Fact]
+    public async Task GivenARecordWithoutFluentifyThenNoDiagnosticIsRaised()
+    {
+        // Arrange
+        TestCode = "public record UnannotatedRecord(string Name);";
 
         // Act & Assert
         await ActAndAssertAsync();

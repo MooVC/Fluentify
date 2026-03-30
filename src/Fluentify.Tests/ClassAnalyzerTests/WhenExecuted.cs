@@ -14,30 +14,19 @@ public sealed class WhenExecuted
     }
 
     [Fact]
-    public async Task GivenAClassWithAnImplicitDefaultConstructorWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised()
-    {
-        // Arrange
-        TestCode = """
-            public class UnannotatedClassWithImplicitDefaultConstructor
-            {
-                public string Property { get; set; }
-            }
-            """;
-
-        // Act & Assert
-        await ActAndAssertAsync();
-    }
-
-    [Fact]
-    public async Task GivenAClassWithAnImplicitDefaultConstructorWhenFluentifyIsAppliedThenNoDiagnosticIsRaised()
+    public async Task GivenAClassWithAnExplicitDefaultConstructorWhenFluentifyIsAppliedThenNoDiagnosticIsRaised()
     {
         // Arrange
         TestCode = """
             using Fluentify;
 
             [Fluentify]
-            public class AnnotatedClassWithImplicitDefaultConstructor
+            public class AnnotatedClassWithExplicitDefaultConstructor
             {
+                internal AnnotatedClassWithExplicitDefaultConstructor()
+                {
+                }
+
                 public string Property { get; set; }
             }
             """;
@@ -66,16 +55,18 @@ public sealed class WhenExecuted
     }
 
     [Fact]
-    public async Task GivenAClassWithAnExplicitDefaultConstructorWhenFluentifyIsAppliedThenNoDiagnosticIsRaised()
+    public async Task GivenAClassWithAnExplicitPrivateDefaultConstructorWhenFluentifyIsAppliedThenGetExpectedAccessibleDefaultConstructorRuleIsRaised()
     {
         // Arrange
+        ExpectedDiagnostics.Add(GetExpectedAccessibleDefaultConstructorRule(new LinePosition(3, 13), "AnnotatedClassWithPrivateDefaultConstructor"));
+
         TestCode = """
             using Fluentify;
 
             [Fluentify]
-            public class AnnotatedClassWithExplicitDefaultConstructor
+            public class AnnotatedClassWithPrivateDefaultConstructor
             {
-                internal AnnotatedClassWithExplicitDefaultConstructor()
+                private AnnotatedClassWithPrivateDefaultConstructor()
                 {
                 }
 
@@ -107,21 +98,30 @@ public sealed class WhenExecuted
     }
 
     [Fact]
-    public async Task GivenAClassWithAnExplicitPrivateDefaultConstructorWhenFluentifyIsAppliedThenGetExpectedAccessibleDefaultConstructorRuleIsRaised()
+    public async Task GivenAClassWithAnImplicitDefaultConstructorWhenFluentifyIsAppliedThenNoDiagnosticIsRaised()
     {
         // Arrange
-        ExpectedDiagnostics.Add(GetExpectedAccessibleDefaultConstructorRule(new LinePosition(3, 13), "AnnotatedClassWithPrivateDefaultConstructor"));
-
         TestCode = """
             using Fluentify;
 
             [Fluentify]
-            public class AnnotatedClassWithPrivateDefaultConstructor
+            public class AnnotatedClassWithImplicitDefaultConstructor
             {
-                private AnnotatedClassWithPrivateDefaultConstructor()
-                {
-                }
+                public string Property { get; set; }
+            }
+            """;
 
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
+
+    [Fact]
+    public async Task GivenAClassWithAnImplicitDefaultConstructorWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised()
+    {
+        // Arrange
+        TestCode = """
+            public class UnannotatedClassWithImplicitDefaultConstructor
+            {
                 public string Property { get; set; }
             }
             """;

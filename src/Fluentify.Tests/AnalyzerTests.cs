@@ -13,6 +13,7 @@ public abstract class AnalyzerTests<TAnalyzer, TGenerator>
     where TGenerator : new()
 {
     private readonly Type[] _generators;
+
     private readonly LanguageVersion _languageVersion;
 
     protected AnalyzerTests(ReferenceAssemblies assemblies, LanguageVersion languageVersion, params Type[] generators)

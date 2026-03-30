@@ -2,20 +2,6 @@
 
 public sealed class WhenWithAgeIsCalled
 {
-    [Fact]
-    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
-    {
-        // Arrange
-        SimpleWithEnumerables? subject = default;
-
-        // Act
-        Func<SimpleWithEnumerables> act = () => subject!.WithAge(1);
-
-        // Assert
-        act.ShouldThrow<ArgumentNullException>()
-            .ParamName.ShouldBe(nameof(subject));
-    }
-
     [Theory]
     [InlineData(1)]
     [InlineData(-1)]
@@ -44,5 +30,19 @@ public sealed class WhenWithAgeIsCalled
         actual.Name.ShouldBeEquivalentTo(original.Name);
         actual.Names.ShouldBeEquivalentTo(original.Names);
         actual.Numbers.ShouldBeEquivalentTo(original.Numbers);
+    }
+
+    [Fact]
+    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
+    {
+        // Arrange
+        SimpleWithEnumerables? subject = default;
+
+        // Act
+        Func<SimpleWithEnumerables> act = () => subject!.WithAge(1);
+
+        // Assert
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 }
