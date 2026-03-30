@@ -56,6 +56,7 @@ public sealed class WhenToSubjectIsCalled
         { Classes.Instance.Compilation, Classes.Instance.Unsupported },
         { Records.Instance.Compilation, Records.Instance.Unsupported },
     };
+
     [Theory]
     [MemberData(nameof(GivenABooleanTypeThenTheExpectedSubjectIsReturnedData))]
     public void GivenABooleanTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)

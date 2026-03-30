@@ -17,6 +17,7 @@ public sealed class WhenExecuted
             typeof(SkipAutoInitializationAttributeGenerator))
     {
     }
+
     [Fact]
     public async Task GivenAttributeOnPropertyThenNoDiagnosticIsRaised()
     {

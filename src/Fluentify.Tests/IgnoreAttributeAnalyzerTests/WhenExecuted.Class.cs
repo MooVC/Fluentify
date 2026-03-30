@@ -13,6 +13,7 @@ public partial class WhenExecuted
             : base(Classes.ReferenceAssemblies, Classes.LanguageVersion)
         {
         }
+
         [Fact]
         public async Task GivenAMutablePropertyWithIgnoreWhenFluentifyIsAppliedToTheClassThenNoDiagnosticIsRaised()
         {

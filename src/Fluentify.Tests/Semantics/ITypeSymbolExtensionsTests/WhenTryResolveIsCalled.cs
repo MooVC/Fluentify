@@ -8,14 +8,21 @@ using Microsoft.CodeAnalysis.CSharp;
 public sealed class WhenTryResolveIsCalled
 {
     private const string DefaultMember = "Default";
+
     private const string InstanceFieldMember = "InstanceField";
+
     private const string MethodMember = "Create";
+
     private const string MethodWithParametersMember = "Build";
+
     private const string PrivateMember = "Secret";
+
     private const string WhitespaceMember = " ";
 
     private static readonly Compilation _compilation = CreateCompilation();
+
     private static readonly INamedTypeSymbol _factoryType = _compilation.GetTypeByMetadataName("Demo.Factory")!;
+
     [Fact]
     public void GivenMethodWithParametersThenFalseIsReturned()
     {

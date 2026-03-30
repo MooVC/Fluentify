@@ -5,7 +5,9 @@ using Fluentify.Model;
 public sealed class WhenToStringWithIncludeNullabilityIsCalled
 {
     private const string NullableName = "Demo.Type?";
+
     private const string NonNullableName = "Demo.Type";
+
     [Fact]
     public void GivenExcludeNullabilityThenAnnotationIsRemoved()
     {

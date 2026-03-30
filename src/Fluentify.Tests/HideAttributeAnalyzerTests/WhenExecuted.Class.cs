@@ -18,6 +18,7 @@ public partial class WhenExecuted
                 typeof(IgnoreAttributeGenerator))
         {
         }
+
         [Fact]
         public async Task GivenAPropertyWithHideAndIgnoreWhenFluentifyIsAppliedToTheClassThenConflictingAttributesRuleIsRaised()
         {

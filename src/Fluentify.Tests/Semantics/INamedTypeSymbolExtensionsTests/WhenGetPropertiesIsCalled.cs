@@ -107,6 +107,7 @@ public sealed class WhenGetPropertiesIsCalled
         },
         Name = "Name",
     };
+
     [Theory]
     [MemberData(nameof(GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition)

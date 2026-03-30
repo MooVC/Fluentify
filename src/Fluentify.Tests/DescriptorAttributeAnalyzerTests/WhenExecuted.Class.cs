@@ -12,6 +12,7 @@ public partial class WhenExecuted
             : base(Classes.ReferenceAssemblies, Classes.LanguageVersion)
         {
         }
+
         [Theory]
         [InlineData("Valid")]
         [InlineData("inValid")]

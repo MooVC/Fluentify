@@ -8,10 +8,13 @@ using Microsoft.CodeAnalysis.CSharp;
 public sealed class WhenTryGetInitializationIsCalled
 {
     private const string MissingTypeName = "Demo.Missing";
+
     private const string SkippedTypeName = "Demo.Skipped";
+
     private const string WithInitializationTypeName = "Demo.WithInitialization";
 
     private static readonly Compilation _compilation = CreateCompilation();
+
     [Fact]
     public void GivenTypeWithAutoInitializeWithAttributeThenInitializationIsReturned()
     {

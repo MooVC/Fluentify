@@ -8,10 +8,13 @@ using Microsoft.CodeAnalysis.CSharp;
 public sealed class WhenTryGetInitializationIsCalled
 {
     private const string PropertySampleName = "Demo.PropertySample";
+
     private const string RecordSampleName = "Demo.RecordSample";
+
     private const string SkippedTypeName = "Demo.SkippedType";
 
     private static readonly Compilation _compilation = CreateCompilation();
+
     [Fact]
     public void GivenPropertyWithAutoInitializeWithAttributeThenInitializationIsReturned()
     {

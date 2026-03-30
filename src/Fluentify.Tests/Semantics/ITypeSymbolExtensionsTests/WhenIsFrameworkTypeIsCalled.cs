@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis.CSharp;
 public sealed class WhenIsFrameworkTypeIsCalled
 {
     private static readonly Compilation _compilation = CreateCompilation();
+
     [Fact]
     public void GivenAnnotatedNullableCustomTypeThenReturnsFalse()
     {

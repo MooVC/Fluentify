@@ -12,6 +12,7 @@ public sealed class WhenExecuted
         : base(Records.ReferenceAssemblies, Records.LanguageVersion)
     {
     }
+
     [Fact]
     public async Task GivenAPartialRecordWithFluentifyThenNoDiagnosticIsRaised()
     {

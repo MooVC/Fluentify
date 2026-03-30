@@ -44,6 +44,7 @@ public sealed class WhenGetDescriptorIsCalled
         { Records.Instance.AllThreeIgnored },
         { Records.Instance.Unannotated },
     };
+
     [Theory]
     [MemberData(nameof(GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturnedData))]
     public void GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturned(Definition definition)

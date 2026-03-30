@@ -20,6 +20,7 @@ public sealed class WhenExecuted
         : base(Classes.ReferenceAssemblies, Classes.LanguageVersion, _generators)
     {
     }
+
     [Theory]
     [Declared(typeof(Classes))]
     public async Task GivenAClassTheExpectedSourceIsGenerated(Declared declared)
