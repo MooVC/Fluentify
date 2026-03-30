@@ -26,6 +26,7 @@ public sealed class WhenTryGetMemberIsCalled
             }
         }
         """;
+
     [Fact]
     public void GivenAttributeWithoutArgumentsThenFalseIsReturned()
     {

@@ -88,6 +88,7 @@ public sealed class WhenHasAccessibleParameterlessConstructorIsCalled
             }
         }
         """;
+
     [Theory]
     [InlineData(PublicClassWithNoConstructor, nameof(PublicClassWithNoConstructor), true)]
     [InlineData(PublicClassWithPublicConstructor, nameof(PublicClassWithPublicConstructor), true)]
