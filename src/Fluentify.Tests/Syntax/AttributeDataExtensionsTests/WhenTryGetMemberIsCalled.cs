@@ -26,55 +26,6 @@ public sealed class WhenTryGetMemberIsCalled
             }
         }
         """;
-
-    [Fact]
-    public void GivenStringLiteralArgumentThenMemberIsReturned()
-    {
-        // Arrange
-        AttributeData attribute = GetAttributeFromSource("""
-            using Fluentify;
-
-            public sealed class Sample
-            {
-                [AutoInitializeWith("Create")]
-                public int Value { get; }
-            }
-            """);
-
-        // Act
-        bool result = attribute.TryGetMember(out string member);
-
-        // Assert
-        result.ShouldBeTrue();
-        member.ShouldBe("Create");
-    }
-
-    [Fact]
-    public void GivenNameofArgumentThenMemberIsReturned()
-    {
-        // Arrange
-        AttributeData attribute = GetAttributeFromSource("""
-            using Fluentify;
-
-            public sealed class Sample
-            {
-                [AutoInitializeWith(nameof(Create))]
-                public int Value { get; }
-
-                public static void Create()
-                {
-                }
-            }
-            """);
-
-        // Act
-        bool result = attribute.TryGetMember(out string member);
-
-        // Assert
-        result.ShouldBeTrue();
-        member.ShouldBe("nameof(Create)");
-    }
-
     [Fact]
     public void GivenAttributeWithoutArgumentsThenFalseIsReturned()
     {
@@ -115,6 +66,54 @@ public sealed class WhenTryGetMemberIsCalled
         // Assert
         result.ShouldBeTrue();
         member.ShouldBe("Build");
+    }
+
+    [Fact]
+    public void GivenNameofArgumentThenMemberIsReturned()
+    {
+        // Arrange
+        AttributeData attribute = GetAttributeFromSource("""
+            using Fluentify;
+
+            public sealed class Sample
+            {
+                [AutoInitializeWith(nameof(Create))]
+                public int Value { get; }
+
+                public static void Create()
+                {
+                }
+            }
+            """);
+
+        // Act
+        bool result = attribute.TryGetMember(out string member);
+
+        // Assert
+        result.ShouldBeTrue();
+        member.ShouldBe("nameof(Create)");
+    }
+
+    [Fact]
+    public void GivenStringLiteralArgumentThenMemberIsReturned()
+    {
+        // Arrange
+        AttributeData attribute = GetAttributeFromSource("""
+            using Fluentify;
+
+            public sealed class Sample
+            {
+                [AutoInitializeWith("Create")]
+                public int Value { get; }
+            }
+            """);
+
+        // Act
+        bool result = attribute.TryGetMember(out string member);
+
+        // Assert
+        result.ShouldBeTrue();
+        member.ShouldBe("Create");
     }
 
     private static AttributeData GetAttributeFromSource(string source)

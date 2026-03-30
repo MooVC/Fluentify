@@ -20,6 +20,23 @@ public sealed class WhenExecuted
         : base(Classes.ReferenceAssemblies, Classes.LanguageVersion, _generators)
     {
     }
+    [Theory]
+    [Declared(typeof(Classes))]
+    public async Task GivenAClassTheExpectedSourceIsGenerated(Declared declared)
+    {
+        // Arrange
+        declared.IsDeclaredIn(TestState);
+
+        Attributes.Descriptor.IsExpectedIn(TestState);
+        Attributes.Fluentify.IsExpectedIn(TestState);
+        Attributes.Hide.IsExpectedIn(TestState);
+        Attributes.Ignore.IsExpectedIn(TestState);
+        Extensions.Internal.IsExpectedIn(TestState);
+        Attributes.SkipAutoInitialization.IsExpectedIn(TestState);
+
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
 
     [Fact]
     public async Task GivenClassWithoutDefaultConstructorThenNoClassGeneratorSourceIsProduced()
@@ -41,24 +58,6 @@ public sealed class WhenExecuted
                 }
             }
             """;
-
-        Attributes.Descriptor.IsExpectedIn(TestState);
-        Attributes.Fluentify.IsExpectedIn(TestState);
-        Attributes.Hide.IsExpectedIn(TestState);
-        Attributes.Ignore.IsExpectedIn(TestState);
-        Extensions.Internal.IsExpectedIn(TestState);
-        Attributes.SkipAutoInitialization.IsExpectedIn(TestState);
-
-        // Act & Assert
-        await ActAndAssertAsync();
-    }
-
-    [Theory]
-    [Declared(typeof(Classes))]
-    public async Task GivenAClassTheExpectedSourceIsGenerated(Declared declared)
-    {
-        // Arrange
-        declared.IsDeclaredIn(TestState);
 
         Attributes.Descriptor.IsExpectedIn(TestState);
         Attributes.Fluentify.IsExpectedIn(TestState);

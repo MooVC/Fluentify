@@ -12,17 +12,6 @@ public sealed class WhenExecuted
         : base(Records.ReferenceAssemblies, Records.LanguageVersion)
     {
     }
-
-    [Fact]
-    public async Task GivenARecordWithoutFluentifyThenNoDiagnosticIsRaised()
-    {
-        // Arrange
-        TestCode = "public record UnannotatedRecord(string Name);";
-
-        // Act & Assert
-        await ActAndAssertAsync();
-    }
-
     [Fact]
     public async Task GivenAPartialRecordWithFluentifyThenNoDiagnosticIsRaised()
     {
@@ -72,6 +61,16 @@ public sealed class WhenExecuted
             [Fluentify]
             public record AnnotatedRecord(string Name);
             """;
+
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
+
+    [Fact]
+    public async Task GivenARecordWithoutFluentifyThenNoDiagnosticIsRaised()
+    {
+        // Arrange
+        TestCode = "public record UnannotatedRecord(string Name);";
 
         // Act & Assert
         await ActAndAssertAsync();

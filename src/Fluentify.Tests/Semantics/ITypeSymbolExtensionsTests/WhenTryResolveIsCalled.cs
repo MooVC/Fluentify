@@ -16,137 +16,6 @@ public sealed class WhenTryResolveIsCalled
 
     private static readonly Compilation _compilation = CreateCompilation();
     private static readonly INamedTypeSymbol _factoryType = _compilation.GetTypeByMetadataName("Demo.Factory")!;
-
-    [Fact]
-    public void GivenNullTargetThenFalseIsReturned()
-    {
-        // Arrange
-        ITypeSymbol? target = default;
-        string member = MethodMember;
-
-        // Act
-        bool result = target.TryResolve(ref member, out string initialization);
-
-        // Assert
-        result.ShouldBeFalse();
-        initialization.ShouldBe(string.Empty);
-    }
-
-    [Fact]
-    public void GivenWhitespaceMemberThenFalseIsReturned()
-    {
-        // Arrange
-        string member = WhitespaceMember;
-
-        // Act
-        bool result = _factoryType.TryResolve(ref member, out string initialization);
-
-        // Assert
-        result.ShouldBeFalse();
-        initialization.ShouldBe(string.Empty);
-    }
-
-    [Fact]
-    public void GivenNullTypeForOverloadThenFalseIsReturned()
-    {
-        // Arrange
-        ITypeSymbol? type = default;
-        string member = MethodMember;
-
-        // Act
-        bool result = _factoryType.TryResolve(type, ref member, out string initialization);
-
-        // Assert
-        result.ShouldBeFalse();
-        initialization.ShouldBe(string.Empty);
-    }
-
-    [Fact]
-    public void GivenNullSourceForOverloadThenFalseIsReturned()
-    {
-        // Arrange
-        ITypeSymbol? source = default;
-        string member = MethodMember;
-
-        // Act
-        bool result = source.TryResolve(_factoryType, ref member, out string initialization);
-
-        // Assert
-        result.ShouldBeFalse();
-        initialization.ShouldBe(string.Empty);
-    }
-
-    [Fact]
-    public void GivenNameofExpressionWithWhitespaceThenMemberIsExtracted()
-    {
-        // Arrange
-        string member = "nameof( Default )";
-
-        // Act
-        bool result = _factoryType.TryResolve(ref member, out string initialization);
-
-        // Assert
-        result.ShouldBeTrue();
-        member.ShouldBe(DefaultMember);
-        initialization.ShouldBe("global::Demo.Factory.Default");
-    }
-
-    [Fact]
-    public void GivenStaticMethodReturningTypeThenInitializationIsReturned()
-    {
-        // Arrange
-        string member = MethodMember;
-
-        // Act
-        bool result = _factoryType.TryResolve(ref member, out string initialization);
-
-        // Assert
-        result.ShouldBeTrue();
-        initialization.ShouldBe("global::Demo.Factory.Create()");
-    }
-
-    [Fact]
-    public void GivenStaticPropertyReturningTypeThenInitializationIsReturned()
-    {
-        // Arrange
-        string member = DefaultMember;
-
-        // Act
-        bool result = _factoryType.TryResolve(ref member, out string initialization);
-
-        // Assert
-        result.ShouldBeTrue();
-        initialization.ShouldBe("global::Demo.Factory.Default");
-    }
-
-    [Fact]
-    public void GivenStaticFieldReturningTypeThenInitializationIsReturned()
-    {
-        // Arrange
-        string member = InstanceFieldMember;
-
-        // Act
-        bool result = _factoryType.TryResolve(ref member, out string initialization);
-
-        // Assert
-        result.ShouldBeTrue();
-        initialization.ShouldBe("global::Demo.Factory.InstanceField");
-    }
-
-    [Fact]
-    public void GivenPrivateMemberThenFalseIsReturned()
-    {
-        // Arrange
-        string member = PrivateMember;
-
-        // Act
-        bool result = _factoryType.TryResolve(ref member, out string initialization);
-
-        // Assert
-        result.ShouldBeFalse();
-        initialization.ShouldBe(string.Empty);
-    }
-
     [Fact]
     public void GivenMethodWithParametersThenFalseIsReturned()
     {
@@ -188,6 +57,136 @@ public sealed class WhenTryResolveIsCalled
         // Assert
         result.ShouldBeFalse();
         member.ShouldBe("Factory.Default");
+        initialization.ShouldBe(string.Empty);
+    }
+
+    [Fact]
+    public void GivenNameofExpressionWithWhitespaceThenMemberIsExtracted()
+    {
+        // Arrange
+        string member = "nameof( Default )";
+
+        // Act
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeTrue();
+        member.ShouldBe(DefaultMember);
+        initialization.ShouldBe("global::Demo.Factory.Default");
+    }
+
+    [Fact]
+    public void GivenNullSourceForOverloadThenFalseIsReturned()
+    {
+        // Arrange
+        ITypeSymbol? source = default;
+        string member = MethodMember;
+
+        // Act
+        bool result = source.TryResolve(_factoryType, ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeFalse();
+        initialization.ShouldBe(string.Empty);
+    }
+
+    [Fact]
+    public void GivenNullTargetThenFalseIsReturned()
+    {
+        // Arrange
+        ITypeSymbol? target = default;
+        string member = MethodMember;
+
+        // Act
+        bool result = target.TryResolve(ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeFalse();
+        initialization.ShouldBe(string.Empty);
+    }
+
+    [Fact]
+    public void GivenNullTypeForOverloadThenFalseIsReturned()
+    {
+        // Arrange
+        ITypeSymbol? type = default;
+        string member = MethodMember;
+
+        // Act
+        bool result = _factoryType.TryResolve(type, ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeFalse();
+        initialization.ShouldBe(string.Empty);
+    }
+
+    [Fact]
+    public void GivenPrivateMemberThenFalseIsReturned()
+    {
+        // Arrange
+        string member = PrivateMember;
+
+        // Act
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeFalse();
+        initialization.ShouldBe(string.Empty);
+    }
+
+    [Fact]
+    public void GivenStaticFieldReturningTypeThenInitializationIsReturned()
+    {
+        // Arrange
+        string member = InstanceFieldMember;
+
+        // Act
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeTrue();
+        initialization.ShouldBe("global::Demo.Factory.InstanceField");
+    }
+
+    [Fact]
+    public void GivenStaticMethodReturningTypeThenInitializationIsReturned()
+    {
+        // Arrange
+        string member = MethodMember;
+
+        // Act
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeTrue();
+        initialization.ShouldBe("global::Demo.Factory.Create()");
+    }
+
+    [Fact]
+    public void GivenStaticPropertyReturningTypeThenInitializationIsReturned()
+    {
+        // Arrange
+        string member = DefaultMember;
+
+        // Act
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeTrue();
+        initialization.ShouldBe("global::Demo.Factory.Default");
+    }
+
+    [Fact]
+    public void GivenWhitespaceMemberThenFalseIsReturned()
+    {
+        // Arrange
+        string member = WhitespaceMember;
+
+        // Act
+        bool result = _factoryType.TryResolve(ref member, out string initialization);
+
+        // Assert
+        result.ShouldBeFalse();
         initialization.ShouldBe(string.Empty);
     }
 

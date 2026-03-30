@@ -3,17 +3,24 @@
 public sealed class WhenIsRetiredIsCalled
 {
     [Fact]
-    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
+    public void GivenANullValueThenTheValueIsApplied()
     {
         // Arrange
-        SimpleWithBoolean? subject = default;
+        var original = new SimpleWithBoolean
+        {
+            Age = Random.Shared.Next(),
+            IsRetired = true,
+            Name = "Avery Brooks",
+        };
 
         // Act
-        Func<SimpleWithBoolean> act = () => subject!.IsRetired(true);
+        SimpleWithBoolean actual = original.IsRetired(default(bool?));
 
         // Assert
-        act.ShouldThrow<ArgumentNullException>()
-            .ParamName.ShouldBe(nameof(subject));
+        actual.ShouldNotBeSameAs(original);
+        actual.Age.ShouldBe(original.Age);
+        actual.IsRetired.ShouldBeNull();
+        actual.Name.ShouldBe(original.Name);
     }
 
     [Theory]
@@ -40,23 +47,16 @@ public sealed class WhenIsRetiredIsCalled
     }
 
     [Fact]
-    public void GivenANullValueThenTheValueIsApplied()
+    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange
-        var original = new SimpleWithBoolean
-        {
-            Age = Random.Shared.Next(),
-            IsRetired = true,
-            Name = "Avery Brooks",
-        };
+        SimpleWithBoolean? subject = default;
 
         // Act
-        SimpleWithBoolean actual = original.IsRetired(default(bool?));
+        Func<SimpleWithBoolean> act = () => subject!.IsRetired(true);
 
         // Assert
-        actual.ShouldNotBeSameAs(original);
-        actual.Age.ShouldBe(original.Age);
-        actual.IsRetired.ShouldBeNull();
-        actual.Name.ShouldBe(original.Name);
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 }

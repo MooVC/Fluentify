@@ -3,31 +3,6 @@
 public abstract class WhenEqualityIsChecked
 {
     [Fact]
-    public void GivenIdenticalInstancesThenTheyAreDeemedEqual()
-    {
-        // Arrange
-        var constraints = new List<string> { "constraint1", "constraint2" };
-
-        var instance1 = new Generic
-        {
-            Constraints = constraints,
-            Name = "GenericName",
-        };
-
-        var instance2 = new Generic
-        {
-            Constraints = constraints,
-            Name = "GenericName",
-        };
-
-        // Act
-        bool areEqual = AreEqual(instance1, instance2);
-
-        // Assert
-        areEqual.ShouldBeTrue();
-    }
-
-    [Fact]
     public void GivenADifferentNameThenTheyAreNotDeemedEqual()
     {
         // Arrange
@@ -50,6 +25,20 @@ public abstract class WhenEqualityIsChecked
 
         // Assert
         areEqual.ShouldBeFalse();
+    }
+
+    [Fact]
+    public void GivenBothInstancesAreNullThenTheyAreDeemedEqual()
+    {
+        // Arrange
+        Generic? instance1 = default;
+        Generic? instance2 = default;
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        areEqual.ShouldBeTrue();
     }
 
     [Fact]
@@ -76,6 +65,31 @@ public abstract class WhenEqualityIsChecked
     }
 
     [Fact]
+    public void GivenIdenticalInstancesThenTheyAreDeemedEqual()
+    {
+        // Arrange
+        var constraints = new List<string> { "constraint1", "constraint2" };
+
+        var instance1 = new Generic
+        {
+            Constraints = constraints,
+            Name = "GenericName",
+        };
+
+        var instance2 = new Generic
+        {
+            Constraints = constraints,
+            Name = "GenericName",
+        };
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        areEqual.ShouldBeTrue();
+    }
+
+    [Fact]
     public void GivenOneInstanceIsNullThenTheyAreDeemedNotEqual()
     {
         // Arrange
@@ -90,20 +104,6 @@ public abstract class WhenEqualityIsChecked
 
         // Assert
         areEqual.ShouldBeFalse();
-    }
-
-    [Fact]
-    public void GivenBothInstancesAreNullThenTheyAreDeemedEqual()
-    {
-        // Arrange
-        Generic? instance1 = default;
-        Generic? instance2 = default;
-
-        // Act
-        bool areEqual = AreEqual(instance1, instance2);
-
-        // Assert
-        areEqual.ShouldBeTrue();
     }
 
     [Fact]

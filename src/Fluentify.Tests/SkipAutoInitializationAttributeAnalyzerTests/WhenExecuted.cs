@@ -17,6 +17,25 @@ public sealed class WhenExecuted
             typeof(SkipAutoInitializationAttributeGenerator))
     {
     }
+    [Fact]
+    public async Task GivenAttributeOnPropertyThenNoDiagnosticIsRaised()
+    {
+        // Arrange
+        TestCode = """
+            using Fluentify;
+
+            public sealed class Sample
+            {
+                [AutoInitializeWith(nameof(Create))]
+                public Sample Property { get; } = new Sample();
+
+                public static Sample Create() => new Sample();
+            }
+            """;
+
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
 
     [Fact]
     public async Task GivenAutoInitializeWithOnlyThenNoDiagnosticIsRaised()
@@ -50,26 +69,6 @@ public sealed class WhenExecuted
             public sealed class Sample
             {
                 public static Sample Default => new Sample();
-            }
-            """;
-
-        // Act & Assert
-        await ActAndAssertAsync();
-    }
-
-    [Fact]
-    public async Task GivenAttributeOnPropertyThenNoDiagnosticIsRaised()
-    {
-        // Arrange
-        TestCode = """
-            using Fluentify;
-
-            public sealed class Sample
-            {
-                [AutoInitializeWith(nameof(Create))]
-                public Sample Property { get; } = new Sample();
-
-                public static Sample Create() => new Sample();
             }
             """;
 

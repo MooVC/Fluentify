@@ -6,6 +6,22 @@ public sealed class WhenToStringWithIncludeNullabilityIsCalled
 {
     private const string NullableName = "Demo.Type?";
     private const string NonNullableName = "Demo.Type";
+    [Fact]
+    public void GivenExcludeNullabilityThenAnnotationIsRemoved()
+    {
+        // Arrange
+        var type = new Type
+        {
+            IsNullable = true,
+            Name = NullableName,
+        };
+
+        // Act
+        string result = type.ToString(includeNullability: false);
+
+        // Assert
+        result.ShouldBe(NonNullableName);
+    }
 
     [Fact]
     public void GivenIncludeNullabilityThenNullabilityIsIncluded()
@@ -22,23 +38,6 @@ public sealed class WhenToStringWithIncludeNullabilityIsCalled
 
         // Assert
         result.ShouldBe(NullableName);
-    }
-
-    [Fact]
-    public void GivenExcludeNullabilityThenAnnotationIsRemoved()
-    {
-        // Arrange
-        var type = new Type
-        {
-            IsNullable = true,
-            Name = NullableName,
-        };
-
-        // Act
-        string result = type.ToString(includeNullability: false);
-
-        // Assert
-        result.ShouldBe(NonNullableName);
     }
 
     [Fact]

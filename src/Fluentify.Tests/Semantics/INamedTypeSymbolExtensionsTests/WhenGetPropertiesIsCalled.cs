@@ -107,6 +107,17 @@ public sealed class WhenGetPropertiesIsCalled
         },
         Name = "Name",
     };
+    [Theory]
+    [MemberData(nameof(GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
+    public void GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition)
+    {
+        // Act
+        IReadOnlyList<Property> properties = definition.Symbol.GetProperties(compilation, CancellationToken.None);
+
+        // Assert
+        properties.Count.ShouldBe(3);
+        properties.ShouldAllBe(property => property.IsIgnored);
+    }
 
     [Theory]
     [MemberData(nameof(GivenBooleanThenTheExpectedPropertiesAreReturnedData))]
@@ -169,6 +180,70 @@ public sealed class WhenGetPropertiesIsCalled
 
         // Act & Assert
         ActAndAssert(compilation, definition, description, simple);
+    }
+
+    [Theory]
+    [MemberData(nameof(GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturnedData))]
+    public void GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
+    {
+        // Arrange
+        var name = new Property
+        {
+            Descriptor = "WithName",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Initialization = "new string()",
+                    IsFrameworkType = true,
+                    Name = "string",
+                },
+            },
+            Name = "Name",
+        };
+
+        Property attributes = GetAttributes(isNullable);
+
+        // Act & Assert
+        ActAndAssert(compilation, definition, _age, attributes, name);
+    }
+
+    [Theory]
+    [MemberData(nameof(GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturnedData))]
+    public void GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
+    {
+        // Arrange
+        Property attributes = GetAttributes(isNullable, descriptor: "AttributedWith");
+
+        // Act & Assert
+        ActAndAssert(compilation, definition, _age, attributes, _name);
+    }
+
+    [Theory]
+    [MemberData(nameof(GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturnedData))]
+    public void GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
+    {
+        // Arrange
+        var age = new Property
+        {
+            Descriptor = "Aged",
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Initialization = "new int()",
+                    IsFrameworkType = true,
+                    Name = "int",
+                },
+            },
+            Name = "Age",
+        };
+
+        Property attributes = GetAttributes(isNullable);
+
+        // Act & Assert
+        ActAndAssert(compilation, definition, age, attributes, _name);
     }
 
     [Theory]
@@ -238,6 +313,33 @@ public sealed class WhenGetPropertiesIsCalled
     }
 
     [Theory]
+    [MemberData(nameof(GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
+    public void GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
+    {
+        // Arrange
+        var name = new Property
+        {
+            Descriptor = "WithName",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Initialization = "new string()",
+                    IsFrameworkType = true,
+                    Name = "string",
+                },
+            },
+            Name = "Name",
+        };
+
+        Property attributes = GetAttributes(isNullable);
+
+        // Act & Assert
+        ActAndAssert(compilation, definition, _age, attributes, name);
+    }
+
+    [Theory]
     [MemberData(nameof(GivenSimpleThenTheExpectedPropertiesAreReturnedData))]
     public void GivenSimpleThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
     {
@@ -270,33 +372,6 @@ public sealed class WhenGetPropertiesIsCalled
 
         // Act & Assert
         ActAndAssert(compilation, definition, _age, attributes, _name);
-    }
-
-    [Theory]
-    [MemberData(nameof(GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
-    {
-        // Arrange
-        var name = new Property
-        {
-            Descriptor = "WithName",
-            IsIgnored = true,
-            Kind = new()
-            {
-                Type = new()
-                {
-                    Initialization = "new string()",
-                    IsFrameworkType = true,
-                    Name = "string",
-                },
-            },
-            Name = "Name",
-        };
-
-        Property attributes = GetAttributes(isNullable);
-
-        // Act & Assert
-        ActAndAssert(compilation, definition, _age, attributes, name);
     }
 
     [Theory]
@@ -340,82 +415,6 @@ public sealed class WhenGetPropertiesIsCalled
 
         // Act & Assert
         ActAndAssert(compilation, definition, age, attributes, name);
-    }
-
-    [Theory]
-    [MemberData(nameof(GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition)
-    {
-        // Act
-        IReadOnlyList<Property> properties = definition.Symbol.GetProperties(compilation, CancellationToken.None);
-
-        // Assert
-        properties.Count.ShouldBe(3);
-        properties.ShouldAllBe(property => property.IsIgnored);
-    }
-
-    [Theory]
-    [MemberData(nameof(GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
-    {
-        // Arrange
-        var age = new Property
-        {
-            Descriptor = "Aged",
-            Kind = new()
-            {
-                Type = new()
-                {
-                    Initialization = "new int()",
-                    IsFrameworkType = true,
-                    Name = "int",
-                },
-            },
-            Name = "Age",
-        };
-
-        Property attributes = GetAttributes(isNullable);
-
-        // Act & Assert
-        ActAndAssert(compilation, definition, age, attributes, _name);
-    }
-
-    [Theory]
-    [MemberData(nameof(GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
-    {
-        // Arrange
-        Property attributes = GetAttributes(isNullable, descriptor: "AttributedWith");
-
-        // Act & Assert
-        ActAndAssert(compilation, definition, _age, attributes, _name);
-    }
-
-    [Theory]
-    [MemberData(nameof(GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturnedData))]
-    public void GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
-    {
-        // Arrange
-        var name = new Property
-        {
-            Descriptor = "WithName",
-            IsIgnored = true,
-            Kind = new()
-            {
-                Type = new()
-                {
-                    Initialization = "new string()",
-                    IsFrameworkType = true,
-                    Name = "string",
-                },
-            },
-            Name = "Name",
-        };
-
-        Property attributes = GetAttributes(isNullable);
-
-        // Act & Assert
-        ActAndAssert(compilation, definition, _age, attributes, name);
     }
 
     private static void ActAndAssert(Compilation compilation, Definition definition, params Property[] expected)

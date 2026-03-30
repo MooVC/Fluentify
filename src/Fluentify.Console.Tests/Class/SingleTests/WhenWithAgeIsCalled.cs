@@ -2,20 +2,6 @@
 
 public sealed class WhenWithAgeIsCalled
 {
-    [Fact]
-    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
-    {
-        // Arrange
-        Single? subject = default;
-
-        // Act
-        Func<Single> act = () => subject!.WithAge(1);
-
-        // Assert
-        act.ShouldThrow<ArgumentNullException>()
-            .ParamName.ShouldBe(nameof(subject));
-    }
-
     [Theory]
     [InlineData(1)]
     [InlineData(-1)]
@@ -36,5 +22,19 @@ public sealed class WhenWithAgeIsCalled
         // Assert
         actual.ShouldNotBeSameAs(original);
         actual.Age.ShouldBe(age);
+    }
+
+    [Fact]
+    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
+    {
+        // Arrange
+        Single? subject = default;
+
+        // Act
+        Func<Single> act = () => subject!.WithAge(1);
+
+        // Assert
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 }

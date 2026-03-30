@@ -3,20 +3,6 @@
 public sealed class WhenAttributesIsCalled
 {
     [Fact]
-    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
-    {
-        // Arrange
-        OnOptional? subject = default;
-
-        // Act
-        Func<OnOptional> act = () => subject!.Attributes(new object());
-
-        // Assert
-        act.ShouldThrow<ArgumentNullException>()
-            .ParamName.ShouldBe(nameof(subject));
-    }
-
-    [Fact]
     public void GivenAttributesThenTheValueIsApplied()
     {
         // Arrange
@@ -37,5 +23,19 @@ public sealed class WhenAttributesIsCalled
         actual.Age.ShouldBe(original.Age);
         actual.Attributes.ShouldBeEquivalentTo(attributes);
         actual.Name.ShouldBe(original.Name);
+    }
+
+    [Fact]
+    public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
+    {
+        // Arrange
+        OnOptional? subject = default;
+
+        // Act
+        Func<OnOptional> act = () => subject!.Attributes(new object());
+
+        // Assert
+        act.ShouldThrow<ArgumentNullException>()
+            .ParamName.ShouldBe(nameof(subject));
     }
 }

@@ -61,13 +61,13 @@ public sealed partial class WhenGetExtensionsIsCalled
     }
 
     [Theory]
-    [InlineData("throw new NotImplementedException();", "IEnumerable<int>")]
-    [InlineData("return new();", "IEnumerable<int>")]
-    [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<int>")]
-    [InlineData("return new();", "IReadOnlyCollection<int>")]
-    [InlineData("throw new NotImplementedException();", "IReadOnlyList<int>")]
-    [InlineData("return new();", "IReadOnlyList<int>")]
-    public void GivenPublicPropertyAndPublicSubjectWhenEnumerableThenGeneratesPublicExtension(string scalar, string type)
+    [InlineData("throw new NotImplementedException();", "IEnumerable<TestType>")]
+    [InlineData("return new();", "IEnumerable<TestType>")]
+    [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<TestType>")]
+    [InlineData("return new();", "IReadOnlyCollection<TestType>")]
+    [InlineData("throw new NotImplementedException();", "IReadOnlyList<TestType>")]
+    [InlineData("return new();", "IReadOnlyList<TestType>")]
+    public void GivenBuildablePropertyWhenEnumerableThenGeneratesDelegateExtension(string scalar, string type)
     {
         // Arrange
         string expected = $$"""
@@ -80,7 +80,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 public static global::TestSubject WithTestProperty(
                     this global::TestSubject subject,
-                    params int[] values)
+                    params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
 
@@ -95,6 +95,21 @@ public sealed partial class WhenGetExtensionsIsCalled
 
                     {{scalar}}
                 }
+
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    Func<TestType, TestType> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = new TestType();
+
+                    instance = builder(instance);
+
+                    return subject.WithTestProperty(instance);
+                }
             }
             """;
 
@@ -105,6 +120,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             Properties = [],
             Type = new()
             {
+                Initialization = "new global::TestSubject()",
                 Name = "global::TestSubject",
             },
         };
@@ -117,14 +133,14 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
-                    IsFrameworkType = true,
-                    IsValueType = true,
-                    Name = "int",
+                    Initialization = "new TestType()",
+                    IsBuildable = true,
+                    Name = "TestType",
                 },
                 Pattern = Pattern.Enumerable,
                 Type = new()
                 {
-                    IsFrameworkType = true,
+                    Initialization = $"new {type}()",
                     Name = type,
                 },
             },
@@ -317,6 +333,91 @@ public sealed partial class WhenGetExtensionsIsCalled
     }
 
     [Theory]
+    [InlineData("throw new NotImplementedException();", "IEnumerable<int>")]
+    [InlineData("return new();", "IEnumerable<int>")]
+    [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<int>")]
+    [InlineData("return new();", "IReadOnlyCollection<int>")]
+    [InlineData("throw new NotImplementedException();", "IReadOnlyList<int>")]
+    [InlineData("return new();", "IReadOnlyList<int>")]
+    public void GivenPublicPropertyAndPublicSubjectWhenEnumerableThenGeneratesPublicExtension(string scalar, string type)
+    {
+        // Arrange
+        string expected = $$"""
+            using System;
+            using System.Collections.Generic;
+            using System.Linq;
+            using Fluentify.Internal;
+
+            public static partial class TestSubjectExtensions
+            {
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    params int[] values)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    {{type}} value = values;
+            
+                    if (subject.TestProperty != null)
+                    {
+                        value = subject.TestProperty
+                            .Union(values)
+                            .ToArray();
+                    }
+
+                    {{scalar}}
+                }
+            }
+            """;
+
+        var subject = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Name = "TestSubject",
+            Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
+        };
+
+        var property = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "WithTestProperty",
+            Kind = new()
+            {
+                Member = new()
+                {
+                    IsFrameworkType = true,
+                    IsValueType = true,
+                    Name = "int",
+                },
+                Pattern = Pattern.Enumerable,
+                Type = new()
+                {
+                    IsFrameworkType = true,
+                    Name = type,
+                },
+            },
+            Name = "TestProperty",
+        };
+
+        var metadata = new Metadata
+        {
+            Constraints = [],
+            Parameters = string.Empty,
+            Subject = subject,
+        };
+
+        // Act
+        string result = property.GetExtensions(ref metadata, _ => scalar);
+
+        // Assert
+        result.ShouldBe(expected);
+    }
+
+    [Theory]
     [InlineData("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableArray<int>")]
     [InlineData("return new();", "global::System.Collections.Immutable.ImmutableArray<int>")]
     [InlineData("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableHashSet<int>")]
@@ -412,107 +513,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Type = new()
                 {
                     IsFrameworkType = true,
-                    Name = type,
-                },
-            },
-            Name = "TestProperty",
-        };
-
-        var metadata = new Metadata
-        {
-            Constraints = [],
-            Parameters = string.Empty,
-            Subject = subject,
-        };
-
-        // Act
-        string result = property.GetExtensions(ref metadata, _ => scalar);
-
-        // Assert
-        result.ShouldBe(expected);
-    }
-
-    [Theory]
-    [InlineData("throw new NotImplementedException();", "IEnumerable<TestType>")]
-    [InlineData("return new();", "IEnumerable<TestType>")]
-    [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<TestType>")]
-    [InlineData("return new();", "IReadOnlyCollection<TestType>")]
-    [InlineData("throw new NotImplementedException();", "IReadOnlyList<TestType>")]
-    [InlineData("return new();", "IReadOnlyList<TestType>")]
-    public void GivenBuildablePropertyWhenEnumerableThenGeneratesDelegateExtension(string scalar, string type)
-    {
-        // Arrange
-        string expected = $$"""
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
-            public static partial class TestSubjectExtensions
-            {
-                public static global::TestSubject WithTestProperty(
-                    this global::TestSubject subject,
-                    params TestType[] values)
-                {
-                    subject.ThrowIfNull("subject");
-
-                    {{type}} value = values;
-            
-                    if (subject.TestProperty != null)
-                    {
-                        value = subject.TestProperty
-                            .Union(values)
-                            .ToArray();
-                    }
-
-                    {{scalar}}
-                }
-
-                public static global::TestSubject WithTestProperty(
-                    this global::TestSubject subject,
-                    Func<TestType, TestType> builder)
-                {
-                    subject.ThrowIfNull("subject");
-
-                    builder.ThrowIfNull("builder");
-
-                    var instance = new TestType();
-
-                    instance = builder(instance);
-
-                    return subject.WithTestProperty(instance);
-                }
-            }
-            """;
-
-        var subject = new Subject
-        {
-            Accessibility = Accessibility.Public,
-            Name = "TestSubject",
-            Properties = [],
-            Type = new()
-            {
-                Initialization = "new global::TestSubject()",
-                Name = "global::TestSubject",
-            },
-        };
-
-        var property = new Property
-        {
-            Accessibility = Accessibility.Public,
-            Descriptor = "WithTestProperty",
-            Kind = new()
-            {
-                Member = new()
-                {
-                    Initialization = "new TestType()",
-                    IsBuildable = true,
-                    Name = "TestType",
-                },
-                Pattern = Pattern.Enumerable,
-                Type = new()
-                {
-                    Initialization = $"new {type}()",
                     Name = type,
                 },
             },

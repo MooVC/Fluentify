@@ -60,7 +60,7 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
-    public void GivenPublicPropertyAndPublicSubjectWhenCollectionThenGeneratesPublicExtension(string scalar)
+    public void GivenBuildablePropertyWhenCollectionThenGeneratesDelegateExtension(string scalar)
     {
         // Arrange
         string expected = $$"""
@@ -73,11 +73,11 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 public static global::TestSubject WithTestProperty(
                     this global::TestSubject subject,
-                    params int[] values)
+                    params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
-
-                    List<int> value = new List<int>();
+            
+                    List<TestType> value = new List<TestType>();
             
                     if (subject.TestProperty != null)
                     {
@@ -93,6 +93,21 @@ public sealed partial class WhenGetExtensionsIsCalled
                     }
 
                     {{scalar}}
+                }
+
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    Func<TestType, TestType> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = new TestType();
+
+                    instance = builder(instance);
+
+                    return subject.WithTestProperty(instance);
                 }
             }
             """;
@@ -117,17 +132,15 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
-                    Initialization = "new int()",
-                    IsFrameworkType = true,
-                    IsValueType = true,
-                    Name = "int",
+                    Initialization = "new TestType()",
+                    IsBuildable = true,
+                    Name = "TestType",
                 },
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
-                    Initialization = "new int()",
-                    IsFrameworkType = true,
-                    Name = "List<int>",
+                    Initialization = "new TestType()",
+                    Name = "List<TestType>",
                 },
             },
             Name = "TestProperty",
@@ -330,7 +343,7 @@ public sealed partial class WhenGetExtensionsIsCalled
     [Theory]
     [InlineData("throw new NotImplementedException();")]
     [InlineData("return new();")]
-    public void GivenBuildablePropertyWhenCollectionThenGeneratesDelegateExtension(string scalar)
+    public void GivenPublicPropertyAndPublicSubjectWhenCollectionThenGeneratesPublicExtension(string scalar)
     {
         // Arrange
         string expected = $$"""
@@ -343,11 +356,11 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 public static global::TestSubject WithTestProperty(
                     this global::TestSubject subject,
-                    params TestType[] values)
+                    params int[] values)
                 {
                     subject.ThrowIfNull("subject");
-            
-                    List<TestType> value = new List<TestType>();
+
+                    List<int> value = new List<int>();
             
                     if (subject.TestProperty != null)
                     {
@@ -363,21 +376,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     }
 
                     {{scalar}}
-                }
-
-                public static global::TestSubject WithTestProperty(
-                    this global::TestSubject subject,
-                    Func<TestType, TestType> builder)
-                {
-                    subject.ThrowIfNull("subject");
-
-                    builder.ThrowIfNull("builder");
-
-                    var instance = new TestType();
-
-                    instance = builder(instance);
-
-                    return subject.WithTestProperty(instance);
                 }
             }
             """;
@@ -402,15 +400,17 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 Member = new()
                 {
-                    Initialization = "new TestType()",
-                    IsBuildable = true,
-                    Name = "TestType",
+                    Initialization = "new int()",
+                    IsFrameworkType = true,
+                    IsValueType = true,
+                    Name = "int",
                 },
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
-                    Initialization = "new TestType()",
-                    Name = "List<TestType>",
+                    Initialization = "new int()",
+                    IsFrameworkType = true,
+                    Name = "List<int>",
                 },
             },
             Name = "TestProperty",

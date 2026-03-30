@@ -21,11 +21,40 @@ public sealed class WhenToConstraintsIsCalled
     }
 
     [Fact]
-    public void GivenSingleGenericWithoutConstraintsWhenCalledThenReturnsEmptyWhereClause()
+    public void GivenMultipleGenericsWithConstraintsWhenCalledThenReturnsMultipleWhereClauses()
     {
         // Arrange
-        IReadOnlyList<Generic> single = [new() { Name = "T", Constraints = [] }];
-        IReadOnlyList<string> expected = ["where T : "];
+        IReadOnlyList<Generic> multiple =
+        [
+            new() { Name = "T", Constraints = ["class"] },
+            new() { Name = "U", Constraints = ["struct"] },
+            new() { Name = "V", Constraints = ["IComparable", "new()"] }
+        ];
+
+        IReadOnlyList<string> expected =
+        [
+            "where T : class",
+            "where U : struct",
+            "where V : IComparable, new()",
+        ];
+
+        // Act
+        IReadOnlyList<string> actual = multiple.ToConstraints();
+
+        // Assert
+        actual.ShouldBe(expected);
+    }
+
+    [Fact]
+    public void GivenSingleGenericWithMultipleConstraintsWhenCalledThenReturnsFormattedWhereClause()
+    {
+        // Arrange
+        IReadOnlyList<Generic> single =
+        [
+            new() { Name = "T", Constraints = ["class", "new()"] }
+        ];
+
+        IReadOnlyList<string> expected = ["where T : class, new()"];
 
         // Act
         IReadOnlyList<string> actual = single.ToConstraints();
@@ -53,43 +82,14 @@ public sealed class WhenToConstraintsIsCalled
     }
 
     [Fact]
-    public void GivenSingleGenericWithMultipleConstraintsWhenCalledThenReturnsFormattedWhereClause()
+    public void GivenSingleGenericWithoutConstraintsWhenCalledThenReturnsEmptyWhereClause()
     {
         // Arrange
-        IReadOnlyList<Generic> single =
-        [
-            new() { Name = "T", Constraints = ["class", "new()"] }
-        ];
-
-        IReadOnlyList<string> expected = ["where T : class, new()"];
+        IReadOnlyList<Generic> single = [new() { Name = "T", Constraints = [] }];
+        IReadOnlyList<string> expected = ["where T : "];
 
         // Act
         IReadOnlyList<string> actual = single.ToConstraints();
-
-        // Assert
-        actual.ShouldBe(expected);
-    }
-
-    [Fact]
-    public void GivenMultipleGenericsWithConstraintsWhenCalledThenReturnsMultipleWhereClauses()
-    {
-        // Arrange
-        IReadOnlyList<Generic> multiple =
-        [
-            new() { Name = "T", Constraints = ["class"] },
-            new() { Name = "U", Constraints = ["struct"] },
-            new() { Name = "V", Constraints = ["IComparable", "new()"] }
-        ];
-
-        IReadOnlyList<string> expected =
-        [
-            "where T : class",
-            "where U : struct",
-            "where V : IComparable, new()",
-        ];
-
-        // Act
-        IReadOnlyList<string> actual = multiple.ToConstraints();
 
         // Assert
         actual.ShouldBe(expected);

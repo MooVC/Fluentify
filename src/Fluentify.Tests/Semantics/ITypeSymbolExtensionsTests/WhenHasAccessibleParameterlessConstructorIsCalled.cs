@@ -88,6 +88,30 @@ public sealed class WhenHasAccessibleParameterlessConstructorIsCalled
             }
         }
         """;
+    [Theory]
+    [InlineData(PublicClassWithNoConstructor, nameof(PublicClassWithNoConstructor), true)]
+    [InlineData(PublicClassWithPublicConstructor, nameof(PublicClassWithPublicConstructor), true)]
+    [InlineData(PublicClassWithInternalConstructor, nameof(PublicClassWithInternalConstructor), true)]
+    [InlineData(PublicClassWithPrivateConstructor, nameof(PublicClassWithPrivateConstructor), false)]
+    [InlineData(InternalClassWithNoConstructor, nameof(InternalClassWithNoConstructor), true)]
+    [InlineData(InternalClassWithPublicConstructor, nameof(InternalClassWithPublicConstructor), true)]
+    [InlineData(InternalClassWithInternalConstructor, nameof(InternalClassWithInternalConstructor), true)]
+    [InlineData(InternalClassWithPrivateConstructor, nameof(InternalClassWithPrivateConstructor), false)]
+    [InlineData(PublicAbstractClass, nameof(PublicAbstractClass), false)]
+    [InlineData(Struct, nameof(Struct), false)]
+    public void GivenCodeWhenInADifferentAssemblyThenExpectedOutcomeIsObserved(string code, string type, bool expected)
+    {
+        // Arrange
+        Compilation compilation = CreateCompilation(code);
+        INamedTypeSymbol symbol = compilation.GetTypeByMetadataName(type)!;
+
+        // Act
+        bool actual = symbol.HasAccessibleParameterlessConstructor(compilation, out bool isInternal);
+
+        // Assert
+        isInternal.ShouldBeTrue();
+        actual.ShouldBe(expected);
+    }
 
     [Theory]
     [InlineData(PublicClassWithNoConstructor, nameof(PublicClassWithNoConstructor), true)]
@@ -111,31 +135,6 @@ public sealed class WhenHasAccessibleParameterlessConstructorIsCalled
 
         // Assert
         isInternal.ShouldBeFalse();
-        actual.ShouldBe(expected);
-    }
-
-    [Theory]
-    [InlineData(PublicClassWithNoConstructor, nameof(PublicClassWithNoConstructor), true)]
-    [InlineData(PublicClassWithPublicConstructor, nameof(PublicClassWithPublicConstructor), true)]
-    [InlineData(PublicClassWithInternalConstructor, nameof(PublicClassWithInternalConstructor), true)]
-    [InlineData(PublicClassWithPrivateConstructor, nameof(PublicClassWithPrivateConstructor), false)]
-    [InlineData(InternalClassWithNoConstructor, nameof(InternalClassWithNoConstructor), true)]
-    [InlineData(InternalClassWithPublicConstructor, nameof(InternalClassWithPublicConstructor), true)]
-    [InlineData(InternalClassWithInternalConstructor, nameof(InternalClassWithInternalConstructor), true)]
-    [InlineData(InternalClassWithPrivateConstructor, nameof(InternalClassWithPrivateConstructor), false)]
-    [InlineData(PublicAbstractClass, nameof(PublicAbstractClass), false)]
-    [InlineData(Struct, nameof(Struct), false)]
-    public void GivenCodeWhenInADifferentAssemblyThenExpectedOutcomeIsObserved(string code, string type, bool expected)
-    {
-        // Arrange
-        Compilation compilation = CreateCompilation(code);
-        INamedTypeSymbol symbol = compilation.GetTypeByMetadataName(type)!;
-
-        // Act
-        bool actual = symbol.HasAccessibleParameterlessConstructor(compilation, out bool isInternal);
-
-        // Assert
-        isInternal.ShouldBeTrue();
         actual.ShouldBe(expected);
     }
 

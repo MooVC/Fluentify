@@ -5,37 +5,11 @@ using Microsoft.CodeAnalysis;
 public abstract class WhenInequalityIsChecked
 {
     [Fact]
-    public void GivenIdenticalInstancesThenTheyAreEqual()
+    public void GivenBothInstancesAreNullThenTheyAreEqual()
     {
         // Arrange
-        var instance1 = new Property
-        {
-            Accessibility = Accessibility.Public,
-            Descriptor = "descriptor",
-            IsIgnored = true,
-            Kind = new()
-            {
-                Type = new()
-                {
-                    Name = "string",
-                },
-            },
-            Name = "PropertyName",
-        };
-        var instance2 = new Property
-        {
-            Accessibility = Accessibility.Public,
-            Descriptor = "descriptor",
-            IsIgnored = true,
-            Kind = new()
-            {
-                Type = new()
-                {
-                    Name = "string",
-                },
-            },
-            Name = "PropertyName",
-        };
+        Property? instance1 = default;
+        Property? instance2 = default;
 
         // Act
         bool areNotEqual = AreNotEqual(instance1, instance2);
@@ -125,46 +99,6 @@ public abstract class WhenInequalityIsChecked
     }
 
     [Fact]
-    public void GivenDifferentIsIgnoredThenTheyAreNotEqual()
-    {
-        // Arrange
-        var instance1 = new Property
-        {
-            Accessibility = Accessibility.Public,
-            Descriptor = "descriptor",
-            IsIgnored = true,
-            Kind = new()
-            {
-                Type = new()
-                {
-                    Name = "string",
-                },
-            },
-            Name = "PropertyName",
-        };
-        var instance2 = new Property
-        {
-            Accessibility = Accessibility.Public,
-            Descriptor = "descriptor",
-            IsIgnored = false,
-            Kind = new()
-            {
-                Type = new()
-                {
-                    Name = "string",
-                },
-            },
-            Name = "PropertyName",
-        };
-
-        // Act
-        bool areNotEqual = AreNotEqual(instance1, instance2);
-
-        // Assert
-        areNotEqual.ShouldBeTrue();
-    }
-
-    [Fact]
     public void GivenDifferentIsHiddenThenTheyAreNotEqual()
     {
         // Arrange
@@ -189,6 +123,46 @@ public abstract class WhenInequalityIsChecked
             Descriptor = "descriptor",
             IsHidden = false,
             IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
+            Name = "PropertyName",
+        };
+
+        // Act
+        bool areNotEqual = AreNotEqual(instance1, instance2);
+
+        // Assert
+        areNotEqual.ShouldBeTrue();
+    }
+
+    [Fact]
+    public void GivenDifferentIsIgnoredThenTheyAreNotEqual()
+    {
+        // Arrange
+        var instance1 = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "descriptor",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
+            Name = "PropertyName",
+        };
+        var instance2 = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "descriptor",
+            IsIgnored = false,
             Kind = new()
             {
                 Type = new()
@@ -287,6 +261,46 @@ public abstract class WhenInequalityIsChecked
     }
 
     [Fact]
+    public void GivenIdenticalInstancesThenTheyAreEqual()
+    {
+        // Arrange
+        var instance1 = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "descriptor",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
+            Name = "PropertyName",
+        };
+        var instance2 = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "descriptor",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
+            Name = "PropertyName",
+        };
+
+        // Act
+        bool areNotEqual = AreNotEqual(instance1, instance2);
+
+        // Assert
+        areNotEqual.ShouldBeFalse();
+    }
+
+    [Fact]
     public void GivenOneInstanceIsNullThenTheyAreNotEqual()
     {
         // Arrange
@@ -310,20 +324,6 @@ public abstract class WhenInequalityIsChecked
 
         // Assert
         areNotEqual.ShouldBeTrue();
-    }
-
-    [Fact]
-    public void GivenBothInstancesAreNullThenTheyAreEqual()
-    {
-        // Arrange
-        Property? instance1 = default;
-        Property? instance2 = default;
-
-        // Act
-        bool areNotEqual = AreNotEqual(instance1, instance2);
-
-        // Assert
-        areNotEqual.ShouldBeFalse();
     }
 
     [Fact]

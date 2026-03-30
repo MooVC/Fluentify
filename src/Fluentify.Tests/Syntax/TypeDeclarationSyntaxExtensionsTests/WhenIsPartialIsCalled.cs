@@ -6,25 +6,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 public sealed class WhenIsPartialIsCalled
 {
     [Fact]
-    public void GivenPartialClassThenReturnsTrue()
-    {
-        // Arrange
-        const string Source = """
-            public partial class TestClass
-            {
-            }
-            """;
-
-        TypeDeclarationSyntax syntax = CreateTypeDeclarationSyntax(Source);
-
-        // Act
-        bool result = syntax.IsPartial();
-
-        // Assert
-        result.ShouldBeTrue();
-    }
-
-    [Fact]
     public void GivenNonPartialClassThenReturnsFalse()
     {
         // Arrange
@@ -44,11 +25,11 @@ public sealed class WhenIsPartialIsCalled
     }
 
     [Fact]
-    public void GivenPartialStructThenReturnsTrue()
+    public void GivenNonPartialInterfaceThenReturnsFalse()
     {
         // Arrange
         const string Source = """
-            public partial struct TestStruct
+            public interface ITestInterface
             {
             }
             """;
@@ -59,7 +40,7 @@ public sealed class WhenIsPartialIsCalled
         bool result = syntax.IsPartial();
 
         // Assert
-        result.ShouldBeTrue();
+        result.ShouldBeFalse();
     }
 
     [Fact]
@@ -82,6 +63,25 @@ public sealed class WhenIsPartialIsCalled
     }
 
     [Fact]
+    public void GivenPartialClassThenReturnsTrue()
+    {
+        // Arrange
+        const string Source = """
+            public partial class TestClass
+            {
+            }
+            """;
+
+        TypeDeclarationSyntax syntax = CreateTypeDeclarationSyntax(Source);
+
+        // Act
+        bool result = syntax.IsPartial();
+
+        // Assert
+        result.ShouldBeTrue();
+    }
+
+    [Fact]
     public void GivenPartialInterfaceThenReturnsTrue()
     {
         // Arrange
@@ -101,11 +101,11 @@ public sealed class WhenIsPartialIsCalled
     }
 
     [Fact]
-    public void GivenNonPartialInterfaceThenReturnsFalse()
+    public void GivenPartialStructThenReturnsTrue()
     {
         // Arrange
         const string Source = """
-            public interface ITestInterface
+            public partial struct TestStruct
             {
             }
             """;
@@ -116,7 +116,7 @@ public sealed class WhenIsPartialIsCalled
         bool result = syntax.IsPartial();
 
         // Assert
-        result.ShouldBeFalse();
+        result.ShouldBeTrue();
     }
 
     private static TypeDeclarationSyntax CreateTypeDeclarationSyntax(string source)

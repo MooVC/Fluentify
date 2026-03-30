@@ -18,13 +18,21 @@ public partial class WhenExecuted
                 typeof(IgnoreAttributeGenerator))
         {
         }
-
         [Fact]
-        public async Task GivenAPropertyWithoutHideWhenFluentifyIsNotAppliedToTheRecordThenNoDiagnosticIsRaised()
+        public async Task GivenAPropertyWithHideAndIgnoreWhenFluentifyIsAppliedToTheRecordThenConflictingAttributesRuleIsRaised()
         {
             // Arrange
+            ExpectedDiagnostics.Add(GetExpectedConflictingAttributesRule(new LinePosition(5, 5), "Property"));
+
             TestCode = """
-                public record TestRecord(string Property);
+                using Fluentify;
+
+                [Fluentify]
+                public record TestRecordWithPropertyWithHideAndIgnore
+                {
+                    [Hide, Ignore]
+                    public string Property { get; init; }
+                }
                 """;
 
             // Act & Assert
@@ -67,20 +75,11 @@ public partial class WhenExecuted
         }
 
         [Fact]
-        public async Task GivenAPropertyWithHideAndIgnoreWhenFluentifyIsAppliedToTheRecordThenConflictingAttributesRuleIsRaised()
+        public async Task GivenAPropertyWithoutHideWhenFluentifyIsNotAppliedToTheRecordThenNoDiagnosticIsRaised()
         {
             // Arrange
-            ExpectedDiagnostics.Add(GetExpectedConflictingAttributesRule(new LinePosition(5, 5), "Property"));
-
             TestCode = """
-                using Fluentify;
-
-                [Fluentify]
-                public record TestRecordWithPropertyWithHideAndIgnore
-                {
-                    [Hide, Ignore]
-                    public string Property { get; init; }
-                }
+                public record TestRecord(string Property);
                 """;
 
             // Act & Assert

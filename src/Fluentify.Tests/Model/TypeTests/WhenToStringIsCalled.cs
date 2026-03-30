@@ -6,14 +6,13 @@ public sealed class WhenToStringIsCalled
 {
     private const string NullableName = "Demo.Type?";
     private const string NonNullableName = "Demo.Type";
-
     [Fact]
-    public void GivenNullableTypeNameWithoutAnnotationThenAnnotationIsAppended()
+    public void GivenNonNullableTypeThenNameIsReturned()
     {
         // Arrange
         var type = new Type
         {
-            IsNullable = true,
+            IsNullable = false,
             Name = NonNullableName,
         };
 
@@ -21,7 +20,7 @@ public sealed class WhenToStringIsCalled
         string result = type.ToString();
 
         // Assert
-        result.ShouldBe(NullableName);
+        result.ShouldBe(NonNullableName);
     }
 
     [Fact]
@@ -42,12 +41,12 @@ public sealed class WhenToStringIsCalled
     }
 
     [Fact]
-    public void GivenNonNullableTypeThenNameIsReturned()
+    public void GivenNullableTypeNameWithoutAnnotationThenAnnotationIsAppended()
     {
         // Arrange
         var type = new Type
         {
-            IsNullable = false,
+            IsNullable = true,
             Name = NonNullableName,
         };
 
@@ -55,6 +54,6 @@ public sealed class WhenToStringIsCalled
         string result = type.ToString();
 
         // Assert
-        result.ShouldBe(NonNullableName);
+        result.ShouldBe(NullableName);
     }
 }

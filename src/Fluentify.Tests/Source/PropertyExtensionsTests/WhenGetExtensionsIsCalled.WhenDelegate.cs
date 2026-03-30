@@ -7,41 +7,6 @@ using Metadata = Fluentify.Source.Metadata;
 public sealed partial class WhenGetExtensionsIsCalled
 {
     [Fact]
-    public void GivenNonScalarAndNotBuildableThenDelegateExtensionIsNotGenerated()
-    {
-        // Arrange
-        var property = new Property
-        {
-            Accessibility = Accessibility.Public,
-            Descriptor = "WithItems",
-            Kind = new()
-            {
-                Pattern = Pattern.Collection,
-                Member = new()
-                {
-                    Initialization = "new global::Demo.Element()",
-                    IsBuildable = false,
-                    IsFrameworkType = false,
-                    Name = "global::Demo.Element",
-                },
-                Type = new()
-                {
-                    Name = "global::System.Collections.Generic.ICollection<global::Demo.Element>",
-                },
-            },
-            Name = "Items",
-        };
-
-        var metadata = CreateMetadata();
-
-        // Act
-        string result = property.GetExtensions(ref metadata, _ => "return subject;");
-
-        // Assert
-        result.ShouldNotContain("Func<global::Demo.Element, global::Demo.Element> builder");
-    }
-
-    [Fact]
     public void GivenNonScalarAndBuildableThenDelegateExtensionIsGenerated()
     {
         // Arrange
@@ -75,6 +40,41 @@ public sealed partial class WhenGetExtensionsIsCalled
         // Assert
         result.ShouldContain("Func<global::Demo.Element, global::Demo.Element> builder");
         result.ShouldContain("instance = builder(instance);");
+    }
+
+    [Fact]
+    public void GivenNonScalarAndNotBuildableThenDelegateExtensionIsNotGenerated()
+    {
+        // Arrange
+        var property = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "WithItems",
+            Kind = new()
+            {
+                Pattern = Pattern.Collection,
+                Member = new()
+                {
+                    Initialization = "new global::Demo.Element()",
+                    IsBuildable = false,
+                    IsFrameworkType = false,
+                    Name = "global::Demo.Element",
+                },
+                Type = new()
+                {
+                    Name = "global::System.Collections.Generic.ICollection<global::Demo.Element>",
+                },
+            },
+            Name = "Items",
+        };
+
+        var metadata = CreateMetadata();
+
+        // Act
+        string result = property.GetExtensions(ref metadata, _ => "return subject;");
+
+        // Assert
+        result.ShouldNotContain("Func<global::Demo.Element, global::Demo.Element> builder");
     }
 
     [Fact]

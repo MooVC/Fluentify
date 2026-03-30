@@ -7,33 +7,6 @@ using Microsoft.CodeAnalysis;
 public sealed class WhenHasFluentifyIsCalled
 {
     [Fact]
-    public void GivenNoAttributesThenReturnsFalse()
-    {
-        // Arrange
-        INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes([]);
-
-        // Act
-        bool result = record.HasFluentify();
-
-        // Assert
-        result.ShouldBeFalse();
-    }
-
-    [Fact]
-    public void GivenOtherAttributesThenReturnsFalse()
-    {
-        // Arrange
-        AttributeData attribute = CreateAttributeData("SomeOtherAttribute");
-        INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes([attribute]);
-
-        // Act
-        bool result = record.HasFluentify();
-
-        // Assert
-        result.ShouldBeFalse();
-    }
-
-    [Fact]
     public void GivenFluentifyAttributeThenReturnsTrue()
     {
         // Arrange
@@ -60,6 +33,33 @@ public sealed class WhenHasFluentifyIsCalled
 
         // Assert
         result.ShouldBeTrue();
+    }
+
+    [Fact]
+    public void GivenNoAttributesThenReturnsFalse()
+    {
+        // Arrange
+        INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes([]);
+
+        // Act
+        bool result = record.HasFluentify();
+
+        // Assert
+        result.ShouldBeFalse();
+    }
+
+    [Fact]
+    public void GivenOtherAttributesThenReturnsFalse()
+    {
+        // Arrange
+        AttributeData attribute = CreateAttributeData("SomeOtherAttribute");
+        INamedTypeSymbol record = CreateNamedTypeSymbolWithAttributes([attribute]);
+
+        // Act
+        bool result = record.HasFluentify();
+
+        // Assert
+        result.ShouldBeFalse();
     }
 
     private static INamedTypeSymbol CreateNamedTypeSymbolWithAttributes(ImmutableArray<AttributeData> attributes)

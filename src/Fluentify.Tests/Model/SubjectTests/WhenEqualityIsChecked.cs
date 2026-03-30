@@ -6,82 +6,11 @@ using Microsoft.CodeAnalysis;
 public abstract class WhenEqualityIsChecked
 {
     [Fact]
-    public void GivenIdenticalInstancesThenTheyAreEqual()
+    public void GivenBothInstancesAreNullThenTheyAreEqual()
     {
         // Arrange
-        var generics = new List<Generic>
-        {
-            new()
-            {
-                Constraints = ["constraint1"],
-                Name = "GenericName1",
-            },
-            new()
-            {
-                Constraints = ["constraint2"],
-                Name = "GenericName2",
-            },
-        };
-        var properties = new List<Property>
-        {
-            new()
-            {
-                Accessibility = Accessibility.Public,
-                Descriptor = "descriptor1",
-                Kind = new()
-                {
-                    Type = new()
-                    {
-                        Name = "string",
-                    },
-                },
-                Name = "PropertyName1",
-            },
-            new()
-            {
-                Accessibility = Accessibility.Private,
-                Descriptor = "descriptor2",
-                Kind = new()
-                {
-                    Type = new()
-                    {
-                        IsNullable = true,
-                        Name = "int",
-                    },
-                },
-                Name = "PropertyName2",
-            },
-        };
-        var instance1 = new Subject
-        {
-            Accessibility = Accessibility.Public,
-            Generics = generics,
-            IsPartial = false,
-            Name = "SubjectName",
-            Namespace = "SubjectNamespace",
-            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
-            Properties = properties,
-            Type = new()
-            {
-                IsBuildable = true,
-                Name = "SubjectNamespace.SubjectName",
-            },
-        };
-        var instance2 = new Subject
-        {
-            Accessibility = Accessibility.Public,
-            Generics = generics,
-            IsPartial = false,
-            Name = "SubjectName",
-            Namespace = "SubjectNamespace",
-            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
-            Properties = properties,
-            Type = new()
-            {
-                IsBuildable = true,
-                Name = "SubjectNamespace.SubjectName",
-            },
-        };
+        Subject? instance1 = default;
+        Subject? instance2 = default;
 
         // Act
         bool areEqual = AreEqual(instance1, instance2);
@@ -423,6 +352,91 @@ public abstract class WhenEqualityIsChecked
     }
 
     [Fact]
+    public void GivenIdenticalInstancesThenTheyAreEqual()
+    {
+        // Arrange
+        var generics = new List<Generic>
+        {
+            new()
+            {
+                Constraints = ["constraint1"],
+                Name = "GenericName1",
+            },
+            new()
+            {
+                Constraints = ["constraint2"],
+                Name = "GenericName2",
+            },
+        };
+        var properties = new List<Property>
+        {
+            new()
+            {
+                Accessibility = Accessibility.Public,
+                Descriptor = "descriptor1",
+                Kind = new()
+                {
+                    Type = new()
+                    {
+                        Name = "string",
+                    },
+                },
+                Name = "PropertyName1",
+            },
+            new()
+            {
+                Accessibility = Accessibility.Private,
+                Descriptor = "descriptor2",
+                Kind = new()
+                {
+                    Type = new()
+                    {
+                        IsNullable = true,
+                        Name = "int",
+                    },
+                },
+                Name = "PropertyName2",
+            },
+        };
+        var instance1 = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Generics = generics,
+            IsPartial = false,
+            Name = "SubjectName",
+            Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
+            Properties = properties,
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
+        };
+        var instance2 = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Generics = generics,
+            IsPartial = false,
+            Name = "SubjectName",
+            Namespace = "SubjectNamespace",
+            Nesting = [new() { Qualification = "Outter", Declaration = "partial class" }],
+            Properties = properties,
+            Type = new()
+            {
+                IsBuildable = true,
+                Name = "SubjectNamespace.SubjectName",
+            },
+        };
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        areEqual.ShouldBeTrue();
+    }
+
+    [Fact]
     public void GivenOneInstanceIsNullThenTheyAreNotEqual()
     {
         // Arrange
@@ -447,20 +461,6 @@ public abstract class WhenEqualityIsChecked
 
         // Assert
         areEqual.ShouldBeFalse();
-    }
-
-    [Fact]
-    public void GivenBothInstancesAreNullThenTheyAreEqual()
-    {
-        // Arrange
-        Subject? instance1 = default;
-        Subject? instance2 = default;
-
-        // Act
-        bool areEqual = AreEqual(instance1, instance2);
-
-        // Assert
-        areEqual.ShouldBeTrue();
     }
 
     [Fact]

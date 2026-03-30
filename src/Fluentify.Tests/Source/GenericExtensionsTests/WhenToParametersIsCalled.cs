@@ -21,20 +21,6 @@ public sealed class WhenToParametersIsCalled
     }
 
     [Fact]
-    public void GivenSingleGenericWhenCalledThenReturnsSingleBracketedParameter()
-    {
-        // Arrange
-        IReadOnlyList<Generic> single = [new() { Name = "T" }];
-        const string expected = "<T>";
-
-        // Act
-        string actual = single.ToParameters();
-
-        // Assert
-        actual.ShouldBe(expected);
-    }
-
-    [Fact]
     public void GivenMultipleGenericsWhenCalledThenReturnsCommaSeparatedBracketedParameters()
     {
         // Arrange
@@ -48,6 +34,20 @@ public sealed class WhenToParametersIsCalled
 
         // Act
         string actual = multiple.ToParameters();
+
+        // Assert
+        actual.ShouldBe(expected);
+    }
+
+    [Fact]
+    public void GivenSingleGenericWhenCalledThenReturnsSingleBracketedParameter()
+    {
+        // Arrange
+        IReadOnlyList<Generic> single = [new() { Name = "T" }];
+        const string expected = "<T>";
+
+        // Act
+        string actual = single.ToParameters();
 
         // Assert
         actual.ShouldBe(expected);

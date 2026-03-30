@@ -12,7 +12,6 @@ public sealed class WhenTryGetInitializationIsCalled
     private const string SkippedTypeName = "Demo.SkippedType";
 
     private static readonly Compilation _compilation = CreateCompilation();
-
     [Fact]
     public void GivenPropertyWithAutoInitializeWithAttributeThenInitializationIsReturned()
     {
@@ -25,20 +24,6 @@ public sealed class WhenTryGetInitializationIsCalled
         // Assert
         result.ShouldBeTrue();
         initialization.ShouldBe("global::Demo.Widget.LocalBuild()");
-    }
-
-    [Fact]
-    public void GivenRecordParameterWithAutoInitializeWithAttributeThenInitializationIsReturned()
-    {
-        // Arrange
-        IPropertySymbol property = GetProperty(RecordSampleName, "Value");
-
-        // Act
-        bool result = property.TryGetInitialization(out string initialization);
-
-        // Assert
-        result.ShouldBeTrue();
-        initialization.ShouldBe("global::Demo.Widget.Build()");
     }
 
     [Fact]
@@ -70,6 +55,20 @@ public sealed class WhenTryGetInitializationIsCalled
     }
 
     [Fact]
+    public void GivenPropertyWithSkippedTypeThenFalseIsReturned()
+    {
+        // Arrange
+        IPropertySymbol property = GetProperty(SkippedTypeName, "Property");
+
+        // Act
+        bool result = property.TryGetInitialization(out string initialization);
+
+        // Assert
+        result.ShouldBeFalse();
+        initialization.ShouldBe(string.Empty);
+    }
+
+    [Fact]
     public void GivenPropertyWithTypeInitializationThenInitializationIsReturned()
     {
         // Arrange
@@ -84,17 +83,17 @@ public sealed class WhenTryGetInitializationIsCalled
     }
 
     [Fact]
-    public void GivenPropertyWithSkippedTypeThenFalseIsReturned()
+    public void GivenRecordParameterWithAutoInitializeWithAttributeThenInitializationIsReturned()
     {
         // Arrange
-        IPropertySymbol property = GetProperty(SkippedTypeName, "Property");
+        IPropertySymbol property = GetProperty(RecordSampleName, "Value");
 
         // Act
         bool result = property.TryGetInitialization(out string initialization);
 
         // Assert
-        result.ShouldBeFalse();
-        initialization.ShouldBe(string.Empty);
+        result.ShouldBeTrue();
+        initialization.ShouldBe("global::Demo.Widget.Build()");
     }
 
     private static IPropertySymbol GetProperty(string typeName, string propertyName)

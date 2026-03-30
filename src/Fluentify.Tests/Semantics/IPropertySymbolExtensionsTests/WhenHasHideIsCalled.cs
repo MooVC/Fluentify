@@ -26,6 +26,20 @@ public sealed class WhenHasHideIsCalled
     }
 
     [Fact]
+    public void GivenPropertyWithNoAttributesThenReturnsFalse()
+    {
+        // Arrange
+        IPropertySymbol property = Substitute.For<IPropertySymbol>();
+        _ = property.GetAttributes().Returns([]);
+
+        // Act
+        bool result = property.HasHide();
+
+        // Assert
+        result.ShouldBeFalse();
+    }
+
+    [Fact]
     public void GivenPropertyWithoutHideAttributeThenReturnsFalse()
     {
         // Arrange
@@ -37,20 +51,6 @@ public sealed class WhenHasHideIsCalled
 
         IPropertySymbol property = Substitute.For<IPropertySymbol>();
         _ = property.GetAttributes().Returns([data]);
-
-        // Act
-        bool result = property.HasHide();
-
-        // Assert
-        result.ShouldBeFalse();
-    }
-
-    [Fact]
-    public void GivenPropertyWithNoAttributesThenReturnsFalse()
-    {
-        // Arrange
-        IPropertySymbol property = Substitute.For<IPropertySymbol>();
-        _ = property.GetAttributes().Returns([]);
 
         // Act
         bool result = property.HasHide();

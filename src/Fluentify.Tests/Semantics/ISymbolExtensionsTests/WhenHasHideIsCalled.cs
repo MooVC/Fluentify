@@ -6,6 +6,23 @@ using static Fluentify.HideAttributeGenerator;
 public sealed class WhenHasHideIsCalled
 {
     [Fact]
+    public void GivenSymbolWithAttributeMissingClassThenReturnsFalse()
+    {
+        // Arrange
+        AttributeData attribute = Substitute.For<AttributeData>();
+        _ = attribute.AttributeClass.Returns((INamedTypeSymbol?)null);
+
+        ISymbol symbol = Substitute.For<ISymbol>();
+        _ = symbol.GetAttributes().Returns([attribute]);
+
+        // Act
+        bool result = symbol.HasHide();
+
+        // Assert
+        result.ShouldBeFalse();
+    }
+
+    [Fact]
     public void GivenSymbolWithHideAttributeThenReturnsTrue()
     {
         // Arrange
@@ -34,23 +51,6 @@ public sealed class WhenHasHideIsCalled
 
         AttributeData attribute = Substitute.For<AttributeData>();
         _ = attribute.AttributeClass.Returns(attributeClass);
-
-        ISymbol symbol = Substitute.For<ISymbol>();
-        _ = symbol.GetAttributes().Returns([attribute]);
-
-        // Act
-        bool result = symbol.HasHide();
-
-        // Assert
-        result.ShouldBeFalse();
-    }
-
-    [Fact]
-    public void GivenSymbolWithAttributeMissingClassThenReturnsFalse()
-    {
-        // Arrange
-        AttributeData attribute = Substitute.For<AttributeData>();
-        _ = attribute.AttributeClass.Returns((INamedTypeSymbol?)null);
 
         ISymbol symbol = Substitute.For<ISymbol>();
         _ = symbol.GetAttributes().Returns([attribute]);

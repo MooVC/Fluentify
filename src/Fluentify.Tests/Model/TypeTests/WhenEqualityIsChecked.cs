@@ -3,19 +3,11 @@
 public abstract class WhenEqualityIsChecked
 {
     [Fact]
-    public void GivenIdenticalInstancesThenTheyAreEqual()
+    public void GivenBothInstancesAreNullThenTheyAreEqual()
     {
         // Arrange
-        var instance1 = new Type
-        {
-            IsNullable = true,
-            Name = "TypeName",
-        };
-        var instance2 = new Type
-        {
-            IsNullable = true,
-            Name = "TypeName",
-        };
+        Type? instance1 = default;
+        Type? instance2 = default;
 
         // Act
         bool areEqual = AreEqual(instance1, instance2);
@@ -66,6 +58,28 @@ public abstract class WhenEqualityIsChecked
     }
 
     [Fact]
+    public void GivenIdenticalInstancesThenTheyAreEqual()
+    {
+        // Arrange
+        var instance1 = new Type
+        {
+            IsNullable = true,
+            Name = "TypeName",
+        };
+        var instance2 = new Type
+        {
+            IsNullable = true,
+            Name = "TypeName",
+        };
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        areEqual.ShouldBeTrue();
+    }
+
+    [Fact]
     public void GivenOneInstanceIsNullThenTheyAreNotEqual()
     {
         // Arrange
@@ -79,20 +93,6 @@ public abstract class WhenEqualityIsChecked
 
         // Assert
         areEqual.ShouldBeFalse();
-    }
-
-    [Fact]
-    public void GivenBothInstancesAreNullThenTheyAreEqual()
-    {
-        // Arrange
-        Type? instance1 = default;
-        Type? instance2 = default;
-
-        // Act
-        bool areEqual = AreEqual(instance1, instance2);
-
-        // Assert
-        areEqual.ShouldBeTrue();
     }
 
     [Fact]
