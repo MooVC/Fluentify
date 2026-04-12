@@ -124,6 +124,18 @@ public static partial class Classes
 
                 public static global::Fluentify.Classes.Testing.Outter.NestedInStruct WithAttributes(
                     this global::Fluentify.Classes.Testing.Outter.NestedInStruct subject,
+                    object instance,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .WithAttributes(instance)
+                        .WithAttributes(builder);
+                }
+
+                public static global::Fluentify.Classes.Testing.Outter.NestedInStruct WithAttributes(
+                    this global::Fluentify.Classes.Testing.Outter.NestedInStruct subject,
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");

@@ -141,6 +141,20 @@ public static partial class Records
 
                 public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> subject,
+                    object instance,
+                    Func<object, object> builder)
+                    where TOutter : class
+                    where TInner : struct
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .WithAttributes(instance)
+                        .WithAttributes(builder);
+                }
+
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> WithAttributes<TOutter, TInner>(
+                    this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInInterfaceWithGenerics<TInner> subject,
                     Func<object, object> builder)
                     where TOutter : class
                     where TInner : struct

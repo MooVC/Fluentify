@@ -122,6 +122,18 @@ public static partial class Classes
 
                 public static global::Fluentify.Classes.Testing.SelfDescriptorOnOptional Attributes(
                     this global::Fluentify.Classes.Testing.SelfDescriptorOnOptional subject,
+                    object instance,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .Attributes(instance)
+                        .Attributes(builder);
+                }
+
+                public static global::Fluentify.Classes.Testing.SelfDescriptorOnOptional Attributes(
+                    this global::Fluentify.Classes.Testing.SelfDescriptorOnOptional subject,
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");

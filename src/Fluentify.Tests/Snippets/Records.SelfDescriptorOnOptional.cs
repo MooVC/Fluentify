@@ -129,6 +129,18 @@ public static partial class Records
 
                 public static global::Fluentify.Records.Testing.SelfDescriptorOnOptional Attributes(
                     this global::Fluentify.Records.Testing.SelfDescriptorOnOptional subject,
+                    object instance,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .Attributes(instance)
+                        .Attributes(builder);
+                }
+
+                public static global::Fluentify.Records.Testing.SelfDescriptorOnOptional Attributes(
+                    this global::Fluentify.Records.Testing.SelfDescriptorOnOptional subject,
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");

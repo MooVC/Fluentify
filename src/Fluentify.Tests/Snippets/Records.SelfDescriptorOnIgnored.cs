@@ -124,6 +124,18 @@ public static partial class Records
 
                 public static global::Fluentify.Records.Testing.SelfDescriptorOnIgnored WithAttributes(
                     this global::Fluentify.Records.Testing.SelfDescriptorOnIgnored subject,
+                    object instance,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .WithAttributes(instance)
+                        .WithAttributes(builder);
+                }
+
+                public static global::Fluentify.Records.Testing.SelfDescriptorOnIgnored WithAttributes(
+                    this global::Fluentify.Records.Testing.SelfDescriptorOnIgnored subject,
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");

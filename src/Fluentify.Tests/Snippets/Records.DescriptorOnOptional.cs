@@ -129,6 +129,18 @@ public static partial class Records
 
                 public static global::Fluentify.Records.Testing.DescriptorOnOptional AttributedWith(
                     this global::Fluentify.Records.Testing.DescriptorOnOptional subject,
+                    object instance,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .AttributedWith(instance)
+                        .AttributedWith(builder);
+                }
+
+                public static global::Fluentify.Records.Testing.DescriptorOnOptional AttributedWith(
+                    this global::Fluentify.Records.Testing.DescriptorOnOptional subject,
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");

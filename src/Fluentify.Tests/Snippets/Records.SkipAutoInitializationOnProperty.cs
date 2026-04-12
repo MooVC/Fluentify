@@ -111,6 +111,18 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty WithDependency(
                     this global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty subject,
+                    global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty.Dependent instance,
+                    Func<global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty.Dependent, global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty.Dependent> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .WithDependency(instance)
+                        .WithDependency(builder);
+                }
+
+                public static global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty WithDependency(
+                    this global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty subject,
                     Func<global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty.Dependent, global::Fluentify.Records.Testing.SkipAutoInitializationOnProperty.Dependent> builder)
                 {
                     subject.ThrowIfNull("subject");

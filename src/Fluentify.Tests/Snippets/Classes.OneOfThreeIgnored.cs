@@ -117,6 +117,18 @@ public static partial class Classes
 
                 public static global::Fluentify.Classes.Testing.OneOfThreeIgnored WithAttributes(
                     this global::Fluentify.Classes.Testing.OneOfThreeIgnored subject,
+                    object instance,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .WithAttributes(instance)
+                        .WithAttributes(builder);
+                }
+
+                public static global::Fluentify.Classes.Testing.OneOfThreeIgnored WithAttributes(
+                    this global::Fluentify.Classes.Testing.OneOfThreeIgnored subject,
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");

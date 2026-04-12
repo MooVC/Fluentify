@@ -100,6 +100,19 @@ public static partial class Classes
             {
                 public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAttributes<T>(
                     this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
+                    T instance,
+                    Func<T, T> builder)
+                    where T : global::System.Collections.IEnumerable
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .WithAttributes(instance)
+                        .WithAttributes(builder);
+                }
+
+                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAttributes<T>(
+                    this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
                     Func<T, T> builder)
                     where T : global::System.Collections.IEnumerable
                 {

@@ -110,6 +110,18 @@ public static partial class Records
 
                 public static global::Fluentify.Records.Testing.SimpleWithDefaultConstructor WithAttributes(
                     this global::Fluentify.Records.Testing.SimpleWithDefaultConstructor subject,
+                    object instance,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .WithAttributes(instance)
+                        .WithAttributes(builder);
+                }
+
+                public static global::Fluentify.Records.Testing.SimpleWithDefaultConstructor WithAttributes(
+                    this global::Fluentify.Records.Testing.SimpleWithDefaultConstructor subject,
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");

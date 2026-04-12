@@ -114,6 +114,18 @@ public static partial class Classes
 
             public static global::Global WithAttributes(
                 this global::Global subject,
+                object instance,
+                Func<object, object> builder)
+            {
+                subject.ThrowIfNull("subject");
+
+                return subject
+                    .WithAttributes(instance)
+                    .WithAttributes(builder);
+            }
+
+            public static global::Global WithAttributes(
+                this global::Global subject,
                 Func<object, object> builder)
             {
                 subject.ThrowIfNull("subject");
