@@ -94,29 +94,6 @@ public static partial class Classes
             {
                 public static global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored WithAttributes(
                     this global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored subject,
-                    params object[] values)
-                {
-                    subject.ThrowIfNull("subject");
-
-                    global::System.Collections.Generic.IReadOnlyList<object> value = values;
-
-                    if (subject.Attributes != null)
-                    {
-                        value = subject.Attributes
-                            .Union(values)
-                            .ToArray();
-                    }
-
-                    return new global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored
-                    {
-                        Age = subject.Age,
-                        Attributes = value,
-                        Name = subject.Name,
-                    };
-                }
-
-                public static global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored WithAttributes(
-                    this global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored subject,
                     object[] values,
                     Func<object, object> builder)
                 {
@@ -146,12 +123,35 @@ public static partial class Classes
                     subject.ThrowIfNull("subject");
 
                     builder.ThrowIfNull("builder");
-
+        
                     var instance = new object();
 
                     instance = builder(instance);
 
                     return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored WithAttributes(
+                    this global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored subject,
+                    params object[] values)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    global::System.Collections.Generic.IReadOnlyList<object> value = values;
+
+                    if (subject.Attributes != null)
+                    {
+                        value = subject.Attributes
+                            .Union(values)
+                            .ToArray();
+                    }
+
+                    return new global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored
+                    {
+                        Age = subject.Age,
+                        Attributes = value,
+                        Name = subject.Name,
+                    };
                 }
             }
         }

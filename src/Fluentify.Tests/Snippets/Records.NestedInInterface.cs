@@ -114,27 +114,6 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.Outter.NestedInInterface WithAttributes(
                     this global::Fluentify.Records.Testing.Outter.NestedInInterface subject,
-                    params object[] values)
-                {
-                    subject.ThrowIfNull("subject");
-
-                    global::System.Collections.Generic.IReadOnlyList<object>? value = values;
-
-                    if (subject.Attributes != null)
-                    {
-                        value = subject.Attributes
-                            .Union(values)
-                            .ToArray();
-                    }
-
-                    return subject with
-                    {
-                        Attributes = value,
-                    };
-                }
-
-                public static global::Fluentify.Records.Testing.Outter.NestedInInterface WithAttributes(
-                    this global::Fluentify.Records.Testing.Outter.NestedInInterface subject,
                     object[] values,
                     Func<object, object> builder)
                 {
@@ -170,6 +149,27 @@ public static partial class Records
                     instance = builder(instance);
 
                     return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Records.Testing.Outter.NestedInInterface WithAttributes(
+                    this global::Fluentify.Records.Testing.Outter.NestedInInterface subject,
+                    params object[] values)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    global::System.Collections.Generic.IReadOnlyList<object>? value = values;
+
+                    if (subject.Attributes != null)
+                    {
+                        value = subject.Attributes
+                            .Union(values)
+                            .ToArray();
+                    }
+
+                    return subject with
+                    {
+                        Attributes = value,
+                    };
                 }
             }
         }

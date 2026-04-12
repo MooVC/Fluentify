@@ -91,29 +91,6 @@ public static partial class Classes
         {
             public static global::Global WithAttributes(
                 this global::Global subject,
-                params object[] values)
-            {
-                subject.ThrowIfNull("subject");
-
-                global::System.Collections.Generic.IReadOnlyList<object> value = values;
-
-                if (subject.Attributes != null)
-                {
-                    value = subject.Attributes
-                        .Union(values)
-                        .ToArray();
-                }
-
-                return new global::Global
-                {
-                    Age = subject.Age,
-                    Attributes = value,
-                    Name = subject.Name,
-                };
-            }
-
-            public static global::Global WithAttributes(
-                this global::Global subject,
                 object[] values,
                 Func<object, object> builder)
             {
@@ -149,6 +126,29 @@ public static partial class Classes
                 instance = builder(instance);
 
                 return subject.WithAttributes(instance);
+            }
+
+            public static global::Global WithAttributes(
+                this global::Global subject,
+                params object[] values)
+            {
+                subject.ThrowIfNull("subject");
+
+                global::System.Collections.Generic.IReadOnlyList<object> value = values;
+
+                if (subject.Attributes != null)
+                {
+                    value = subject.Attributes
+                        .Union(values)
+                        .ToArray();
+                }
+
+                return new global::Global
+                {
+                    Age = subject.Age,
+                    Attributes = value,
+                    Name = subject.Name,
+                };
             }
         }
         

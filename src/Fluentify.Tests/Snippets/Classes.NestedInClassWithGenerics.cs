@@ -105,31 +105,6 @@ public static partial class Classes
             {
                 public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
-                    params object[] values)
-                    where TOutter : class
-                    where TInner : struct
-                {
-                    subject.ThrowIfNull("subject");
-
-                    global::System.Collections.Generic.IReadOnlyList<object> value = values;
-
-                    if (subject.Attributes != null)
-                    {
-                        value = subject.Attributes
-                            .Union(values)
-                            .ToArray();
-                    }
-
-                    return new global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>
-                    {
-                        Age = subject.Age,
-                        Attributes = value,
-                        Name = subject.Name,
-                    };
-                }
-
-                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
-                    this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
                     object[] values,
                     Func<object, object> builder)
                     where TOutter : class
@@ -171,6 +146,31 @@ public static partial class Classes
                     instance = builder(instance);
 
                     return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
+                    this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
+                    params object[] values)
+                    where TOutter : class
+                    where TInner : struct
+                {
+                    subject.ThrowIfNull("subject");
+
+                    global::System.Collections.Generic.IReadOnlyList<object> value = values;
+
+                    if (subject.Attributes != null)
+                    {
+                        value = subject.Attributes
+                            .Union(values)
+                            .ToArray();
+                    }
+
+                    return new global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner>
+                    {
+                        Age = subject.Age,
+                        Attributes = value,
+                        Name = subject.Name,
+                    };
                 }
             }
         }

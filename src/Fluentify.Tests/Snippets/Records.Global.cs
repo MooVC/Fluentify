@@ -98,27 +98,6 @@ public static partial class Records
         {
             public static global::Global WithAttributes(
                 this global::Global subject,
-                params object[] values)
-            {
-                subject.ThrowIfNull("subject");
-
-                global::System.Collections.Generic.IReadOnlyList<object>? value = values;
-
-                if (subject.Attributes != null)
-                {
-                    value = subject.Attributes
-                        .Union(values)
-                        .ToArray();
-                }
-
-                return subject with
-                {
-                    Attributes = value,
-                };
-            }
-
-            public static global::Global WithAttributes(
-                this global::Global subject,
                 object[] values,
                 Func<object, object> builder)
             {
@@ -154,6 +133,27 @@ public static partial class Records
                 instance = builder(instance);
 
                 return subject.WithAttributes(instance);
+            }
+
+            public static global::Global WithAttributes(
+                this global::Global subject,
+                params object[] values)
+            {
+                subject.ThrowIfNull("subject");
+
+                global::System.Collections.Generic.IReadOnlyList<object>? value = values;
+
+                if (subject.Attributes != null)
+                {
+                    value = subject.Attributes
+                        .Union(values)
+                        .ToArray();
+                }
+
+                return subject with
+                {
+                    Attributes = value,
+                };
             }
         }
 

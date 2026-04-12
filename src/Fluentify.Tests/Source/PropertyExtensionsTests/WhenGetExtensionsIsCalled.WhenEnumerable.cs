@@ -80,24 +80,6 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 public static global::TestSubject WithTestProperty(
                     this global::TestSubject subject,
-                    params TestType[] values)
-                {
-                    subject.ThrowIfNull("subject");
-
-                    {{type}} value = values;
-            
-                    if (subject.TestProperty != null)
-                    {
-                        value = subject.TestProperty
-                            .Union(values)
-                            .ToArray();
-                    }
-
-                    {{scalar}}
-                }
-
-                public static global::TestSubject WithTestProperty(
-                    this global::TestSubject subject,
                     TestType[] values,
                     Func<TestType, TestType> builder)
                 {
@@ -129,10 +111,28 @@ public sealed partial class WhenGetExtensionsIsCalled
                     builder.ThrowIfNull("builder");
 
                     var instance = new TestType();
-
+            
                     instance = builder(instance);
 
                     return subject.WithTestProperty(instance);
+                }
+
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    params TestType[] values)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    {{type}} value = values;
+
+                    if (subject.TestProperty != null)
+                    {
+                        value = subject.TestProperty
+                            .Union(values)
+                            .ToArray();
+                    }
+
+                    {{scalar}}
                 }
             }
             """;

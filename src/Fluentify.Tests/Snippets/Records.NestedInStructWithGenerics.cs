@@ -118,29 +118,6 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> subject,
-                    params object[] values)
-                    where TOutter : class
-                    where TInner : struct
-                {
-                    subject.ThrowIfNull("subject");
-
-                    global::System.Collections.Generic.IReadOnlyList<object>? value = values;
-
-                    if (subject.Attributes != null)
-                    {
-                        value = subject.Attributes
-                            .Union(values)
-                            .ToArray();
-                    }
-
-                    return subject with
-                    {
-                        Attributes = value,
-                    };
-                }
-
-                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithAttributes<TOutter, TInner>(
-                    this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> subject,
                     object[] values,
                     Func<object, object> builder)
                     where TOutter : class
@@ -182,6 +159,29 @@ public static partial class Records
                     instance = builder(instance);
 
                     return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithAttributes<TOutter, TInner>(
+                    this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> subject,
+                    params object[] values)
+                    where TOutter : class
+                    where TInner : struct
+                {
+                    subject.ThrowIfNull("subject");
+
+                    global::System.Collections.Generic.IReadOnlyList<object>? value = values;
+
+                    if (subject.Attributes != null)
+                    {
+                        value = subject.Attributes
+                            .Union(values)
+                            .ToArray();
+                    }
+
+                    return subject with
+                    {
+                        Attributes = value,
+                    };
                 }
             }
         }

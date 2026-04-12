@@ -94,29 +94,6 @@ public static partial class Classes
             {
                 public static global::Fluentify.Classes.Testing.OneOfThreeIgnored WithAttributes(
                     this global::Fluentify.Classes.Testing.OneOfThreeIgnored subject,
-                    params object[] values)
-                {
-                    subject.ThrowIfNull("subject");
-
-                    global::System.Collections.Generic.IReadOnlyList<object> value = values;
-
-                    if (subject.Attributes != null)
-                    {
-                        value = subject.Attributes
-                            .Union(values)
-                            .ToArray();
-                    }
-
-                    return new global::Fluentify.Classes.Testing.OneOfThreeIgnored
-                    {
-                        Age = subject.Age,
-                        Attributes = value,
-                        Name = subject.Name,
-                    };
-                }
-
-                public static global::Fluentify.Classes.Testing.OneOfThreeIgnored WithAttributes(
-                    this global::Fluentify.Classes.Testing.OneOfThreeIgnored subject,
                     object[] values,
                     Func<object, object> builder)
                 {
@@ -152,6 +129,29 @@ public static partial class Classes
                     instance = builder(instance);
 
                     return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Classes.Testing.OneOfThreeIgnored WithAttributes(
+                    this global::Fluentify.Classes.Testing.OneOfThreeIgnored subject,
+                    params object[] values)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    global::System.Collections.Generic.IReadOnlyList<object> value = values;
+
+                    if (subject.Attributes != null)
+                    {
+                        value = subject.Attributes
+                            .Union(values)
+                            .ToArray();
+                    }
+
+                    return new global::Fluentify.Classes.Testing.OneOfThreeIgnored
+                    {
+                        Age = subject.Age,
+                        Attributes = value,
+                        Name = subject.Name,
+                    };
                 }
             }
         }
