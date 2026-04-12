@@ -121,8 +121,20 @@ public static partial class Classes
 
                 public static global::Fluentify.Classes.Testing.Simple WithAttributes(
                     this global::Fluentify.Classes.Testing.Simple subject,
+                    object[] values,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .WithAttributes(values)
+                        .WithAttributes(builder);
+                }
+
+                public static global::Fluentify.Classes.Testing.Simple WithAttributes(
+                    this global::Fluentify.Classes.Testing.Simple subject,
                     object instance,
-Func<object, object> builder)
+                    Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
 

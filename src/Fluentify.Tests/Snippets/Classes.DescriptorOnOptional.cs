@@ -122,8 +122,20 @@ public static partial class Classes
 
                 public static global::Fluentify.Classes.Testing.DescriptorOnOptional AttributedWith(
                     this global::Fluentify.Classes.Testing.DescriptorOnOptional subject,
+                    object[] values,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .AttributedWith(values)
+                        .AttributedWith(builder);
+                }
+
+                public static global::Fluentify.Classes.Testing.DescriptorOnOptional AttributedWith(
+                    this global::Fluentify.Classes.Testing.DescriptorOnOptional subject,
                     object instance,
-Func<object, object> builder)
+                    Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
 

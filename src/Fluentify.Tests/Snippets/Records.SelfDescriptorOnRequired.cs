@@ -132,8 +132,20 @@ public static partial class Records
 
                 public static global::Fluentify.Records.Testing.SelfDescriptorOnRequired WithAttributes(
                     this global::Fluentify.Records.Testing.SelfDescriptorOnRequired subject,
+                    object[] values,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    return subject
+                        .WithAttributes(values)
+                        .WithAttributes(builder);
+                }
+
+                public static global::Fluentify.Records.Testing.SelfDescriptorOnRequired WithAttributes(
+                    this global::Fluentify.Records.Testing.SelfDescriptorOnRequired subject,
                     object instance,
-Func<object, object> builder)
+                    Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
 
