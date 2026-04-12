@@ -120,7 +120,7 @@ public static partial class Records
             public static global::Global WithAttributes(
                 this global::Global subject,
                 object[] values,
-    Func<object, object> builder)
+                Func<object, object> builder)
             {
                 subject.ThrowIfNull("subject");
 
@@ -132,7 +132,7 @@ public static partial class Records
             public static global::Global WithAttributes(
                 this global::Global subject,
                 object instance,
-    Func<object, object> builder)
+                Func<object, object> builder)
             {
                 subject.ThrowIfNull("subject");
 

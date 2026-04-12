@@ -89,7 +89,7 @@ public static partial class Classes
                 public static global::Fluentify.Classes.Testing.CrossReferenced WithSimple(
                     this global::Fluentify.Classes.Testing.CrossReferenced subject,
                     global::Fluentify.Classes.Testing.Simple instance,
-    Func<global::Fluentify.Classes.Testing.Simple, global::Fluentify.Classes.Testing.Simple> builder)
+                    Func<global::Fluentify.Classes.Testing.Simple, global::Fluentify.Classes.Testing.Simple> builder)
                 {
                     subject.ThrowIfNull("subject");
 

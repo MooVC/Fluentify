@@ -118,7 +118,7 @@ public static partial class Classes
                 public static global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored WithAttributes(
                     this global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored subject,
                     object[] values,
-    Func<object, object> builder)
+                    Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
 
@@ -130,7 +130,7 @@ public static partial class Classes
                 public static global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored WithAttributes(
                     this global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored subject,
                     object instance,
-    Func<object, object> builder)
+                    Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
 
