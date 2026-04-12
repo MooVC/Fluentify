@@ -102,7 +102,7 @@ public static partial class Records
                 public static global::Fluentify.Records.Testing.CrossReferenced WithSimple(
                     this global::Fluentify.Records.Testing.CrossReferenced subject,
                     global::Fluentify.Records.Testing.Simple instance,
-                    Func<global::Fluentify.Records.Testing.Simple, global::Fluentify.Records.Testing.Simple> builder)
+    Func<global::Fluentify.Records.Testing.Simple, global::Fluentify.Records.Testing.Simple> builder)
                 {
                     subject.ThrowIfNull("subject");
 

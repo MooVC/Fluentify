@@ -125,7 +125,7 @@ public static partial class Classes
                 public static global::Fluentify.Classes.Testing.Outter.NestedInClass WithAttributes(
                     this global::Fluentify.Classes.Testing.Outter.NestedInClass subject,
                     object[] values,
-                    Func<object, object> builder)
+    Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
 
@@ -137,7 +137,7 @@ public static partial class Classes
                 public static global::Fluentify.Classes.Testing.Outter.NestedInClass WithAttributes(
                     this global::Fluentify.Classes.Testing.Outter.NestedInClass subject,
                     object instance,
-                    Func<object, object> builder)
+    Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
 
