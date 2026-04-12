@@ -130,7 +130,7 @@ public static partial class Records
                 public static global::Fluentify.Records.Testing.SelfDescriptorOnOptional Attributes(
                     this global::Fluentify.Records.Testing.SelfDescriptorOnOptional subject,
                     object instance,
-                    Func<object, object> builder)
+Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
 

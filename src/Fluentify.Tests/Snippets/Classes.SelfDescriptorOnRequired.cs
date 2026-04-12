@@ -124,7 +124,7 @@ public static partial class Classes
                 public static global::Fluentify.Classes.Testing.SelfDescriptorOnRequired WithAttributes(
                     this global::Fluentify.Classes.Testing.SelfDescriptorOnRequired subject,
                     object instance,
-                    Func<object, object> builder)
+Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
 

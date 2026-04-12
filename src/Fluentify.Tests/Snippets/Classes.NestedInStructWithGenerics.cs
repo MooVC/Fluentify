@@ -131,7 +131,7 @@ public static partial class Classes
                 public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> subject,
                     object instance,
-                    Func<object, object> builder)
+Func<object, object> builder)
                     where TOutter : class
                     where TInner : struct
                 {

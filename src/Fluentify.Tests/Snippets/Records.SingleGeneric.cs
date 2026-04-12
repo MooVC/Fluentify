@@ -111,7 +111,7 @@ public static partial class Records
                 public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAttributes<T>(
                     this global::Fluentify.Records.Testing.SingleGeneric<T> subject,
                     T instance,
-                    Func<T, T> builder)
+Func<T, T> builder)
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");

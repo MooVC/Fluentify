@@ -123,7 +123,7 @@ public static partial class Classes
                 public static global::Fluentify.Classes.Testing.DescriptorOnOptional AttributedWith(
                     this global::Fluentify.Classes.Testing.DescriptorOnOptional subject,
                     object instance,
-                    Func<object, object> builder)
+Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
 

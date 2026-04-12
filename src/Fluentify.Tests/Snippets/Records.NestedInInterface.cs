@@ -136,7 +136,7 @@ public static partial class Records
                 public static global::Fluentify.Records.Testing.Outter.NestedInInterface WithAttributes(
                     this global::Fluentify.Records.Testing.Outter.NestedInInterface subject,
                     object instance,
-                    Func<object, object> builder)
+Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
 
