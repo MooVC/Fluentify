@@ -15,9 +15,14 @@ internal static partial class PropertyExtensions
         }
 
         return $$"""
-            return subject
-                .{{property.Descriptor}}(values)
-                .{{property.Descriptor}}(builder);
+            builder.ThrowIfNull("builder");
+
+            foreach (var value in values)
+            {
+                subject = subject.{{property.Descriptor}}(value, builder);
+            }
+
+            return subject;
             """;
     }
 }

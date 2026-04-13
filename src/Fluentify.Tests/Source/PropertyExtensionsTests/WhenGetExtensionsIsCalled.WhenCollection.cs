@@ -102,9 +102,14 @@ public sealed partial class WhenGetExtensionsIsCalled
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithTestProperty(values)
-                        .WithTestProperty(builder);
+                    builder.ThrowIfNull("builder");
+
+                    foreach (var value in values)
+                    {
+                        subject = subject.WithTestProperty(value, builder);
+                    }
+
+                    return subject;
                 }
 
                 public static global::TestSubject WithTestProperty(

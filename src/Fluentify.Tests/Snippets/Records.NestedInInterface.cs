@@ -119,9 +119,14 @@ public static partial class Records
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithAttributes(values)
-                        .WithAttributes(builder);
+                    builder.ThrowIfNull("builder");
+
+                    foreach (var value in values)
+                    {
+                        subject = subject.WithAttributes(value, builder);
+                    }
+
+                    return subject;
                 }
 
                 public static global::Fluentify.Records.Testing.Outter.NestedInInterface WithAttributes(

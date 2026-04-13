@@ -104,9 +104,14 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .Attributes(values)
-                        .Attributes(builder);
+                    builder.ThrowIfNull("builder");
+
+                    foreach (var value in values)
+                    {
+                        subject = subject.Attributes(value, builder);
+                    }
+
+                    return subject;
                 }
 
                 public static global::Fluentify.Classes.Testing.SelfDescriptorOnOptional Attributes(

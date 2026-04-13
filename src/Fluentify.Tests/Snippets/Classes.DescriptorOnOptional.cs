@@ -104,9 +104,14 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .AttributedWith(values)
-                        .AttributedWith(builder);
+                    builder.ThrowIfNull("builder");
+
+                    foreach (var value in values)
+                    {
+                        subject = subject.AttributedWith(value, builder);
+                    }
+
+                    return subject;
                 }
 
                 public static global::Fluentify.Classes.Testing.DescriptorOnOptional AttributedWith(
