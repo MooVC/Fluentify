@@ -116,9 +116,11 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .AttributedWith(instance)
-                        .AttributedWith(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.AttributedWith(instance);
                 }
 
                 public static global::Fluentify.Classes.Testing.DescriptorOnOptional AttributedWith(

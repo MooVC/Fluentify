@@ -125,9 +125,11 @@ public static partial class Records
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .AttributedWith(instance)
-                        .AttributedWith(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.AttributedWith(instance);
                 }
 
                 public static global::Fluentify.Records.Testing.DescriptorOnOptional AttributedWith(

@@ -99,9 +99,11 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithDependency(instance)
-                        .WithDependency(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithDependency(instance);
                 }
 
                 public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType WithDependency(

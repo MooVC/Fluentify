@@ -72,9 +72,11 @@ public sealed partial class WhenGetExtensionsIsCalled
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithTestProperty(instance)
-                        .WithTestProperty(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithTestProperty(instance);
                 }
 
                 public static global::TestSubject WithTestProperty(
@@ -302,9 +304,11 @@ public sealed partial class WhenGetExtensionsIsCalled
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithTestProperty(instance)
-                        .WithTestProperty(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithTestProperty(instance);
                 }
 
                 public static global::TestSubject WithTestProperty(
