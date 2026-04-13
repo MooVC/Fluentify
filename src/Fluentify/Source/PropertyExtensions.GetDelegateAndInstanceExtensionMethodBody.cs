@@ -20,9 +20,11 @@ internal static partial class PropertyExtensions
         }
 
         return $$"""
-            return subject
-                .{{property.Descriptor}}(instance)
-                .{{property.Descriptor}}(builder);
+            builder.ThrowIfNull("builder");
+
+            instance = builder(instance);
+
+            return subject.{{property.Descriptor}}(instance);
             """;
     }
 }

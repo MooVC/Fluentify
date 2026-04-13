@@ -125,9 +125,11 @@ public static partial class Records
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .Attributes(instance)
-                        .Attributes(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.Attributes(instance);
                 }
 
                 public static global::Fluentify.Records.Testing.SelfDescriptorOnOptional Attributes(

@@ -70,9 +70,11 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithAge(instance)
-                        .WithAge(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithAge(instance);
                 }
 
                 public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAge<T1, T2, T3>(
@@ -145,9 +147,11 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithAttributes(instance)
-                        .WithAttributes(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithAttributes(instance);
                 }
 
                 public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAttributes<T1, T2, T3>(
@@ -225,9 +229,11 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithName(instance)
-                        .WithName(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithName(instance);
                 }
 
                 public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithName<T1, T2, T3>(

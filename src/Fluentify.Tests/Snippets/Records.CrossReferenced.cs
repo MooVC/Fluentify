@@ -106,9 +106,11 @@ public static partial class Records
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithSimple(instance)
-                        .WithSimple(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithSimple(instance);
                 }
 
                 public static global::Fluentify.Records.Testing.CrossReferenced WithSimple(

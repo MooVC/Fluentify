@@ -93,9 +93,11 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithSimple(instance)
-                        .WithSimple(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithSimple(instance);
                 }
 
                 public static global::Fluentify.Classes.Testing.CrossReferenced WithSimple(

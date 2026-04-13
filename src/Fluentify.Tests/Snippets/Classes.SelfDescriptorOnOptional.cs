@@ -116,9 +116,11 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .Attributes(instance)
-                        .Attributes(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.Attributes(instance);
                 }
 
                 public static global::Fluentify.Classes.Testing.SelfDescriptorOnOptional Attributes(

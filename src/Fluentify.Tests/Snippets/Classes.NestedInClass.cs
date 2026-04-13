@@ -118,9 +118,11 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithAttributes(instance)
-                        .WithAttributes(builder);
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithAttributes(instance);
                 }
 
                 public static global::Fluentify.Classes.Testing.Outter.NestedInClass WithAttributes(
