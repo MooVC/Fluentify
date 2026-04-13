@@ -114,8 +114,8 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.Outter.NestedInClass WithAttributes(
                     this global::Fluentify.Records.Testing.Outter.NestedInClass subject,
-                    object[] values,
-                    Func<object, object> builder)
+                    Func<object, object> builder,
+                    params object[] values)
                 {
                     subject.ThrowIfNull("subject");
 

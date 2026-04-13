@@ -59,7 +59,7 @@ internal static partial class PropertyExtensions
         [
             (property.GetArrayExtensionMethodBody(scalar), $"params {member}[] values"),
             (property.GetCollectionExtensionMethodBody(scalar), $"params {member}[] values"),
-            (property.GetDelegateAndValuesExtensionMethodBody(type), $"{type.Name}[] values,\r\n    Func<{type.Name}, {type.Name}> builder"),
+            (property.GetDelegateAndValuesExtensionMethodBody(type), $"Func<{type.Name}, {type.Name}> builder,\r\n    params {type.Name}[] values"),
             (property.GetDelegateAndInstanceExtensionMethodBody(type), $"{type.Name} instance,\r\n    Func<{type.Name}, {type.Name}> builder"),
             (property.GetDelegateExtensionMethodBody(type), $"Func<{type.Name}, {type.Name}> builder"),
             (property.GetEnumerableExtensionMethodBody(scalar), $"params {member}[] values"),

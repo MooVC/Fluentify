@@ -118,8 +118,8 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInStructWithGenerics<TInner> subject,
-                    object[] values,
-                    Func<object, object> builder)
+                    Func<object, object> builder,
+                    params object[] values)
                     where TOutter : class
                     where TInner : struct
                 {

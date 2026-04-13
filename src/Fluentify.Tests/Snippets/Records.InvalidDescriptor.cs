@@ -111,8 +111,8 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.InvalidDescriptor WithAttributes(
                     this global::Fluentify.Records.Testing.InvalidDescriptor subject,
-                    object[] values,
-                    Func<object, object> builder)
+                    Func<object, object> builder,
+                    params object[] values)
                 {
                     subject.ThrowIfNull("subject");
 

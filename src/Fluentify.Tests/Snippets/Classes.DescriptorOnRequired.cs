@@ -99,8 +99,8 @@ public static partial class Classes
             {
                 public static global::Fluentify.Classes.Testing.DescriptorOnRequired WithAttributes(
                     this global::Fluentify.Classes.Testing.DescriptorOnRequired subject,
-                    object[] values,
-                    Func<object, object> builder)
+                    Func<object, object> builder,
+                    params object[] values)
                 {
                     subject.ThrowIfNull("subject");
 

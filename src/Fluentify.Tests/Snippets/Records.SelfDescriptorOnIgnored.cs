@@ -103,8 +103,8 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.SelfDescriptorOnIgnored WithAttributes(
                     this global::Fluentify.Records.Testing.SelfDescriptorOnIgnored subject,
-                    object[] values,
-                    Func<object, object> builder)
+                    Func<object, object> builder,
+                    params object[] values)
                 {
                     subject.ThrowIfNull("subject");
 

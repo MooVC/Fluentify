@@ -51,8 +51,8 @@ public static partial class Classes
             {
                 public static global::Fluentify.Classes.Testing.TwoOfThreeIgnored WithAttributes(
                     this global::Fluentify.Classes.Testing.TwoOfThreeIgnored subject,
-                    object[] values,
-                    Func<object, object> builder)
+                    Func<object, object> builder,
+                    params object[] values)
                 {
                     subject.ThrowIfNull("subject");
 

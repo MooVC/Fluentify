@@ -97,8 +97,8 @@ public sealed partial class WhenGetExtensionsIsCalled
 
                 public static global::TestSubject WithTestProperty(
                     this global::TestSubject subject,
-                    TestType[] values,
-                    Func<TestType, TestType> builder)
+                    Func<TestType, TestType> builder,
+                    params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
 

@@ -108,8 +108,8 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.DescriptorOnRequired WithAttributes(
                     this global::Fluentify.Records.Testing.DescriptorOnRequired subject,
-                    object[] values,
-                    Func<object, object> builder)
+                    Func<object, object> builder,
+                    params object[] values)
                 {
                     subject.ThrowIfNull("subject");
 
