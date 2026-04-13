@@ -100,14 +100,19 @@ public static partial class Classes
             {
                 public static global::Fluentify.Classes.Testing.SelfDescriptorOnRequired WithAttributes(
                     this global::Fluentify.Classes.Testing.SelfDescriptorOnRequired subject,
-                    object[] values,
-                    Func<object, object> builder)
+                    Func<object, object> builder,
+                    params object[] values)
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithAttributes(values)
-                        .WithAttributes(builder);
+                    builder.ThrowIfNull("builder");
+
+                    foreach (var value in values)
+                    {
+                        subject = subject.WithAttributes(value, builder);
+                    }
+
+                    return subject;
                 }
 
                 public static global::Fluentify.Classes.Testing.SelfDescriptorOnRequired WithAttributes(

@@ -97,14 +97,19 @@ public sealed partial class WhenGetExtensionsIsCalled
 
                 public static global::TestSubject WithTestProperty(
                     this global::TestSubject subject,
-                    TestType[] values,
-                    Func<TestType, TestType> builder)
+                    Func<TestType, TestType> builder,
+                    params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .WithTestProperty(values)
-                        .WithTestProperty(builder);
+                    builder.ThrowIfNull("builder");
+
+                    foreach (var value in values)
+                    {
+                        subject = subject.WithTestProperty(value, builder);
+                    }
+
+                    return subject;
                 }
 
                 public static global::TestSubject WithTestProperty(

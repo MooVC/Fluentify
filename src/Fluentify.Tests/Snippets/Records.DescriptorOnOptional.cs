@@ -108,14 +108,19 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.DescriptorOnOptional AttributedWith(
                     this global::Fluentify.Records.Testing.DescriptorOnOptional subject,
-                    object[] values,
-                    Func<object, object> builder)
+                    Func<object, object> builder,
+                    params object[] values)
                 {
                     subject.ThrowIfNull("subject");
 
-                    return subject
-                        .AttributedWith(values)
-                        .AttributedWith(builder);
+                    builder.ThrowIfNull("builder");
+
+                    foreach (var value in values)
+                    {
+                        subject = subject.AttributedWith(value, builder);
+                    }
+
+                    return subject;
                 }
 
                 public static global::Fluentify.Records.Testing.DescriptorOnOptional AttributedWith(
