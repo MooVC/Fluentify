@@ -80,20 +80,33 @@ public sealed partial class WhenGetExtensionsIsCalled
             {
                 public static global::TestSubject WithTestProperty(
                     this global::TestSubject subject,
+                    Func<TestType, TestType> builder,
                     params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
 
-                    {{type}} value = values;
-            
-                    if (subject.TestProperty != null)
+                    builder.ThrowIfNull("builder");
+
+                    foreach (var value in values)
                     {
-                        value = subject.TestProperty
-                            .Union(values)
-                            .ToArray();
+                        subject = subject.WithTestProperty(value, builder);
                     }
 
-                    {{scalar}}
+                    return subject;
+                }
+
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    TestType instance,
+                    Func<TestType, TestType> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithTestProperty(instance);
                 }
 
                 public static global::TestSubject WithTestProperty(
@@ -105,10 +118,28 @@ public sealed partial class WhenGetExtensionsIsCalled
                     builder.ThrowIfNull("builder");
 
                     var instance = new TestType();
-
+            
                     instance = builder(instance);
 
                     return subject.WithTestProperty(instance);
+                }
+
+                public static global::TestSubject WithTestProperty(
+                    this global::TestSubject subject,
+                    params TestType[] values)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    {{type}} value = values;
+
+                    if (subject.TestProperty != null)
+                    {
+                        value = subject.TestProperty
+                            .Union(values)
+                            .ToArray();
+                    }
+
+                    {{scalar}}
                 }
             }
             """;

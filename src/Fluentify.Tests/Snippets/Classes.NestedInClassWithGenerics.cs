@@ -105,6 +105,58 @@ public static partial class Classes
             {
                 public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
+                    Func<object, object> builder,
+                    params object[] values)
+                    where TOutter : class
+                    where TInner : struct
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    foreach (var value in values)
+                    {
+                        subject = subject.WithAttributes(value, builder);
+                    }
+
+                    return subject;
+                }
+
+                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
+                    this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
+                    object instance,
+                    Func<object, object> builder)
+                    where TOutter : class
+                    where TInner : struct
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
+                    this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
+                    Func<object, object> builder)
+                    where TOutter : class
+                    where TInner : struct
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = new object();
+
+                    instance = builder(instance);
+
+                    return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
+                    this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
                     params object[] values)
                     where TOutter : class
                     where TInner : struct
@@ -126,23 +178,6 @@ public static partial class Classes
                         Attributes = value,
                         Name = subject.Name,
                     };
-                }
-
-                public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
-                    this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
-                    Func<object, object> builder)
-                    where TOutter : class
-                    where TInner : struct
-                {
-                    subject.ThrowIfNull("subject");
-
-                    builder.ThrowIfNull("builder");
-
-                    var instance = new object();
-
-                    instance = builder(instance);
-
-                    return subject.WithAttributes(instance);
                 }
             }
         }

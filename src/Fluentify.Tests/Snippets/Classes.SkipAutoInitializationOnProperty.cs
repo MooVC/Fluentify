@@ -94,6 +94,20 @@ public static partial class Classes
             {
                 public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty WithDependency(
                     this global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty subject,
+                    global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty.Dependent instance,
+                    Func<global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty.Dependent, global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty.Dependent> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithDependency(instance);
+                }
+
+                public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty WithDependency(
+                    this global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty subject,
                     Func<global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty.Dependent, global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty.Dependent> builder)
                 {
                     subject.ThrowIfNull("subject");

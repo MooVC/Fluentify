@@ -94,6 +94,52 @@ public static partial class Classes
             {
                 public static global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored WithAttributes(
                     this global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored subject,
+                    Func<object, object> builder,
+                    params object[] values)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    foreach (var value in values)
+                    {
+                        subject = subject.WithAttributes(value, builder);
+                    }
+
+                    return subject;
+                }
+
+                public static global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored WithAttributes(
+                    this global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored subject,
+                    object instance,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored WithAttributes(
+                    this global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored subject,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+        
+                    var instance = new object();
+
+                    instance = builder(instance);
+
+                    return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored WithAttributes(
+                    this global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored subject,
                     params object[] values)
                 {
                     subject.ThrowIfNull("subject");
@@ -113,21 +159,6 @@ public static partial class Classes
                         Attributes = value,
                         Name = subject.Name,
                     };
-                }
-
-                public static global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored WithAttributes(
-                    this global::Fluentify.Classes.Testing.SelfDescriptorOnIgnored subject,
-                    Func<object, object> builder)
-                {
-                    subject.ThrowIfNull("subject");
-
-                    builder.ThrowIfNull("builder");
-
-                    var instance = new object();
-
-                    instance = builder(instance);
-
-                    return subject.WithAttributes(instance);
                 }
             }
         }

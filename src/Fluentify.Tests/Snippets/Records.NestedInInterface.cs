@@ -114,6 +114,52 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.Outter.NestedInInterface WithAttributes(
                     this global::Fluentify.Records.Testing.Outter.NestedInInterface subject,
+                    Func<object, object> builder,
+                    params object[] values)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    foreach (var value in values)
+                    {
+                        subject = subject.WithAttributes(value, builder);
+                    }
+
+                    return subject;
+                }
+
+                public static global::Fluentify.Records.Testing.Outter.NestedInInterface WithAttributes(
+                    this global::Fluentify.Records.Testing.Outter.NestedInInterface subject,
+                    object instance,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Records.Testing.Outter.NestedInInterface WithAttributes(
+                    this global::Fluentify.Records.Testing.Outter.NestedInInterface subject,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    var instance = new object();
+
+                    instance = builder(instance);
+
+                    return subject.WithAttributes(instance);
+                }
+
+                public static global::Fluentify.Records.Testing.Outter.NestedInInterface WithAttributes(
+                    this global::Fluentify.Records.Testing.Outter.NestedInInterface subject,
                     params object[] values)
                 {
                     subject.ThrowIfNull("subject");
@@ -131,21 +177,6 @@ public static partial class Records
                     {
                         Attributes = value,
                     };
-                }
-
-                public static global::Fluentify.Records.Testing.Outter.NestedInInterface WithAttributes(
-                    this global::Fluentify.Records.Testing.Outter.NestedInInterface subject,
-                    Func<object, object> builder)
-                {
-                    subject.ThrowIfNull("subject");
-
-                    builder.ThrowIfNull("builder");
-
-                    var instance = new object();
-
-                    instance = builder(instance);
-
-                    return subject.WithAttributes(instance);
                 }
             }
         }

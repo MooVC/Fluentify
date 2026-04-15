@@ -99,6 +99,52 @@ public static partial class Classes
             {
                 public static global::Fluentify.Classes.Testing.DescriptorOnOptional AttributedWith(
                     this global::Fluentify.Classes.Testing.DescriptorOnOptional subject,
+                    Func<object, object> builder,
+                    params object[] values)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    foreach (var value in values)
+                    {
+                        subject = subject.AttributedWith(value, builder);
+                    }
+
+                    return subject;
+                }
+
+                public static global::Fluentify.Classes.Testing.DescriptorOnOptional AttributedWith(
+                    this global::Fluentify.Classes.Testing.DescriptorOnOptional subject,
+                    object instance,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+
+                    instance = builder(instance);
+
+                    return subject.AttributedWith(instance);
+                }
+
+                public static global::Fluentify.Classes.Testing.DescriptorOnOptional AttributedWith(
+                    this global::Fluentify.Classes.Testing.DescriptorOnOptional subject,
+                    Func<object, object> builder)
+                {
+                    subject.ThrowIfNull("subject");
+
+                    builder.ThrowIfNull("builder");
+        
+                    var instance = new object();
+
+                    instance = builder(instance);
+
+                    return subject.AttributedWith(instance);
+                }
+
+                public static global::Fluentify.Classes.Testing.DescriptorOnOptional AttributedWith(
+                    this global::Fluentify.Classes.Testing.DescriptorOnOptional subject,
                     params object[] values)
                 {
                     subject.ThrowIfNull("subject");
@@ -118,21 +164,6 @@ public static partial class Classes
                         Attributes = value,
                         Name = subject.Name,
                     };
-                }
-
-                public static global::Fluentify.Classes.Testing.DescriptorOnOptional AttributedWith(
-                    this global::Fluentify.Classes.Testing.DescriptorOnOptional subject,
-                    Func<object, object> builder)
-                {
-                    subject.ThrowIfNull("subject");
-
-                    builder.ThrowIfNull("builder");
-
-                    var instance = new object();
-
-                    instance = builder(instance);
-
-                    return subject.AttributedWith(instance);
                 }
             }
         }
