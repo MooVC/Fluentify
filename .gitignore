@@ -477,3 +477,4 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+/.dotnet-home/.dotnet

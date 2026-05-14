@@ -18,7 +18,7 @@ internal static partial class INamedTypeSymbolExtensions
     public static IReadOnlyList<Property> GetAllProperties(this INamedTypeSymbol symbol, Compilation compilation, CancellationToken cancellationToken)
     {
         INamedTypeSymbol? current = symbol;
-        var mutable = new List<Property>();
+        var mutable = new List<IPropertySymbol>();
 
         do
         {
@@ -27,16 +27,16 @@ internal static partial class INamedTypeSymbolExtensions
                 .OfType<IPropertySymbol>()
                 .Where(property => property.IsMutable());
 
-            foreach (IPropertySymbol property in properties)
-            {
-                mutable.Add(property.Map(compilation, cancellationToken));
-            }
+            mutable.AddRange(properties);
 
             current = current.BaseType;
         }
         while (current is not null && !cancellationToken.IsCancellationRequested);
 
-        return mutable;
+        return mutable
+            .Distinct(PropertyNameEqualityComparer.Instance)
+            .Select(property => property.Map(compilation, cancellationToken))
+            .ToList();
     }
 
     private static Property Map(this IPropertySymbol property, Compilation compilation, CancellationToken cancellationToken)
@@ -62,5 +62,30 @@ internal static partial class INamedTypeSymbolExtensions
             Kind = kind,
             Name = property.Name,
         };
+    }
+
+    private sealed class PropertyNameEqualityComparer : IEqualityComparer<IPropertySymbol>
+    {
+        public static readonly PropertyNameEqualityComparer Instance = new();
+
+        public bool Equals(IPropertySymbol? x, IPropertySymbol? y)
+        {
+            if (ReferenceEquals(x, y))
+            {
+                return true;
+            }
+
+            if (x is null || y is null)
+            {
+                return false;
+            }
+
+            return StringComparer.Ordinal.Equals(x.Name, y.Name);
+        }
+
+        public int GetHashCode(IPropertySymbol obj)
+        {
+            return StringComparer.Ordinal.GetHashCode(obj.Name);
+        }
     }
 }
