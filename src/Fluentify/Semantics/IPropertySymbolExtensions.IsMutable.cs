@@ -1,5 +1,6 @@
 ﻿namespace Fluentify.Semantics;
 
+using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 
 /// <summary>
@@ -36,7 +37,7 @@ internal static partial class IPropertySymbolExtensions
 
         static bool HasNoExplicitInterfaceImplementations(IPropertySymbol property)
         {
-            return property.ExplicitInterfaceImplementations.Length == 0;
+            return property.ExplicitInterfaceImplementations.IsDefaultOrEmpty;
         }
 
         return IsIndexless(property)

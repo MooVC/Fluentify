@@ -154,6 +154,22 @@ public static partial class Classes
             SimpleWithNameExtensions,
             SimpleWithExtensions);
 
+        SimpleWithCollectionInterface = new(
+            SimpleWithCollectionInterfaceContent,
+            nameof(SimpleWithCollectionInterface),
+            SimpleWithCollectionInterfaceWithAgeExtensions,
+            SimpleWithCollectionInterfaceWithAttributesExtensions,
+            SimpleWithCollectionInterfaceWithNameExtensions,
+            SimpleWithCollectionInterfaceWithExtensions);
+
+        SimpleWithListInterface = new(
+            SimpleWithListInterfaceContent,
+            nameof(SimpleWithListInterface),
+            SimpleWithListInterfaceWithAgeExtensions,
+            SimpleWithListInterfaceWithAttributesExtensions,
+            SimpleWithListInterfaceWithNameExtensions,
+            SimpleWithListInterfaceWithExtensions);
+
         Single = new(
             SingleContent,
             nameof(Single),
