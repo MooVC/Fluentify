@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Snippets;
+namespace Fluentify.Snippets;
 
 public static partial class Classes
 {
@@ -34,12 +34,6 @@ public static partial class Classes
         "Fluentify.Classes.Testing.TwoOfThreeIgnoredExtensions.With");
 
     private const string TwoOfThreeIgnoredWithAttributesExtensionsContent = """
-        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        #nullable enable
-        #endif
-        
-        #pragma warning disable CS8625
-
         namespace Fluentify.Classes.Testing
         {
             using System;
@@ -119,21 +113,9 @@ public static partial class Classes
                 }
             }
         }
-
-        #pragma warning restore CS8625
-        
-        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        #nullable restore
-        #endif
         """;
 
     private const string TwoOfThreeIgnoredWithExtensionsContent = """
-        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        #nullable enable
-        #endif
-        
-        #pragma warning disable CS8625
-
         namespace Fluentify.Classes.Testing
         {
             using System;
@@ -162,11 +144,5 @@ public static partial class Classes
                 }
             }
         }
-
-        #pragma warning restore CS8625
-        
-        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        #nullable restore
-        #endif
         """;
 }

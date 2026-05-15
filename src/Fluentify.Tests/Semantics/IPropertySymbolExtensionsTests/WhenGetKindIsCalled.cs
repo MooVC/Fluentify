@@ -42,6 +42,48 @@ public sealed class WhenGetKindIsCalled
     }
 
     [Fact]
+    public void GivenListInterfacePropertyThenKindIsEnumerable()
+    {
+        // Arrange
+        IPropertySymbol property = GetProperty("ListItems");
+
+        // Act
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
+
+        // Assert
+        kind.Pattern.ShouldBe(Pattern.Enumerable);
+        kind.Member.Name.ShouldBe("global::Demo.Element");
+    }
+
+    [Fact]
+    public void GivenNonGenericCollectionPropertyThenKindIsEnumerable()
+    {
+        // Arrange
+        IPropertySymbol property = GetProperty("NonGenericCollectionItems");
+
+        // Act
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
+
+        // Assert
+        kind.Pattern.ShouldBe(Pattern.Enumerable);
+        kind.Member.Name.ShouldBe("object");
+    }
+
+    [Fact]
+    public void GivenNonGenericListPropertyThenKindIsEnumerable()
+    {
+        // Arrange
+        IPropertySymbol property = GetProperty("NonGenericListItems");
+
+        // Act
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
+
+        // Assert
+        kind.Pattern.ShouldBe(Pattern.Enumerable);
+        kind.Member.Name.ShouldBe("object");
+    }
+
+    [Fact]
     public void GivenImmutableArrayPropertyThenKindIsEnumerable()
     {
         // Arrange
@@ -119,6 +161,7 @@ public sealed class WhenGetKindIsCalled
 
             namespace Demo
             {
+                using System.Collections;
                 using System.Collections.Generic;
                 using System.Collections.Immutable;
 
@@ -143,6 +186,12 @@ public sealed class WhenGetKindIsCalled
                     public BuildableCollection CollectionItems { get; } = new BuildableCollection();
 
                     public ImmutableArray<Element> ImmutableItems { get; } = ImmutableArray<Element>.Empty;
+
+                    public IList<Element> ListItems { get; } = new List<Element>();
+
+                    public ICollection NonGenericCollectionItems { get; } = new ArrayList();
+
+                    public IList NonGenericListItems { get; } = new ArrayList();
 
                     public Element? NullableElement { get; } = default;
 

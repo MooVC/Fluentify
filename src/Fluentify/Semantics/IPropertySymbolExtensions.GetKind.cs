@@ -11,21 +11,26 @@ internal static partial class IPropertySymbolExtensions
 {
     private const string Collection = "global::System.Collections.Generic.ICollection<T>";
     private const string Enumerable = "global::System.Collections.Generic.IEnumerable<T>";
+    private const string ListInterface = "global::System.Collections.Generic.IList<T>";
     private const string ReadOnlyCollection = "global::System.Collections.Generic.IReadOnlyCollection<T>";
     private const string ReadOnlyList = "global::System.Collections.Generic.IReadOnlyList<T>";
     private const string ImmutableArray = "global::System.Collections.Immutable.ImmutableArray<T>";
     private const string ImmutableHashSet = "global::System.Collections.Immutable.ImmutableHashSet<T>";
     private const string ImmutableList = "global::System.Collections.Immutable.ImmutableList<T>";
     private const string ImmutableSortedSet = "global::System.Collections.Immutable.ImmutableSortedSet<T>";
+    private const string NonGenericCollection = "global::System.Collections.ICollection";
+    private const string NonGenericList = "global::System.Collections.IList";
     private const int ExpectedArgumentsForCollectionType = 1;
 
     private static readonly string[] _collections =
     [
+        Collection,
         Enumerable,
         ImmutableArray,
         ImmutableHashSet,
         ImmutableList,
         ImmutableSortedSet,
+        ListInterface,
         ReadOnlyCollection,
         ReadOnlyList,
     ];
@@ -118,15 +123,23 @@ internal static partial class IPropertySymbolExtensions
 
     private static bool IsEnumerable(Compilation compilation, Kind kind, IPropertySymbol property, CancellationToken cancellationToken)
     {
-        if (property.Type is not INamedTypeSymbol type
-         || type.TypeArguments.Length != ExpectedArgumentsForCollectionType
-         || !type.OriginalDefinition.IsType(_collections))
+        if (property.Type is INamedTypeSymbol type
+            && type.TypeArguments.Length == ExpectedArgumentsForCollectionType
+            && type.OriginalDefinition.IsType(_collections))
+        {
+            kind.Pattern = Pattern.Enumerable;
+            kind.Member = GetType(compilation, type.TypeArguments[0], cancellationToken);
+
+            return true;
+        }
+
+        if (!property.IsNonGenericType(NonGenericCollection, NonGenericList))
         {
             return false;
         }
 
         kind.Pattern = Pattern.Enumerable;
-        kind.Member = GetType(compilation, type.TypeArguments[0], cancellationToken);
+        kind.Member = GetType(compilation, compilation.GetSpecialType(SpecialType.System_Object), cancellationToken);
 
         return true;
     }
@@ -196,5 +209,17 @@ internal static partial class IPropertySymbolExtensions
         string name = type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat);
 
         return Array.Exists(names, candidate => candidate.Equals(name));
+    }
+
+    private static bool IsNonGenericType(this IPropertySymbol property, params string[] names)
+    {
+        if (property.Type is INamedTypeSymbol type && type.IsType(names))
+        {
+            return true;
+        }
+
+        return property.Type.AllInterfaces
+            .Where(@interface => @interface.TypeArguments.Length == 0)
+            .Any(@interface => @interface.IsType(names));
     }
 }

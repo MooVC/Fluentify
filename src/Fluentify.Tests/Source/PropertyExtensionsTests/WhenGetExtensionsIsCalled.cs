@@ -412,6 +412,7 @@ public sealed partial class WhenGetExtensionsIsCalled
             Accessibility = Accessibility.Public,
             Name = "TestSubject",
             Properties = [],
+            SupportsNullableReferenceTypes = true,
             Type = new()
             {
                 Name = "global::TestSubject",

@@ -23,76 +23,97 @@ internal static partial class PropertyExtensions
         }
 
         Kind kind = property.Kind;
-
-        string initialization = Initialization.GetInitialization(kind, property)
-            ?? GetStandardInitialization(kind, property);
+        var initialization = Initialization.GetInitialization(kind.Type.Name);
 
         return $$"""
-            {{initialization}}
+            {{initialization.Create(kind, property.Name)}}
 
             {{body}}
             """;
     }
 
-    private static string GetStandardInitialization(Kind kind, Property property)
-    {
-        return $$"""
-            {{kind}} value = values;
-
-            if (subject.{{property.Name}} != null)
-            {
-                value = subject.{{property.Name}}
-                    .Union(values)
-                    .ToArray();
-            }
-            """;
-    }
-
     private sealed class Initialization
     {
-        private const string Namespace = "global::System.Collections.Immutable.";
+        private const string CollectionInterface = "global::System.Collections.Generic.ICollection<";
+        private const string ImmutableArray = "global::System.Collections.Immutable.ImmutableArray";
+        private const string ImmutableHashSet = "global::System.Collections.Immutable.ImmutableHashSet";
+        private const string ImmutableList = "global::System.Collections.Immutable.ImmutableList";
+        private const string ImmutableSortedSet = "global::System.Collections.Immutable.ImmutableSortedSet";
+        private const string ListInterface = "global::System.Collections.Generic.IList<";
+
+        private static readonly Initialization _default = new(matchPrefix: string.Empty, initialization: "values", merge: "ToArray");
 
         private static readonly Initialization[] _candidates =
         [
-            new("ImmutableArray", "AddRange", usesDefaultCheck: true),
-            new("ImmutableList", "AddRange"),
-            new("ImmutableHashSet", "Union"),
-            new("ImmutableSortedSet", "Union"),
+            new(CollectionInterface, "values.ToList()", "ToList"),
+            new(ImmutableArray, "AddRange", usesDefaultCheck: true),
+            new(ImmutableHashSet, "Union"),
+            new(ImmutableList, "AddRange"),
+            new(ImmutableSortedSet, "Union"),
+            new(ListInterface, "values.ToList()", "ToList"),
         ];
 
-        private Initialization(string name, string method, bool usesDefaultCheck = false)
+        private Initialization(string matchPrefix, string initialization, string merge)
         {
-            Name = name;
+            MatchPrefix = matchPrefix;
+            InitializationValue = initialization;
+            Merge = merge;
+        }
+
+        private Initialization(string immutableTypeName, string method, bool usesDefaultCheck = false)
+        {
+            MatchPrefix = $"{immutableTypeName}<";
+            ImmutableTypeName = immutableTypeName;
             Method = method;
             UsesDefaultCheck = usesDefaultCheck;
         }
 
-        public string Name { get; }
+        private string ImmutableTypeName { get; } = string.Empty;
 
-        public string Method { get; }
+        private string InitializationValue { get; } = string.Empty;
 
-        public bool UsesDefaultCheck { get; }
+        private string MatchPrefix { get; }
 
-        public static string? GetInitialization(Kind kind, Property property)
+        private string Merge { get; } = string.Empty;
+
+        private string Method { get; } = string.Empty;
+
+        private bool UsesDefaultCheck { get; }
+
+        public static Initialization GetInitialization(string type)
         {
-            Initialization? candidate = _candidates.FirstOrDefault(initialization => initialization.IsMatch(kind.Type.Name));
+            Initialization? initialization = _candidates.FirstOrDefault(candidate => type.StartsWith(candidate.MatchPrefix, StringComparison.Ordinal));
 
-            if (candidate is not null)
+            if (initialization is not null)
             {
-                return candidate.Create(kind, property.Name);
+                return initialization;
             }
 
-            return default;
+            return _default;
         }
 
-        private string Create(Kind kind, string propertyName)
+        public string Create(Kind kind, string propertyName)
         {
-            return $$"""
-                {{kind}} value = {{Namespace}}{{Name}}.CreateRange(values);
+            if (!string.IsNullOrWhiteSpace(Method))
+            {
+                return $$"""
+                    {{kind}} value = {{ImmutableTypeName}}.CreateRange(values);
 
-                if ({{GetSubjectCheck(propertyName)}})
+                    if ({{GetSubjectCheck(propertyName)}})
+                    {
+                        value = subject.{{propertyName}}.{{Method}}(values);
+                    }
+                    """;
+            }
+
+            return $$"""
+                {{kind}} value = {{InitializationValue}};
+
+                if (subject.{{propertyName}} != null)
                 {
-                    value = subject.{{propertyName}}.{{Method}}(values);
+                    value = subject.{{propertyName}}
+                        .Union(values)
+                        .{{Merge}}();
                 }
                 """;
         }
@@ -105,11 +126,6 @@ internal static partial class PropertyExtensions
             }
 
             return $"subject.{propertyName} != null";
-        }
-
-        private bool IsMatch(string type)
-        {
-            return type.StartsWith($"{Namespace}{Name}", StringComparison.Ordinal);
         }
     }
 }

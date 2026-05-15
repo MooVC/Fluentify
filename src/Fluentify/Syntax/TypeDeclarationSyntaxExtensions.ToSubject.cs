@@ -23,7 +23,7 @@ internal static partial class TypeDeclarationSyntaxExtensions
     /// When the <paramref name="syntax"/> is annotated with the Fluentify attribute, the required semantics mapped from <paramref name="syntax"/>
     /// using <paramref name="compilation"/>, otherwise <see langword="null"/>.
     /// </returns>
-    public static Subject? ToSubject(this TypeDeclarationSyntax? syntax, Compilation compilation, CancellationToken cancellationToken)
+    public static Subject? ToSubject(this TypeDeclarationSyntax? syntax, Compilation compilation, bool supportsNullableReferenceTypes, CancellationToken cancellationToken)
     {
         if (syntax is null)
         {
@@ -45,10 +45,10 @@ internal static partial class TypeDeclarationSyntaxExtensions
             return default;
         }
 
-        return type.ToSubject(compilation, properties);
+        return type.ToSubject(compilation, properties, supportsNullableReferenceTypes);
     }
 
-    private static Subject ToSubject(this INamedTypeSymbol type, Compilation compilation, IReadOnlyList<Property> properties)
+    private static Subject ToSubject(this INamedTypeSymbol type, Compilation compilation, IReadOnlyList<Property> properties, bool supportsNullableReferenceTypes)
     {
         var nesting = new Stack<Nesting>();
         bool hasDefaultConstructor = type.HasAccessibleParameterlessConstructor(compilation);
@@ -68,6 +68,7 @@ internal static partial class TypeDeclarationSyntaxExtensions
             Namespace = @namespace,
             Nesting = [.. nesting],
             Properties = properties,
+            SupportsNullableReferenceTypes = supportsNullableReferenceTypes,
             Type = new()
             {
                 IsBuildable = hasDefaultConstructor,

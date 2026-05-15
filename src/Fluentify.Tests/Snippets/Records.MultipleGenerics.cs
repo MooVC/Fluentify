@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Snippets;
+namespace Fluentify.Snippets;
 
 public static partial class Records
 {
@@ -223,8 +223,8 @@ public static partial class Records
             {
                 public static global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> WithName<T1, T2, T3>(
                     this global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> subject,
-                    T2 instance,
-                    Func<T2, T2> builder)
+                    T2? instance,
+                    Func<T2?, T2?> builder)
                     where T1 : struct
                     where T2 : class, new()
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
@@ -240,7 +240,7 @@ public static partial class Records
 
                 public static global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> WithName<T1, T2, T3>(
                     this global::Fluentify.Records.Testing.MultipleGenerics<T1, T2, T3> subject,
-                    Func<T2, T2> builder)
+                    Func<T2?, T2?> builder)
                     where T1 : struct
                     where T2 : class, new()
                     where T3 : global::System.Collections.Generic.IEnumerable<string>

@@ -4,6 +4,14 @@ All notable changes to Fluentify will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [2.2.2] - TBC
+
+## Fixed
+
+- Properties with explicit interface implementations are now excluded.
+- Properties with type ICollection or IList are now correctly identified as collection types, and have builder-based extensions generated accordingly.
+- Nullability is now determined by language version instead of framework version.
+
 # [2.2.1] - 2026-05-14
 
 ## Fixed

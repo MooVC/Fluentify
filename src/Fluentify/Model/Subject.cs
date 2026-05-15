@@ -78,6 +78,14 @@ internal sealed partial class Subject
     public IReadOnlyList<Property> Properties { get; set; } = [];
 
     /// <summary>
+    /// Gets or sets a value indicating whether nullable reference type annotations are supported for generated code.
+    /// </summary>
+    /// <value>
+    /// A value indicating whether nullable reference type annotations are supported for generated code.
+    /// </value>
+    public bool SupportsNullableReferenceTypes { get; set; }
+
+    /// <summary>
     /// Gets or sets the data type of the Subject.
     /// </summary>
     /// <value>

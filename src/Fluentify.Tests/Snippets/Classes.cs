@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Snippets;
+namespace Fluentify.Snippets;
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -22,8 +22,8 @@ public static partial class Classes
             BooleanContent,
             nameof(Boolean),
             BooleanWithAgeExtensions,
-            BooleanWithNameExtensions,
             BooleanIsRetiredExtensions,
+            BooleanWithNameExtensions,
             BooleanWithExtensions);
 
         CrossReferenced = new(
@@ -133,8 +133,8 @@ public static partial class Classes
         SelfDescriptorOnOptional = new(
             SelfDescriptorOnOptionalContent,
             nameof(SelfDescriptorOnOptional),
-            SelfDescriptorOnOptionalAttributesExtensions,
             SelfDescriptorOnOptionalWithAgeExtensions,
+            SelfDescriptorOnOptionalAttributesExtensions,
             SelfDescriptorOnOptionalWithNameExtensions,
             SelfDescriptorOnOptionalWithExtensions);
 
@@ -142,8 +142,8 @@ public static partial class Classes
             SelfDescriptorOnRequiredContent,
             nameof(SelfDescriptorOnRequired),
             SelfDescriptorOnRequiredAgeExtensions,
-            SelfDescriptorOnRequiredNameExtensions,
             SelfDescriptorOnRequiredWithAttributesExtensions,
+            SelfDescriptorOnRequiredNameExtensions,
             SelfDescriptorOnRequiredWithExtensions);
 
         Simple = new(
@@ -153,6 +153,22 @@ public static partial class Classes
             SimpleWithAttributesExtensions,
             SimpleWithNameExtensions,
             SimpleWithExtensions);
+
+        SimpleWithCollectionInterface = new(
+            SimpleWithCollectionInterfaceContent,
+            nameof(SimpleWithCollectionInterface),
+            SimpleWithCollectionInterfaceWithAgeExtensions,
+            SimpleWithCollectionInterfaceWithAttributesExtensions,
+            SimpleWithCollectionInterfaceWithNameExtensions,
+            SimpleWithCollectionInterfaceWithExtensions);
+
+        SimpleWithListInterface = new(
+            SimpleWithListInterfaceContent,
+            nameof(SimpleWithListInterface),
+            SimpleWithListInterfaceWithAgeExtensions,
+            SimpleWithListInterfaceWithAttributesExtensions,
+            SimpleWithListInterfaceWithNameExtensions,
+            SimpleWithListInterfaceWithExtensions);
 
         Single = new(
             SingleContent,

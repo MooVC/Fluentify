@@ -25,7 +25,7 @@ internal static partial class SubjectExtensions
         var metadata = subject.ToMetadata();
 
         IReadOnlyList<Property> properties = [.. subject.Properties.OrderBy(property => property.Name)];
-        string type = subject.Type.ToString();
+        string type = subject.Type.ToString(subject.SupportsNullableReferenceTypes);
         string constraints = string.Join("\r\n", metadata.Constraints);
         string methodName = string.Concat("With", metadata.Parameters);
 
@@ -121,6 +121,7 @@ internal static partial class SubjectExtensions
         {
             string name = ToParameterName(property.Name);
             string valueName = $"{name}Value";
+
             values = values.AppendLine($"var {valueName} = ReferenceEquals({name}, null) ? subject.{property.Name} : {name}();");
         }
 

@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Snippets;
+namespace Fluentify.Snippets;
 
 public static partial class Records
 {

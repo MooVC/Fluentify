@@ -1,4 +1,4 @@
-﻿namespace Fluentify.RecordGeneratorTests;
+namespace Fluentify.RecordGeneratorTests;
 
 using Fluentify.Snippets;
 
@@ -31,9 +31,9 @@ public sealed class WhenExecuted
         Attributes.Hide.IsExpectedIn(TestState);
         Attributes.Ignore.IsExpectedIn(TestState);
         Extensions.Internal.IsExpectedIn(TestState);
-        Attributes.SkipAutoInitialization.IsExpectedIn(TestState);
 
         declared.IsDeclaredIn(TestState);
+        Attributes.SkipAutoInitialization.IsExpectedIn(TestState);
 
         // Act & Assert
         await ActAndAssertAsync();

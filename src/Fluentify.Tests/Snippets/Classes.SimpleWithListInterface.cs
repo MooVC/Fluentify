@@ -1,47 +1,47 @@
-namespace Fluentify.Snippets;
+﻿namespace Fluentify.Snippets;
 
 public static partial class Classes
 {
-    public const string SimpleContent = """
+    public const string SimpleWithListInterfaceContent = """
         namespace Fluentify.Classes.Testing
         {
             using System.Collections.Generic;
 
             [Fluentify]
-            public sealed class Simple
+            public sealed class SimpleWithListInterface
             {
                 public int Age { get; set; }
 
                 public string Name { get; set; }
 
-                public IReadOnlyList<object> Attributes { get; set; }
+                public IList<object> Attributes { get; set; }
             }
         }
         """;
 
-    public static readonly Declared Simple;
+    public static readonly Declared SimpleWithListInterface;
 
-    public static readonly Generated SimpleWithAgeExtensions = new(
-        SimpleWithAgeExtensionsContent,
+    public static readonly Generated SimpleWithListInterfaceWithAgeExtensions = new(
+        SimpleWithListInterfaceWithAgeExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.SimpleExtensions.WithAge");
+        "Fluentify.Classes.Testing.SimpleWithListInterfaceExtensions.WithAge");
 
-    public static readonly Generated SimpleWithAttributesExtensions = new(
-        SimpleWithAttributesExtensionsContent,
+    public static readonly Generated SimpleWithListInterfaceWithAttributesExtensions = new(
+        SimpleWithListInterfaceWithAttributesExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.SimpleExtensions.WithAttributes");
+        "Fluentify.Classes.Testing.SimpleWithListInterfaceExtensions.WithAttributes");
 
-    public static readonly Generated SimpleWithNameExtensions = new(
-        SimpleWithNameExtensionsContent,
+    public static readonly Generated SimpleWithListInterfaceWithNameExtensions = new(
+        SimpleWithListInterfaceWithNameExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.SimpleExtensions.WithName");
+        "Fluentify.Classes.Testing.SimpleWithListInterfaceExtensions.WithName");
 
-    public static readonly Generated SimpleWithExtensions = new(
-        SimpleWithExtensionsContent,
+    public static readonly Generated SimpleWithListInterfaceWithExtensions = new(
+        SimpleWithListInterfaceWithExtensionsContent,
         typeof(ClassGenerator),
-        "Fluentify.Classes.Testing.SimpleExtensions.With");
+        "Fluentify.Classes.Testing.SimpleWithListInterfaceExtensions.With");
 
-    private const string SimpleWithAgeExtensionsContent = """
+    private const string SimpleWithListInterfaceWithAgeExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
             using System;
@@ -49,15 +49,15 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class SimpleExtensions
+            public static partial class SimpleWithListInterfaceExtensions
             {
-                public static global::Fluentify.Classes.Testing.Simple WithAge(
-                    this global::Fluentify.Classes.Testing.Simple subject,
+                public static global::Fluentify.Classes.Testing.SimpleWithListInterface WithAge(
+                    this global::Fluentify.Classes.Testing.SimpleWithListInterface subject,
                     int value)
                 {
                     subject.ThrowIfNull("subject");
 
-                    return new global::Fluentify.Classes.Testing.Simple
+                    return new global::Fluentify.Classes.Testing.SimpleWithListInterface
                     {
                         Age = value,
                         Attributes = subject.Attributes,
@@ -68,7 +68,7 @@ public static partial class Classes
         }
         """;
 
-    private const string SimpleWithAttributesExtensionsContent = """
+    private const string SimpleWithListInterfaceWithAttributesExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
             using System;
@@ -76,10 +76,10 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class SimpleExtensions
+            public static partial class SimpleWithListInterfaceExtensions
             {
-                public static global::Fluentify.Classes.Testing.Simple WithAttributes(
-                    this global::Fluentify.Classes.Testing.Simple subject,
+                public static global::Fluentify.Classes.Testing.SimpleWithListInterface WithAttributes(
+                    this global::Fluentify.Classes.Testing.SimpleWithListInterface subject,
                     Func<object, object> builder,
                     params object[] values)
                 {
@@ -95,8 +95,8 @@ public static partial class Classes
                     return subject;
                 }
 
-                public static global::Fluentify.Classes.Testing.Simple WithAttributes(
-                    this global::Fluentify.Classes.Testing.Simple subject,
+                public static global::Fluentify.Classes.Testing.SimpleWithListInterface WithAttributes(
+                    this global::Fluentify.Classes.Testing.SimpleWithListInterface subject,
                     object instance,
                     Func<object, object> builder)
                 {
@@ -109,8 +109,8 @@ public static partial class Classes
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.Simple WithAttributes(
-                    this global::Fluentify.Classes.Testing.Simple subject,
+                public static global::Fluentify.Classes.Testing.SimpleWithListInterface WithAttributes(
+                    this global::Fluentify.Classes.Testing.SimpleWithListInterface subject,
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
@@ -124,22 +124,22 @@ public static partial class Classes
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.Simple WithAttributes(
-                    this global::Fluentify.Classes.Testing.Simple subject,
+                public static global::Fluentify.Classes.Testing.SimpleWithListInterface WithAttributes(
+                    this global::Fluentify.Classes.Testing.SimpleWithListInterface subject,
                     params object[] values)
                 {
                     subject.ThrowIfNull("subject");
 
-                    global::System.Collections.Generic.IReadOnlyList<object> value = values;
+                    global::System.Collections.Generic.IList<object> value = values.ToList();
 
                     if (subject.Attributes != null)
                     {
                         value = subject.Attributes
                             .Union(values)
-                            .ToArray();
+                            .ToList();
                     }
 
-                    return new global::Fluentify.Classes.Testing.Simple
+                    return new global::Fluentify.Classes.Testing.SimpleWithListInterface
                     {
                         Age = subject.Age,
                         Attributes = value,
@@ -150,18 +150,18 @@ public static partial class Classes
         }
         """;
 
-    private const string SimpleWithExtensionsContent = """
+    private const string SimpleWithListInterfaceWithExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
             using System;
             using Fluentify.Internal;
 
-            public static partial class SimpleExtensions
+            public static partial class SimpleWithListInterfaceExtensions
             {
-                internal static global::Fluentify.Classes.Testing.Simple With(
-                    this global::Fluentify.Classes.Testing.Simple subject,
+                internal static global::Fluentify.Classes.Testing.SimpleWithListInterface With(
+                    this global::Fluentify.Classes.Testing.SimpleWithListInterface subject,
                     Func<int> age = default,
-                    Func<global::System.Collections.Generic.IReadOnlyList<object>> attributes = default,
+                    Func<global::System.Collections.Generic.IList<object>> attributes = default,
                     Func<string> name = default)
                 {
                     subject.ThrowIfNull("subject");
@@ -170,7 +170,7 @@ public static partial class Classes
                     var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
                     var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
 
-                    return new global::Fluentify.Classes.Testing.Simple
+                    return new global::Fluentify.Classes.Testing.SimpleWithListInterface
                     {
                         Age = ageValue,
                         Attributes = attributesValue,
@@ -181,7 +181,7 @@ public static partial class Classes
         }
         """;
 
-    private const string SimpleWithNameExtensionsContent = """
+    private const string SimpleWithListInterfaceWithNameExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
             using System;
@@ -189,15 +189,15 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class SimpleExtensions
+            public static partial class SimpleWithListInterfaceExtensions
             {
-                public static global::Fluentify.Classes.Testing.Simple WithName(
-                    this global::Fluentify.Classes.Testing.Simple subject,
+                public static global::Fluentify.Classes.Testing.SimpleWithListInterface WithName(
+                    this global::Fluentify.Classes.Testing.SimpleWithListInterface subject,
                     string value)
                 {
                     subject.ThrowIfNull("subject");
 
-                    return new global::Fluentify.Classes.Testing.Simple
+                    return new global::Fluentify.Classes.Testing.SimpleWithListInterface
                     {
                         Age = subject.Age,
                         Attributes = subject.Attributes,

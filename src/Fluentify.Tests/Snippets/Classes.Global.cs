@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Snippets;
+namespace Fluentify.Snippets;
 
 public static partial class Classes
 {
@@ -40,12 +40,6 @@ public static partial class Classes
         "GlobalExtensions.With");
 
     private const string GlobalWithAgeExtensionsContent = """
-        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        #nullable enable
-        #endif
-        
-        #pragma warning disable CS8625
-
         using System;
         using System.Collections.Generic;
         using System.Linq;
@@ -67,21 +61,9 @@ public static partial class Classes
                 };
             }
         }
-
-        #pragma warning restore CS8625
-        
-        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        #nullable restore
-        #endif
         """;
 
     private const string GlobalWithAttributesExtensionsContent = """
-        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        #nullable enable
-        #endif
-        
-        #pragma warning disable CS8625
-
         using System;
         using System.Collections.Generic;
         using System.Linq;
@@ -158,21 +140,9 @@ public static partial class Classes
                 };
             }
         }
-        
-        #pragma warning restore CS8625
-        
-        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        #nullable restore
-        #endif
         """;
 
     private const string GlobalWithNameExtensionsContent = """
-        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        #nullable enable
-        #endif
-        
-        #pragma warning disable CS8625
-
         using System;
         using System.Collections.Generic;
         using System.Linq;
@@ -194,21 +164,9 @@ public static partial class Classes
                 };
             }
         }
-
-        #pragma warning restore CS8625
-        
-        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        #nullable restore
-        #endif
         """;
 
     private const string GlobalWithExtensionsContent = """
-        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        #nullable enable
-        #endif
-        
-        #pragma warning disable CS8625
-
         using System;
         using Fluentify.Internal;
 
@@ -234,11 +192,5 @@ public static partial class Classes
                 };
             }
         }
-
-        #pragma warning restore CS8625
-        
-        #if NET5_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
-        #nullable restore
-        #endif
         """;
 }

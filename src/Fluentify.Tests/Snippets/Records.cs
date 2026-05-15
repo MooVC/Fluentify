@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Snippets;
+namespace Fluentify.Snippets;
 
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -19,8 +19,8 @@ public static partial class Records
             BooleanContent,
             nameof(Boolean),
             BooleanConstructor,
-            BooleanIsRetiredExtensions,
             BooleanWithAgeExtensions,
+            BooleanIsRetiredExtensions,
             BooleanWithNameExtensions);
 
         CrossReferenced = new(
@@ -45,8 +45,8 @@ public static partial class Records
             DescriptorOnOptionalContent,
             nameof(DescriptorOnOptional),
             DescriptorOnOptionalConstructor,
-            DescriptorOnOptionalAttributedWithExtensions,
             DescriptorOnOptionalWithAgeExtensions,
+            DescriptorOnOptionalAttributedWithExtensions,
             DescriptorOnOptionalWithNameExtensions);
 
         DescriptorOnRequired = new(
@@ -163,8 +163,8 @@ public static partial class Records
             SelfDescriptorOnOptionalContent,
             nameof(SelfDescriptorOnOptional),
             SelfDescriptorOnOptionalConstructor,
-            SelfDescriptorOnOptionalAttributesExtensions,
             SelfDescriptorOnOptionalWithAgeExtensions,
+            SelfDescriptorOnOptionalAttributesExtensions,
             SelfDescriptorOnOptionalWithNameExtensions);
 
         SelfDescriptorOnRequired = new(
@@ -172,8 +172,8 @@ public static partial class Records
             nameof(SelfDescriptorOnRequired),
             SelfDescriptorOnRequiredConstructor,
             SelfDescriptorOnRequiredAgeExtensions,
-            SelfDescriptorOnRequiredNameExtensions,
-            SelfDescriptorOnRequiredWithAttributesExtensions);
+            SelfDescriptorOnRequiredWithAttributesExtensions,
+            SelfDescriptorOnRequiredNameExtensions);
 
         Simple = new(
             SimpleContent,
