@@ -34,9 +34,15 @@ internal static partial class IPropertySymbolExtensions
             return !property.IsIndexer;
         }
 
+        static bool HasNoExplicitInterfaceImplementations(IPropertySymbol property)
+        {
+            return property.ExplicitInterfaceImplementations.Length == 0;
+        }
+
         return IsIndexless(property)
             && IsExplicitlyDeclaredInstanceProperty(property)
             && IsAccessible(property.DeclaredAccessibility)
-            && IsInitializable(property);
+            && IsInitializable(property)
+            && HasNoExplicitInterfaceImplementations(property);
     }
 }

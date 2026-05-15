@@ -63,29 +63,4 @@ internal static partial class INamedTypeSymbolExtensions
             Name = property.Name,
         };
     }
-
-    private sealed class PropertyNameEqualityComparer : IEqualityComparer<IPropertySymbol>
-    {
-        public static readonly PropertyNameEqualityComparer Instance = new();
-
-        public bool Equals(IPropertySymbol? x, IPropertySymbol? y)
-        {
-            if (ReferenceEquals(x, y))
-            {
-                return true;
-            }
-
-            if (x is null || y is null)
-            {
-                return false;
-            }
-
-            return StringComparer.Ordinal.Equals(x.Name, y.Name);
-        }
-
-        public int GetHashCode(IPropertySymbol obj)
-        {
-            return StringComparer.Ordinal.GetHashCode(obj.Name);
-        }
-    }
 }
