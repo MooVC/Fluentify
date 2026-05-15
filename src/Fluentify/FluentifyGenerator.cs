@@ -5,6 +5,7 @@ using Fluentify.Model;
 using Fluentify.Source;
 using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
@@ -24,9 +25,13 @@ public abstract partial class FluentifyGenerator<T>
             .CreateSyntaxProvider(predicate: IsMatch, transform: Transform)
             .Where(record => record is not null);
 
+        IncrementalValueProvider<bool> supportsNullableReferenceTypes = context.CompilationProvider
+            .Select(static (compilation, _) => IsNullableReferenceTypesSupported(compilation));
+
         IncrementalValuesProvider<Subject?> subjects = records
            .Combine(context.CompilationProvider)
-           .Select(static (match, cancellationToken) => match.Left.ToSubject(match.Right, cancellationToken))
+           .Combine(supportsNullableReferenceTypes)
+           .Select(static (match, cancellationToken) => match.Left.Left.ToSubject(match.Left.Right, match.Right, cancellationToken))
            .Where(subject => subject is not null);
 
         context.RegisterSourceOutput(subjects, Generate);
@@ -113,24 +118,7 @@ public abstract partial class FluentifyGenerator<T>
         }
     }
 
-    /// <summary>
-    /// Applies contextual specific content, typically preprocessor directives, to the <paramref name="content"/>.
-    /// </summary>
-    /// <param name="content">The content to which the additional content is to be applied.</param>
-    /// <returns>The <paramref name="content"/> with the additional content applied.</returns>
-    private protected abstract string Wrap(string content);
-
-    private static bool IsMatch(SyntaxNode node, CancellationToken cancellationToken)
-    {
-        return node is T type && type.AttributeLists.Count > 0;
-    }
-
-    private static T? Transform(GeneratorSyntaxContext context, CancellationToken cancellationToken)
-    {
-        return context.Node as T;
-    }
-
-    private void AddSource(string content, SourceProductionContext context, string hint, string @namespace)
+    private static void AddSource(string content, SourceProductionContext context, string hint, string @namespace, Subject subject)
     {
         if (!string.IsNullOrEmpty(@namespace))
         {
@@ -144,19 +132,49 @@ public abstract partial class FluentifyGenerator<T>
             hint = $"{@namespace}.{hint}";
         }
 
-        content = $"""
-            #pragma warning disable CS8625
-
-            {content}
-            
-            #pragma warning restore CS8625
-            """;
-
-        content = Wrap(content);
+        if (subject.SupportsNullableReferenceTypes)
+        {
+            content = Wrap(content);
+        }
 
         var text = SourceText.From(content, Encoding.UTF8);
 
         context.AddSource(hint, text);
+    }
+
+    private static bool IsMatch(SyntaxNode node, CancellationToken cancellationToken)
+    {
+        return node is T type && type.AttributeLists.Count > 0;
+    }
+
+    private static T? Transform(GeneratorSyntaxContext context, CancellationToken cancellationToken)
+    {
+        return context.Node as T;
+    }
+
+    private static bool IsNullableReferenceTypesSupported(Compilation compilation)
+    {
+        SyntaxTree syntax = compilation.SyntaxTrees.FirstOrDefault();
+
+        if (syntax is null)
+        {
+            return false;
+        }
+
+        return syntax.Options is CSharpParseOptions options && options.LanguageVersion >= LanguageVersion.CSharp8;
+    }
+
+    private static string Wrap(string content)
+    {
+        return $"""
+            #nullable enable
+            #pragma warning disable CS8625
+
+            {content}
+
+            #pragma warning restore CS8625
+            #nullable restore
+            """;
     }
 
     private void Generate(SourceProductionContext context, Subject? subject)
@@ -167,7 +185,7 @@ public abstract partial class FluentifyGenerator<T>
 
             foreach (Source element in source)
             {
-                AddSource(element.Content, context, element.Hint, subject.Namespace);
+                AddSource(element.Content, context, element.Hint, subject.Namespace, subject);
             }
         }
     }

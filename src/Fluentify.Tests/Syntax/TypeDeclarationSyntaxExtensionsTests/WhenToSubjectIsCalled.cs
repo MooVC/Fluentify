@@ -113,6 +113,7 @@ public sealed class WhenToSubjectIsCalled
                     Name = "Name",
                 },
             ],
+            SupportsNullableReferenceTypes = true,
             Type = new()
             {
                 IsBuildable = !isPartial,
@@ -121,7 +122,7 @@ public sealed class WhenToSubjectIsCalled
         };
 
         // Act
-        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
+        var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
         actual.ShouldBe(expected);
@@ -169,6 +170,7 @@ public sealed class WhenToSubjectIsCalled
                     Name = "Simple",
                 },
             ],
+            SupportsNullableReferenceTypes = true,
             Type = new()
             {
                 IsBuildable = !isPartial,
@@ -177,7 +179,7 @@ public sealed class WhenToSubjectIsCalled
         };
 
         // Act
-        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
+        var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
         actual.ShouldBe(expected);
@@ -243,6 +245,7 @@ public sealed class WhenToSubjectIsCalled
                     Name = "Attributes",
                 },
             ],
+            SupportsNullableReferenceTypes = true,
             Type = new()
             {
                 IsBuildable = !isPartial,
@@ -251,7 +254,7 @@ public sealed class WhenToSubjectIsCalled
         };
 
         // Act
-        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
+        var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
         actual.ShouldBe(expected);
@@ -336,6 +339,7 @@ public sealed class WhenToSubjectIsCalled
                     Name = "Attributes",
                 },
             ],
+            SupportsNullableReferenceTypes = true,
             Type = new()
             {
                 IsBuildable = !isPartial,
@@ -344,7 +348,7 @@ public sealed class WhenToSubjectIsCalled
         };
 
         // Act
-        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
+        var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
         actual.ShouldBe(expected);
@@ -411,6 +415,7 @@ public sealed class WhenToSubjectIsCalled
                     Name = "Attributes",
                 },
             ],
+            SupportsNullableReferenceTypes = true,
             Type = new()
             {
                 IsBuildable = !isPartial,
@@ -419,7 +424,7 @@ public sealed class WhenToSubjectIsCalled
         };
 
         // Act
-        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
+        var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
         actual.ShouldBe(expected);
@@ -485,6 +490,7 @@ public sealed class WhenToSubjectIsCalled
                     Name = "Attributes",
                 },
             ],
+            SupportsNullableReferenceTypes = true,
             Type = new()
             {
                 IsBuildable = !isPartial,
@@ -493,7 +499,7 @@ public sealed class WhenToSubjectIsCalled
         };
 
         // Act
-        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
+        var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
         actual.ShouldBe(expected);
@@ -563,6 +569,7 @@ public sealed class WhenToSubjectIsCalled
                     Name = "Attributes",
                 },
             ],
+            SupportsNullableReferenceTypes = true,
             Type = new()
             {
                 IsBuildable = !isPartial,
@@ -571,7 +578,7 @@ public sealed class WhenToSubjectIsCalled
         };
 
         // Act
-        var actual = definition.Syntax.ToSubject(compilation, CancellationToken.None);
+        var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
         actual.ShouldBe(expected);
@@ -584,7 +591,7 @@ public sealed class WhenToSubjectIsCalled
         TypeDeclarationSyntax? syntax = default;
 
         // Act
-        var subject = syntax.ToSubject(Classes.Instance.Compilation, CancellationToken.None);
+        var subject = syntax.ToSubject(Classes.Instance.Compilation, true, CancellationToken.None);
 
         // Assert
         subject.ShouldBeNull();
@@ -595,7 +602,7 @@ public sealed class WhenToSubjectIsCalled
     public void GivenUnannotatedOrUnsupportedThenNoSubjectIsReturned(Compilation compilation, Definition definition)
     {
         // Act
-        var subject = definition.Syntax.ToSubject(compilation, CancellationToken.None);
+        var subject = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
         subject.ShouldBeNull();

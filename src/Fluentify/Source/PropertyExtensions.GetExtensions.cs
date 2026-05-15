@@ -48,20 +48,22 @@ internal static partial class PropertyExtensions
 
     private static string GetExtensionMethods(this Property property, ref Metadata metadata, Func<Property, string?> scalar, bool isInternal)
     {
-        string parameter = property.Kind.ToString();
-        string member = property.Kind.Member.ToString();
+        string parameter = property.Kind.ToString(metadata.Subject.SupportsNullableReferenceTypes);
+        string member = property.Kind.Member.ToString(metadata.Subject.SupportsNullableReferenceTypes);
 
         Type type = property.Kind.Pattern == Pattern.Scalar
             ? property.Kind.Type
             : property.Kind.Member;
 
+        string typeName = type.ToString(metadata.Subject.SupportsNullableReferenceTypes);
+
         (string? Body, string Parameter)[] extensions =
         [
             (property.GetArrayExtensionMethodBody(scalar), $"params {member}[] values"),
             (property.GetCollectionExtensionMethodBody(scalar), $"params {member}[] values"),
-            (property.GetDelegateAndValuesExtensionMethodBody(type), $"Func<{type.Name}, {type.Name}> builder,\r\n    params {type.Name}[] values"),
-            (property.GetDelegateAndInstanceExtensionMethodBody(type), $"{type.Name} instance,\r\n    Func<{type.Name}, {type.Name}> builder"),
-            (property.GetDelegateExtensionMethodBody(type), $"Func<{type.Name}, {type.Name}> builder"),
+            (property.GetDelegateAndValuesExtensionMethodBody(type), $"Func<{typeName}, {typeName}> builder,\r\n    params {typeName}[] values"),
+            (property.GetDelegateAndInstanceExtensionMethodBody(type), $"{typeName} instance,\r\n    Func<{typeName}, {typeName}> builder"),
+            (property.GetDelegateExtensionMethodBody(type), $"Func<{typeName}, {typeName}> builder"),
             (property.GetEnumerableExtensionMethodBody(scalar), $"params {member}[] values"),
             (property.GetScalarExtensionMethodBody(scalar), $"{parameter} value"),
         ];
@@ -77,7 +79,7 @@ internal static partial class PropertyExtensions
     {
         string constraints = string.Join("\r\n", metadata.Constraints);
         string method = string.Concat(property.Descriptor, metadata.Parameters);
-        string type = metadata.Subject.Type.ToString();
+        string type = metadata.Subject.Type.ToString(metadata.Subject.SupportsNullableReferenceTypes);
 
         string accessibility = isInternal || property.Accessibility < Accessibility.Public || property.IsHidden
             ? "internal"
