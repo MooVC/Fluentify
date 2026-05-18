@@ -60,11 +60,29 @@ public partial class WhenExecuted
         }
 
         [Fact]
-        public async Task GivenAPropertyWithHideWhenFluentifyIsNotAppliedToTheClassThenMissingFluentifyRuleIsRaised()
+        public async Task GivenAPropertyWithHideOnASealedClassWhenFluentifyIsNotAppliedThenMissingFluentifyRuleIsRaised()
         {
             // Arrange
             ExpectedDiagnostics.Add(GetExpectedMissingFluentifyRule("Property", new LinePosition(4, 5)));
 
+            TestCode = """
+                using Fluentify;
+
+                public sealed class TestClassWithPropertyWithoutFluentify
+                {
+                    [Hide]
+                    public string Property { get; set; }
+                }
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenAPropertyWithHideOnANonSealedClassWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised()
+        {
+            // Arrange
             TestCode = """
                 using Fluentify;
 

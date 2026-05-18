@@ -48,7 +48,7 @@ public abstract class AttributeAnalyzer
         ISymbol? target = syntax.GetParent<PropertyDeclarationSyntax>(context)
             ?? syntax.GetParent<ParameterSyntax>(context);
 
-        if (parent is not INamedTypeSymbol type || target is null || type.HasFluentify())
+        if (parent is not INamedTypeSymbol type || target is null || type.HasFluentify() || !type.IsSealed)
         {
             member = string.Empty;
             @class = string.Empty;

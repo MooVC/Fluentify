@@ -34,11 +34,29 @@ public partial class WhenExecuted
         }
 
         [Fact]
-        public async Task GivenAMutablePropertyWithIgnoreWhenFluentifyIsNotAppliedToTheClassThenMissingFluentifyRuleIsRaised()
+        public async Task GivenAMutablePropertyWithIgnoreOnASealedClassWhenFluentifyIsNotAppliedThenMissingFluentifyRuleIsRaised()
         {
             // Arrange
             ExpectedDiagnostics.Add(GetExpectedMissingFluentifyRule("Property", new LinePosition(4, 5)));
 
+            TestCode = """
+                using Fluentify;
+
+                public sealed class TestClassWithMutablePropertyWithoutFluentify
+                {
+                    [Ignore]
+                    public string Property { get; set; }
+                }
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Fact]
+        public async Task GivenAMutablePropertyWithIgnoreOnANonSealedClassWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised()
+        {
+            // Arrange
             TestCode = """
                 using Fluentify;
 
@@ -108,7 +126,7 @@ public partial class WhenExecuted
         }
 
         [Fact]
-        public async Task GivenAnImmutablePropertyWithIgnoreWhenFluentifyIsNotAppliedToTheClassThenMissingFluentifyRuleIsRaised()
+        public async Task GivenAnImmutablePropertyWithIgnoreOnASealedClassWhenFluentifyIsNotAppliedThenMissingFluentifyRuleIsRaised()
         {
             // Arrange
             ExpectedDiagnostics.Add(GetExpectedMissingFluentifyRule("Property", new LinePosition(4, 5)));
@@ -116,7 +134,7 @@ public partial class WhenExecuted
             TestCode = """
                 using Fluentify;
 
-                public class TestClassWithImmutablePropertyWithoutFluentify
+                public sealed class TestClassWithImmutablePropertyWithoutFluentify
                 {
                     [Ignore]
                     public string Property { get; }

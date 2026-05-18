@@ -16,11 +16,26 @@ public partial class WhenExecuted
         [Theory]
         [InlineData("Valid")]
         [InlineData("inValid")]
-        public async Task GivenADescriptorWhenFluentifyIsNotAppliedToTheRecordThenMissingFluentifyRuleIsRaised(string descriptor)
+        public async Task GivenADescriptorOnASealedRecordWhenFluentifyIsNotAppliedThenMissingFluentifyRuleIsRaised(string descriptor)
         {
             // Arrange
-            ExpectedDiagnostics.Add(GetExpectedMissingFluentifyRule("Property", "TestRecord", new LinePosition(2, 26)));
+            ExpectedDiagnostics.Add(GetExpectedMissingFluentifyRule("Property", "TestRecord", new LinePosition(2, 33)));
 
+            TestCode = $$"""
+                using Fluentify;
+
+                public sealed record TestRecord([Descriptor("{{descriptor}}")] string Property);
+                """;
+
+            // Act & Assert
+            await ActAndAssertAsync();
+        }
+
+        [Theory]
+        [InlineData("Valid")]
+        public async Task GivenADescriptorOnANonSealedRecordWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised(string descriptor)
+        {
+            // Arrange
             TestCode = $$"""
                 using Fluentify;
 
