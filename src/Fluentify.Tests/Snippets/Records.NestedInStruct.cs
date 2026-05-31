@@ -79,7 +79,7 @@ public static partial class Records
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedInStructExtensions
+            public static partial class OutterNestedInStructExtensions
             {
                 public static global::Fluentify.Records.Testing.Outter.NestedInStruct WithAge(
                     this global::Fluentify.Records.Testing.Outter.NestedInStruct subject,
@@ -110,7 +110,7 @@ public static partial class Records
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedInStructExtensions
+            public static partial class OutterNestedInStructExtensions
             {
                 public static global::Fluentify.Records.Testing.Outter.NestedInStruct WithAttributes(
                     this global::Fluentify.Records.Testing.Outter.NestedInStruct subject,
@@ -196,7 +196,7 @@ public static partial class Records
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedInStructExtensions
+            public static partial class OutterNestedInStructExtensions
             {
                 public static global::Fluentify.Records.Testing.Outter.NestedInStruct WithName(
                     this global::Fluentify.Records.Testing.Outter.NestedInStruct subject,

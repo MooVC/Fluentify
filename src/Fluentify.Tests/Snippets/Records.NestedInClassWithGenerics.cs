@@ -81,7 +81,7 @@ public static partial class Records
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedInClassWithGenericsExtensions
+            public static partial class OutterNestedInClassWithGenericsExtensions
             {
                 public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAge<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
@@ -114,7 +114,7 @@ public static partial class Records
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedInClassWithGenericsExtensions
+            public static partial class OutterNestedInClassWithGenericsExtensions
             {
                 public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
@@ -208,7 +208,7 @@ public static partial class Records
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedInClassWithGenericsExtensions
+            public static partial class OutterNestedInClassWithGenericsExtensions
             {
                 public static global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithName<TOutter, TInner>(
                     this global::Fluentify.Records.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,

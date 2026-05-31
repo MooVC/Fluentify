@@ -24,18 +24,18 @@ internal static partial class SubjectExtensions
     {
         var metadata = subject.ToMetadata();
 
-        IReadOnlyList<Property> properties = [.. subject.Properties.OrderBy(property => property.Name)];
-        string type = subject.Type.ToString(subject.SupportsNullableReferenceTypes);
-        string constraints = string.Join("\r\n", metadata.Constraints);
-        string methodName = string.Concat("With", metadata.Parameters);
-
         string accessibility = subject.Accessibility < Accessibility.Public
             ? "internal"
             : "public";
 
-        string parameters = BuildParameters(properties);
-        string values = BuildValues(properties);
+        IReadOnlyList<Property> properties = [.. subject.Properties.OrderBy(property => property.Name)];
+        string constraints = string.Join("\r\n", metadata.Constraints);
+        string extensionName = subject.GetExtensionClassName();
         string initializers = BuildInitializers(properties);
+        string methodName = string.Concat("With", metadata.Parameters);
+        string parameters = BuildParameters(properties);
+        string type = subject.Type.ToString(subject.SupportsNullableReferenceTypes);
+        string values = BuildValues(properties);
 
         string signature = $$"""
             internal static {{type}} {{methodName}}(
@@ -69,7 +69,7 @@ internal static partial class SubjectExtensions
             using System;
             using Fluentify.Internal;
 
-            {{accessibility}} static partial class {{subject.Name}}Extensions
+            {{accessibility}} static partial class {{extensionName}}
             {
                 {{method.Indent()}}
             }

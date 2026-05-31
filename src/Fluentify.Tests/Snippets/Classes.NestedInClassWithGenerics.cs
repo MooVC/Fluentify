@@ -54,7 +54,7 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedInClassWithGenericsExtensions
+            public static partial class OutterNestedInClassWithGenericsExtensions
             {
                 public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAge<TOutter, TInner>(
                     this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
@@ -83,7 +83,7 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedInClassWithGenericsExtensions
+            public static partial class OutterNestedInClassWithGenericsExtensions
             {
                 public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithAttributes<TOutter, TInner>(
                     this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
@@ -173,7 +173,7 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedInClassWithGenericsExtensions
+            public static partial class OutterNestedInClassWithGenericsExtensions
             {
                 public static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> WithName<TOutter, TInner>(
                     this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,
@@ -200,7 +200,7 @@ public static partial class Classes
             using System;
             using Fluentify.Internal;
 
-            public static partial class NestedInClassWithGenericsExtensions
+            public static partial class OutterNestedInClassWithGenericsExtensions
             {
                 internal static global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> With<TOutter, TInner>(
                     this global::Fluentify.Classes.Testing.Outter<TOutter>.NestedInClassWithGenerics<TInner> subject,

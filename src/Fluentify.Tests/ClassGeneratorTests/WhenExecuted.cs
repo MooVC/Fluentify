@@ -1,6 +1,7 @@
 ﻿namespace Fluentify.ClassGeneratorTests;
 
 using Fluentify.Snippets;
+using Microsoft.CodeAnalysis.Testing;
 
 public sealed class WhenExecuted
     : GeneratorTests<ClassGenerator>
@@ -66,6 +67,41 @@ public sealed class WhenExecuted
         Attributes.Ignore.IsExpectedIn(TestState);
         Extensions.Internal.IsExpectedIn(TestState);
         Attributes.SkipAutoInitialization.IsExpectedIn(TestState);
+
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
+
+    [Fact]
+    public async Task GivenNestedClassSharesNameWithClassInSameNamespaceThenNoCompilationErrorIsRaised()
+    {
+        // Arrange
+        TestBehaviors = TestBehaviors.SkipGeneratedSourcesCheck;
+
+        TestCode = """
+            namespace Demo
+            {
+                using Fluentify;
+
+                [Fluentify]
+                public sealed class Level3
+                {
+                    public int Value { get; set; }
+                }
+
+                public sealed class Level1
+                {
+                    public sealed class Level2
+                    {
+                        [Fluentify]
+                        public sealed class Level3
+                        {
+                            public int Value { get; set; }
+                        }
+                    }
+                }
+            }
+            """;
 
         // Act & Assert
         await ActAndAssertAsync();

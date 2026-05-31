@@ -33,13 +33,15 @@ internal static partial class PropertyExtensions
             return string.Empty;
         }
 
+        string type = metadata.Subject.GetExtensionClassName();
+
         return $$"""
             using System;
             using System.Collections.Generic;
             using System.Linq;
             using Fluentify.Internal;
 
-            {{accessibility}} static partial class {{metadata.Subject.Name}}Extensions
+            {{accessibility}} static partial class {{type}}
             {
                 {{methods.Indent()}}
             }

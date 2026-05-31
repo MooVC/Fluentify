@@ -52,7 +52,7 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedInClassExtensions
+            public static partial class OutterNestedInClassExtensions
             {
                 public static global::Fluentify.Classes.Testing.Outter.NestedInClass WithAge(
                     this global::Fluentify.Classes.Testing.Outter.NestedInClass subject,
@@ -79,7 +79,7 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedInClassExtensions
+            public static partial class OutterNestedInClassExtensions
             {
                 public static global::Fluentify.Classes.Testing.Outter.NestedInClass WithAttributes(
                     this global::Fluentify.Classes.Testing.Outter.NestedInClass subject,
@@ -161,7 +161,7 @@ public static partial class Classes
             using System.Linq;
             using Fluentify.Internal;
 
-            public static partial class NestedInClassExtensions
+            public static partial class OutterNestedInClassExtensions
             {
                 public static global::Fluentify.Classes.Testing.Outter.NestedInClass WithName(
                     this global::Fluentify.Classes.Testing.Outter.NestedInClass subject,
@@ -186,7 +186,7 @@ public static partial class Classes
             using System;
             using Fluentify.Internal;
 
-            public static partial class NestedInClassExtensions
+            public static partial class OutterNestedInClassExtensions
             {
                 internal static global::Fluentify.Classes.Testing.Outter.NestedInClass With(
                     this global::Fluentify.Classes.Testing.Outter.NestedInClass subject,
