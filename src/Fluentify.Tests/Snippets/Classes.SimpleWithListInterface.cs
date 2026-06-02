@@ -84,7 +84,6 @@ public static partial class Classes
                     params object[] values)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     foreach (var value in values)
@@ -101,7 +100,6 @@ public static partial class Classes
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -114,7 +112,6 @@ public static partial class Classes
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = new object();

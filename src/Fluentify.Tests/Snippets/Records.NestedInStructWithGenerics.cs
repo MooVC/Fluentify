@@ -124,7 +124,6 @@ public static partial class Records
                     where TInner : struct
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     foreach (var value in values)
@@ -143,7 +142,6 @@ public static partial class Records
                     where TInner : struct
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -158,7 +156,6 @@ public static partial class Records
                     where TInner : struct
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = new object();

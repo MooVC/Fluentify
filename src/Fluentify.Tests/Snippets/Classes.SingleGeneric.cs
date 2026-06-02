@@ -87,7 +87,6 @@ public static partial class Classes
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -101,7 +100,6 @@ public static partial class Classes
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.Attributes;

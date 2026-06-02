@@ -80,7 +80,6 @@ public static partial class Classes
                     Func<global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty.Dependent, global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty.Dependent> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -93,7 +92,6 @@ public static partial class Classes
                     Func<global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty.Dependent, global::Fluentify.Classes.Testing.SkipAutoInitializationOnProperty.Dependent> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.Dependency;

@@ -76,9 +76,9 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
-            
+
                     List<TestType> value = new List<TestType>();
-            
+
                     if (subject.TestProperty != null)
                     {
                         foreach (var element in subject.TestProperty)
@@ -86,7 +86,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                             value.Add(element);
                         }
                     }
-            
+
                     foreach (var element in values)
                     {
                         value.Add(element);
@@ -101,7 +101,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     foreach (var value in values)
@@ -118,7 +117,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -131,7 +129,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = new TestType();
@@ -212,7 +209,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                     subject.ThrowIfNull("subject");
 
                     List<int> value = new List<int>();
-            
+
                     if (subject.TestProperty != null)
                     {
                         foreach (var element in subject.TestProperty)
@@ -220,7 +217,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                             value.Add(element);
                         }
                     }
-            
+
                     foreach (var element in values)
                     {
                         value.Add(element);
@@ -298,9 +295,9 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params int[] values)
                 {
                     subject.ThrowIfNull("subject");
-            
+
                     List<int>? value = new List<int>();
-            
+
                     if (subject.TestProperty != null)
                     {
                         foreach (var element in subject.TestProperty)
@@ -308,7 +305,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                             value.Add(element);
                         }
                     }
-            
+
                     foreach (var element in values)
                     {
                         value.Add(element);
@@ -392,7 +389,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                     subject.ThrowIfNull("subject");
 
                     List<int> value = new List<int>();
-            
+
                     if (subject.TestProperty != null)
                     {
                         foreach (var element in subject.TestProperty)
@@ -400,7 +397,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                             value.Add(element);
                         }
                     }
-            
+
                     foreach (var element in values)
                     {
                         value.Add(element);
