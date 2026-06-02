@@ -138,8 +138,9 @@ public static partial class Classes
                     subject.ThrowIfNull("subject");
 
                     var descriptionValue = ReferenceEquals(description, null) ? subject.Description : description();
-                    descriptionValue.ThrowIfNull("description");
                     var simpleValue = ReferenceEquals(simple, null) ? subject.Simple : simple();
+
+                    descriptionValue.ThrowIfNull("description");
                     simpleValue.ThrowIfNull("simple");
 
                     return new global::Fluentify.Classes.Testing.CrossReferenced

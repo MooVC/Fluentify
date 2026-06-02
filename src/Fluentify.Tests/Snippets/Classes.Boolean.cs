@@ -141,6 +141,7 @@ public static partial class Classes
                     var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
                     var isRetiredValue = ReferenceEquals(isRetired, null) ? subject.IsRetired : isRetired();
                     var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+
                     nameValue.ThrowIfNull("name");
 
                     return new global::Fluentify.Classes.Testing.Boolean

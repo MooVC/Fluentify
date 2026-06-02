@@ -40,6 +40,7 @@ public static partial class Classes
                     subject.ThrowIfNull("subject");
 
                     var subject1Value = ReferenceEquals(subject1, null) ? subject.Subject : subject1();
+
                     subject1Value.ThrowIfNull("subject1");
 
                     return new global::Fluentify.Classes.Testing.SubjectProperty
