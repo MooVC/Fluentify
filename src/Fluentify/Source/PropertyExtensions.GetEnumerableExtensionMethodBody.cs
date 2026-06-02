@@ -26,6 +26,8 @@ internal static partial class PropertyExtensions
         var initialization = Initialization.GetInitialization(kind.Type.Name);
 
         return $$"""
+            values.ThrowIfNull("values");
+
             {{initialization.Create(kind, property.Name)}}
 
             {{body}}

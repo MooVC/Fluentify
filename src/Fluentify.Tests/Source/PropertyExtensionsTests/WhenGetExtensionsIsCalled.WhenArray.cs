@@ -76,6 +76,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
+                    values.ThrowIfNull("values");
 
                     TestType[] value = values;
 
@@ -97,6 +98,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 {
                     subject.ThrowIfNull("subject");
                     builder.ThrowIfNull("builder");
+                    values.ThrowIfNull("values");
 
                     foreach (var value in values)
                     {
@@ -202,6 +204,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params int[] values)
                 {
                     subject.ThrowIfNull("subject");
+                    values.ThrowIfNull("values");
 
                     int[] value = values;
 
@@ -283,6 +286,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params int[] values)
                 {
                     subject.ThrowIfNull("subject");
+                    values.ThrowIfNull("values");
 
                     int[]? value = values;
 
@@ -367,6 +371,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params int[] values)
                 {
                     subject.ThrowIfNull("subject");
+                    values.ThrowIfNull("values");
 
                     int[] value = values;
 

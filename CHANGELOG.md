@@ -4,7 +4,7 @@ All notable changes to Fluentify will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-# [Unreleased]
+# [3.0.0] - TBC
 
 ## Added
 
@@ -12,7 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Changed
 
-- Generated extensions now throw `ArgumentNullException` when assigning `null` to non-nullable properties, unless the property allows null assignment through `AllowNull` or `MaybeNull`; nullable properties only throw when annotated with `DisallowNull`.
+- Generated extensions now throw `ArgumentNullException` when assigning `null` to non-nullable properties, unless the property allows null assignment through `AllowNull` or `MaybeNull`; nullable properties only throw when annotated with `DisallowNull`. **Breaking Change**
+
+## Fixed
+
+- Extensions for collection properties now throw `ArgumentNullException` when a `null` value is passed opposed to `NullReferenceException`.
 
 # [2.3.1] - 2026-05-31
 

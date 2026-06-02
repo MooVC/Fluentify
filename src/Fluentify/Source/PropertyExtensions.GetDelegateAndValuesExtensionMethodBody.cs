@@ -16,6 +16,7 @@ internal static partial class PropertyExtensions
 
         return $$"""
             builder.ThrowIfNull("builder");
+            values.ThrowIfNull("values");
 
             foreach (var value in values)
             {

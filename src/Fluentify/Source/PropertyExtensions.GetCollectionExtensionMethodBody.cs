@@ -24,6 +24,8 @@ internal static partial class PropertyExtensions
         Kind kind = property.Kind;
 
         return $$"""
+            values.ThrowIfNull("values");
+
             {{kind}} value = new {{kind.ToString(false)}}();
 
             if (subject.{{property.Name}} != null)

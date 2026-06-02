@@ -104,7 +104,7 @@ internal static partial class PropertyExtensions
                     """;
             }
 
-            SyntaxTrivia separator = body.StartsWith("builder.ThrowIfNull(\"builder\");")
+            SyntaxTrivia separator = StartsWithParameterNullGuard(body)
                 ? SyntaxFactory.ElasticMarker
                 : SyntaxFactory.ElasticCarriageReturnLineFeed;
 
@@ -123,5 +123,11 @@ internal static partial class PropertyExtensions
             .ToArray();
 
         return string.Join("\r\n\r\n", methods);
+    }
+
+    private static bool StartsWithParameterNullGuard(string body)
+    {
+        return body.StartsWith("builder.ThrowIfNull")
+            || body.StartsWith("values.ThrowIfNull");
     }
 }

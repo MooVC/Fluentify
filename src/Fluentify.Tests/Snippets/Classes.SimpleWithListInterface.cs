@@ -85,6 +85,7 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
                     builder.ThrowIfNull("builder");
+                    values.ThrowIfNull("values");
 
                     foreach (var value in values)
                     {
@@ -126,6 +127,7 @@ public static partial class Classes
                     params object[] values)
                 {
                     subject.ThrowIfNull("subject");
+                    values.ThrowIfNull("values");
 
                     global::System.Collections.Generic.IList<object> value = values.ToList();
 
