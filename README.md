@@ -5,7 +5,8 @@ Fluentify is a .NET Roslyn Source Generator designed to automate the creation of
 ## Why engineers evaluating the Fluent Builder pattern use Fluentify
 
 - **Fast adoption**: annotate a model with `[Fluentify]` and generated extensions become available during compilation.
-- **Safer onboarding**: built-in diagnostics (`FLTFY01`-`FLTFY12`) explain common setup mistakes and provide guided fixes.
+- **Safer onboarding**: built-in diagnostics (`FLTFY01`-`FLTFY16`) explain common setup mistakes and provide guided fixes.
+- **Null-aware generated code**: generated extensions respect nullable annotations and `System.Diagnostics.CodeAnalysis` nullability attributes when assigning property values.
 - **Immutable by default**: generated calls return updated copies, helping teams preserve predictable state transitions.
 - **Production ready**: supports classes, records, nested types, descriptors, optional auto initialization, and collection append patterns.
 - **Easy discovery**: full examples and rule documentation are available in this repository and in the NuGet package README.
@@ -124,6 +125,59 @@ var @new = original.WithBirthday(1975);
 
 Console.WriteLine(original.Birthday); // Displays 1942
 Console.WriteLine(@new.Birthday);     // Displays 1975
+```
+
+## Null Assignment Behavior
+
+Generated extensions guard non-nullable property assignments by calling `ThrowIfNull` before creating the updated instance. This means assigning `null` to a non-nullable reference property throws an `ArgumentNullException` by default.
+
+```csharp
+[Fluentify]
+public sealed class Actor
+{
+    public string FirstName { get; init; }
+}
+
+_ = new Actor().WithFirstName(null); // Throws ArgumentNullException
+```
+
+Nullable properties accept `null` by default.
+
+```csharp
+[Fluentify]
+public sealed class Actor
+{
+    public string? MiddleName { get; init; }
+}
+
+_ = new Actor().WithMiddleName(null); // Allowed
+```
+
+The behavior can be controlled with attributes from `System.Diagnostics.CodeAnalysis`. Apply `AllowNull` or `MaybeNull` to a non-nullable property when `null` should be accepted, and apply `DisallowNull` to a nullable property when generated extensions should reject `null`.
+
+Fluentify reports suggestion diagnostics when these attributes are redundant for generated null-assignment behavior: `FLTFY14` for `AllowNull`, `FLTFY15` for `MaybeNull`, and `FLTFY16` for `DisallowNull`.
+
+```csharp
+using System.Diagnostics.CodeAnalysis;
+
+[Fluentify]
+public sealed class Actor
+{
+    [AllowNull]
+    public string FirstName { get; init; }
+
+    [DisallowNull]
+    public string? Surname { get; init; }
+}
+```
+
+For record primary constructors, apply the attribute to the generated property or to the constructor parameter as needed.
+
+```csharp
+using System.Diagnostics.CodeAnalysis;
+
+[Fluentify]
+public record Actor([param: AllowNull] string FirstName, [param: DisallowNull] string? Surname);
 ```
 
 ## Auto Initialization
@@ -333,6 +387,9 @@ Rule ID                          | Category | Severity | Notes
 [FLTFY11](docs/rules/FLTFY11.md) | Usage    | Info     | Type does not utilize Fluentify (Hide)
 [FLTFY12](docs/rules/FLTFY12.md) | Usage    | Info     | Hide is disregarded when Ignore is applied
 [FLTFY13](docs/rules/FLTFY13.md) | Usage    | Error    | Descriptor must be unique within a type
+[FLTFY14](docs/rules/FLTFY14.md) | Usage    | Info     | AllowNull is redundant for nullable properties
+[FLTFY15](docs/rules/FLTFY15.md) | Usage    | Info     | MaybeNull is redundant for nullable properties
+[FLTFY16](docs/rules/FLTFY16.md) | Usage    | Info     | DisallowNull is redundant for non-nullable properties
 
 ## Building a Service
 

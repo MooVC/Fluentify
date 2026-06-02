@@ -142,6 +142,8 @@ public static partial class Classes
                             .ToArray();
                     }
 
+                    value.ThrowIfNull("value");
+
                     return new global::Fluentify.Classes.Testing.InvalidDescriptor
                     {
                         Age = subject.Age,
@@ -168,6 +170,8 @@ public static partial class Classes
                     string value)
                 {
                     subject.ThrowIfNull("subject");
+
+                    value.ThrowIfNull("value");
 
                     return new global::Fluentify.Classes.Testing.InvalidDescriptor
                     {
@@ -198,7 +202,9 @@ public static partial class Classes
 
                     var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
                     var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
+                    attributesValue.ThrowIfNull("attributes");
                     var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+                    nameValue.ThrowIfNull("name");
 
                     return new global::Fluentify.Classes.Testing.InvalidDescriptor
                     {

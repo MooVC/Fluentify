@@ -47,7 +47,9 @@ public static partial class Classes
 
                     var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
                     var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
+                    attributesValue.ThrowIfNull("attributes");
                     var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+                    nameValue.ThrowIfNull("name");
 
                     return new global::Fluentify.Classes.Testing.AllThreeIgnored
                     {

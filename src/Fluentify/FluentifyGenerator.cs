@@ -100,7 +100,14 @@ public abstract partial class FluentifyGenerator<T>
         {
             string? GetScalar(Property property)
             {
-                return GetScalarExtensionMethodBody(property, subject);
+                string? body = GetScalarExtensionMethodBody(property, subject);
+
+                if (body is null)
+                {
+                    return default;
+                }
+
+                return property.AddValueNullCheck(body, "value", "value");
             }
 
             string content = property.GetExtensions(ref metadata, GetScalar);

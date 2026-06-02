@@ -168,6 +168,8 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
         
+                    value.ThrowIfNull("value");
+
                     return new global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3>
                     {
                         Age = subject.Age,
@@ -238,6 +240,8 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
+                    value.ThrowIfNull("value");
+
                     return new global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3>
                     {
                         Age = subject.Age,
@@ -270,7 +274,9 @@ public static partial class Classes
 
                     var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
                     var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
+                    attributesValue.ThrowIfNull("attributes");
                     var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+                    nameValue.ThrowIfNull("name");
 
                     return new global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3>
                     {

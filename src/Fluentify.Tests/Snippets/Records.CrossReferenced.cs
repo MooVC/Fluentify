@@ -74,6 +74,8 @@ public static partial class Records
                 {
                     subject.ThrowIfNull("subject");
 
+                    value.ThrowIfNull("value");
+
                     return subject with
                     {
                         Description = value,
@@ -138,6 +140,8 @@ public static partial class Records
                     global::Fluentify.Records.Testing.Simple value)
                 {
                     subject.ThrowIfNull("subject");
+
+                    value.ThrowIfNull("value");
 
                     return subject with
                     {

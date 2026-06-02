@@ -196,6 +196,8 @@ public static partial class Records
                 {
                     subject.ThrowIfNull("subject");
 
+                    value.ThrowIfNull("value");
+
                     return subject with
                     {
                         Attributes = value,

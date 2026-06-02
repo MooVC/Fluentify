@@ -114,6 +114,8 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
+                    value.ThrowIfNull("value");
+
                     return new global::Fluentify.Classes.Testing.SkipAutoInitializationOnType
                     {
                         Age = subject.Age,
@@ -141,6 +143,7 @@ public static partial class Classes
 
                     var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
                     var dependencyValue = ReferenceEquals(dependency, null) ? subject.Dependency : dependency();
+                    dependencyValue.ThrowIfNull("dependency");
 
                     return new global::Fluentify.Classes.Testing.SkipAutoInitializationOnType
                     {

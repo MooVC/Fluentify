@@ -4,6 +4,16 @@ All notable changes to Fluentify will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [Unreleased]
+
+## Added
+
+- `FLTFY14`, `FLTFY15`, and `FLTFY16` now suggest removing redundant `AllowNull`, `MaybeNull`, and `DisallowNull` annotations on properties considered by Fluentify.
+
+## Changed
+
+- Generated extensions now throw `ArgumentNullException` when assigning `null` to non-nullable properties, unless the property allows null assignment through `AllowNull` or `MaybeNull`; nullable properties only throw when annotated with `DisallowNull`.
+
 # [2.3.1] - 2026-05-31
 
 ## Fixed
@@ -157,7 +167,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Changed
 
-- The Descriptor attribute can now direct Fluentify to use the delcared name as the Descriptor without having to repeat the declared name (#9). 
+- The Descriptor attribute can now direct Fluentify to use the delcared name as the Descriptor without having to repeat the declared name (#9).
 
 # [1.1.1] - 2024-08-15
 

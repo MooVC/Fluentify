@@ -61,6 +61,7 @@ internal static partial class INamedTypeSymbolExtensions
             IsIgnored = isIgnored,
             Kind = kind,
             Name = property.Name,
+            ThrowsWhenValueIsNull = property.ThrowsWhenValueIsNull(),
         };
     }
 }

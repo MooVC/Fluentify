@@ -121,8 +121,15 @@ internal static partial class SubjectExtensions
         {
             string name = ToParameterName(property.Name);
             string valueName = $"{name}Value";
+            string parameterName = name.TrimStart('@');
+            string nullCheck = property.GetValueNullCheck(valueName, parameterName);
 
             values = values.AppendLine($"var {valueName} = ReferenceEquals({name}, null) ? subject.{property.Name} : {name}();");
+
+            if (!string.IsNullOrEmpty(nullCheck))
+            {
+                values = values.AppendLine(nullCheck);
+            }
         }
 
         return values.ToString().TrimEnd();
