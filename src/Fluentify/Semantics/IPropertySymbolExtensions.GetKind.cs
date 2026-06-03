@@ -19,6 +19,7 @@ internal static partial class IPropertySymbolExtensions
     private const string ImmutableList = "global::System.Collections.Immutable.ImmutableList<T>";
     private const string ImmutableSortedSet = "global::System.Collections.Immutable.ImmutableSortedSet<T>";
     private const string NonGenericCollection = "global::System.Collections.ICollection";
+    private const string NonGenericEnumerable = "global::System.Collections.IEnumerable";
     private const string NonGenericList = "global::System.Collections.IList";
     private const int ExpectedArgumentsForCollectionType = 1;
 
@@ -65,9 +66,11 @@ internal static partial class IPropertySymbolExtensions
         string typeInitialization = initialization;
         bool hasTypeInitialization = !hasInitialization && property.Type.TryGetInitialization(out typeInitialization);
 
-        bool isBuildable = property.Type.IsBuildable(compilation, cancellationToken)
-            || hasInitialization
-            || hasTypeInitialization;
+        bool isOnlyNonGenericCollection = property.IsOnlyNonGenericCollectionType();
+        bool isBuildable = !isOnlyNonGenericCollection
+            && (property.Type.IsBuildable(compilation, cancellationToken)
+                || hasInitialization
+                || hasTypeInitialization);
 
         string effectiveInitialization = hasInitialization
             ? initialization
@@ -79,7 +82,7 @@ internal static partial class IPropertySymbolExtensions
             Type = new()
             {
                 Initialization = GetInitialization(effectiveInitialization, property.Type),
-                IsFrameworkType = property.Type.IsFrameworkType(),
+                IsFrameworkType = isOnlyNonGenericCollection || property.Type.IsFrameworkType(),
                 IsNullable = property.Type.IsNullable(),
                 IsValueType = property.Type.IsValueType(),
                 Name = property.Type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat),
@@ -133,15 +136,7 @@ internal static partial class IPropertySymbolExtensions
             return true;
         }
 
-        if (!property.IsNonGenericType(NonGenericCollection, NonGenericList))
-        {
-            return false;
-        }
-
-        kind.Pattern = Pattern.Enumerable;
-        kind.Member = GetType(compilation, compilation.GetSpecialType(SpecialType.System_Object), cancellationToken);
-
-        return true;
+        return false;
     }
 
     private static Type GetType(Compilation compilation, ITypeSymbol type, CancellationToken cancellationToken)
@@ -184,6 +179,26 @@ internal static partial class IPropertySymbolExtensions
         name = type.ToDisplayString(NullableFlowState.NotNull, _fullyQualifiedNonNullable);
 
         return initializer(name);
+    }
+
+    private static bool HasGenericCollectionType(this IPropertySymbol property)
+    {
+        if (property.Type is INamedTypeSymbol type
+            && type.TypeArguments.Length == ExpectedArgumentsForCollectionType
+            && type.OriginalDefinition.IsType(_collections))
+        {
+            return true;
+        }
+
+        return property.Type.AllInterfaces
+            .Where(@interface => @interface.TypeArguments.Length == ExpectedArgumentsForCollectionType)
+            .Any(@interface => @interface.OriginalDefinition.IsType(_collections));
+    }
+
+    private static bool IsOnlyNonGenericCollectionType(this IPropertySymbol property)
+    {
+        return property.IsNonGenericType(NonGenericCollection, NonGenericEnumerable, NonGenericList)
+            && !property.HasGenericCollectionType();
     }
 
     private static bool IsType(this IPropertySymbol property, out ITypeSymbol element, params string[] names)
