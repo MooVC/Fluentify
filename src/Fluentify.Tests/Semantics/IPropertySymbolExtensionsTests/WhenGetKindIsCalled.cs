@@ -56,7 +56,7 @@ public sealed class WhenGetKindIsCalled
     }
 
     [Fact]
-    public void GivenNonGenericCollectionPropertyThenKindIsEnumerable()
+    public void GivenNonGenericCollectionPropertyThenKindIsScalar()
     {
         // Arrange
         IPropertySymbol property = GetProperty("NonGenericCollectionItems");
@@ -65,12 +65,26 @@ public sealed class WhenGetKindIsCalled
         Kind kind = property.GetKind(_compilation, CancellationToken.None);
 
         // Assert
-        kind.Pattern.ShouldBe(Pattern.Enumerable);
-        kind.Member.Name.ShouldBe("object");
+        kind.Pattern.ShouldBe(Pattern.Scalar);
+        kind.Type.IsFrameworkType.ShouldBeTrue();
     }
 
     [Fact]
-    public void GivenNonGenericListPropertyThenKindIsEnumerable()
+    public void GivenNonGenericEnumerablePropertyThenKindIsScalar()
+    {
+        // Arrange
+        IPropertySymbol property = GetProperty("NonGenericEnumerableItems");
+
+        // Act
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
+
+        // Assert
+        kind.Pattern.ShouldBe(Pattern.Scalar);
+        kind.Type.IsFrameworkType.ShouldBeTrue();
+    }
+
+    [Fact]
+    public void GivenNonGenericListPropertyThenKindIsScalar()
     {
         // Arrange
         IPropertySymbol property = GetProperty("NonGenericListItems");
@@ -79,8 +93,23 @@ public sealed class WhenGetKindIsCalled
         Kind kind = property.GetKind(_compilation, CancellationToken.None);
 
         // Assert
-        kind.Pattern.ShouldBe(Pattern.Enumerable);
-        kind.Member.Name.ShouldBe("object");
+        kind.Pattern.ShouldBe(Pattern.Scalar);
+        kind.Type.IsFrameworkType.ShouldBeTrue();
+    }
+
+    [Fact]
+    public void GivenOnlyNonGenericCollectionImplementationThenKindIsScalar()
+    {
+        // Arrange
+        IPropertySymbol property = GetProperty("NonGenericOnlyItems");
+
+        // Act
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
+
+        // Assert
+        kind.Pattern.ShouldBe(Pattern.Scalar);
+        kind.Type.IsBuildable.ShouldBeFalse();
+        kind.Type.IsFrameworkType.ShouldBeTrue();
     }
 
     [Fact]
@@ -161,6 +190,7 @@ public sealed class WhenGetKindIsCalled
 
             namespace Demo
             {
+                using System;
                 using System.Collections;
                 using System.Collections.Generic;
                 using System.Collections.Immutable;
@@ -179,6 +209,24 @@ public sealed class WhenGetKindIsCalled
                     }
                 }
 
+                public sealed class NonGenericOnlyCollection : ICollection
+                {
+                    public int Count => 0;
+
+                    public bool IsSynchronized => false;
+
+                    public object SyncRoot => this;
+
+                    public void CopyTo(Array array, int index)
+                    {
+                    }
+
+                    public IEnumerator GetEnumerator()
+                    {
+                        yield break;
+                    }
+                }
+
                 public sealed class Sample
                 {
                     public Element[] ArrayItems { get; } = new Element[0];
@@ -191,7 +239,11 @@ public sealed class WhenGetKindIsCalled
 
                     public ICollection NonGenericCollectionItems { get; } = new ArrayList();
 
+                    public IEnumerable NonGenericEnumerableItems { get; } = new ArrayList();
+
                     public IList NonGenericListItems { get; } = new ArrayList();
+
+                    public NonGenericOnlyCollection NonGenericOnlyItems { get; } = new NonGenericOnlyCollection();
 
                     public Element? NullableElement { get; } = default;
 
