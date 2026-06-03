@@ -127,6 +127,21 @@ public sealed class WhenGetKindIsCalled
     }
 
     [Fact]
+    public void GivenInitializedListImplementationThenKindIsCollection()
+    {
+        // Arrange
+        IPropertySymbol property = GetProperty("InitializedListItems");
+
+        // Act
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
+
+        // Assert
+        kind.Pattern.ShouldBe(Pattern.Collection);
+        kind.Type.Initialization.ShouldBe("global::Demo.InitializedList.Create()");
+        kind.Member.Name.ShouldBe("global::Demo.Element");
+    }
+
+    [Fact]
     public void GivenNullablePropertyThenInitializationUsesNonNullableType()
     {
         // Arrange
@@ -209,6 +224,19 @@ public sealed class WhenGetKindIsCalled
                     }
                 }
 
+                [Fluentify.AutoInitializeWith(nameof(Create))]
+                public sealed class InitializedList : List<Element>
+                {
+                    private InitializedList()
+                    {
+                    }
+
+                    public static InitializedList Create()
+                    {
+                        return new InitializedList();
+                    }
+                }
+
                 public sealed class NonGenericOnlyCollection : ICollection
                 {
                     public int Count => 0;
@@ -234,6 +262,8 @@ public sealed class WhenGetKindIsCalled
                     public BuildableCollection CollectionItems { get; } = new BuildableCollection();
 
                     public ImmutableArray<Element> ImmutableItems { get; } = ImmutableArray<Element>.Empty;
+
+                    public InitializedList InitializedListItems { get; } = InitializedList.Create();
 
                     public IList<Element> ListItems { get; } = new List<Element>();
 

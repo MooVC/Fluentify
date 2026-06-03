@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Fixed
 
 - Builder extensions are no longer generated for properties whose type only exposes non-generic collection interfaces such as `ICollection`, `IEnumerable`, or `IList`, because Fluentify cannot infer the intended element type. **Breaking Change**
+- Extensions for collection properties no longer attempt to initialize the collection if the type has no nominated initializer via `AutoInitializeWith` and the type has no accessible default constructor.
 - Extensions for collection properties now throw `ArgumentNullException` when a `null` value is passed opposed to `NullReferenceException`.
 
 # [2.3.1] - 2026-05-31

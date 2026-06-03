@@ -169,7 +169,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
-                    Initialization = "new TestType()",
+                    Initialization = "new List<TestType>()",
                     Name = "List<TestType>",
                 },
             },
@@ -188,6 +188,60 @@ public sealed partial class WhenGetExtensionsIsCalled
 
         // Assert
         result.ShouldBe(expected);
+    }
+
+    [Fact]
+    public void GivenCollectionWithExplicitInitializationThenInitializationIsUsed()
+    {
+        // Arrange
+        const string Scalar = "return subject;";
+
+        var subject = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Name = "TestSubject",
+            Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
+        };
+
+        var property = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "WithTestProperty",
+            Kind = new()
+            {
+                Member = new()
+                {
+                    IsFrameworkType = true,
+                    IsValueType = true,
+                    Name = "int",
+                },
+                Pattern = Pattern.Collection,
+                Type = new()
+                {
+                    Initialization = "global::Demo.CustomItems.Create()",
+                    Name = "global::Demo.CustomItems",
+                },
+            },
+            Name = "TestProperty",
+        };
+
+        var metadata = new Metadata
+        {
+            Constraints = [],
+            Parameters = string.Empty,
+            Subject = subject,
+        };
+
+        // Act
+        string result = property.GetExtensions(ref metadata, _ => Scalar);
+
+        // Assert
+        result.ShouldContain("global::Demo.CustomItems value = global::Demo.CustomItems.Create();");
+        result.ShouldNotContain("new global::Demo.CustomItems()");
     }
 
     [Theory]
@@ -258,7 +312,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
-                    Initialization = "new int()",
+                    Initialization = "new List<int>()",
                     IsFrameworkType = true,
                     Name = "List<int>",
                 },
@@ -349,7 +403,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
-                    Initialization = "new int()",
+                    Initialization = "new List<int>()",
                     IsFrameworkType = true,
                     IsNullable = true,
                     Name = "List<int>",
@@ -441,7 +495,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
-                    Initialization = "new int()",
+                    Initialization = "new List<int>()",
                     IsFrameworkType = true,
                     Name = "List<int>",
                 },
