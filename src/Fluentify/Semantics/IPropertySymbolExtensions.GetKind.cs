@@ -18,6 +18,7 @@ internal static partial class IPropertySymbolExtensions
     private const string ImmutableHashSet = "global::System.Collections.Immutable.ImmutableHashSet<T>";
     private const string ImmutableList = "global::System.Collections.Immutable.ImmutableList<T>";
     private const string ImmutableSortedSet = "global::System.Collections.Immutable.ImmutableSortedSet<T>";
+    private const string ImmutableInterfacePrefix = "IImmutable";
     private const string NonGenericCollection = "global::System.Collections.ICollection";
     private const string NonGenericEnumerable = "global::System.Collections.IEnumerable";
     private const string NonGenericList = "global::System.Collections.IList";
@@ -39,8 +40,8 @@ internal static partial class IPropertySymbolExtensions
     private static readonly IsMatch[] _strategies =
     [
         IsArray,
-        IsCollection,
         IsEnumerable,
+        IsCollection,
     ];
 
     private static readonly SymbolDisplayFormat _fullyQualifiedNonNullable = new(
@@ -113,7 +114,8 @@ internal static partial class IPropertySymbolExtensions
 
     private static bool IsCollection(Compilation compilation, Kind kind, IPropertySymbol property, CancellationToken cancellationToken)
     {
-        if (!(kind.Type.IsBuildable && property.IsType(out ITypeSymbol type, Collection)))
+        if (property.HasImmutableCollectionContract()
+            || !(kind.Type.IsBuildable && property.IsType(out ITypeSymbol type, Collection)))
         {
             return false;
         }
@@ -193,6 +195,18 @@ internal static partial class IPropertySymbolExtensions
         return property.Type.AllInterfaces
             .Where(@interface => @interface.TypeArguments.Length == ExpectedArgumentsForCollectionType)
             .Any(@interface => @interface.OriginalDefinition.IsType(_collections));
+    }
+
+    private static bool HasImmutableCollectionContract(this IPropertySymbol property)
+    {
+        return property.Type.IsImmutableCollectionContract()
+            || property.Type.AllInterfaces.Any(@interface => @interface.IsImmutableCollectionContract());
+    }
+
+    private static bool IsImmutableCollectionContract(this ITypeSymbol type)
+    {
+        return type is INamedTypeSymbol named
+            && named.Name.StartsWith(ImmutableInterfacePrefix, StringComparison.Ordinal);
     }
 
     private static bool IsOnlyNonGenericCollectionType(this IPropertySymbol property)

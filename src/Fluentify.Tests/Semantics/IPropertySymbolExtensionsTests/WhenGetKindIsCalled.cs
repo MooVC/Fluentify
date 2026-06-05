@@ -127,6 +127,33 @@ public sealed class WhenGetKindIsCalled
     }
 
     [Fact]
+    public void GivenImmutableCollectionContractPropertyThenKindIsScalar()
+    {
+        // Arrange
+        IPropertySymbol property = GetProperty("ImmutableInterfaceItems");
+
+        // Act
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
+
+        // Assert
+        kind.Pattern.ShouldBe(Pattern.Scalar);
+    }
+
+    [Fact]
+    public void GivenInitializedImmutableListPropertyThenKindIsEnumerable()
+    {
+        // Arrange
+        IPropertySymbol property = GetProperty("ImmutableListItems");
+
+        // Act
+        Kind kind = property.GetKind(_compilation, CancellationToken.None);
+
+        // Assert
+        kind.Pattern.ShouldBe(Pattern.Enumerable);
+        kind.Member.Name.ShouldBe("global::Demo.Element");
+    }
+
+    [Fact]
     public void GivenInitializedListImplementationThenKindIsCollection()
     {
         // Arrange
@@ -255,6 +282,10 @@ public sealed class WhenGetKindIsCalled
                     }
                 }
 
+                public interface IImmutableArray<T> : ICollection<T>
+                {
+                }
+
                 public sealed class Sample
                 {
                     public Element[] ArrayItems { get; } = new Element[0];
@@ -262,6 +293,12 @@ public sealed class WhenGetKindIsCalled
                     public BuildableCollection CollectionItems { get; } = new BuildableCollection();
 
                     public ImmutableArray<Element> ImmutableItems { get; } = ImmutableArray<Element>.Empty;
+
+                    [Fluentify.AutoInitializeWith(nameof(CreateImmutableInterfaceItems))]
+                    public IImmutableArray<Element> ImmutableInterfaceItems { get; } = CreateImmutableInterfaceItems();
+
+                    [Fluentify.AutoInitializeWith(nameof(CreateImmutableListItems))]
+                    public ImmutableList<Element> ImmutableListItems { get; } = CreateImmutableListItems();
 
                     public InitializedList InitializedListItems { get; } = InitializedList.Create();
 
@@ -279,6 +316,16 @@ public sealed class WhenGetKindIsCalled
 
                     [Fluentify.SkipAutoInitialization]
                     public Element SkipAutoInitializationElement { get; } = new Element();
+
+                    public static IImmutableArray<Element> CreateImmutableInterfaceItems()
+                    {
+                        return default!;
+                    }
+
+                    public static ImmutableList<Element> CreateImmutableListItems()
+                    {
+                        return ImmutableList<Element>.Empty;
+                    }
                 }
             }
             """);
