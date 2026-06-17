@@ -21,7 +21,7 @@ public sealed class InternalExtensionsGenerator
 
             internal static class Extensions
             {
-                public static void ThrowIfNull(this object subject, string paramName)
+                public static void ThrowIfNull<T>(this T subject, string paramName)
                 {
                     if (subject == null)
                     {

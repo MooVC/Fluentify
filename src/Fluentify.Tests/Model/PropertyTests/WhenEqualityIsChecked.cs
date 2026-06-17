@@ -262,6 +262,47 @@ public abstract class WhenEqualityIsChecked
     }
 
     [Fact]
+    public void GivenDifferentThrowsWhenValueIsNullThenTheyAreNotEqual()
+    {
+        // Arrange
+        var instance1 = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "descriptor",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
+            Name = "PropertyName",
+            ThrowsWhenValueIsNull = true,
+        };
+        var instance2 = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "descriptor",
+            IsIgnored = true,
+            Kind = new()
+            {
+                Type = new()
+                {
+                    Name = "string",
+                },
+            },
+            Name = "PropertyName",
+        };
+
+        // Act
+        bool areEqual = AreEqual(instance1, instance2);
+
+        // Assert
+        areEqual.ShouldBeFalse();
+    }
+
+    [Fact]
     public void GivenIdenticalInstancesThenTheyAreEqual()
     {
         // Arrange

@@ -87,7 +87,6 @@ public static partial class Classes
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -101,7 +100,6 @@ public static partial class Classes
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.Attributes;
@@ -122,6 +120,8 @@ public static partial class Classes
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");
+
+                    value.ThrowIfNull("value");
 
                     return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {
@@ -150,6 +150,8 @@ public static partial class Classes
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");
+
+                    value.ThrowIfNull("value");
 
                     return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {
@@ -182,6 +184,9 @@ public static partial class Classes
                     var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
                     var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
                     var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+
+                    attributesValue.ThrowIfNull("attributes");
+                    nameValue.ThrowIfNull("name");
 
                     return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {

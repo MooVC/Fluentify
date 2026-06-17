@@ -87,7 +87,6 @@ public static partial class Records
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -103,7 +102,6 @@ public static partial class Records
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.Age;
@@ -156,7 +154,6 @@ public static partial class Records
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -172,7 +169,6 @@ public static partial class Records
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.Attributes;
@@ -195,6 +191,8 @@ public static partial class Records
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
+
+                    value.ThrowIfNull("value");
 
                     return subject with
                     {
@@ -230,7 +228,6 @@ public static partial class Records
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -246,7 +243,6 @@ public static partial class Records
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.Name;

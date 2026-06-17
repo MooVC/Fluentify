@@ -48,6 +48,8 @@ public static partial class Classes
                 {
                     subject.ThrowIfNull("subject");
 
+                    value.ThrowIfNull("value");
+
                     return new global::Fluentify.Classes.Testing.CrossReferenced
                     {
                         Description = value,
@@ -74,7 +76,6 @@ public static partial class Classes
                     Func<global::Fluentify.Classes.Testing.Simple, global::Fluentify.Classes.Testing.Simple> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -87,7 +88,6 @@ public static partial class Classes
                     Func<global::Fluentify.Classes.Testing.Simple, global::Fluentify.Classes.Testing.Simple> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.Simple;
@@ -107,6 +107,8 @@ public static partial class Classes
                     global::Fluentify.Classes.Testing.Simple value)
                 {
                     subject.ThrowIfNull("subject");
+
+                    value.ThrowIfNull("value");
 
                     return new global::Fluentify.Classes.Testing.CrossReferenced
                     {
@@ -135,6 +137,9 @@ public static partial class Classes
 
                     var descriptionValue = ReferenceEquals(description, null) ? subject.Description : description();
                     var simpleValue = ReferenceEquals(simple, null) ? subject.Simple : simple();
+
+                    descriptionValue.ThrowIfNull("description");
+                    simpleValue.ThrowIfNull("simple");
 
                     return new global::Fluentify.Classes.Testing.CrossReferenced
                     {

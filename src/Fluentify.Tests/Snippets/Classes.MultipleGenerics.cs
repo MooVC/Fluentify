@@ -63,7 +63,6 @@ public static partial class Classes
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -79,7 +78,6 @@ public static partial class Classes
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.Age;
@@ -116,7 +114,7 @@ public static partial class Classes
             using System.Collections.Generic;
             using System.Linq;
             using Fluentify.Internal;
-        
+
             public static partial class MultipleGenericsExtensions
             {
                 public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAttributes<T1, T2, T3>(
@@ -128,7 +126,6 @@ public static partial class Classes
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -144,21 +141,20 @@ public static partial class Classes
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-        
                     builder.ThrowIfNull("builder");
-        
+
                     var instance = subject.Attributes;
-        
+
                     if (ReferenceEquals(instance, null))
                     {
                         throw new NotSupportedException();
                     }
-        
+
                     instance = builder(instance);
-        
+
                     return subject.WithAttributes(instance);
                 }
-        
+
                 public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAttributes<T1, T2, T3>(
                     this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject,
                     T3 value)
@@ -167,7 +163,9 @@ public static partial class Classes
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-        
+
+                    value.ThrowIfNull("value");
+
                     return new global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3>
                     {
                         Age = subject.Age,
@@ -198,7 +196,6 @@ public static partial class Classes
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -214,7 +211,6 @@ public static partial class Classes
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.Name;
@@ -237,6 +233,8 @@ public static partial class Classes
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
                     subject.ThrowIfNull("subject");
+
+                    value.ThrowIfNull("value");
 
                     return new global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3>
                     {
@@ -271,6 +269,9 @@ public static partial class Classes
                     var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
                     var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
                     var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+
+                    attributesValue.ThrowIfNull("attributes");
+                    nameValue.ThrowIfNull("name");
 
                     return new global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3>
                     {

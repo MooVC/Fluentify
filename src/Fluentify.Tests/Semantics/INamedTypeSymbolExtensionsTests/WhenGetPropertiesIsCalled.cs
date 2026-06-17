@@ -425,7 +425,16 @@ public sealed class WhenGetPropertiesIsCalled
 
         // Assert
         actual.Count.ShouldBe(expected.Length);
+        ClearThrowsWhenValueIsNull(actual);
         actual.ShouldBeSubsetOf(expected);
+    }
+
+    private static void ClearThrowsWhenValueIsNull(IReadOnlyList<Property> properties)
+    {
+        foreach (Property property in properties)
+        {
+            property.ThrowsWhenValueIsNull = false;
+        }
     }
 
     private static Property GetAttributes(bool isNullable, string descriptor = "WithAttributes")

@@ -116,7 +116,6 @@ public static partial class Records
                     Func<global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent, global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -129,7 +128,6 @@ public static partial class Records
                     Func<global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent, global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.Dependency;
@@ -149,6 +147,8 @@ public static partial class Records
                     global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent value)
                 {
                     subject.ThrowIfNull("subject");
+
+                    value.ThrowIfNull("value");
 
                     return subject with
                     {

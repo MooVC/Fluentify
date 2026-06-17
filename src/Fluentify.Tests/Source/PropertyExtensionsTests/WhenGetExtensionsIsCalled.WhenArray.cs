@@ -76,17 +76,18 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
-            
+                    values.ThrowIfNull("values");
+
                     TestType[] value = values;
-            
+
                     if (subject.TestProperty != null)
                     {
                         value = new TestType[value.Length + subject.TestProperty.Length];
-            
+
                         subject.TestProperty.CopyTo(value, 0);
                         values.CopyTo(value, subject.TestProperty.Length);
                     }
-            
+
                     {{scalar}}
                 }
 
@@ -96,8 +97,8 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
+                    values.ThrowIfNull("values");
 
                     foreach (var value in values)
                     {
@@ -113,7 +114,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -126,7 +126,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = new TestType();
@@ -205,6 +204,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params int[] values)
                 {
                     subject.ThrowIfNull("subject");
+                    values.ThrowIfNull("values");
 
                     int[] value = values;
 
@@ -286,7 +286,8 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params int[] values)
                 {
                     subject.ThrowIfNull("subject");
-            
+                    values.ThrowIfNull("values");
+
                     int[]? value = values;
 
                     if (subject.TestProperty != null)
@@ -370,6 +371,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params int[] values)
                 {
                     subject.ThrowIfNull("subject");
+                    values.ThrowIfNull("values");
 
                     int[] value = values;
 

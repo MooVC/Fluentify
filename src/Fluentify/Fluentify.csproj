@@ -50,6 +50,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>IgnoreAttributeAnalyzer.Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="NullabilityAttributeAnalyzer.Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>NullabilityAttributeAnalyzer.Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="SkipAutoInitializationAttributeAnalyzer.Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -88,6 +93,10 @@
     <EmbeddedResource Update="IgnoreAttributeAnalyzer.Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>IgnoreAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="NullabilityAttributeAnalyzer.Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NullabilityAttributeAnalyzer.Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="SkipAutoInitializationAttributeAnalyzer.Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -2,6 +2,7 @@
 
 using Fluentify.Model;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 
 /// <summary>
 /// Provides extensions relating to <see cref="Property"/>.
@@ -103,11 +104,14 @@ internal static partial class PropertyExtensions
                     """;
             }
 
+            SyntaxTrivia separator = StartsWithParameterNullGuard(body)
+                ? SyntaxFactory.ElasticMarker
+                : SyntaxFactory.ElasticCarriageReturnLineFeed;
+
             return $$"""
                 {{signature}}
                 {
-                    subject.ThrowIfNull("subject");
-
+                    subject.ThrowIfNull("subject");{{separator}}
                     {{body.Indent()}}
                 }
                 """;
@@ -119,5 +123,11 @@ internal static partial class PropertyExtensions
             .ToArray();
 
         return string.Join("\r\n\r\n", methods);
+    }
+
+    private static bool StartsWithParameterNullGuard(string body)
+    {
+        return body.StartsWith("builder.ThrowIfNull")
+            || body.StartsWith("values.ThrowIfNull");
     }
 }

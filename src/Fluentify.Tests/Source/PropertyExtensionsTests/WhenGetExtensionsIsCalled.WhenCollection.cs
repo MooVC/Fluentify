@@ -76,9 +76,10 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
-            
+                    values.ThrowIfNull("values");
+
                     List<TestType> value = new List<TestType>();
-            
+
                     if (subject.TestProperty != null)
                     {
                         foreach (var element in subject.TestProperty)
@@ -86,7 +87,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                             value.Add(element);
                         }
                     }
-            
+
                     foreach (var element in values)
                     {
                         value.Add(element);
@@ -101,8 +102,8 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params TestType[] values)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
+                    values.ThrowIfNull("values");
 
                     foreach (var value in values)
                     {
@@ -118,7 +119,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -131,7 +131,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = new TestType();
@@ -170,7 +169,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
-                    Initialization = "new TestType()",
+                    Initialization = "new List<TestType>()",
                     Name = "List<TestType>",
                 },
             },
@@ -189,6 +188,60 @@ public sealed partial class WhenGetExtensionsIsCalled
 
         // Assert
         result.ShouldBe(expected);
+    }
+
+    [Fact]
+    public void GivenCollectionWithExplicitInitializationThenInitializationIsUsed()
+    {
+        // Arrange
+        const string Scalar = "return subject;";
+
+        var subject = new Subject
+        {
+            Accessibility = Accessibility.Public,
+            Name = "TestSubject",
+            Properties = [],
+            Type = new()
+            {
+                Name = "global::TestSubject",
+            },
+        };
+
+        var property = new Property
+        {
+            Accessibility = Accessibility.Public,
+            Descriptor = "WithTestProperty",
+            Kind = new()
+            {
+                Member = new()
+                {
+                    IsFrameworkType = true,
+                    IsValueType = true,
+                    Name = "int",
+                },
+                Pattern = Pattern.Collection,
+                Type = new()
+                {
+                    Initialization = "global::Demo.CustomItems.Create()",
+                    Name = "global::Demo.CustomItems",
+                },
+            },
+            Name = "TestProperty",
+        };
+
+        var metadata = new Metadata
+        {
+            Constraints = [],
+            Parameters = string.Empty,
+            Subject = subject,
+        };
+
+        // Act
+        string result = property.GetExtensions(ref metadata, _ => Scalar);
+
+        // Assert
+        result.ShouldContain("global::Demo.CustomItems value = global::Demo.CustomItems.Create();");
+        result.ShouldNotContain("new global::Demo.CustomItems()");
     }
 
     [Theory]
@@ -210,9 +263,10 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params int[] values)
                 {
                     subject.ThrowIfNull("subject");
+                    values.ThrowIfNull("values");
 
                     List<int> value = new List<int>();
-            
+
                     if (subject.TestProperty != null)
                     {
                         foreach (var element in subject.TestProperty)
@@ -220,7 +274,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                             value.Add(element);
                         }
                     }
-            
+
                     foreach (var element in values)
                     {
                         value.Add(element);
@@ -258,7 +312,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
-                    Initialization = "new int()",
+                    Initialization = "new List<int>()",
                     IsFrameworkType = true,
                     Name = "List<int>",
                 },
@@ -298,9 +352,10 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params int[] values)
                 {
                     subject.ThrowIfNull("subject");
-            
+                    values.ThrowIfNull("values");
+
                     List<int>? value = new List<int>();
-            
+
                     if (subject.TestProperty != null)
                     {
                         foreach (var element in subject.TestProperty)
@@ -308,7 +363,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                             value.Add(element);
                         }
                     }
-            
+
                     foreach (var element in values)
                     {
                         value.Add(element);
@@ -348,7 +403,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
-                    Initialization = "new int()",
+                    Initialization = "new List<int>()",
                     IsFrameworkType = true,
                     IsNullable = true,
                     Name = "List<int>",
@@ -390,9 +445,10 @@ public sealed partial class WhenGetExtensionsIsCalled
                     params int[] values)
                 {
                     subject.ThrowIfNull("subject");
+                    values.ThrowIfNull("values");
 
                     List<int> value = new List<int>();
-            
+
                     if (subject.TestProperty != null)
                     {
                         foreach (var element in subject.TestProperty)
@@ -400,7 +456,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                             value.Add(element);
                         }
                     }
-            
+
                     foreach (var element in values)
                     {
                         value.Add(element);
@@ -439,7 +495,7 @@ public sealed partial class WhenGetExtensionsIsCalled
                 Pattern = Pattern.Collection,
                 Type = new()
                 {
-                    Initialization = "new int()",
+                    Initialization = "new List<int>()",
                     IsFrameworkType = true,
                     Name = "List<int>",
                 },

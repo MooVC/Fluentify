@@ -115,7 +115,6 @@ public static partial class Records
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -129,7 +128,6 @@ public static partial class Records
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.Attributes;
@@ -182,6 +180,8 @@ public static partial class Records
                     where T : global::System.Collections.IEnumerable
                 {
                     subject.ThrowIfNull("subject");
+
+                    value.ThrowIfNull("value");
 
                     return subject with
                     {

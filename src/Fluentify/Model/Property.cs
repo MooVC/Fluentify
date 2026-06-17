@@ -57,4 +57,12 @@ internal sealed partial class Property
     /// The name of the property as defined within the subject.
     /// </value>
     public string Name { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether a value assigned to the property should throw when it is null.
+    /// </summary>
+    /// <value>
+    /// A value indicating whether a value assigned to the property should throw when it is null.
+    /// </value>
+    public bool ThrowsWhenValueIsNull { get; set; }
 }

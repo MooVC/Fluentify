@@ -71,7 +71,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -84,7 +83,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.TestProperty;
@@ -303,7 +301,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -316,7 +313,6 @@ public sealed partial class WhenGetExtensionsIsCalled
                     Func<TestType, TestType> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.TestProperty;

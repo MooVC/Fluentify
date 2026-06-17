@@ -115,17 +115,37 @@ internal static partial class SubjectExtensions
     [SuppressMessage("Minor Code Smell", "S3267:Loops should be simplified with \"LINQ\" expressions", Justification = "False positive.")]
     private static string BuildValues(IReadOnlyList<Property> properties)
     {
+        var checks = new StringBuilder();
         var values = new StringBuilder();
 
         foreach (Property property in properties)
         {
             string name = ToParameterName(property.Name);
             string valueName = $"{name}Value";
+            string parameterName = name.TrimStart('@');
+            string check = property.GetValueNullCheck(valueName, parameterName);
 
             values = values.AppendLine($"var {valueName} = ReferenceEquals({name}, null) ? subject.{property.Name} : {name}();");
+
+            if (!string.IsNullOrEmpty(check))
+            {
+                checks = checks.AppendLine(check);
+            }
         }
 
-        return values.ToString().TrimEnd();
+        string assignments = values.ToString().TrimEnd();
+        string assertions = checks.ToString().TrimEnd();
+
+        if (string.IsNullOrEmpty(assertions))
+        {
+            return assignments;
+        }
+
+        return $$"""
+            {{assignments}}
+
+            {{assertions}}
+            """;
     }
 
     private static string ToParameterName(string name)

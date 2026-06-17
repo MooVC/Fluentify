@@ -125,6 +125,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
+        ClearThrowsWhenValueIsNull(actual);
         actual.ShouldBe(expected);
     }
 
@@ -182,6 +183,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
+        ClearThrowsWhenValueIsNull(actual);
         actual.ShouldBe(expected);
     }
 
@@ -257,6 +259,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
+        ClearThrowsWhenValueIsNull(actual);
         actual.ShouldBe(expected);
     }
 
@@ -351,6 +354,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
+        ClearThrowsWhenValueIsNull(actual);
         actual.ShouldBe(expected);
     }
 
@@ -427,6 +431,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
+        ClearThrowsWhenValueIsNull(actual);
         actual.ShouldBe(expected);
     }
 
@@ -502,6 +507,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
+        ClearThrowsWhenValueIsNull(actual);
         actual.ShouldBe(expected);
     }
 
@@ -581,6 +587,7 @@ public sealed class WhenToSubjectIsCalled
         var actual = definition.Syntax.ToSubject(compilation, true, CancellationToken.None);
 
         // Assert
+        ClearThrowsWhenValueIsNull(actual);
         actual.ShouldBe(expected);
     }
 
@@ -606,5 +613,18 @@ public sealed class WhenToSubjectIsCalled
 
         // Assert
         subject.ShouldBeNull();
+    }
+
+    private static void ClearThrowsWhenValueIsNull(Subject? subject)
+    {
+        if (subject is null)
+        {
+            return;
+        }
+
+        foreach (Property property in subject.Properties)
+        {
+            property.ThrowsWhenValueIsNull = false;
+        }
     }
 }

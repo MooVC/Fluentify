@@ -12,7 +12,7 @@ public static partial class Classes
             {
                 [Descriptor]
                 public int Age { get; set; }
-        
+
                 [Descriptor("")]
                 public string Name { get; set; }
 
@@ -86,8 +86,8 @@ public static partial class Classes
                     params object[] values)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
+                    values.ThrowIfNull("values");
 
                     foreach (var value in values)
                     {
@@ -103,7 +103,6 @@ public static partial class Classes
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -116,7 +115,6 @@ public static partial class Classes
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = new object();
@@ -131,6 +129,7 @@ public static partial class Classes
                     params object[] values)
                 {
                     subject.ThrowIfNull("subject");
+                    values.ThrowIfNull("values");
 
                     global::System.Collections.Generic.IReadOnlyList<object> value = values;
 
@@ -140,6 +139,8 @@ public static partial class Classes
                             .Union(values)
                             .ToArray();
                     }
+
+                    value.ThrowIfNull("value");
 
                     return new global::Fluentify.Classes.Testing.SelfDescriptorOnRequired
                     {
@@ -167,6 +168,8 @@ public static partial class Classes
                     string value)
                 {
                     subject.ThrowIfNull("subject");
+
+                    value.ThrowIfNull("value");
 
                     return new global::Fluentify.Classes.Testing.SelfDescriptorOnRequired
                     {
@@ -198,6 +201,9 @@ public static partial class Classes
                     var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
                     var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
                     var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+
+                    attributesValue.ThrowIfNull("attributes");
+                    nameValue.ThrowIfNull("name");
 
                     return new global::Fluentify.Classes.Testing.SelfDescriptorOnRequired
                     {

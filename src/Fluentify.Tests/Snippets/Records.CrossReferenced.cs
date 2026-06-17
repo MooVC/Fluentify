@@ -74,6 +74,8 @@ public static partial class Records
                 {
                     subject.ThrowIfNull("subject");
 
+                    value.ThrowIfNull("value");
+
                     return subject with
                     {
                         Description = value,
@@ -105,7 +107,6 @@ public static partial class Records
                     Func<global::Fluentify.Records.Testing.Simple, global::Fluentify.Records.Testing.Simple> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -118,7 +119,6 @@ public static partial class Records
                     Func<global::Fluentify.Records.Testing.Simple, global::Fluentify.Records.Testing.Simple> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = subject.Simple;
@@ -138,6 +138,8 @@ public static partial class Records
                     global::Fluentify.Records.Testing.Simple value)
                 {
                     subject.ThrowIfNull("subject");
+
+                    value.ThrowIfNull("value");
 
                     return subject with
                     {

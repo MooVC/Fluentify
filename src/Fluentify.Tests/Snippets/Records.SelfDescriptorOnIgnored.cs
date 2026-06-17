@@ -107,8 +107,8 @@ public static partial class Records
                     params object[] values)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
+                    values.ThrowIfNull("values");
 
                     foreach (var value in values)
                     {
@@ -124,7 +124,6 @@ public static partial class Records
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     instance = builder(instance);
@@ -137,7 +136,6 @@ public static partial class Records
                     Func<object, object> builder)
                 {
                     subject.ThrowIfNull("subject");
-
                     builder.ThrowIfNull("builder");
 
                     var instance = new object();
@@ -152,6 +150,7 @@ public static partial class Records
                     params object[] values)
                 {
                     subject.ThrowIfNull("subject");
+                    values.ThrowIfNull("values");
 
                     global::System.Collections.Generic.IReadOnlyList<object>? value = values;
 
