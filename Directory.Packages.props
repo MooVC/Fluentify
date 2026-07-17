@@ -10,7 +10,7 @@
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing" Version="1.1.4" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="[4.0.1,4.1.0)" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Workspaces.Common" Version="[4.0.1,4.1.0)" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.0" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
     <PackageVersion Include="NSubstitute" Version="6.0.0" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.29.0.143774" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
