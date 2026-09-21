@@ -71,7 +71,7 @@ jobs:
       run: dotnet test ${{ env.solution }} --configuration ${{ env.configuration }} --no-build
 
     - name: Upload Code Coverage
-      uses: codecov/codecov-action@0b35c9ecc4f0529d0eb674914510c22f85b196b4
+      uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
 
