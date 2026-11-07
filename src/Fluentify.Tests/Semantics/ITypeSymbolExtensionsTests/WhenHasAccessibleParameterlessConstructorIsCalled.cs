@@ -89,17 +89,17 @@ public sealed class WhenHasAccessibleParameterlessConstructorIsCalled
         }
         """;
 
-    [Theory]
-    [InlineData(PublicClassWithNoConstructor, nameof(PublicClassWithNoConstructor), true)]
-    [InlineData(PublicClassWithPublicConstructor, nameof(PublicClassWithPublicConstructor), true)]
-    [InlineData(PublicClassWithInternalConstructor, nameof(PublicClassWithInternalConstructor), true)]
-    [InlineData(PublicClassWithPrivateConstructor, nameof(PublicClassWithPrivateConstructor), false)]
-    [InlineData(InternalClassWithNoConstructor, nameof(InternalClassWithNoConstructor), true)]
-    [InlineData(InternalClassWithPublicConstructor, nameof(InternalClassWithPublicConstructor), true)]
-    [InlineData(InternalClassWithInternalConstructor, nameof(InternalClassWithInternalConstructor), true)]
-    [InlineData(InternalClassWithPrivateConstructor, nameof(InternalClassWithPrivateConstructor), false)]
-    [InlineData(PublicAbstractClass, nameof(PublicAbstractClass), false)]
-    [InlineData(Struct, nameof(Struct), false)]
+    [Test]
+    [Arguments(PublicClassWithNoConstructor, nameof(PublicClassWithNoConstructor), true)]
+    [Arguments(PublicClassWithPublicConstructor, nameof(PublicClassWithPublicConstructor), true)]
+    [Arguments(PublicClassWithInternalConstructor, nameof(PublicClassWithInternalConstructor), true)]
+    [Arguments(PublicClassWithPrivateConstructor, nameof(PublicClassWithPrivateConstructor), false)]
+    [Arguments(InternalClassWithNoConstructor, nameof(InternalClassWithNoConstructor), true)]
+    [Arguments(InternalClassWithPublicConstructor, nameof(InternalClassWithPublicConstructor), true)]
+    [Arguments(InternalClassWithInternalConstructor, nameof(InternalClassWithInternalConstructor), true)]
+    [Arguments(InternalClassWithPrivateConstructor, nameof(InternalClassWithPrivateConstructor), false)]
+    [Arguments(PublicAbstractClass, nameof(PublicAbstractClass), false)]
+    [Arguments(Struct, nameof(Struct), false)]
     public void GivenCodeWhenInADifferentAssemblyThenExpectedOutcomeIsObserved(string code, string type, bool expected)
     {
         // Arrange
@@ -114,17 +114,17 @@ public sealed class WhenHasAccessibleParameterlessConstructorIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData(PublicClassWithNoConstructor, nameof(PublicClassWithNoConstructor), true)]
-    [InlineData(PublicClassWithPublicConstructor, nameof(PublicClassWithPublicConstructor), true)]
-    [InlineData(PublicClassWithInternalConstructor, nameof(PublicClassWithInternalConstructor), false)]
-    [InlineData(PublicClassWithPrivateConstructor, nameof(PublicClassWithPrivateConstructor), false)]
-    [InlineData(InternalClassWithNoConstructor, nameof(InternalClassWithNoConstructor), false)]
-    [InlineData(InternalClassWithPublicConstructor, nameof(InternalClassWithPublicConstructor), false)]
-    [InlineData(InternalClassWithInternalConstructor, nameof(InternalClassWithInternalConstructor), false)]
-    [InlineData(InternalClassWithPrivateConstructor, nameof(InternalClassWithPrivateConstructor), false)]
-    [InlineData(PublicAbstractClass, nameof(PublicAbstractClass), false)]
-    [InlineData(Struct, nameof(Struct), false)]
+    [Test]
+    [Arguments(PublicClassWithNoConstructor, nameof(PublicClassWithNoConstructor), true)]
+    [Arguments(PublicClassWithPublicConstructor, nameof(PublicClassWithPublicConstructor), true)]
+    [Arguments(PublicClassWithInternalConstructor, nameof(PublicClassWithInternalConstructor), false)]
+    [Arguments(PublicClassWithPrivateConstructor, nameof(PublicClassWithPrivateConstructor), false)]
+    [Arguments(InternalClassWithNoConstructor, nameof(InternalClassWithNoConstructor), false)]
+    [Arguments(InternalClassWithPublicConstructor, nameof(InternalClassWithPublicConstructor), false)]
+    [Arguments(InternalClassWithInternalConstructor, nameof(InternalClassWithInternalConstructor), false)]
+    [Arguments(InternalClassWithPrivateConstructor, nameof(InternalClassWithPrivateConstructor), false)]
+    [Arguments(PublicAbstractClass, nameof(PublicAbstractClass), false)]
+    [Arguments(Struct, nameof(Struct), false)]
     public void GivenCodeWhenInTheSameAssemblyThenExpectedOutcomeIsObserved(string code, string type, bool expected)
     {
         // Arrange

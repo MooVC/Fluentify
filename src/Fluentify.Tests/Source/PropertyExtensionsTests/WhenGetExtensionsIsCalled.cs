@@ -6,7 +6,7 @@ using Metadata = Fluentify.Source.Metadata;
 
 public sealed partial class WhenGetExtensionsIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenAScalarThenYieldsNullThenNoExtensionIsGenerated()
     {
         // Arrange
@@ -51,9 +51,9 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBeEmpty();
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
+    [Test]
+    [Arguments("throw new NotImplementedException();")]
+    [Arguments("return new();")]
     public void GivenBuildablePropertyThenGeneratesDelegateExtension(string scalar)
     {
         // Arrange
@@ -150,7 +150,7 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenFrameworkTypeThenDelegateExtensionIsNotGenerated()
     {
         // Arrange
@@ -215,9 +215,9 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
+    [Test]
+    [Arguments("throw new NotImplementedException();")]
+    [Arguments("return new();")]
     public void GivenInternalPropertyAndPublicSubjectThenGeneratesInternalExtension(string scalar)
     {
         // Arrange
@@ -281,7 +281,7 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenNonBuildablePropertyThenGeneratesDelegateUsingExistingInstance()
     {
         // Arrange
@@ -378,9 +378,9 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
+    [Test]
+    [Arguments("throw new NotImplementedException();")]
+    [Arguments("return new();")]
     public void GivenNullablePropertyThenGeneratesExtensionWithNullableType(string scalar)
     {
         string expected = $$"""
@@ -446,9 +446,9 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
+    [Test]
+    [Arguments("throw new NotImplementedException();")]
+    [Arguments("return new();")]
     public void GivenPublicPropertyAndPublicSubjectThenGeneratesPublicExtension(string scalar)
     {
         // Arrange

@@ -2,7 +2,7 @@
 
 public sealed class WhenWithAttributesIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenAttributesThenTheValueIsApplied()
     {
         // Arrange
@@ -27,7 +27,7 @@ public sealed class WhenWithAttributesIsCalled
         actual.Name.ShouldBe(original.Name);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange

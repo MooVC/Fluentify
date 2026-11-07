@@ -18,7 +18,7 @@ public sealed class WhenExecuted
     {
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAttributeOnPropertyThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -38,7 +38,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAutoInitializeWithOnlyThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -56,7 +56,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenBothAttributesThenDiagnosticIsRaised()
     {
         // Arrange

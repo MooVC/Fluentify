@@ -14,7 +14,7 @@ public sealed class WhenExecuted
     {
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAllowNullOnANonNullablePropertyWhenFluentifyIsAppliedThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -35,7 +35,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAllowNullOnANullablePropertyWhenFluentifyIsAppliedThenRedundantAllowNullRuleIsRaised()
     {
         // Arrange
@@ -58,7 +58,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAllowNullOnANullablePropertyWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -78,7 +78,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAllowNullOnANullableRecordParameterWhenFluentifyIsAppliedThenRedundantAllowNullRuleIsRaised()
     {
         // Arrange
@@ -97,7 +97,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenDisallowNullOnANonNullablePropertyWhenFluentifyIsAppliedThenRedundantDisallowNullRuleIsRaised()
     {
         // Arrange
@@ -120,7 +120,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenDisallowNullOnANonNullableRecordParameterWhenFluentifyIsAppliedThenRedundantDisallowNullRuleIsRaised()
     {
         // Arrange
@@ -139,7 +139,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenDisallowNullOnANullablePropertyWhenFluentifyIsAppliedThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -160,7 +160,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenMaybeNullOnANonNullablePropertyWhenFluentifyIsAppliedThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -181,7 +181,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenMaybeNullOnANullablePropertyWhenFluentifyIsAppliedThenRedundantMaybeNullRuleIsRaised()
     {
         // Arrange

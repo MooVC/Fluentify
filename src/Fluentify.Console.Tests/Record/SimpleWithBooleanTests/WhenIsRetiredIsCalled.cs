@@ -2,7 +2,7 @@
 
 public sealed class WhenIsRetiredIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenANullValueThenTheValueIsApplied()
     {
         // Arrange
@@ -23,9 +23,9 @@ public sealed class WhenIsRetiredIsCalled
         actual.Name.ShouldBe(original.Name);
     }
 
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
+    [Test]
+    [Arguments(true)]
+    [Arguments(false)]
     public void GivenAValueThenTheValueIsApplied(bool isRetired)
     {
         // Arrange
@@ -46,7 +46,7 @@ public sealed class WhenIsRetiredIsCalled
         actual.Name.ShouldBe(original.Name);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange

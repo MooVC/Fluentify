@@ -8,7 +8,7 @@ public sealed class WhenToStringWithIncludeNullabilityIsCalled
 
     private const string NonNullableName = "Demo.Type";
 
-    [Fact]
+    [Test]
     public void GivenExcludeNullabilityThenAnnotationIsRemoved()
     {
         // Arrange
@@ -25,7 +25,7 @@ public sealed class WhenToStringWithIncludeNullabilityIsCalled
         result.ShouldBe(NonNullableName);
     }
 
-    [Fact]
+    [Test]
     public void GivenIncludeNullabilityThenNullabilityIsIncluded()
     {
         // Arrange
@@ -42,7 +42,7 @@ public sealed class WhenToStringWithIncludeNullabilityIsCalled
         result.ShouldBe(NullableName);
     }
 
-    [Fact]
+    [Test]
     public void GivenNonNullableTypeThenNameIsReturned()
     {
         // Arrange

@@ -2,10 +2,10 @@
 
 public sealed class WhenWithNameIsCalled
 {
-    [Theory]
-    [InlineData("Avery Brooks")]
-    [InlineData("")]
-    [InlineData(" ")]
+    [Test]
+    [Arguments("Avery Brooks")]
+    [Arguments("")]
+    [Arguments(" ")]
     public void GivenANameThenTheValueIsApplied(string name)
     {
         // Arrange
@@ -26,7 +26,7 @@ public sealed class WhenWithNameIsCalled
         actual.Name.ShouldBeEquivalentTo(name);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange

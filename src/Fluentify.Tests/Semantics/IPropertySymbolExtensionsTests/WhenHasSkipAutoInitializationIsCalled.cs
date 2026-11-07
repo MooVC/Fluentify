@@ -6,7 +6,7 @@ using static Fluentify.SkipAutoInitializationAttributeGenerator;
 
 public sealed class WhenHasSkipAutoInitializationIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenArrayElementWithSkipAutoInitializationAttributeThenReturnsTrue()
     {
         // Arrange
@@ -34,7 +34,7 @@ public sealed class WhenHasSkipAutoInitializationIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithNoAttributesThenReturnsFalse()
     {
         // Arrange
@@ -52,7 +52,7 @@ public sealed class WhenHasSkipAutoInitializationIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithSkipAutoInitializationAttributeThenReturnsTrue()
     {
         // Arrange
@@ -76,7 +76,7 @@ public sealed class WhenHasSkipAutoInitializationIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithoutSkipAutoInitializationAttributeThenReturnsFalse()
     {
         // Arrange
@@ -100,7 +100,7 @@ public sealed class WhenHasSkipAutoInitializationIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenTypeArgumentWithSkipAutoInitializationAttributeThenReturnsTrue()
     {
         // Arrange
@@ -128,7 +128,7 @@ public sealed class WhenHasSkipAutoInitializationIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenTypeWithSkipAutoInitializationAttributeThenReturnsTrue()
     {
         // Arrange

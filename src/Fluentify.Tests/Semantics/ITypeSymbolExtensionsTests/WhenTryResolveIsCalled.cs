@@ -23,7 +23,7 @@ public sealed class WhenTryResolveIsCalled
 
     private static readonly INamedTypeSymbol _factoryType = _compilation.GetTypeByMetadataName("Demo.Factory")!;
 
-    [Fact]
+    [Test]
     public void GivenMethodWithParametersThenFalseIsReturned()
     {
         // Arrange
@@ -37,7 +37,7 @@ public sealed class WhenTryResolveIsCalled
         initialization.ShouldBe(string.Empty);
     }
 
-    [Fact]
+    [Test]
     public void GivenNameofExpressionThenMemberIsExtracted()
     {
         // Arrange
@@ -52,7 +52,7 @@ public sealed class WhenTryResolveIsCalled
         initialization.ShouldBe("global::Demo.Factory.Default");
     }
 
-    [Fact]
+    [Test]
     public void GivenNameofExpressionWithMemberAccessThenFalseIsReturned()
     {
         // Arrange
@@ -67,7 +67,7 @@ public sealed class WhenTryResolveIsCalled
         initialization.ShouldBe(string.Empty);
     }
 
-    [Fact]
+    [Test]
     public void GivenNameofExpressionWithWhitespaceThenMemberIsExtracted()
     {
         // Arrange
@@ -82,7 +82,7 @@ public sealed class WhenTryResolveIsCalled
         initialization.ShouldBe("global::Demo.Factory.Default");
     }
 
-    [Fact]
+    [Test]
     public void GivenNullSourceForOverloadThenFalseIsReturned()
     {
         // Arrange
@@ -97,7 +97,7 @@ public sealed class WhenTryResolveIsCalled
         initialization.ShouldBe(string.Empty);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullTargetThenFalseIsReturned()
     {
         // Arrange
@@ -112,7 +112,7 @@ public sealed class WhenTryResolveIsCalled
         initialization.ShouldBe(string.Empty);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullTypeForOverloadThenFalseIsReturned()
     {
         // Arrange
@@ -127,7 +127,7 @@ public sealed class WhenTryResolveIsCalled
         initialization.ShouldBe(string.Empty);
     }
 
-    [Fact]
+    [Test]
     public void GivenPrivateMemberThenFalseIsReturned()
     {
         // Arrange
@@ -141,7 +141,7 @@ public sealed class WhenTryResolveIsCalled
         initialization.ShouldBe(string.Empty);
     }
 
-    [Fact]
+    [Test]
     public void GivenStaticFieldReturningTypeThenInitializationIsReturned()
     {
         // Arrange
@@ -155,7 +155,7 @@ public sealed class WhenTryResolveIsCalled
         initialization.ShouldBe("global::Demo.Factory.InstanceField");
     }
 
-    [Fact]
+    [Test]
     public void GivenStaticMethodReturningTypeThenInitializationIsReturned()
     {
         // Arrange
@@ -169,7 +169,7 @@ public sealed class WhenTryResolveIsCalled
         initialization.ShouldBe("global::Demo.Factory.Create()");
     }
 
-    [Fact]
+    [Test]
     public void GivenStaticPropertyReturningTypeThenInitializationIsReturned()
     {
         // Arrange
@@ -183,7 +183,7 @@ public sealed class WhenTryResolveIsCalled
         initialization.ShouldBe("global::Demo.Factory.Default");
     }
 
-    [Fact]
+    [Test]
     public void GivenWhitespaceMemberThenFalseIsReturned()
     {
         // Arrange

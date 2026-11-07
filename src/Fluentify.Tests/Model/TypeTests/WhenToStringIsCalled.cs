@@ -8,7 +8,7 @@ public sealed class WhenToStringIsCalled
 
     private const string NonNullableName = "Demo.Type";
 
-    [Fact]
+    [Test]
     public void GivenNonNullableTypeThenNameIsReturned()
     {
         // Arrange
@@ -25,7 +25,7 @@ public sealed class WhenToStringIsCalled
         result.ShouldBe(NonNullableName);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullableTypeNameWithAnnotationThenNameIsReturned()
     {
         // Arrange
@@ -42,7 +42,7 @@ public sealed class WhenToStringIsCalled
         result.ShouldBe(NullableName);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullableTypeNameWithoutAnnotationThenAnnotationIsAppended()
     {
         // Arrange

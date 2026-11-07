@@ -2,12 +2,12 @@
 
 public sealed class WhenWithAgeIsCalled
 {
-    [Theory]
-    [InlineData(1)]
-    [InlineData(-1)]
-    [InlineData(0)]
-    [InlineData(int.MinValue)]
-    [InlineData(int.MaxValue)]
+    [Test]
+    [Arguments(1)]
+    [Arguments(-1)]
+    [Arguments(0)]
+    [Arguments(int.MinValue)]
+    [Arguments(int.MaxValue)]
     public void GivenAnAgeThenTheValueIsApplied(int age)
     {
         // Arrange
@@ -32,7 +32,7 @@ public sealed class WhenWithAgeIsCalled
         actual.Numbers.ShouldBeEquivalentTo(original.Numbers);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange

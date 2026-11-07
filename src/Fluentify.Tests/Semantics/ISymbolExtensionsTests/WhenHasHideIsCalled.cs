@@ -5,7 +5,7 @@ using static Fluentify.HideAttributeGenerator;
 
 public sealed class WhenHasHideIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenSymbolWithAttributeMissingClassThenReturnsFalse()
     {
         // Arrange
@@ -22,7 +22,7 @@ public sealed class WhenHasHideIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenSymbolWithHideAttributeThenReturnsTrue()
     {
         // Arrange
@@ -42,7 +42,7 @@ public sealed class WhenHasHideIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenSymbolWithoutHideAttributeThenReturnsFalse()
     {
         // Arrange

@@ -2,7 +2,7 @@
 
 public sealed class WhenWithSimpleIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenABuilderThenTheValueIsApplied()
     {
         // Arrange
@@ -23,7 +23,7 @@ public sealed class WhenWithSimpleIsCalled
         actual.Simple.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenAnInstanceThenTheValueIsApplied()
     {
         // Arrange
@@ -44,7 +44,7 @@ public sealed class WhenWithSimpleIsCalled
         actual.Simple.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange

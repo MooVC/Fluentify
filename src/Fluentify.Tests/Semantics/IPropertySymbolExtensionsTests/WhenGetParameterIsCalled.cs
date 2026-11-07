@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis;
 
 public sealed class WhenGetParameterIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenPropertyInRecordWithMatchingParameterThenReturnsParameter()
     {
         // Arrange
@@ -29,7 +29,7 @@ public sealed class WhenGetParameterIsCalled
         result.ShouldBe(parameter);
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyInRecordWithMultipleConstructorsThenReturnsMatchingParameter()
     {
         // Arrange
@@ -60,7 +60,7 @@ public sealed class WhenGetParameterIsCalled
         result.ShouldBe(parameter1);
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyInRecordWithoutMatchingParameterThenReturnsNull()
     {
         // Arrange
@@ -85,7 +85,7 @@ public sealed class WhenGetParameterIsCalled
         result.ShouldBeNull();
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyNotInRecordThenReturnsNull()
     {
         // Arrange

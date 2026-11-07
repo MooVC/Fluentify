@@ -15,7 +15,7 @@ public sealed class WhenTryGetInitializationIsCalled
 
     private static readonly Compilation _compilation = CreateCompilation();
 
-    [Fact]
+    [Test]
     public void GivenTypeWithAutoInitializeWithAttributeThenInitializationIsReturned()
     {
         // Arrange
@@ -29,7 +29,7 @@ public sealed class WhenTryGetInitializationIsCalled
         initialization.ShouldBe("global::Demo.WithInitialization.Create()");
     }
 
-    [Fact]
+    [Test]
     public void GivenTypeWithMissingMemberThenFalseIsReturned()
     {
         // Arrange
@@ -43,7 +43,7 @@ public sealed class WhenTryGetInitializationIsCalled
         initialization.ShouldBe(string.Empty);
     }
 
-    [Fact]
+    [Test]
     public void GivenTypeWithSkipAutoInitializationThenFalseIsReturned()
     {
         // Arrange

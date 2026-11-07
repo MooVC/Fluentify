@@ -4,7 +4,7 @@ using Fluentify.Model;
 
 public sealed class WhenGetExtensionNameIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenNestedSubjectThenCompositeNameIsReturned()
     {
         // Arrange
@@ -33,7 +33,7 @@ public sealed class WhenGetExtensionNameIsCalled
         result.ShouldBe(Expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenTopLevelSubjectThenSubjectNameIsReturned()
     {
         // Arrange

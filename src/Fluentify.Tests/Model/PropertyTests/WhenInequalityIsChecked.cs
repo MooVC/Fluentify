@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis;
 
 public abstract class WhenInequalityIsChecked
 {
-    [Fact]
+    [Test]
     public void GivenBothInstancesAreNullThenTheyAreEqual()
     {
         // Arrange
@@ -18,7 +18,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentAccessibilityThenTheyAreNotEqual()
     {
         // Arrange
@@ -58,7 +58,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentDescriptorThenTheyAreNotEqual()
     {
         // Arrange
@@ -98,7 +98,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentIsHiddenThenTheyAreNotEqual()
     {
         // Arrange
@@ -140,7 +140,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentIsIgnoredThenTheyAreNotEqual()
     {
         // Arrange
@@ -180,7 +180,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentKindThenTheyAreNotEqual()
     {
         // Arrange
@@ -220,7 +220,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentNameThenTheyAreNotEqual()
     {
         // Arrange
@@ -260,7 +260,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenIdenticalInstancesThenTheyAreEqual()
     {
         // Arrange
@@ -300,7 +300,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenOneInstanceIsNullThenTheyAreNotEqual()
     {
         // Arrange
@@ -326,7 +326,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenSameReferenceThenTheyAreEqual()
     {
         // Arrange

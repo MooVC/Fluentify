@@ -2,7 +2,7 @@
 
 public sealed class WhenMovieIsBuilt
 {
-    [Fact]
+    [Test]
     public void GivenAMovieThenTheInstanceIsCreated()
     {
         // Arrange

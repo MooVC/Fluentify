@@ -9,7 +9,7 @@ public sealed class WhenIsFrameworkTypeIsCalled
 {
     private static readonly Compilation _compilation = CreateCompilation();
 
-    [Fact]
+    [Test]
     public void GivenAnnotatedNullableCustomTypeThenReturnsFalse()
     {
         // Arrange
@@ -22,7 +22,7 @@ public sealed class WhenIsFrameworkTypeIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenAnnotatedNullablePrimitiveThenReturnsTrue()
     {
         // Arrange
@@ -35,7 +35,7 @@ public sealed class WhenIsFrameworkTypeIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenCustomTypeThenReturnsFalse()
     {
         // Arrange
@@ -48,7 +48,7 @@ public sealed class WhenIsFrameworkTypeIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenStringThenReturnsTrue()
     {
         // Arrange

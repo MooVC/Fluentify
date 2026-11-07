@@ -6,10 +6,10 @@ using Metadata = Fluentify.Source.Metadata;
 
 public sealed partial class WhenGetExtensionsIsCalled
 {
-    [Theory]
-    [InlineData("IEnumerable<int>")]
-    [InlineData("IReadOnlyCollection<int>")]
-    [InlineData("IReadOnlyList<int>")]
+    [Test]
+    [Arguments("IEnumerable<int>")]
+    [Arguments("IReadOnlyCollection<int>")]
+    [Arguments("IReadOnlyList<int>")]
     public void GivenAScalarThenYieldsNullWhenEnumerableThenNoExtensionIsGenerated(string type)
     {
         // Arrange
@@ -60,13 +60,13 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBeEmpty();
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();", "IEnumerable<TestType>")]
-    [InlineData("return new();", "IEnumerable<TestType>")]
-    [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<TestType>")]
-    [InlineData("return new();", "IReadOnlyCollection<TestType>")]
-    [InlineData("throw new NotImplementedException();", "IReadOnlyList<TestType>")]
-    [InlineData("return new();", "IReadOnlyList<TestType>")]
+    [Test]
+    [Arguments("throw new NotImplementedException();", "IEnumerable<TestType>")]
+    [Arguments("return new();", "IEnumerable<TestType>")]
+    [Arguments("throw new NotImplementedException();", "IReadOnlyCollection<TestType>")]
+    [Arguments("return new();", "IReadOnlyCollection<TestType>")]
+    [Arguments("throw new NotImplementedException();", "IReadOnlyList<TestType>")]
+    [Arguments("return new();", "IReadOnlyList<TestType>")]
     public void GivenBuildablePropertyWhenEnumerableThenGeneratesDelegateExtension(string scalar, string type)
     {
         // Arrange
@@ -191,13 +191,13 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();", "IEnumerable<int>")]
-    [InlineData("return new();", "IEnumerable<int>")]
-    [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<int>")]
-    [InlineData("return new();", "IReadOnlyCollection<int>")]
-    [InlineData("throw new NotImplementedException();", "IReadOnlyList<int>")]
-    [InlineData("return new();", "IReadOnlyList<int>")]
+    [Test]
+    [Arguments("throw new NotImplementedException();", "IEnumerable<int>")]
+    [Arguments("return new();", "IEnumerable<int>")]
+    [Arguments("throw new NotImplementedException();", "IReadOnlyCollection<int>")]
+    [Arguments("return new();", "IReadOnlyCollection<int>")]
+    [Arguments("throw new NotImplementedException();", "IReadOnlyList<int>")]
+    [Arguments("return new();", "IReadOnlyList<int>")]
     public void GivenInternalPropertyAndPublicSubjectWhenEnumerableThenGeneratesInternalExtension(string scalar, string type)
     {
         // Arrange
@@ -277,13 +277,13 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();", "IEnumerable<int>")]
-    [InlineData("return new();", "IEnumerable<int>")]
-    [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<int>")]
-    [InlineData("return new();", "IReadOnlyCollection<int>")]
-    [InlineData("throw new NotImplementedException();", "IReadOnlyList<int>")]
-    [InlineData("return new();", "IReadOnlyList<int>")]
+    [Test]
+    [Arguments("throw new NotImplementedException();", "IEnumerable<int>")]
+    [Arguments("return new();", "IEnumerable<int>")]
+    [Arguments("throw new NotImplementedException();", "IReadOnlyCollection<int>")]
+    [Arguments("return new();", "IReadOnlyCollection<int>")]
+    [Arguments("throw new NotImplementedException();", "IReadOnlyList<int>")]
+    [Arguments("return new();", "IReadOnlyList<int>")]
     public void GivenNullablePropertyWhenEnumerableThenGeneratesExtensionWithNullableType(string scalar, string type)
     {
         string expected = $$"""
@@ -364,13 +364,13 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();", "IEnumerable<int>")]
-    [InlineData("return new();", "IEnumerable<int>")]
-    [InlineData("throw new NotImplementedException();", "IReadOnlyCollection<int>")]
-    [InlineData("return new();", "IReadOnlyCollection<int>")]
-    [InlineData("throw new NotImplementedException();", "IReadOnlyList<int>")]
-    [InlineData("return new();", "IReadOnlyList<int>")]
+    [Test]
+    [Arguments("throw new NotImplementedException();", "IEnumerable<int>")]
+    [Arguments("return new();", "IEnumerable<int>")]
+    [Arguments("throw new NotImplementedException();", "IReadOnlyCollection<int>")]
+    [Arguments("return new();", "IReadOnlyCollection<int>")]
+    [Arguments("throw new NotImplementedException();", "IReadOnlyList<int>")]
+    [Arguments("return new();", "IReadOnlyList<int>")]
     public void GivenPublicPropertyAndPublicSubjectWhenEnumerableThenGeneratesPublicExtension(string scalar, string type)
     {
         // Arrange
@@ -450,15 +450,15 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableArray<int>")]
-    [InlineData("return new();", "global::System.Collections.Immutable.ImmutableArray<int>")]
-    [InlineData("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableHashSet<int>")]
-    [InlineData("return new();", "global::System.Collections.Immutable.ImmutableHashSet<int>")]
-    [InlineData("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableList<int>")]
-    [InlineData("return new();", "global::System.Collections.Immutable.ImmutableList<int>")]
-    [InlineData("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableSortedSet<int>")]
-    [InlineData("return new();", "global::System.Collections.Immutable.ImmutableSortedSet<int>")]
+    [Test]
+    [Arguments("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableArray<int>")]
+    [Arguments("return new();", "global::System.Collections.Immutable.ImmutableArray<int>")]
+    [Arguments("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableHashSet<int>")]
+    [Arguments("return new();", "global::System.Collections.Immutable.ImmutableHashSet<int>")]
+    [Arguments("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableList<int>")]
+    [Arguments("return new();", "global::System.Collections.Immutable.ImmutableList<int>")]
+    [Arguments("throw new NotImplementedException();", "global::System.Collections.Immutable.ImmutableSortedSet<int>")]
+    [Arguments("return new();", "global::System.Collections.Immutable.ImmutableSortedSet<int>")]
     public void GivenPublicPropertyAndPublicSubjectWhenImmutableEnumerableThenGeneratesPublicExtension(string scalar, string type)
     {
         // Arrange

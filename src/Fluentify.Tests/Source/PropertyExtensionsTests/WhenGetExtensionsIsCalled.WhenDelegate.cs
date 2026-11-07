@@ -6,7 +6,7 @@ using Metadata = Fluentify.Source.Metadata;
 
 public sealed partial class WhenGetExtensionsIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenNonScalarAndBuildableThenDelegateExtensionIsGenerated()
     {
         // Arrange
@@ -42,7 +42,7 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldContain("instance = builder(instance);");
     }
 
-    [Fact]
+    [Test]
     public void GivenNonScalarAndNotBuildableThenDelegateExtensionIsNotGenerated()
     {
         // Arrange
@@ -77,7 +77,7 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldNotContain("Func<global::Demo.Element, global::Demo.Element> builder");
     }
 
-    [Fact]
+    [Test]
     public void GivenNonScalarWithFrameworkTypeThenDelegateExtensionIsNotGenerated()
     {
         // Arrange

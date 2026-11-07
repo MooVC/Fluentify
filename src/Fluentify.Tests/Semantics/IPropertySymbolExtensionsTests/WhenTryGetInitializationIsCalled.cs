@@ -15,7 +15,7 @@ public sealed class WhenTryGetInitializationIsCalled
 
     private static readonly Compilation _compilation = CreateCompilation();
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithAutoInitializeWithAttributeThenInitializationIsReturned()
     {
         // Arrange
@@ -29,7 +29,7 @@ public sealed class WhenTryGetInitializationIsCalled
         initialization.ShouldBe("global::Demo.Widget.LocalBuild()");
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithMissingMemberThenFalseIsReturned()
     {
         // Arrange
@@ -43,7 +43,7 @@ public sealed class WhenTryGetInitializationIsCalled
         initialization.ShouldBe(string.Empty);
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithSkipAutoInitializationThenFalseIsReturned()
     {
         // Arrange
@@ -57,7 +57,7 @@ public sealed class WhenTryGetInitializationIsCalled
         initialization.ShouldBe(string.Empty);
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithSkippedTypeThenFalseIsReturned()
     {
         // Arrange
@@ -71,7 +71,7 @@ public sealed class WhenTryGetInitializationIsCalled
         initialization.ShouldBe(string.Empty);
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithTypeInitializationThenInitializationIsReturned()
     {
         // Arrange
@@ -85,7 +85,7 @@ public sealed class WhenTryGetInitializationIsCalled
         initialization.ShouldBe("global::Demo.WidgetWithInitialization.Build()");
     }
 
-    [Fact]
+    [Test]
     public void GivenRecordParameterWithAutoInitializeWithAttributeThenInitializationIsReturned()
     {
         // Arrange

@@ -27,7 +27,7 @@ public sealed class WhenTryGetMemberIsCalled
         }
         """;
 
-    [Fact]
+    [Test]
     public void GivenAttributeWithoutArgumentsThenFalseIsReturned()
     {
         // Arrange
@@ -49,7 +49,7 @@ public sealed class WhenTryGetMemberIsCalled
         member.ShouldBe(string.Empty);
     }
 
-    [Fact]
+    [Test]
     public void GivenConstructorArgumentFromMetadataThenMemberIsReturned()
     {
         // Arrange
@@ -69,7 +69,7 @@ public sealed class WhenTryGetMemberIsCalled
         member.ShouldBe("Build");
     }
 
-    [Fact]
+    [Test]
     public void GivenNameofArgumentThenMemberIsReturned()
     {
         // Arrange
@@ -95,7 +95,7 @@ public sealed class WhenTryGetMemberIsCalled
         member.ShouldBe("nameof(Create)");
     }
 
-    [Fact]
+    [Test]
     public void GivenStringLiteralArgumentThenMemberIsReturned()
     {
         // Arrange

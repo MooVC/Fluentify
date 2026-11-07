@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis;
 
 public sealed class WhenGetConstraintsIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenConstraintTypesThenReturnsFullyQualifiedTypeNames()
     {
         // Arrange
@@ -32,7 +32,7 @@ public sealed class WhenGetConstraintsIsCalled
             .ShouldBe("global::Namespace.TypeName");
     }
 
-    [Fact]
+    [Test]
     public void GivenConstructorConstraintThenReturnsNewConstraint()
     {
         // Arrange
@@ -51,7 +51,7 @@ public sealed class WhenGetConstraintsIsCalled
             .ShouldBe("new()");
     }
 
-    [Fact]
+    [Test]
     public void GivenMultipleConstraintsThenReturnsAllConstraints()
     {
         // Arrange
@@ -76,7 +76,7 @@ public sealed class WhenGetConstraintsIsCalled
         result.ShouldBeSubsetOf(["class", "notnull", "global::Namespace.TypeName", "new()"]);
     }
 
-    [Fact]
+    [Test]
     public void GivenNoConstraintsThenReturnsEmptyList()
     {
         // Arrange
@@ -94,7 +94,7 @@ public sealed class WhenGetConstraintsIsCalled
         result.ShouldBeEmpty();
     }
 
-    [Fact]
+    [Test]
     public void GivenNotNullConstraintThenReturnsNotNullConstraint()
     {
         // Arrange
@@ -113,7 +113,7 @@ public sealed class WhenGetConstraintsIsCalled
             .ShouldBe("notnull");
     }
 
-    [Fact]
+    [Test]
     public void GivenReferenceTypeConstraintThenReturnsClassConstraint()
     {
         // Arrange
@@ -132,7 +132,7 @@ public sealed class WhenGetConstraintsIsCalled
             .ShouldBe("class");
     }
 
-    [Fact]
+    [Test]
     public void GivenValueTypeConstraintThenReturnsStructConstraint()
     {
         // Arrange

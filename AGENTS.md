@@ -11,7 +11,7 @@ This repository hosts **Fluentify**, a .NET source generator and analyzers solut
 - Use the .NET SDK **10.0**. The latest SDK can be found at [dotnet.microsoft.com](https://dotnet.microsoft.com/).
 - Restore packages with `dotnet restore`.
 - Run `dotnet test` to execute the test suite. This is the primary check before committing.
-- Tests are configured via `.runsettings` and use xUnit.
+- Tests use TUnit on Microsoft.Testing.Platform. `dotnet test` collects Cobertura coverage using `instrumentation.config.xml`.
 
 ## Coding Style
 

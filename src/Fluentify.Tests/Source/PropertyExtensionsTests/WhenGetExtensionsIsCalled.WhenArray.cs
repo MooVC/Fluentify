@@ -6,7 +6,7 @@ using Metadata = Fluentify.Source.Metadata;
 
 public sealed partial class WhenGetExtensionsIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenAScalarThenYieldsNullWhenArrayThenNoExtensionIsGenerated()
     {
         // Arrange
@@ -57,9 +57,9 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBeEmpty();
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
+    [Test]
+    [Arguments("throw new NotImplementedException();")]
+    [Arguments("return new();")]
     public void GivenBuildablePropertyWhenArrayThenGeneratesDelegateExtension(string scalar)
     {
         // Arrange
@@ -185,9 +185,9 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
+    [Test]
+    [Arguments("throw new NotImplementedException();")]
+    [Arguments("return new();")]
     public void GivenInternalPropertyAndPublicSubjectWhenArrayThenGeneratesInternalExtension(string scalar)
     {
         // Arrange
@@ -268,9 +268,9 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
+    [Test]
+    [Arguments("throw new NotImplementedException();")]
+    [Arguments("return new();")]
     public void GivenNullablePropertyWhenArrayThenGeneratesExtensionWithNullableType(string scalar)
     {
         string expected = $$"""
@@ -352,9 +352,9 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
+    [Test]
+    [Arguments("throw new NotImplementedException();")]
+    [Arguments("return new();")]
     public void GivenPublicPropertyAndPublicSubjectWhenArrayThenGeneratesPublicExtension(string scalar)
     {
         // Arrange

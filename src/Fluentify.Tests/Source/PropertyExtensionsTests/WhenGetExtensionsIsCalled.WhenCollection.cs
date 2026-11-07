@@ -6,7 +6,7 @@ using Metadata = Fluentify.Source.Metadata;
 
 public sealed partial class WhenGetExtensionsIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenAScalarThenYieldsNullWhenCollectionThenNoExtensionIsGenerated()
     {
         // Arrange
@@ -57,9 +57,9 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBeEmpty();
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
+    [Test]
+    [Arguments("throw new NotImplementedException();")]
+    [Arguments("return new();")]
     public void GivenBuildablePropertyWhenCollectionThenGeneratesDelegateExtension(string scalar)
     {
         // Arrange
@@ -190,7 +190,7 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenCollectionWithExplicitInitializationThenInitializationIsUsed()
     {
         // Arrange
@@ -244,9 +244,9 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldNotContain("new global::Demo.CustomItems()");
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
+    [Test]
+    [Arguments("throw new NotImplementedException();")]
+    [Arguments("return new();")]
     public void GivenInternalPropertyAndPublicSubjectWhenCollectionThenGeneratesInternalExtension(string scalar)
     {
         // Arrange
@@ -334,9 +334,9 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new int();")]
+    [Test]
+    [Arguments("throw new NotImplementedException();")]
+    [Arguments("return new int();")]
     public void GivenNullablePropertyWhenCollectionThenGeneratesExtensionWithNullableType(string scalar)
     {
         string expected = $$"""
@@ -426,9 +426,9 @@ public sealed partial class WhenGetExtensionsIsCalled
         result.ShouldBe(expected);
     }
 
-    [Theory]
-    [InlineData("throw new NotImplementedException();")]
-    [InlineData("return new();")]
+    [Test]
+    [Arguments("throw new NotImplementedException();")]
+    [Arguments("return new();")]
     public void GivenPublicPropertyAndPublicSubjectWhenCollectionThenGeneratesPublicExtension(string scalar)
     {
         // Arrange

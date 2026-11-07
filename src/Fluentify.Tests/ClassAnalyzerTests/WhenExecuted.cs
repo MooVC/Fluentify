@@ -13,7 +13,7 @@ public sealed class WhenExecuted
     {
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAClassWithAnExplicitDefaultConstructorWhenFluentifyIsAppliedThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -35,7 +35,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAClassWithAnExplicitDefaultConstructorWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -54,7 +54,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAClassWithAnExplicitPrivateDefaultConstructorWhenFluentifyIsAppliedThenGetExpectedAccessibleDefaultConstructorRuleIsRaised()
     {
         // Arrange
@@ -78,7 +78,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAClassWithAnExplicitPrivateDefaultConstructorWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -97,7 +97,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAClassWithAnImplicitDefaultConstructorWhenFluentifyIsAppliedThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -115,7 +115,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAClassWithAnImplicitDefaultConstructorWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised()
     {
         // Arrange

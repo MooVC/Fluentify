@@ -1,6 +1,7 @@
 ﻿namespace Fluentify.ClassGeneratorTests;
 
 using Fluentify.Snippets;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Testing;
 
 public sealed class WhenExecuted
@@ -22,12 +23,13 @@ public sealed class WhenExecuted
     {
     }
 
-    [Theory]
-    [Declared(typeof(Classes))]
-    public async Task GivenAClassTheExpectedSourceIsGenerated(Declared declared)
+    [Test]
+    [MethodDataSource(typeof(DeclaredCases), nameof(DeclaredCases.ForClasses))]
+    public async Task GivenAClassTheExpectedSourceIsGenerated(Declared declared, ReferenceAssemblies assembly, LanguageVersion language)
     {
         // Arrange
-        declared.IsDeclaredIn(TestState);
+        SetTarget(assembly, language);
+        declared.IsDeclaredIn(TestState, withNullableDirectives: language >= LanguageVersion.CSharp8);
 
         Attributes.Descriptor.IsExpectedIn(TestState);
         Attributes.Fluentify.IsExpectedIn(TestState);
@@ -40,7 +42,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenClassWithoutDefaultConstructorThenNoClassGeneratorSourceIsProduced()
     {
         // Arrange
@@ -72,7 +74,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenInitializedListImplementationWithoutAccessibleDefaultConstructorThenNoCompilationErrorIsRaised()
     {
         // Arrange
@@ -123,7 +125,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenNestedClassSharesNameWithClassInSameNamespaceThenNoCompilationErrorIsRaised()
     {
         // Arrange

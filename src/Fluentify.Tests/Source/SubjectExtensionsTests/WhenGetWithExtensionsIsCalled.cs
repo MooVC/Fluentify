@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis;
 
 public sealed class WhenGetWithExtensionsIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenInternalSubjectWithReservedAndSubjectPropertiesThenEscapedParametersAreGenerated()
     {
         // Arrange

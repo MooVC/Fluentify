@@ -3,11 +3,10 @@
 using System.Collections.Generic;
 using Fluentify.Model;
 using Fluentify.Source;
-using Xunit;
 
 public sealed class WhenToParametersIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenEmptyListWhenCalledThenReturnsEmptyString()
     {
         // Arrange
@@ -20,7 +19,7 @@ public sealed class WhenToParametersIsCalled
         actual.ShouldBeEmpty();
     }
 
-    [Fact]
+    [Test]
     public void GivenMultipleGenericsWhenCalledThenReturnsCommaSeparatedBracketedParameters()
     {
         // Arrange
@@ -39,7 +38,7 @@ public sealed class WhenToParametersIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenSingleGenericWhenCalledThenReturnsSingleBracketedParameter()
     {
         // Arrange

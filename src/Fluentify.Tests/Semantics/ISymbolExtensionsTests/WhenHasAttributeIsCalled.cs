@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis;
 
 public sealed class WhenHasAttributeIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenSymbolWithMatchingAttributeThenReturnsTrue()
     {
         // Arrange
@@ -24,7 +24,7 @@ public sealed class WhenHasAttributeIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenSymbolWithNoAttributesThenReturnsFalse()
     {
         // Arrange
@@ -38,7 +38,7 @@ public sealed class WhenHasAttributeIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenSymbolWithNonMatchingAttributeThenReturnsFalse()
     {
         // Arrange

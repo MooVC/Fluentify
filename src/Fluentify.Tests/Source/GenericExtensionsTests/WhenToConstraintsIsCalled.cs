@@ -3,11 +3,10 @@
 using System.Collections.Generic;
 using Fluentify.Model;
 using Fluentify.Source;
-using Xunit;
 
 public sealed class WhenToConstraintsIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenEmptyListWhenCalledThenReturnsEmptyList()
     {
         // Arrange
@@ -20,7 +19,7 @@ public sealed class WhenToConstraintsIsCalled
         actual.ShouldBeEmpty();
     }
 
-    [Fact]
+    [Test]
     public void GivenMultipleGenericsWithConstraintsWhenCalledThenReturnsMultipleWhereClauses()
     {
         // Arrange
@@ -45,7 +44,7 @@ public sealed class WhenToConstraintsIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenSingleGenericWithMultipleConstraintsWhenCalledThenReturnsFormattedWhereClause()
     {
         // Arrange
@@ -63,7 +62,7 @@ public sealed class WhenToConstraintsIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenSingleGenericWithSingleConstraintWhenCalledThenReturnsSingleWhereClause()
     {
         // Arrange
@@ -81,7 +80,7 @@ public sealed class WhenToConstraintsIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenSingleGenericWithoutConstraintsWhenCalledThenReturnsEmptyWhereClause()
     {
         // Arrange

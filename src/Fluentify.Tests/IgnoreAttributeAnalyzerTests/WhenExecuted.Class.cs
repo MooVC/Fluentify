@@ -14,7 +14,7 @@ public partial class WhenExecuted
         {
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAMutablePropertyWithIgnoreWhenFluentifyIsAppliedToTheClassThenNoDiagnosticIsRaised()
         {
             // Arrange
@@ -33,7 +33,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAMutablePropertyWithIgnoreOnASealedClassWhenFluentifyIsNotAppliedThenMissingFluentifyRuleIsRaised()
         {
             // Arrange
@@ -53,7 +53,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAMutablePropertyWithIgnoreOnANonSealedClassWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised()
         {
             // Arrange
@@ -71,7 +71,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAMutablePropertyWithoutIgnoreWhenFluentifyIsAppliedToTheClassThenNoDiagnosticIsRaised()
         {
             // Arrange
@@ -89,7 +89,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAMutablePropertyWithoutIgnoreWhenFluentifyIsNotAppliedToTheClassThenNoDiagnosticIsRaised()
         {
             // Arrange
@@ -104,7 +104,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAnImmutablePropertyWithIgnoreWhenFluentifyIsAppliedToTheClassThenRedundantUsageRuleIsRaised()
         {
             // Arrange
@@ -125,7 +125,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAnImmutablePropertyWithIgnoreOnASealedClassWhenFluentifyIsNotAppliedThenMissingFluentifyRuleIsRaised()
         {
             // Arrange
@@ -145,7 +145,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAnImutablePropertyWithoutIgnoreWhenFluentifyIsNotAppliedToTheClassThenNoDiagnosticIsRaised()
         {
             // Arrange

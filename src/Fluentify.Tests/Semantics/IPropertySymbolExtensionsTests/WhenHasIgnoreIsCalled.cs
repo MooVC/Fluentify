@@ -5,7 +5,7 @@ using static Fluentify.IgnoreAttributeGenerator;
 
 public sealed class WhenHasIgnoreIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenPropertyWithIgnoreAttributeThenReturnsTrue()
     {
         // Arrange
@@ -25,7 +25,7 @@ public sealed class WhenHasIgnoreIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithNoAttributesThenReturnsFalse()
     {
         // Arrange
@@ -39,7 +39,7 @@ public sealed class WhenHasIgnoreIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithoutIgnoreAttributeThenReturnsFalse()
     {
         // Arrange

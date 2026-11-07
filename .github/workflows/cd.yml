@@ -68,7 +68,7 @@ jobs:
       run: dotnet build ${{ env.solution }} --configuration ${{ env.configuration }} --no-restore -p:AssemblyVersion=${{ env.version }} -p:FileVersion=${{ env.version }} -p:InformationalVersion=${{ env.informational }} -p:PackageVersion=${{ env.semantic }} -p:Version=${{ env.version }}
 
     - name: Test Solution
-      run: dotnet test ${{ env.solution }} --configuration ${{ env.configuration }} --no-build
+      run: dotnet test --solution ${{ env.solution }} --configuration ${{ env.configuration }} --no-build
 
     - name: Upload Code Coverage
       uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5

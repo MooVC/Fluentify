@@ -2,10 +2,10 @@
 
 public sealed class WhenWithDescriptionIsCalled
 {
-    [Theory]
-    [InlineData("Cross Referenced")]
-    [InlineData("")]
-    [InlineData(" ")]
+    [Test]
+    [Arguments("Cross Referenced")]
+    [Arguments("")]
+    [Arguments(" ")]
     public void GivenADescriptionThenTheValueIsApplied(string description)
     {
         // Arrange
@@ -24,7 +24,7 @@ public sealed class WhenWithDescriptionIsCalled
         actual.Simple.ShouldBe(original.Simple);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange

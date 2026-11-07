@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis;
 
 public sealed class WhenIsMutableIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenIndexerPropertyThenReturnsFalse()
     {
         // Arrange
@@ -28,7 +28,7 @@ public sealed class WhenIsMutableIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenMutablePropertyThenReturnsTrue()
     {
         // Arrange

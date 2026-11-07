@@ -12,7 +12,7 @@ public sealed class WhenThrowsWhenValueIsNullIsCalled
 
     private static readonly Compilation _compilation = CreateCompilation();
 
-    [Fact]
+    [Test]
     public void GivenNullablePropertyThenReturnsFalse()
     {
         // Arrange
@@ -25,7 +25,7 @@ public sealed class WhenThrowsWhenValueIsNullIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenNullablePropertyWithDisallowNullThenReturnsTrue()
     {
         // Arrange
@@ -38,7 +38,7 @@ public sealed class WhenThrowsWhenValueIsNullIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenNonNullablePropertyThenReturnsTrue()
     {
         // Arrange
@@ -51,7 +51,7 @@ public sealed class WhenThrowsWhenValueIsNullIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenNonNullableValueTypePropertyThenReturnsFalse()
     {
         // Arrange
@@ -64,7 +64,7 @@ public sealed class WhenThrowsWhenValueIsNullIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenNonNullableValueTypePropertyWithoutReferencesThenReturnsFalse()
     {
         // Arrange
@@ -92,7 +92,7 @@ public sealed class WhenThrowsWhenValueIsNullIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenNonNullablePropertyWithAllowNullThenReturnsFalse()
     {
         // Arrange
@@ -105,7 +105,7 @@ public sealed class WhenThrowsWhenValueIsNullIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenNonNullablePropertyWithMaybeNullThenReturnsFalse()
     {
         // Arrange
@@ -118,7 +118,7 @@ public sealed class WhenThrowsWhenValueIsNullIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenRecordParameterWithAllowNullThenReturnsFalse()
     {
         // Arrange

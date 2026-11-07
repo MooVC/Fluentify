@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public sealed class WhenIsPartialIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenNonPartialClassThenReturnsFalse()
     {
         // Arrange
@@ -24,7 +24,7 @@ public sealed class WhenIsPartialIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenNonPartialInterfaceThenReturnsFalse()
     {
         // Arrange
@@ -43,7 +43,7 @@ public sealed class WhenIsPartialIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenNonPartialStructThenReturnsFalse()
     {
         // Arrange
@@ -62,7 +62,7 @@ public sealed class WhenIsPartialIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenPartialClassThenReturnsTrue()
     {
         // Arrange
@@ -81,7 +81,7 @@ public sealed class WhenIsPartialIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenPartialInterfaceThenReturnsTrue()
     {
         // Arrange
@@ -100,7 +100,7 @@ public sealed class WhenIsPartialIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenPartialStructThenReturnsTrue()
     {
         // Arrange

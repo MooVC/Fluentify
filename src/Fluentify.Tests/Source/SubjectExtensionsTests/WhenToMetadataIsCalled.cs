@@ -4,7 +4,7 @@ using Fluentify.Model;
 
 public sealed class WhenToMetadataIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenSubjectWithGenericsThenMetadataContainsConstraintsAndParameters()
     {
         // Arrange
@@ -43,7 +43,7 @@ public sealed class WhenToMetadataIsCalled
         metadata.Subject.ShouldBe(subject);
     }
 
-    [Fact]
+    [Test]
     public void GivenSubjectWithoutGenericsThenMetadataHasNoConstraintsAndEmptyParameters()
     {
         // Arrange

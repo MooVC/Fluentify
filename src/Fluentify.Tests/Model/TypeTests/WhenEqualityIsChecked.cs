@@ -2,7 +2,7 @@
 
 public abstract class WhenEqualityIsChecked
 {
-    [Fact]
+    [Test]
     public void GivenBothInstancesAreNullThenTheyAreEqual()
     {
         // Arrange
@@ -16,7 +16,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentIsNullableThenTheyAreNotEqual()
     {
         // Arrange
@@ -37,7 +37,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentNameThenTheyAreNotEqual()
     {
         // Arrange
@@ -57,7 +57,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenIdenticalInstancesThenTheyAreEqual()
     {
         // Arrange
@@ -79,7 +79,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenOneInstanceIsNullThenTheyAreNotEqual()
     {
         // Arrange
@@ -95,7 +95,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenSameReferenceThenTheyAreEqual()
     {
         // Arrange

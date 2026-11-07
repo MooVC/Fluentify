@@ -13,7 +13,7 @@ public sealed class WhenExecuted
     {
     }
 
-    [Fact]
+    [Test]
     public async Task GivenMethodWithParametersThenDiagnosticIsRaised()
     {
         // Arrange
@@ -33,7 +33,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenMissingMemberThenDiagnosticIsRaised()
     {
         // Arrange
@@ -56,7 +56,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenParameterWithValidMemberThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -77,7 +77,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenPropertyWithMissingMemberThenDiagnosticIsRaised()
     {
         // Arrange
@@ -99,7 +99,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenStaticFieldReturningTypeThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -117,7 +117,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenStaticPropertyReturningTypeThenNoDiagnosticIsRaised()
     {
         // Arrange

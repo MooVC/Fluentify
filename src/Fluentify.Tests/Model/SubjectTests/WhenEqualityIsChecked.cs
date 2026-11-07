@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis;
 
 public abstract class WhenEqualityIsChecked
 {
-    [Fact]
+    [Test]
     public void GivenBothInstancesAreNullThenTheyAreEqual()
     {
         // Arrange
@@ -19,7 +19,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentAccessibilityThenTheyAreNotEqual()
     {
         // Arrange
@@ -60,7 +60,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentGenericsThenTheyAreNotEqual()
     {
         // Arrange
@@ -101,7 +101,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentIsPartialThenTheyAreNotEqual()
     {
         // Arrange
@@ -142,7 +142,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentNameThenTheyAreNotEqual()
     {
         // Arrange
@@ -183,7 +183,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentNamespaceThenTheyAreNotEqual()
     {
         // Arrange
@@ -225,7 +225,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentNestingThenTheyAreNotEqual()
     {
         // Arrange
@@ -267,7 +267,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentPropertiesThenTheyAreNotEqual()
     {
         // Arrange
@@ -309,7 +309,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentTypeThenTheyAreNotEqual()
     {
         // Arrange
@@ -351,7 +351,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenIdenticalInstancesThenTheyAreEqual()
     {
         // Arrange
@@ -436,7 +436,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenOneInstanceIsNullThenTheyAreNotEqual()
     {
         // Arrange
@@ -463,7 +463,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenSameReferenceThenTheyAreEqual()
     {
         // Arrange

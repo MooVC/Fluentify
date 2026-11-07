@@ -5,48 +5,54 @@ using Microsoft.CodeAnalysis;
 
 public sealed class WhenGetDescriptorIsCalled
 {
-    public static readonly TheoryData<string?, string, Definition> GivenPropertyWithDescriptorThenTheDescriptorIsReturnedData = new()
+    public static IEnumerable<(string? Descriptor, string Property, Definition Definition)> GivenPropertyWithDescriptorThenTheDescriptorIsReturnedData()
     {
-        { "Aged", "Age", Classes.Instance.DescriptorOnRequired },
-        { "AttributedWith", "Attributes", Classes.Instance.DescriptorOnOptional },
-        { "Named", "Name", Classes.Instance.DescriptorOnIgnored },
-        { default, "Age", Classes.Instance.InvalidDescriptor },
-        { "Age", "Age", Classes.Instance.SelfDescriptorOnRequired },
-        { "Attributes", "Attributes", Classes.Instance.SelfDescriptorOnOptional },
-        { "Name", "Name", Classes.Instance.SelfDescriptorOnIgnored },
-        { "Aged", "Age", Records.Instance.DescriptorOnRequired },
-        { "AttributedWith", "Attributes", Records.Instance.DescriptorOnOptional },
-        { "Named", "Name", Records.Instance.DescriptorOnIgnored },
-        { default, "Age", Records.Instance.InvalidDescriptor },
-        { "Age", "Age", Records.Instance.SelfDescriptorOnRequired },
-        { "Attributes", "Attributes", Records.Instance.SelfDescriptorOnOptional },
-        { "Name", "Name", Records.Instance.SelfDescriptorOnIgnored },
-    };
+        return
+        [
+            ("Aged", "Age", Classes.Instance.DescriptorOnRequired),
+            ("AttributedWith", "Attributes", Classes.Instance.DescriptorOnOptional),
+            ("Named", "Name", Classes.Instance.DescriptorOnIgnored),
+            (default, "Age", Classes.Instance.InvalidDescriptor),
+            ("Age", "Age", Classes.Instance.SelfDescriptorOnRequired),
+            ("Attributes", "Attributes", Classes.Instance.SelfDescriptorOnOptional),
+            ("Name", "Name", Classes.Instance.SelfDescriptorOnIgnored),
+            ("Aged", "Age", Records.Instance.DescriptorOnRequired),
+            ("AttributedWith", "Attributes", Records.Instance.DescriptorOnOptional),
+            ("Named", "Name", Records.Instance.DescriptorOnIgnored),
+            (default, "Age", Records.Instance.InvalidDescriptor),
+            ("Age", "Age", Records.Instance.SelfDescriptorOnRequired),
+            ("Attributes", "Attributes", Records.Instance.SelfDescriptorOnOptional),
+            ("Name", "Name", Records.Instance.SelfDescriptorOnIgnored),
+        ];
+    }
 
-    public static readonly TheoryData<Definition> GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturnedData = new()
+    public static IEnumerable<Definition> GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturnedData()
     {
-        { Classes.Instance.Boolean },
-        { Classes.Instance.CrossReferenced },
-        { Classes.Instance.MultipleGenerics },
-        { Classes.Instance.Simple },
-        { Classes.Instance.SingleGeneric },
-        { Classes.Instance.OneOfThreeIgnored },
-        { Classes.Instance.TwoOfThreeIgnored },
-        { Classes.Instance.AllThreeIgnored },
-        { Classes.Instance.Unannotated },
-        { Records.Instance.Boolean },
-        { Records.Instance.CrossReferenced },
-        { Records.Instance.MultipleGenerics },
-        { Records.Instance.Simple },
-        { Records.Instance.SingleGeneric },
-        { Records.Instance.OneOfThreeIgnored },
-        { Records.Instance.TwoOfThreeIgnored },
-        { Records.Instance.AllThreeIgnored },
-        { Records.Instance.Unannotated },
-    };
+        return
+        [
+            Classes.Instance.Boolean,
+            Classes.Instance.CrossReferenced,
+            Classes.Instance.MultipleGenerics,
+            Classes.Instance.Simple,
+            Classes.Instance.SingleGeneric,
+            Classes.Instance.OneOfThreeIgnored,
+            Classes.Instance.TwoOfThreeIgnored,
+            Classes.Instance.AllThreeIgnored,
+            Classes.Instance.Unannotated,
+            Records.Instance.Boolean,
+            Records.Instance.CrossReferenced,
+            Records.Instance.MultipleGenerics,
+            Records.Instance.Simple,
+            Records.Instance.SingleGeneric,
+            Records.Instance.OneOfThreeIgnored,
+            Records.Instance.TwoOfThreeIgnored,
+            Records.Instance.AllThreeIgnored,
+            Records.Instance.Unannotated,
+        ];
+    }
 
-    [Theory]
-    [MemberData(nameof(GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturnedData))]
     public void GivenPropertiesWithoutDescriptorsThenNoDescriptorsAreReturned(Definition definition)
     {
         // Arrange
@@ -65,8 +71,8 @@ public sealed class WhenGetDescriptorIsCalled
         }
     }
 
-    [Theory]
-    [MemberData(nameof(GivenPropertyWithDescriptorThenTheDescriptorIsReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenPropertyWithDescriptorThenTheDescriptorIsReturnedData))]
     public void GivenPropertyWithDescriptorThenTheDescriptorIsReturned(string? descriptor, string property, Definition definition)
     {
         // Arrange

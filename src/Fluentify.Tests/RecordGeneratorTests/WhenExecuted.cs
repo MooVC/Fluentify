@@ -1,7 +1,10 @@
 namespace Fluentify.RecordGeneratorTests;
 
 using Fluentify.Snippets;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Testing;
 
+[MethodDataSource(typeof(DeclaredCases), nameof(DeclaredCases.ForRecords))]
 public sealed class WhenExecuted
     : GeneratorTests<RecordGenerator>
 {
@@ -16,14 +19,16 @@ public sealed class WhenExecuted
         typeof(SkipAutoInitializationAttributeGenerator),
     ];
 
-    public WhenExecuted()
-        : base(Records.ReferenceAssemblies, Records.LanguageVersion, _generators)
+    private readonly Declared _declared;
+
+    public WhenExecuted(Declared declaration, ReferenceAssemblies assembly, LanguageVersion language)
+        : base(assembly, language, _generators)
     {
+        _declared = declaration;
     }
 
-    [Theory]
-    [Declared(typeof(Records))]
-    public async Task GivenARecordTheExpectedSourceIsGenerated(Declared declared)
+    [Test]
+    public async Task GivenARecordTheExpectedSourceIsGenerated()
     {
         // Arrange
         Attributes.Descriptor.IsExpectedIn(TestState);
@@ -32,7 +37,7 @@ public sealed class WhenExecuted
         Attributes.Ignore.IsExpectedIn(TestState);
         Extensions.Internal.IsExpectedIn(TestState);
 
-        declared.IsDeclaredIn(TestState);
+        _declared.IsDeclaredIn(TestState);
         Attributes.SkipAutoInitialization.IsExpectedIn(TestState);
 
         // Act & Assert

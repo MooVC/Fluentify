@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis;
 
 public sealed class WhenGetGenericsIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenMultipleTypeParametersThenReturnsGenericsForAll()
     {
         // Arrange
@@ -42,7 +42,7 @@ public sealed class WhenGetGenericsIsCalled
         generic2.Constraints.ShouldContain("struct");
     }
 
-    [Fact]
+    [Test]
     public void GivenNoTypeParametersThenReturnsEmptyList()
     {
         // Arrange
@@ -56,7 +56,7 @@ public sealed class WhenGetGenericsIsCalled
         generics.ShouldBeEmpty();
     }
 
-    [Fact]
+    [Test]
     public void GivenTypeParameterWithMultipleConstraintsThenReturnsAllConstraints()
     {
         // Arrange
@@ -83,7 +83,7 @@ public sealed class WhenGetGenericsIsCalled
         generic.Constraints.ShouldBeSubsetOf(["global::System.IDisposable", "new()"]);
     }
 
-    [Fact]
+    [Test]
     public void GivenTypeParametersWithConstraintsThenReturnsGenericsWithConstraints()
     {
         // Arrange
@@ -107,7 +107,7 @@ public sealed class WhenGetGenericsIsCalled
         generic.Constraints.ShouldBeSubsetOf(["class", "new()"]);
     }
 
-    [Fact]
+    [Test]
     public void GivenTypeParametersWithoutConstraintsThenReturnsGenericsWithoutConstraints()
     {
         // Arrange

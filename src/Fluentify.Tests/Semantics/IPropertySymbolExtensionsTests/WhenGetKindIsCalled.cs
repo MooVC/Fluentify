@@ -13,7 +13,7 @@ public sealed class WhenGetKindIsCalled
 
     private static readonly Compilation _compilation = CreateCompilation();
 
-    [Fact]
+    [Test]
     public void GivenArrayPropertyThenKindIsArray()
     {
         // Arrange
@@ -27,7 +27,7 @@ public sealed class WhenGetKindIsCalled
         kind.Member.Name.ShouldBe("global::Demo.Element");
     }
 
-    [Fact]
+    [Test]
     public void GivenCollectionPropertyThenKindIsCollection()
     {
         // Arrange
@@ -41,7 +41,7 @@ public sealed class WhenGetKindIsCalled
         kind.Member.Name.ShouldBe("global::Demo.Element");
     }
 
-    [Fact]
+    [Test]
     public void GivenListInterfacePropertyThenKindIsEnumerable()
     {
         // Arrange
@@ -55,7 +55,7 @@ public sealed class WhenGetKindIsCalled
         kind.Member.Name.ShouldBe("global::Demo.Element");
     }
 
-    [Fact]
+    [Test]
     public void GivenNonGenericCollectionPropertyThenKindIsScalar()
     {
         // Arrange
@@ -69,7 +69,7 @@ public sealed class WhenGetKindIsCalled
         kind.Type.IsFrameworkType.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenNonGenericEnumerablePropertyThenKindIsScalar()
     {
         // Arrange
@@ -83,7 +83,7 @@ public sealed class WhenGetKindIsCalled
         kind.Type.IsFrameworkType.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenNonGenericListPropertyThenKindIsScalar()
     {
         // Arrange
@@ -97,7 +97,7 @@ public sealed class WhenGetKindIsCalled
         kind.Type.IsFrameworkType.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenOnlyNonGenericCollectionImplementationThenKindIsScalar()
     {
         // Arrange
@@ -112,7 +112,7 @@ public sealed class WhenGetKindIsCalled
         kind.Type.IsFrameworkType.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenImmutableArrayPropertyThenKindIsEnumerable()
     {
         // Arrange
@@ -126,7 +126,7 @@ public sealed class WhenGetKindIsCalled
         kind.Member.Name.ShouldBe("global::Demo.Element");
     }
 
-    [Fact]
+    [Test]
     public void GivenImmutableCollectionContractPropertyThenKindIsScalar()
     {
         // Arrange
@@ -139,7 +139,7 @@ public sealed class WhenGetKindIsCalled
         kind.Pattern.ShouldBe(Pattern.Scalar);
     }
 
-    [Fact]
+    [Test]
     public void GivenInitializedImmutableListPropertyThenKindIsEnumerable()
     {
         // Arrange
@@ -153,7 +153,7 @@ public sealed class WhenGetKindIsCalled
         kind.Member.Name.ShouldBe("global::Demo.Element");
     }
 
-    [Fact]
+    [Test]
     public void GivenInitializedListImplementationThenKindIsCollection()
     {
         // Arrange
@@ -168,7 +168,7 @@ public sealed class WhenGetKindIsCalled
         kind.Member.Name.ShouldBe("global::Demo.Element");
     }
 
-    [Fact]
+    [Test]
     public void GivenNullablePropertyThenInitializationUsesNonNullableType()
     {
         // Arrange
@@ -182,7 +182,7 @@ public sealed class WhenGetKindIsCalled
         kind.Type.Initialization.ShouldBe("new global::Demo.Element()");
     }
 
-    [Fact]
+    [Test]
     public void GivenSkipAutoInitializationThenTypeIsNotBuildable()
     {
         // Arrange

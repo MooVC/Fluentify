@@ -19,7 +19,7 @@ public partial class WhenExecuted
         {
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAPropertyWithHideAndIgnoreWhenFluentifyIsAppliedToTheClassThenConflictingAttributesRuleIsRaised()
         {
             // Arrange
@@ -40,7 +40,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAPropertyWithHideWhenFluentifyIsAppliedToTheClassThenNoDiagnosticIsRaised()
         {
             // Arrange
@@ -59,7 +59,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAPropertyWithHideOnASealedClassWhenFluentifyIsNotAppliedThenMissingFluentifyRuleIsRaised()
         {
             // Arrange
@@ -79,7 +79,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAPropertyWithHideOnANonSealedClassWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised()
         {
             // Arrange
@@ -97,7 +97,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAPropertyWithoutHideWhenFluentifyIsNotAppliedToTheClassThenNoDiagnosticIsRaised()
         {
             // Arrange

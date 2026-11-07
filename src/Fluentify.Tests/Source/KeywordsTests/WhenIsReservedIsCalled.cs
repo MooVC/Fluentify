@@ -4,7 +4,7 @@ using System.Text;
 
 public sealed class WhenIsReservedIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenAReservedKeywordWhenStringBuilderThenReturnsTrue()
     {
         // Arrange
@@ -19,7 +19,7 @@ public sealed class WhenIsReservedIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenAReservedKeywordWhenStringThenReturnsTrue()
     {
         // Arrange
@@ -33,7 +33,7 @@ public sealed class WhenIsReservedIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenAtPrefixedReservedKeywordWhenStringBuilderThenReturnsFalse()
     {
         // Arrange
@@ -48,7 +48,7 @@ public sealed class WhenIsReservedIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenAtPrefixedReservedKeywordWhenStringThenReturnsFalse()
     {
         // Arrange
@@ -62,9 +62,9 @@ public sealed class WhenIsReservedIsCalled
         result.ShouldBeFalse();
     }
 
-    [Theory]
-    [InlineData("")]
-    [InlineData("   ")]
+    [Test]
+    [Arguments("")]
+    [Arguments("   ")]
     public void GivenEmptyOrWhitespaceWhenStringBuilderThenReturnsFalse(string value)
     {
         // Arrange
@@ -77,13 +77,13 @@ public sealed class WhenIsReservedIsCalled
         result.ShouldBeFalse();
     }
 
-    [Theory]
-    [InlineData(" class")]
-    [InlineData("class ")]
-    [InlineData("\tclass")]
-    [InlineData("class\t")]
-    [InlineData("\nclass")]
-    [InlineData("class\n")]
+    [Test]
+    [Arguments(" class")]
+    [Arguments("class ")]
+    [Arguments("\tclass")]
+    [Arguments("class\t")]
+    [Arguments("\nclass")]
+    [Arguments("class\n")]
     public void GivenLeadingOrTrailingWhitespaceWhenStringBuilderThenReturnsFalse(string value)
     {
         // Arrange
@@ -96,13 +96,13 @@ public sealed class WhenIsReservedIsCalled
         result.ShouldBeFalse();
     }
 
-    [Theory]
-    [InlineData(" class")]
-    [InlineData("class ")]
-    [InlineData("\tclass")]
-    [InlineData("class\t")]
-    [InlineData("\nclass")]
-    [InlineData("class\n")]
+    [Test]
+    [Arguments(" class")]
+    [Arguments("class ")]
+    [Arguments("\tclass")]
+    [Arguments("class\t")]
+    [Arguments("\nclass")]
+    [Arguments("class\n")]
     public void GivenLeadingOrTrailingWhitespaceWhenStringThenReturnsFalse(string value)
     {
         // Arrange & Act
@@ -112,10 +112,10 @@ public sealed class WhenIsReservedIsCalled
         result.ShouldBeFalse();
     }
 
-    [Theory]
-    [InlineData(null)]
-    [InlineData("")]
-    [InlineData("   ")]
+    [Test]
+    [Arguments((string?)null)]
+    [Arguments("")]
+    [Arguments("   ")]
     public void GivenNullEmptyOrWhitespaceWhenStringThenReturnsFalse(string? value)
     {
         // Arrange & Act
@@ -125,7 +125,7 @@ public sealed class WhenIsReservedIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenNullWhenStringBuilderThenReturnsFalse()
     {
         // Arrange

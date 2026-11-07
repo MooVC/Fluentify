@@ -2,7 +2,7 @@
 
 public sealed class WhenWithNumbersIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenAttributesThenTheValueIsApplied()
     {
         // Arrange
@@ -31,7 +31,7 @@ public sealed class WhenWithNumbersIsCalled
         actual.Numbers.ShouldBeEquivalentTo(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullSubjectThenArgumentNullExceptionIsThrown()
     {
         // Arrange

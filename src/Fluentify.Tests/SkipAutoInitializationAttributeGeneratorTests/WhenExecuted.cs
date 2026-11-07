@@ -1,16 +1,19 @@
 namespace Fluentify.SkipAutoInitializationAttributeGeneratorTests;
 
 using Fluentify.Snippets;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Testing;
 
+[MethodDataSource(typeof(Frameworks), nameof(Frameworks.DefaultCases))]
 public sealed class WhenExecuted
     : GeneratorTests<SkipAutoInitializationAttributeGenerator>
 {
-    public WhenExecuted()
-        : base(Classes.ReferenceAssemblies, Classes.LanguageVersion)
+    public WhenExecuted(ReferenceAssemblies assembly, LanguageVersion language)
+        : base(assembly, language)
     {
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAnAssemblyThenTheAttributeIsGenerated()
     {
         // Arrange

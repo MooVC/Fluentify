@@ -11,13 +11,13 @@ public sealed record Declared(string Content, string Name, params Generated[] Ex
     {
     }
 
-    public void IsDeclaredIn(SolutionState state)
+    public void IsDeclaredIn(SolutionState state, bool withNullableDirectives = false)
     {
         state.Sources.Add(Content);
 
         foreach (Generated expected in Expected)
         {
-            expected.IsExpectedIn(state);
+            expected.IsExpectedIn(state, withNullableDirectives);
         }
     }
 }

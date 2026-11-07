@@ -2,6 +2,7 @@
 
 using Fluentify.Model;
 
+[InheritsTests]
 public sealed class WhenInequalityIsCheckedByOperator
     : WhenInequalityIsChecked
 {

@@ -6,78 +6,6 @@ using Microsoft.CodeAnalysis;
 
 public sealed class WhenGetPropertiesIsCalled
 {
-    public static readonly TheoryData<Compilation, Definition> GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturnedData = new()
-    {
-        { Classes.Instance.Compilation, Classes.Instance.AllThreeIgnored },
-        { Records.Instance.Compilation, Records.Instance.AllThreeIgnored },
-    };
-
-    public static readonly TheoryData<Compilation, Definition> GivenBooleanThenTheExpectedPropertiesAreReturnedData = new()
-    {
-        { Classes.Instance.Compilation, Classes.Instance.Boolean },
-        { Records.Instance.Compilation, Records.Instance.Boolean },
-    };
-
-    public static readonly TheoryData<Compilation, Definition, string> GivenCrossReferencedThenTheExpectedPropertiesAreReturnedData = new()
-    {
-        { Classes.Instance.Compilation, Classes.Instance.CrossReferenced, nameof(Classes) },
-        { Records.Instance.Compilation, Records.Instance.CrossReferenced, nameof(Records) },
-    };
-
-    public static readonly TheoryData<Compilation, Definition, bool> GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturnedData = new()
-    {
-        { Classes.Instance.Compilation, Classes.Instance.DescriptorOnRequired, false },
-        { Records.Instance.Compilation, Records.Instance.DescriptorOnRequired, true },
-    };
-
-    public static readonly TheoryData<Compilation, Definition, bool> GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturnedData = new()
-    {
-        { Classes.Instance.Compilation, Classes.Instance.DescriptorOnOptional, false },
-        { Records.Instance.Compilation, Records.Instance.DescriptorOnOptional, true },
-    };
-
-    public static readonly TheoryData<Compilation, Definition, bool> GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturnedData = new()
-    {
-        { Classes.Instance.Compilation, Classes.Instance.DescriptorOnIgnored, false },
-        { Records.Instance.Compilation, Records.Instance.DescriptorOnIgnored, true },
-    };
-
-    public static readonly TheoryData<Compilation, Definition, bool> GivenGlobalThenTheExpectedPropertiesAreReturnedData = new()
-    {
-        { Classes.Instance.Compilation, Classes.Instance.Global, false },
-        { Records.Instance.Compilation, Records.Instance.Global, true },
-    };
-
-    public static readonly TheoryData<Compilation, Definition, bool> GivenMultipleGenericsThenTheExpectedPropertiesAreReturnedData = new()
-    {
-        { Classes.Instance.Compilation, Classes.Instance.MultipleGenerics, false },
-        { Records.Instance.Compilation, Records.Instance.MultipleGenerics, true },
-    };
-
-    public static readonly TheoryData<Compilation, Definition, bool> GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData = new()
-    {
-        { Classes.Instance.Compilation, Classes.Instance.OneOfThreeIgnored, false },
-        { Records.Instance.Compilation, Records.Instance.OneOfThreeIgnored, true },
-    };
-
-    public static readonly TheoryData<Compilation, Definition, bool> GivenSimpleThenTheExpectedPropertiesAreReturnedData = new()
-    {
-        { Classes.Instance.Compilation, Classes.Instance.Simple, false },
-        { Records.Instance.Compilation, Records.Instance.Simple, true },
-    };
-
-    public static readonly TheoryData<Compilation, Definition, bool> GivenSingleGenericThenTheExpectedPropertiesAreReturnedData = new()
-    {
-        { Classes.Instance.Compilation, Classes.Instance.SingleGeneric, false },
-        { Records.Instance.Compilation, Records.Instance.SingleGeneric, true },
-    };
-
-    public static readonly TheoryData<Compilation, Definition, bool> GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData = new()
-    {
-        { Classes.Instance.Compilation, Classes.Instance.TwoOfThreeIgnored, false },
-        { Records.Instance.Compilation, Records.Instance.TwoOfThreeIgnored, true },
-    };
-
     private static readonly Property _age = new()
     {
         Descriptor = "WithAge",
@@ -108,8 +36,116 @@ public sealed class WhenGetPropertiesIsCalled
         Name = "Name",
     };
 
-    [Theory]
-    [MemberData(nameof(GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
+    public static IEnumerable<(Compilation Compilation, Definition Definition)> GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturnedData()
+    {
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.AllThreeIgnored),
+            (Records.Instance.Compilation, Records.Instance.AllThreeIgnored),
+        ];
+    }
+
+    public static IEnumerable<(Compilation Compilation, Definition Definition)> GivenBooleanThenTheExpectedPropertiesAreReturnedData()
+    {
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.Boolean),
+            (Records.Instance.Compilation, Records.Instance.Boolean),
+        ];
+    }
+
+    public static IEnumerable<(Compilation Compilation, Definition Definition, string Type)> GivenCrossReferencedThenTheExpectedPropertiesAreReturnedData()
+    {
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.CrossReferenced, nameof(Classes)),
+            (Records.Instance.Compilation, Records.Instance.CrossReferenced, nameof(Records)),
+        ];
+    }
+
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsNullable)> GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturnedData()
+    {
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.DescriptorOnRequired, false),
+            (Records.Instance.Compilation, Records.Instance.DescriptorOnRequired, true),
+        ];
+    }
+
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsNullable)> GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturnedData()
+    {
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.DescriptorOnOptional, false),
+            (Records.Instance.Compilation, Records.Instance.DescriptorOnOptional, true),
+        ];
+    }
+
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsNullable)> GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturnedData()
+    {
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.DescriptorOnIgnored, false),
+            (Records.Instance.Compilation, Records.Instance.DescriptorOnIgnored, true),
+        ];
+    }
+
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsNullable)> GivenGlobalThenTheExpectedPropertiesAreReturnedData()
+    {
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.Global, false),
+            (Records.Instance.Compilation, Records.Instance.Global, true),
+        ];
+    }
+
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsNullable)> GivenMultipleGenericsThenTheExpectedPropertiesAreReturnedData()
+    {
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.MultipleGenerics, false),
+            (Records.Instance.Compilation, Records.Instance.MultipleGenerics, true),
+        ];
+    }
+
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsNullable)> GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData()
+    {
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.OneOfThreeIgnored, false),
+            (Records.Instance.Compilation, Records.Instance.OneOfThreeIgnored, true),
+        ];
+    }
+
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsNullable)> GivenSimpleThenTheExpectedPropertiesAreReturnedData()
+    {
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.Simple, false),
+            (Records.Instance.Compilation, Records.Instance.Simple, true),
+        ];
+    }
+
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsNullable)> GivenSingleGenericThenTheExpectedPropertiesAreReturnedData()
+    {
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.SingleGeneric, false),
+            (Records.Instance.Compilation, Records.Instance.SingleGeneric, true),
+        ];
+    }
+
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsNullable)> GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData()
+    {
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.TwoOfThreeIgnored, false),
+            (Records.Instance.Compilation, Records.Instance.TwoOfThreeIgnored, true),
+        ];
+    }
+
+    [Test]
+    [MethodDataSource(nameof(GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenAllThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition)
     {
         // Act
@@ -120,8 +156,8 @@ public sealed class WhenGetPropertiesIsCalled
         properties.ShouldAllBe(property => property.IsIgnored);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenBooleanThenTheExpectedPropertiesAreReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenBooleanThenTheExpectedPropertiesAreReturnedData))]
     public void GivenBooleanThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition)
     {
         // Arrange
@@ -144,8 +180,8 @@ public sealed class WhenGetPropertiesIsCalled
         ActAndAssert(compilation, definition, _age, isRetired, _name);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenCrossReferencedThenTheExpectedPropertiesAreReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenCrossReferencedThenTheExpectedPropertiesAreReturnedData))]
     public void GivenCrossReferencedThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, string type)
     {
         // Arrange
@@ -183,8 +219,8 @@ public sealed class WhenGetPropertiesIsCalled
         ActAndAssert(compilation, definition, description, simple);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenDescriptorOnIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
     {
         // Arrange
@@ -210,8 +246,8 @@ public sealed class WhenGetPropertiesIsCalled
         ActAndAssert(compilation, definition, _age, attributes, name);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturnedData))]
     public void GivenDescriptorOnOptionalThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
     {
         // Arrange
@@ -221,8 +257,8 @@ public sealed class WhenGetPropertiesIsCalled
         ActAndAssert(compilation, definition, _age, attributes, _name);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenDescriptorOnRequiredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
     {
         // Arrange
@@ -247,15 +283,15 @@ public sealed class WhenGetPropertiesIsCalled
         ActAndAssert(compilation, definition, age, attributes, _name);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenGlobalThenTheExpectedPropertiesAreReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenGlobalThenTheExpectedPropertiesAreReturnedData))]
     public void GivenGlobalThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
     {
         GivenSimpleThenTheExpectedPropertiesAreReturned(compilation, definition, isNullable);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenMultipleGenericsThenTheExpectedPropertiesAreReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenMultipleGenericsThenTheExpectedPropertiesAreReturnedData))]
     public void GivenMultipleGenericsThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
     {
         // Arrange
@@ -313,8 +349,8 @@ public sealed class WhenGetPropertiesIsCalled
         ActAndAssert(compilation, definition, age, attributes, name);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenOneOfThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
     {
         // Arrange
@@ -340,8 +376,8 @@ public sealed class WhenGetPropertiesIsCalled
         ActAndAssert(compilation, definition, _age, attributes, name);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenSimpleThenTheExpectedPropertiesAreReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenSimpleThenTheExpectedPropertiesAreReturnedData))]
     public void GivenSimpleThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
     {
         // Arrange
@@ -351,8 +387,8 @@ public sealed class WhenGetPropertiesIsCalled
         ActAndAssert(compilation, definition, _age, attributes, _name);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenSingleGenericThenTheExpectedPropertiesAreReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenSingleGenericThenTheExpectedPropertiesAreReturnedData))]
     public void GivenSingleGenericThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
     {
         // Arrange
@@ -375,8 +411,8 @@ public sealed class WhenGetPropertiesIsCalled
         ActAndAssert(compilation, definition, _age, attributes, _name);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturnedData))]
     public void GivenTwoOfThreeIgnoredThenTheExpectedPropertiesAreReturned(Compilation compilation, Definition definition, bool isNullable)
     {
         // Arrange

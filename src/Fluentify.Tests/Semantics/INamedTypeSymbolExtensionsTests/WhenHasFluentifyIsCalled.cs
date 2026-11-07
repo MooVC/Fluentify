@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis;
 
 public sealed class WhenHasFluentifyIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenFluentifyAttributeThenReturnsTrue()
     {
         // Arrange
@@ -20,7 +20,7 @@ public sealed class WhenHasFluentifyIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenMultipleAttributesIncludingFluentifyThenReturnsTrue()
     {
         // Arrange
@@ -35,7 +35,7 @@ public sealed class WhenHasFluentifyIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenNoAttributesThenReturnsFalse()
     {
         // Arrange
@@ -48,7 +48,7 @@ public sealed class WhenHasFluentifyIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenOtherAttributesThenReturnsFalse()
     {
         // Arrange

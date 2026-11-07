@@ -2,7 +2,7 @@
 
 public sealed class WhenMyServiceIsBuilt
 {
-    [Fact]
+    [Test]
     public void GivenRequiredValuesThenTheInstanceIsBuilt()
     {
         // Arrange

@@ -1,5 +1,6 @@
 ﻿namespace Fluentify.Model.NestingTests;
 
+[InheritsTests]
 public sealed class WhenEqualityIsCheckedByEquals
     : WhenEqualityIsChecked
 {

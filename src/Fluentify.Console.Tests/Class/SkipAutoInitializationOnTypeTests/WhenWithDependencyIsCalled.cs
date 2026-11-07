@@ -2,7 +2,7 @@ namespace Fluentify.Console.Class.SkipAutoInitializationOnTypeTests;
 
 public sealed class WhenWithDependencyIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenDependencyWhenBuilderIsUsedThenTheValueIsApplied()
     {
         // Arrange
@@ -30,7 +30,7 @@ public sealed class WhenWithDependencyIsCalled
         actual.Dependency.Name.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullDependencyWhenBuilderIsUsedThenNotSupportedExceptionIsThrown()
     {
         // Arrange

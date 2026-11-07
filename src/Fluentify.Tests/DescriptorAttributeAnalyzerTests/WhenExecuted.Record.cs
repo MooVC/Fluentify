@@ -13,9 +13,9 @@ public partial class WhenExecuted
         {
         }
 
-        [Theory]
-        [InlineData("Valid")]
-        [InlineData("inValid")]
+        [Test]
+        [Arguments("Valid")]
+        [Arguments("inValid")]
         public async Task GivenADescriptorOnASealedRecordWhenFluentifyIsNotAppliedThenMissingFluentifyRuleIsRaised(string descriptor)
         {
             // Arrange
@@ -31,8 +31,8 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Theory]
-        [InlineData("Valid")]
+        [Test]
+        [Arguments("Valid")]
         public async Task GivenADescriptorOnANonSealedRecordWhenFluentifyIsNotAppliedThenNoDiagnosticIsRaised(string descriptor)
         {
             // Arrange
@@ -46,7 +46,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenADuplicateDescriptorWhenFluentifyIsAppliedToTheRecordThenDuplicateDescriptorRuleIsRaised()
         {
             // Arrange
@@ -63,7 +63,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenAPropertySharingADescriptorWithAnIgnoredPropertyWhenFluentifyIsAppliedToTheRecordThenNoDuplicateDescriptorRuleIsRaised()
         {
             // Arrange
@@ -80,7 +80,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenARedundantSelfDescriptorOnANonBooleanWhenFluentifyIsAppliedToTheClassThenDisregardedRuleIsRaised()
         {
             // Arrange
@@ -97,7 +97,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenASelfDescriptorOnABooleanWhenFluentifyIsAppliedToTheClassThenDisregardedRuleIsRaised()
         {
             // Arrange
@@ -114,7 +114,7 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Fact]
+        [Test]
         public async Task GivenASelfDescriptorOnANonBooleanWhenFluentifyIsAppliedToTheClassThenThenNoDiagnosticIsRaised()
         {
             // Arrange
@@ -129,17 +129,17 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Theory]
-        [InlineData("CalculateTotalPrice")]
-        [InlineData("GenerateReport")]
-        [InlineData("SendEmailNotification")]
-        [InlineData("ValidateUserCredentials")]
-        [InlineData("ParseJsonResponse")]
-        [InlineData("UpdateDatabaseRecord")]
-        [InlineData("ConvertCurrency")]
-        [InlineData("FetchWeatherData")]
-        [InlineData("ResizeImage")]
-        [InlineData("ProcessOrder")]
+        [Test]
+        [Arguments("CalculateTotalPrice")]
+        [Arguments("GenerateReport")]
+        [Arguments("SendEmailNotification")]
+        [Arguments("ValidateUserCredentials")]
+        [Arguments("ParseJsonResponse")]
+        [Arguments("UpdateDatabaseRecord")]
+        [Arguments("ConvertCurrency")]
+        [Arguments("FetchWeatherData")]
+        [Arguments("ResizeImage")]
+        [Arguments("ProcessOrder")]
         public async Task GivenAValidDescriptorOnAnIgnoredPropertyWhenFluentifyIsAppliedToTheRecordThenDisregardedRuleIsRaised(string descriptor)
         {
             // Arrange
@@ -156,17 +156,17 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Theory]
-        [InlineData("CalculateTotalPrice")]
-        [InlineData("GenerateReport")]
-        [InlineData("SendEmailNotification")]
-        [InlineData("ValidateUserCredentials")]
-        [InlineData("ParseJsonResponse")]
-        [InlineData("UpdateDatabaseRecord")]
-        [InlineData("ConvertCurrency")]
-        [InlineData("FetchWeatherData")]
-        [InlineData("ResizeImage")]
-        [InlineData("ProcessOrder")]
+        [Test]
+        [Arguments("CalculateTotalPrice")]
+        [Arguments("GenerateReport")]
+        [Arguments("SendEmailNotification")]
+        [Arguments("ValidateUserCredentials")]
+        [Arguments("ParseJsonResponse")]
+        [Arguments("UpdateDatabaseRecord")]
+        [Arguments("ConvertCurrency")]
+        [Arguments("FetchWeatherData")]
+        [Arguments("ResizeImage")]
+        [Arguments("ProcessOrder")]
         public async Task GivenAValidDescriptorWhenFluentifyIsAppliedToTheRecordThenNoDiagnosticIsRaised(string descriptor)
         {
             // Arrange
@@ -181,17 +181,17 @@ public partial class WhenExecuted
             await ActAndAssertAsync();
         }
 
-        [Theory]
-        [InlineData("Calculate-Total-Price")]
-        [InlineData("123GenerateReport")]
-        [InlineData("Send Email Notification")]
-        [InlineData("ValidateUser$Credentials")]
-        [InlineData("ParseJson.Response")]
-        [InlineData("Update Database Record")]
-        [InlineData("convertCurrency")]
-        [InlineData("Fetch_Weather_Data")]
-        [InlineData("Resize Image")]
-        [InlineData("Process@Order")]
+        [Test]
+        [Arguments("Calculate-Total-Price")]
+        [Arguments("123GenerateReport")]
+        [Arguments("Send Email Notification")]
+        [Arguments("ValidateUser$Credentials")]
+        [Arguments("ParseJson.Response")]
+        [Arguments("Update Database Record")]
+        [Arguments("convertCurrency")]
+        [Arguments("Fetch_Weather_Data")]
+        [Arguments("Resize Image")]
+        [Arguments("Process@Order")]
         public async Task GivenAnInvalidDescriptorWhenFluentifyIsAppliedToTheRecordThenTheValidNamingRuleDiagnosticIsRaised(string descriptor)
         {
             // Arrange

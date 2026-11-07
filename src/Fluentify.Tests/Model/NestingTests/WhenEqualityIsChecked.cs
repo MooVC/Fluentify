@@ -2,7 +2,7 @@
 
 public abstract class WhenEqualityIsChecked
 {
-    [Fact]
+    [Test]
     public void GivenADifferentGenericsThenTheyAreNotDeemedEqual()
     {
         // Arrange
@@ -29,7 +29,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenADifferentNameThenTheyAreNotDeemedEqual()
     {
         // Arrange
@@ -56,7 +56,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenADifferentQualificationThenTheyAreNotDeemedEqual()
     {
         // Arrange
@@ -83,7 +83,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenBothInstancesAreNullThenTheyAreDeemedEqual()
     {
         // Arrange
@@ -97,7 +97,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentDeclarationThenTheyAreDeemedNotEqual()
     {
         // Arrange
@@ -124,7 +124,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenIdenticalInstancesThenTheyAreDeemedEqual()
     {
         // Arrange
@@ -151,7 +151,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenOneInstanceIsNullThenTheyAreDeemedNotEqual()
     {
         // Arrange
@@ -170,7 +170,7 @@ public abstract class WhenEqualityIsChecked
         areEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenSameReferenceThenTheyAreDeemedEqual()
     {
         // Arrange

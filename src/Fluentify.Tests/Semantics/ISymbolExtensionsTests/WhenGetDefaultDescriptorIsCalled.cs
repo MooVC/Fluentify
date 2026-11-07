@@ -5,42 +5,48 @@ using Microsoft.CodeAnalysis;
 
 public sealed class WhenGetDefaultDescriptorIsCalled
 {
-    public static readonly TheoryData<string, string, Definition> GivenParametersThenExpectedDefaultDescriptorsIsReturnedData = new()
+    public static IEnumerable<(string Descriptor, string Parameter, Definition Definition)> GivenParametersThenExpectedDefaultDescriptorsIsReturnedData()
     {
-        { "IsRetired", "IsRetired", Records.Instance.Boolean },
-        { "WithSimple", "Simple", Records.Instance.CrossReferenced },
-        { "WithAge", "Age",  Records.Instance.MultipleGenerics },
-        { "WithName", "Name", Records.Instance.Simple },
-        { "WithAttributes", "Attributes", Records.Instance.SingleGeneric },
-        { "WithAge", "Age", Records.Instance.OneOfThreeIgnored },
-        { "WithName", "Name", Records.Instance.TwoOfThreeIgnored },
-        { "WithAttributes", "Attributes", Records.Instance.AllThreeIgnored },
-        { "WithAge", "Age", Records.Instance.Unannotated },
-    };
+        return
+        [
+            ("IsRetired", "IsRetired", Records.Instance.Boolean),
+            ("WithSimple", "Simple", Records.Instance.CrossReferenced),
+            ("WithAge", "Age",  Records.Instance.MultipleGenerics),
+            ("WithName", "Name", Records.Instance.Simple),
+            ("WithAttributes", "Attributes", Records.Instance.SingleGeneric),
+            ("WithAge", "Age", Records.Instance.OneOfThreeIgnored),
+            ("WithName", "Name", Records.Instance.TwoOfThreeIgnored),
+            ("WithAttributes", "Attributes", Records.Instance.AllThreeIgnored),
+            ("WithAge", "Age", Records.Instance.Unannotated),
+        ];
+    }
 
-    public static readonly TheoryData<string, string, Definition> GivenPropertiesThenExpectedDefaultDescriptorsIsReturnedData = new()
+    public static IEnumerable<(string Descriptor, string Property, Definition Definition)> GivenPropertiesThenExpectedDefaultDescriptorsIsReturnedData()
     {
-        { "IsRetired", "IsRetired", Classes.Instance.Boolean },
-        { "WithSimple", "Simple", Classes.Instance.CrossReferenced },
-        { "WithAge", "Age", Classes.Instance.MultipleGenerics },
-        { "WithName", "Name", Classes.Instance.Simple },
-        { "WithAttributes", "Attributes", Classes.Instance.SingleGeneric },
-        { "WithAge", "Age", Classes.Instance.OneOfThreeIgnored },
-        { "WithName", "Name", Classes.Instance.TwoOfThreeIgnored },
-        { "WithAttributes", "Attributes", Classes.Instance.AllThreeIgnored },
-        { "WithAge", "Age", Classes.Instance.Unannotated },
-        { "IsRetired", "IsRetired", Records.Instance.Boolean },
-        { "WithSimple", "Simple", Records.Instance.CrossReferenced },
-        { "WithAge", "Age",  Records.Instance.MultipleGenerics },
-        { "WithName", "Name", Records.Instance.Simple },
-        { "WithAttributes", "Attributes", Records.Instance.SingleGeneric },
-        { "WithAge", "Age", Records.Instance.OneOfThreeIgnored },
-        { "WithName", "Name", Records.Instance.TwoOfThreeIgnored },
-        { "WithAttributes", "Attributes", Records.Instance.AllThreeIgnored },
-        { "WithAge", "Age", Records.Instance.Unannotated },
-    };
+        return
+        [
+            ("IsRetired", "IsRetired", Classes.Instance.Boolean),
+            ("WithSimple", "Simple", Classes.Instance.CrossReferenced),
+            ("WithAge", "Age", Classes.Instance.MultipleGenerics),
+            ("WithName", "Name", Classes.Instance.Simple),
+            ("WithAttributes", "Attributes", Classes.Instance.SingleGeneric),
+            ("WithAge", "Age", Classes.Instance.OneOfThreeIgnored),
+            ("WithName", "Name", Classes.Instance.TwoOfThreeIgnored),
+            ("WithAttributes", "Attributes", Classes.Instance.AllThreeIgnored),
+            ("WithAge", "Age", Classes.Instance.Unannotated),
+            ("IsRetired", "IsRetired", Records.Instance.Boolean),
+            ("WithSimple", "Simple", Records.Instance.CrossReferenced),
+            ("WithAge", "Age",  Records.Instance.MultipleGenerics),
+            ("WithName", "Name", Records.Instance.Simple),
+            ("WithAttributes", "Attributes", Records.Instance.SingleGeneric),
+            ("WithAge", "Age", Records.Instance.OneOfThreeIgnored),
+            ("WithName", "Name", Records.Instance.TwoOfThreeIgnored),
+            ("WithAttributes", "Attributes", Records.Instance.AllThreeIgnored),
+            ("WithAge", "Age", Records.Instance.Unannotated),
+        ];
+    }
 
-    [Fact]
+    [Test]
     public void GivenAnUnrecognizedSymbolThenTheDefaultDescriptorIsReturned()
     {
         // Arrange
@@ -58,8 +64,8 @@ public sealed class WhenGetDefaultDescriptorIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenParametersThenExpectedDefaultDescriptorsIsReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenParametersThenExpectedDefaultDescriptorsIsReturnedData))]
     public void GivenParametersThenExpectedDefaultDescriptorsIsReturned(string descriptor, string parameter, Definition definition)
     {
         // Arrange
@@ -72,8 +78,8 @@ public sealed class WhenGetDefaultDescriptorIsCalled
         actual.ShouldBe(descriptor);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenPropertiesThenExpectedDefaultDescriptorsIsReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenPropertiesThenExpectedDefaultDescriptorsIsReturnedData))]
     public void GivenPropertiesThenExpectedDefaultDescriptorsIsReturned(string descriptor, string property, Definition definition)
     {
         // Arrange

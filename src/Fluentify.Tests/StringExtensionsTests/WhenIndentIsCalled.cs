@@ -2,7 +2,7 @@
 
 public sealed class WhenIndentIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenEmptyStringThenReturnsEmptyString()
     {
         // Arrange
@@ -15,7 +15,7 @@ public sealed class WhenIndentIsCalled
         result.ShouldBe(string.Empty);
     }
 
-    [Fact]
+    [Test]
     public void GivenMultilineStringThenIndentsNonBlankLinesAfterSkip()
     {
         // Arrange
@@ -39,7 +39,7 @@ public sealed class WhenIndentIsCalled
         result.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenMultilineStringWithDifferentWhitespaceThenIndentsWithWhitespace()
     {
         // Arrange
@@ -63,7 +63,7 @@ public sealed class WhenIndentIsCalled
         result.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenMultilineStringWithSkipThenSkipsLinesCorrectly()
     {
         // Arrange
@@ -87,7 +87,7 @@ public sealed class WhenIndentIsCalled
         result.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenSingleLineStringThenReturnsSameString()
     {
         // Arrange

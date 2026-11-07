@@ -7,58 +7,82 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 public sealed class WhenToSubjectIsCalled
 {
-    public static readonly TheoryData<Compilation, Definition, bool, string> GivenABooleanTypeThenTheExpectedSubjectIsReturnedData = new()
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsPartial, string Type)> GivenABooleanTypeThenTheExpectedSubjectIsReturnedData()
     {
-        { Classes.Instance.Compilation, Classes.Instance.Boolean, false, nameof(Classes) },
-        { Records.Instance.Compilation, Records.Instance.Boolean, true, nameof(Records) },
-    };
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.Boolean, false, nameof(Classes)),
+            (Records.Instance.Compilation, Records.Instance.Boolean, true, nameof(Records)),
+        ];
+    }
 
-    public static readonly TheoryData<Compilation, Definition, bool, string> GivenACrossReferencedTypeThenTheExpectedSubjectIsReturnedData = new()
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsPartial, string Type)> GivenACrossReferencedTypeThenTheExpectedSubjectIsReturnedData()
     {
-        { Classes.Instance.Compilation, Classes.Instance.CrossReferenced, false, nameof(Classes) },
-        { Records.Instance.Compilation, Records.Instance.CrossReferenced, true, nameof(Records) },
-    };
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.CrossReferenced, false, nameof(Classes)),
+            (Records.Instance.Compilation, Records.Instance.CrossReferenced, true, nameof(Records)),
+        ];
+    }
 
-    public static readonly TheoryData<Compilation, Definition, bool> GivenAGlobalTypeThenTheExpectedSubjectIsReturnedData = new()
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsPartial)> GivenAGlobalTypeThenTheExpectedSubjectIsReturnedData()
     {
-        { Classes.Instance.Compilation, Classes.Instance.Global, false },
-        { Records.Instance.Compilation, Records.Instance.Global, true },
-    };
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.Global, false),
+            (Records.Instance.Compilation, Records.Instance.Global, true),
+        ];
+    }
 
-    public static readonly TheoryData<Compilation, Definition, bool, string> GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturnedData = new()
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsPartial, string Type)> GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturnedData()
     {
-        { Classes.Instance.Compilation, Classes.Instance.MultipleGenerics, false, nameof(Classes) },
-        { Records.Instance.Compilation, Records.Instance.MultipleGenerics, true, nameof(Records) },
-    };
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.MultipleGenerics, false, nameof(Classes)),
+            (Records.Instance.Compilation, Records.Instance.MultipleGenerics, true, nameof(Records)),
+        ];
+    }
 
-    public static readonly TheoryData<Compilation, Definition, bool, string> GivenANestedTypeThenTheExpectedSubjectIsReturnedData = new()
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsPartial, string Type)> GivenANestedTypeThenTheExpectedSubjectIsReturnedData()
     {
-        { Classes.Instance.Compilation, Classes.Instance.NestedInClass, false, nameof(Classes) },
-        { Records.Instance.Compilation, Records.Instance.NestedInClass, true, nameof(Records) },
-    };
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.NestedInClass, false, nameof(Classes)),
+            (Records.Instance.Compilation, Records.Instance.NestedInClass, true, nameof(Records)),
+        ];
+    }
 
-    public static readonly TheoryData<Compilation, Definition, bool, string> GivenASimpleTypeThenTheExpectedSubjectIsReturnedData = new()
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsPartial, string Type)> GivenASimpleTypeThenTheExpectedSubjectIsReturnedData()
     {
-        { Classes.Instance.Compilation, Classes.Instance.Simple, false, nameof(Classes) },
-        { Records.Instance.Compilation, Records.Instance.Simple, true, nameof(Records) },
-    };
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.Simple, false, nameof(Classes)),
+            (Records.Instance.Compilation, Records.Instance.Simple, true, nameof(Records)),
+        ];
+    }
 
-    public static readonly TheoryData<Compilation, Definition, bool, string> GivenASingleGenericTypeThenTheExpectedSubjectIsReturnedData = new()
+    public static IEnumerable<(Compilation Compilation, Definition Definition, bool IsPartial, string Type)> GivenASingleGenericTypeThenTheExpectedSubjectIsReturnedData()
     {
-        { Classes.Instance.Compilation, Classes.Instance.SingleGeneric, false, nameof(Classes) },
-        { Records.Instance.Compilation, Records.Instance.SingleGeneric, true, nameof(Records) },
-    };
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.SingleGeneric, false, nameof(Classes)),
+            (Records.Instance.Compilation, Records.Instance.SingleGeneric, true, nameof(Records)),
+        ];
+    }
 
-    public static readonly TheoryData<Compilation, Definition> GivenUnannotatedOrUnsupportedThenNoSubjectIsReturnedData = new()
+    public static IEnumerable<(Compilation Compilation, Definition Definition)> GivenUnannotatedOrUnsupportedThenNoSubjectIsReturnedData()
     {
-        { Classes.Instance.Compilation, Classes.Instance.Unannotated },
-        { Records.Instance.Compilation, Records.Instance.Unannotated },
-        { Classes.Instance.Compilation, Classes.Instance.Unsupported },
-        { Records.Instance.Compilation, Records.Instance.Unsupported },
-    };
+        return
+        [
+            (Classes.Instance.Compilation, Classes.Instance.Unannotated),
+            (Records.Instance.Compilation, Records.Instance.Unannotated),
+            (Classes.Instance.Compilation, Classes.Instance.Unsupported),
+            (Records.Instance.Compilation, Records.Instance.Unsupported),
+        ];
+    }
 
-    [Theory]
-    [MemberData(nameof(GivenABooleanTypeThenTheExpectedSubjectIsReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenABooleanTypeThenTheExpectedSubjectIsReturnedData))]
     public void GivenABooleanTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
     {
         // Arrange
@@ -129,8 +153,8 @@ public sealed class WhenToSubjectIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenACrossReferencedTypeThenTheExpectedSubjectIsReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenACrossReferencedTypeThenTheExpectedSubjectIsReturnedData))]
     public void GivenACrossReferencedTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
     {
         // Arrange
@@ -187,8 +211,8 @@ public sealed class WhenToSubjectIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenAGlobalTypeThenTheExpectedSubjectIsReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenAGlobalTypeThenTheExpectedSubjectIsReturnedData))]
     public void GivenAGlobalTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial)
     {
         // Arrange
@@ -263,8 +287,8 @@ public sealed class WhenToSubjectIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturnedData))]
     public void GivenAMultipleGenericTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
     {
         // Arrange
@@ -358,8 +382,8 @@ public sealed class WhenToSubjectIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenANestedTypeThenTheExpectedSubjectIsReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenANestedTypeThenTheExpectedSubjectIsReturnedData))]
     public void GivenANestedTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
     {
         // Arrange
@@ -435,8 +459,8 @@ public sealed class WhenToSubjectIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenASimpleTypeThenTheExpectedSubjectIsReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenASimpleTypeThenTheExpectedSubjectIsReturnedData))]
     public void GivenASimpleTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
     {
         // Arrange
@@ -511,8 +535,8 @@ public sealed class WhenToSubjectIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Theory]
-    [MemberData(nameof(GivenASingleGenericTypeThenTheExpectedSubjectIsReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenASingleGenericTypeThenTheExpectedSubjectIsReturnedData))]
     public void GivenASingleGenericTypeThenTheExpectedSubjectIsReturned(Compilation compilation, Definition definition, bool isPartial, string type)
     {
         // Arrange
@@ -591,7 +615,7 @@ public sealed class WhenToSubjectIsCalled
         actual.ShouldBe(expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenNullSyntaxThenNoSubjectIsReturned()
     {
         // Arrange
@@ -604,8 +628,8 @@ public sealed class WhenToSubjectIsCalled
         subject.ShouldBeNull();
     }
 
-    [Theory]
-    [MemberData(nameof(GivenUnannotatedOrUnsupportedThenNoSubjectIsReturnedData))]
+    [Test]
+    [MethodDataSource(nameof(GivenUnannotatedOrUnsupportedThenNoSubjectIsReturnedData))]
     public void GivenUnannotatedOrUnsupportedThenNoSubjectIsReturned(Compilation compilation, Definition definition)
     {
         // Act

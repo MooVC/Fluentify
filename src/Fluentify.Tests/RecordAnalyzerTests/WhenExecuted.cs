@@ -13,7 +13,7 @@ public sealed class WhenExecuted
     {
     }
 
-    [Fact]
+    [Test]
     public async Task GivenAPartialRecordWithFluentifyThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -28,7 +28,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenARecordWithAccessibleDefaultConstructorWhenFluentifyIsAppliedThenNoDiagnosticIsRaised()
     {
         // Arrange
@@ -50,7 +50,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenARecordWithoutAccessibleDefaultConstructorWhenFluentifyIsAppliedThenPartialRecordRequiredRuleIsRaised()
     {
         // Arrange
@@ -67,7 +67,7 @@ public sealed class WhenExecuted
         await ActAndAssertAsync();
     }
 
-    [Fact]
+    [Test]
     public async Task GivenARecordWithoutFluentifyThenNoDiagnosticIsRaised()
     {
         // Arrange

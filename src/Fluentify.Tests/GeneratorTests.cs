@@ -11,7 +11,7 @@ public abstract class GeneratorTests<TGenerator>
 {
     private readonly Type[] _generators;
 
-    private readonly LanguageVersion _languageVersion;
+    private LanguageVersion _languageVersion;
 
     protected GeneratorTests(ReferenceAssemblies assemblies, LanguageVersion languageVersion, params Type[] generators)
     {
@@ -19,8 +19,7 @@ public abstract class GeneratorTests<TGenerator>
             ? [typeof(TGenerator)]
             : generators;
 
-        _languageVersion = languageVersion;
-        ReferenceAssemblies = assemblies;
+        SetTarget(assemblies, languageVersion);
     }
 
     protected sealed override ParseOptions CreateParseOptions()
@@ -36,5 +35,11 @@ public abstract class GeneratorTests<TGenerator>
     protected Task ActAndAssertAsync()
     {
         return RunAsync();
+    }
+
+    protected void SetTarget(ReferenceAssemblies assemblies, LanguageVersion languageVersion)
+    {
+        ReferenceAssemblies = assemblies;
+        _languageVersion = languageVersion;
     }
 }

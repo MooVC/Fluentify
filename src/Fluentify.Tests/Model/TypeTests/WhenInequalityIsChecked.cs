@@ -2,7 +2,7 @@
 
 public abstract class WhenInequalityIsChecked
 {
-    [Fact]
+    [Test]
     public void GivenBothInstancesAreNullThenTheyAreEqual()
     {
         // Arrange
@@ -16,7 +16,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentIsNullableThenTheyAreNotEqual()
     {
         // Arrange
@@ -37,7 +37,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenDifferentNameThenTheyAreNotEqual()
     {
         // Arrange
@@ -57,7 +57,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenIdenticalInstancesThenTheyAreEqual()
     {
         // Arrange
@@ -77,7 +77,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenOneInstanceIsNullThenTheyAreNotEqual()
     {
         // Arrange
@@ -93,7 +93,7 @@ public abstract class WhenInequalityIsChecked
         areNotEqual.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenSameReferenceThenTheyAreEqual()
     {
         // Arrange

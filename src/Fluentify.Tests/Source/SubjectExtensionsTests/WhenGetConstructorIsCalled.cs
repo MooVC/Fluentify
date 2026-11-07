@@ -4,7 +4,7 @@ using Fluentify.Model;
 
 public sealed class WhenGetConstructorIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenSubjectWithNoPropertiesThenReturnsDefaultConstructor()
     {
         // Arrange
@@ -40,7 +40,7 @@ public sealed class WhenGetConstructorIsCalled
         result.ShouldBe(Expected);
     }
 
-    [Fact]
+    [Test]
     public void GivenSubjectWithPropertiesThenReturnsConstructorWithDefaultInitializers()
     {
         // Arrange

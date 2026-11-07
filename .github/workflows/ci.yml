@@ -10,10 +10,6 @@ on:
       - release/*
       - feature/*
       - hotfix/*
-    paths:
-      - '.github/workflows/**'
-      - 'build/**'
-      - 'src/**'
   schedule:
     - cron: '0 3 * * *'
 
@@ -55,10 +51,10 @@ jobs:
       run: dotnet restore ${{ env.solution }}
 
     - name: Build Solution
-      run: dotnet build ${{ env.solution }} --configuration ${{ env.configuration }} --no-restore
+      run: dotnet build ${{ env.solution }} --configuration ${{ env.configuration }} -p:DefineConstants=CI --no-restore
 
     - name: Test Solution
-      run: dotnet test ${{ env.solution }} --configuration ${{ env.configuration }} --no-build
+      run: dotnet test --solution ${{ env.solution }} --configuration ${{ env.configuration }} --no-build
 
     - name: Upload Code Coverage
       uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5

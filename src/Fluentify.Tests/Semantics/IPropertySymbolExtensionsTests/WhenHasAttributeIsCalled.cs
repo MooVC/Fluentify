@@ -4,7 +4,7 @@ using Microsoft.CodeAnalysis;
 
 public sealed class WhenHasAttributeIsCalled
 {
-    [Fact]
+    [Test]
     public void GivenPropertyParameterWithMatchingAttributeThenReturnsTrue()
     {
         // Arrange
@@ -35,7 +35,7 @@ public sealed class WhenHasAttributeIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyParameterWithNoAttributesThenReturnsFalse()
     {
         // Arrange
@@ -60,7 +60,7 @@ public sealed class WhenHasAttributeIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyParameterWithNonMatchingAttributeThenReturnsFalse()
     {
         // Arrange
@@ -91,7 +91,7 @@ public sealed class WhenHasAttributeIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithMatchingAttributeThenReturnsTrue()
     {
         // Arrange
@@ -111,7 +111,7 @@ public sealed class WhenHasAttributeIsCalled
         result.ShouldBeTrue();
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithNoAttributesThenReturnsFalse()
     {
         // Arrange
@@ -125,7 +125,7 @@ public sealed class WhenHasAttributeIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithNonMatchingAttributeThenReturnsFalse()
     {
         // Arrange
@@ -145,7 +145,7 @@ public sealed class WhenHasAttributeIsCalled
         result.ShouldBeFalse();
     }
 
-    [Fact]
+    [Test]
     public void GivenPropertyWithoutParameterThenReturnsFalse()
     {
         // Arrange
