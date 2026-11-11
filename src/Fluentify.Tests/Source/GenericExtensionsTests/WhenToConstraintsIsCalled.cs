@@ -27,7 +27,7 @@ public sealed class WhenToConstraintsIsCalled
         [
             new() { Name = "T", Constraints = ["class"] },
             new() { Name = "U", Constraints = ["struct"] },
-            new() { Name = "V", Constraints = ["IComparable", "new()"] }
+            new() { Name = "V", Constraints = ["IComparable", "new()"] },
         ];
 
         IReadOnlyList<string> expected =
@@ -50,7 +50,7 @@ public sealed class WhenToConstraintsIsCalled
         // Arrange
         IReadOnlyList<Generic> single =
         [
-            new() { Name = "T", Constraints = ["class", "new()"] }
+            new() { Name = "T", Constraints = ["class", "new()"] },
         ];
 
         IReadOnlyList<string> expected = ["where T : class, new()"];
@@ -68,7 +68,7 @@ public sealed class WhenToConstraintsIsCalled
         // Arrange
         IReadOnlyList<Generic> single =
         [
-            new() { Name = "T", Constraints = ["class"] }
+            new() { Name = "T", Constraints = ["class"] },
         ];
 
         IReadOnlyList<string> expected = ["where T : class"];

@@ -4,7 +4,7 @@
     <NoWarn>CA1859;CA1861</NoWarn>
     <OutputType>Exe</OutputType>
     <RootNamespace>$(MSBuildProjectName.Replace('.Tests', ''))</RootNamespace>
-    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks>net10.0;net11.0</TargetFrameworks>
     <TestingPlatformCommandLineArguments>--coverage --coverage-output-format cobertura --coverage-output $(MSBuildProjectName).$(TargetFramework).coverage.cobertura.xml --coverage-settings &quot;$(MSBuildThisFileDirectory)../instrumentation.config.xml&quot;</TestingPlatformCommandLineArguments>
   </PropertyGroup>
   <ItemGroup>
