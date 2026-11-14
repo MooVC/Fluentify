@@ -17,13 +17,17 @@ env:
   solution: 'Fluentify.slnx'
 
 permissions:
-  packages: write
+  contents: read
 
 jobs:
 
   build:
     name: Build, Test & Publish
     runs-on: windows-2025
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
 
     steps:
     - name: Checkout
@@ -86,18 +90,31 @@ jobs:
         path: ./artifacts/*.nupkg
 
     - name: Publish Packages to GitHub
-      if: ${{ github.event_name != 'workflow_dispatch' || inputs.unlist_only != 'true' }}
+      if: ${{ github.event_name != 'workflow_dispatch' || !inputs.unlist_only }}
       run: dotnet nuget push **/Fluentify*.nupkg --source "https://nuget.pkg.github.com/MooVC/index.json" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
+
+    # Configure NUGET_USER and a nuget.org trusted publishing policy for MooVC/Fluentify and cd.yml.
+    - name: Log in to NuGet
+      if: ${{ github.event_name != 'workflow_dispatch' || !inputs.unlist_only }}
+      uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
+      id: nuget_login
+      with:
+        user: ${{ vars.NUGET_USER }}
+
     - name: Publish Packages to NuGet
-      if: ${{ github.event_name != 'workflow_dispatch' || inputs.unlist_only != 'true' }}
-      run: dotnet nuget push **/Fluentify*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+      if: ${{ github.event_name != 'workflow_dispatch' || !inputs.unlist_only }}
+      run: dotnet nuget push './artifacts/Fluentify*.nupkg' --api-key "$env:NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
+      env:
+        NUGET_API_KEY: ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
 
   unlist:
     name: Unlist Previous Pre-release Package Versions
     runs-on: windows-2025
+    permissions:
+      contents: read
+      id-token: write
     needs: build
     if: ${{ needs.build.result == 'success' }}
 
@@ -108,30 +125,18 @@ jobs:
         dotnet-version: | 
           10.0.x
 
-    - name: Extract and Format Version from Tag
-      run: |
-        $rawTag = '${{ github.ref_name }}'
-        $semantic = $rawTag -replace '^v', '' -replace '(alpha|beta|rc)0+', '$1.' 
-        $numeric = ($semantic -split "-")[0] + ".0"
-        
-        echo "version=$numeric" >> $env:GITHUB_ENV
-        echo "semantic=$semantic" >> $env:GITHUB_ENV
-        echo "informational=$rawTag" >> $env:GITHUB_ENV
-      shell: pwsh
-
     - name: Download Packages
       uses: actions/download-artifact@v8
       with:
         name: nuget-packages
         path: ./artifacts
 
-    - name: Unlist Previous Pre-release Versions on NuGet
-      env:
-        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+    - name: Find Previous Pre-release Versions on NuGet
+      id: prepare_unlist
       run: |
         $ErrorActionPreference = 'Stop'
-        $currentVersion = '${{ env.semantic }}'
         $packages = Get-ChildItem -Path ./artifacts -Filter *.nupkg
+        $packagesToUnlist = @()
         if (-not $packages) {
           throw 'No NuGet packages found to determine package IDs.'
         }
@@ -158,6 +163,10 @@ jobs:
           $packageId = $nuspec.package.metadata.id
           if (-not $packageId) {
             throw "Unable to determine package ID for $($package.Name)."
+          }
+          $currentVersion = $nuspec.package.metadata.version
+          if (-not $currentVersion) {
+            throw "Unable to determine package version for $($package.Name)."
           }
 
           $packageIndexUrl = "https://api.nuget.org/v3-flatcontainer/$($packageId.ToLowerInvariant())/index.json"
@@ -224,8 +233,37 @@ jobs:
               continue
             }
 
-            Write-Host "Unlisting $packageId $previousVersionText."
-            dotnet nuget delete $packageId $previousVersionText --api-key $env:NUGET_API_KEY --source https://api.nuget.org/v3/index.json --non-interactive
+            $packagesToUnlist += [PSCustomObject]@{
+              PackageId = $packageId
+              Version = $previousVersionText
+            }
+          }
+        }
+
+        ConvertTo-Json -InputObject $packagesToUnlist -Compress | Set-Content -LiteralPath ./artifacts/unlist.json -Encoding utf8
+        "has_packages=$($packagesToUnlist.Count -gt 0)".ToLowerInvariant() >> $env:GITHUB_OUTPUT
+      shell: pwsh
+
+    - name: Log in to NuGet
+      if: ${{ steps.prepare_unlist.outputs.has_packages == 'true' }}
+      uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
+      id: nuget_login
+      with:
+        user: ${{ vars.NUGET_USER }}
+
+    - name: Unlist Previous Pre-release Versions on NuGet
+      if: ${{ steps.prepare_unlist.outputs.has_packages == 'true' }}
+      env:
+        NUGET_API_KEY: ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
+      run: |
+        $ErrorActionPreference = 'Stop'
+        $packagesToUnlist = @(Get-Content -LiteralPath ./artifacts/unlist.json -Raw | ConvertFrom-Json)
+
+        foreach ($package in $packagesToUnlist) {
+          Write-Host "Unlisting $($package.PackageId) $($package.Version)."
+          dotnet nuget delete $package.PackageId $package.Version --api-key "$env:NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --non-interactive
+          if ($LASTEXITCODE -ne 0) {
+            throw "Failed to unlist $($package.PackageId) $($package.Version)."
           }
         }
       shell: pwsh
