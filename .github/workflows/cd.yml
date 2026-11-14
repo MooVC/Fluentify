@@ -105,9 +105,21 @@ jobs:
 
     - name: Publish Packages to NuGet
       if: ${{ github.event_name != 'workflow_dispatch' || !inputs.unlist_only }}
-      run: dotnet nuget push './artifacts/Fluentify*.nupkg' --api-key "$env:NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
       env:
         NUGET_API_KEY: ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
+      run: |
+        $packages = Get-ChildItem -LiteralPath ./artifacts -Filter 'Fluentify*.nupkg' -File
+        if (-not $packages) {
+          throw 'No Fluentify NuGet packages found in ./artifacts.'
+        }
+
+        foreach ($package in $packages) {
+          dotnet nuget push $package.FullName --api-key "$env:NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          if ($LASTEXITCODE -ne 0) {
+            throw "Failed to publish $($package.Name) to NuGet.org."
+          }
+        }
+      shell: pwsh
 
   unlist:
     name: Unlist Previous Pre-release Package Versions
