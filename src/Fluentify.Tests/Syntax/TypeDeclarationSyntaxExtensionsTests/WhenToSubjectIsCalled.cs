@@ -1,4 +1,4 @@
-﻿namespace Fluentify.Syntax.TypeDeclarationSyntaxExtensionsTests;
+namespace Fluentify.Syntax.TypeDeclarationSyntaxExtensionsTests;
 
 using Fluentify.Model;
 using Fluentify.Semantics;
@@ -90,6 +90,7 @@ public sealed class WhenToSubjectIsCalled
         {
             Accessibility = Accessibility.Public,
             IsPartial = isPartial,
+            IsRecord = definition.Syntax is RecordDeclarationSyntax,
             Name = "Boolean",
             Namespace = $"Fluentify.{type}.Testing",
             Properties =
@@ -162,6 +163,7 @@ public sealed class WhenToSubjectIsCalled
         {
             Accessibility = Accessibility.Public,
             IsPartial = isPartial,
+            IsRecord = definition.Syntax is RecordDeclarationSyntax,
             Name = "CrossReferenced",
             Namespace = $"Fluentify.{type}.Testing",
             Properties =
@@ -224,6 +226,7 @@ public sealed class WhenToSubjectIsCalled
         {
             Accessibility = Accessibility.Public,
             IsPartial = isPartial,
+            IsRecord = definition.Syntax is RecordDeclarationSyntax,
             Name = "Global",
             Namespace = string.Empty,
             Properties =
@@ -318,6 +321,7 @@ public sealed class WhenToSubjectIsCalled
                 },
             ],
             IsPartial = isPartial,
+            IsRecord = definition.Syntax is RecordDeclarationSyntax,
             Name = "MultipleGenerics",
             Namespace = $"Fluentify.{type}.Testing",
             Properties =
@@ -395,6 +399,7 @@ public sealed class WhenToSubjectIsCalled
         {
             Accessibility = Accessibility.Public,
             IsPartial = isPartial,
+            IsRecord = definition.Syntax is RecordDeclarationSyntax,
             Name = "NestedInClass",
             Namespace = $"Fluentify.{type}.Testing",
             Nesting = [new Nesting { Declaration = "partial class", Name = "Outter", Qualification = "Outter" }],
@@ -472,6 +477,7 @@ public sealed class WhenToSubjectIsCalled
         {
             Accessibility = Accessibility.Public,
             IsPartial = isPartial,
+            IsRecord = definition.Syntax is RecordDeclarationSyntax,
             Name = "Simple",
             Namespace = $"Fluentify.{type}.Testing",
             Properties =
@@ -552,6 +558,7 @@ public sealed class WhenToSubjectIsCalled
                 },
             ],
             IsPartial = isPartial,
+            IsRecord = definition.Syntax is RecordDeclarationSyntax,
             Name = "SingleGeneric",
             Namespace = $"Fluentify.{type}.Testing",
             Properties =

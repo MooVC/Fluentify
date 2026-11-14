@@ -47,38 +47,28 @@ public static partial class Classes
     private const string MultipleGenericsWithAgeExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class MultipleGenericsExtensions
             {
-                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAge<T1, T2, T3>(
-                    this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject,
-                    T1 instance,
-                    Func<T1, T1> builder)
+                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAge<T1, T2, T3>(this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject, T1 instance, global::System.Func<T1, T1> builder)
                     where T1 : struct
                     where T2 : class, new()
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     instance = builder(instance);
 
                     return subject.WithAge(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAge<T1, T2, T3>(
-                    this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject,
-                    Func<T1, T1> builder)
+                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAge<T1, T2, T3>(this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject, global::System.Func<T1, T1> builder)
                     where T1 : struct
                     where T2 : class, new()
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     var instance = subject.Age;
 
@@ -87,14 +77,12 @@ public static partial class Classes
                     return subject.WithAge(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAge<T1, T2, T3>(
-                    this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject,
-                    T1 value)
+                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAge<T1, T2, T3>(this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject, T1 value)
                     where T1 : struct
                     where T2 : class, new()
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return new global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3>
                     {
@@ -110,44 +98,34 @@ public static partial class Classes
     private const string MultipleGenericsWithAttributesExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class MultipleGenericsExtensions
             {
-                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAttributes<T1, T2, T3>(
-                    this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject,
-                    T3 instance,
-                    Func<T3, T3> builder)
+                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAttributes<T1, T2, T3>(this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject, T3 instance, global::System.Func<T3, T3> builder)
                     where T1 : struct
                     where T2 : class, new()
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     instance = builder(instance);
 
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAttributes<T1, T2, T3>(
-                    this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject,
-                    Func<T3, T3> builder)
+                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAttributes<T1, T2, T3>(this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject, global::System.Func<T3, T3> builder)
                     where T1 : struct
                     where T2 : class, new()
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     var instance = subject.Attributes;
 
-                    if (ReferenceEquals(instance, null))
+                    if (global::System.Object.ReferenceEquals(instance, null))
                     {
-                        throw new NotSupportedException();
+                        throw new global::System.NotSupportedException();
                     }
 
                     instance = builder(instance);
@@ -155,16 +133,14 @@ public static partial class Classes
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAttributes<T1, T2, T3>(
-                    this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject,
-                    T3 value)
+                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithAttributes<T1, T2, T3>(this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject, T3 value)
                     where T1 : struct
                     where T2 : class, new()
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return new global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3>
                     {
@@ -180,42 +156,32 @@ public static partial class Classes
     private const string MultipleGenericsWithNameExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class MultipleGenericsExtensions
             {
-                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithName<T1, T2, T3>(
-                    this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject,
-                    T2 instance,
-                    Func<T2, T2> builder)
+                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithName<T1, T2, T3>(this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject, T2 instance, global::System.Func<T2, T2> builder)
                     where T1 : struct
                     where T2 : class, new()
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     instance = builder(instance);
 
                     return subject.WithName(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithName<T1, T2, T3>(
-                    this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject,
-                    Func<T2, T2> builder)
+                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithName<T1, T2, T3>(this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject, global::System.Func<T2, T2> builder)
                     where T1 : struct
                     where T2 : class, new()
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     var instance = subject.Name;
 
-                    if (ReferenceEquals(instance, null))
+                    if (global::System.Object.ReferenceEquals(instance, null))
                     {
                         instance = new T2();
                     }
@@ -225,16 +191,14 @@ public static partial class Classes
                     return subject.WithName(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithName<T1, T2, T3>(
-                    this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject,
-                    T2 value)
+                public static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> WithName<T1, T2, T3>(this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject, T2 value)
                     where T1 : struct
                     where T2 : class, new()
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return new global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3>
                     {
@@ -250,28 +214,21 @@ public static partial class Classes
     private const string MultipleGenericsWithExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using Fluentify.Internal;
-
             public static partial class MultipleGenericsExtensions
             {
-                internal static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> With<T1, T2, T3>(
-                    this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject,
-                    Func<T1> age = default,
-                    Func<T3> attributes = default,
-                    Func<T2> name = default)
+                internal static global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> With<T1, T2, T3>(this global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3> subject, global::System.Func<T1> age = default, global::System.Func<T3> attributes = default, global::System.Func<T2> name = default)
                     where T1 : struct
                     where T2 : class, new()
                     where T3 : global::System.Collections.Generic.IEnumerable<string>
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
-                    var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
-                    var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+                    var ageValue = global::System.Object.ReferenceEquals(age, null) ? subject.Age : age();
+                    var attributesValue = global::System.Object.ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
+                    var nameValue = global::System.Object.ReferenceEquals(name, null) ? subject.Name : name();
 
-                    attributesValue.ThrowIfNull("attributes");
-                    nameValue.ThrowIfNull("name");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(attributesValue, "attributes");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(nameValue, "name");
 
                     return new global::Fluentify.Classes.Testing.MultipleGenerics<T1, T2, T3>
                     {

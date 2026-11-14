@@ -4,6 +4,13 @@ All notable changes to Fluentify will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [Unreleased]
+
+## Changed
+
+- Fluentify generates class and record builders through Graphify visitors and renders their source with MooVC.Syntax.CSharp.
+- The Fluentify analyzer now requires the .NET 10 SDK or later. Generated code continues to support earlier target frameworks.
+
 # [3.0.0] - [2026-06-17]
 
 ## Added

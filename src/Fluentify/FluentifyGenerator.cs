@@ -2,18 +2,18 @@
 
 using System.Text;
 using Fluentify.Model;
-using Fluentify.Source;
 using Fluentify.Syntax;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
+using MooVC.Syntax;
 
 /// <summary>
 /// Generates extension methods that engineers to rapidly develop rich, expressive, and maintainable Fluent APIs with ease.
 /// </summary>
 /// <typeparam name="T">The type of syntax to which the generator applies.</typeparam>
-public abstract partial class FluentifyGenerator<T>
+public abstract class FluentifyGenerator<T>
     : IIncrementalGenerator
     where T : TypeDeclarationSyntax
 {
@@ -37,106 +37,15 @@ public abstract partial class FluentifyGenerator<T>
         context.RegisterSourceOutput(subjects, Generate);
     }
 
-    /// <summary>
-    /// Generates a unique hintname based on the property and subject combination.
-    /// </summary>
-    /// <param name="subject">The subject for which the context is generated.</param>
-    /// <param name="property">The property for which the context was generated.</param>
-    /// <param name="name">The preferred hint name.</param>
-    /// <param name="suffix">An optional suffix for the hint.</param>
-    /// <returns>The unique hint name.</returns>
-    private protected static string GetHint(Subject subject, Property? property = default, string? name = default, string? suffix = default)
+    private static void AddSource(SourceProductionContext context, Source source, Subject subject)
     {
-        string prefix = string.Empty;
+        Snippet content = source.Content;
+        IEnumerable<string> names = subject.Nesting.Reverse().Select(parent => parent.Name).Append(source.Hint);
 
-        if (subject.Nesting.Count > 0)
+        if (!string.IsNullOrEmpty(subject.Namespace))
         {
-            IEnumerable<string> names = subject.Nesting
-                .Reverse()
-                .Select(parent => parent.Name);
-
-            prefix = string.Join(".", names);
-            prefix = string.Concat(prefix, ".");
-        }
-
-        if (name is null)
-        {
-            name = subject.Name;
-
-            if (property is not null)
-            {
-                name = $"{name}Extensions.{property.Descriptor}";
-            }
-
-            if (suffix is not null)
-            {
-                name = $"{name}.{suffix}";
-            }
-        }
-
-        return $"{prefix}{name}.g.cs";
-    }
-
-    /// <summary>
-    /// Allows for the customization of the transfrm generated for the specified property.
-    /// </summary>
-    /// <param name="property">The property for which the transform is to be generated.</param>
-    /// <param name="subject">The subject for which the transform is being applied.</param>
-    /// <returns>The source code associated with the property transform.</returns>
-    private protected abstract string? GetScalarExtensionMethodBody(Property property, Subject subject);
-
-    /// <summary>
-    /// Allows for the customization of source to be added to the <see cref="SourceProductionContext"/>.
-    /// </summary>
-    /// <param name="subject">The subject for which source is to be added to the <see cref="SourceProductionContext"/>.</param>
-    /// <returns>The source to be added to the <see cref="SourceProductionContext"/>.</returns>
-    private protected virtual IEnumerable<Source> GetSource(Subject subject)
-    {
-        var metadata = subject.ToMetadata();
-
-        foreach (Property property in subject.Properties
-            .Where(property => !property.IsIgnored)
-            .OrderBy(property => property.Name))
-        {
-            string? GetScalar(Property property)
-            {
-                string? body = GetScalarExtensionMethodBody(property, subject);
-
-                if (body is null)
-                {
-                    return default;
-                }
-
-                return property.AddValueNullCheck(body, "value", "value");
-            }
-
-            string content = property.GetExtensions(ref metadata, GetScalar);
-
-            if (!string.IsNullOrEmpty(content))
-            {
-                string hint = GetHint(subject, property: property);
-
-                yield return new Source
-                {
-                    Content = content,
-                    Hint = hint,
-                };
-            }
-        }
-    }
-
-    private static void AddSource(string content, SourceProductionContext context, string hint, string @namespace, Subject subject)
-    {
-        if (!string.IsNullOrEmpty(@namespace))
-        {
-            content = $$"""
-                namespace {{@namespace}}
-                {
-                    {{content.Indent()}}
-                }
-                """;
-
-            hint = $"{@namespace}.{hint}";
+            content = content.Block(Configuration.Options, $"namespace {subject.Namespace}");
+            names = names.Prepend(subject.Namespace);
         }
 
         if (subject.SupportsNullableReferenceTypes)
@@ -144,9 +53,10 @@ public abstract partial class FluentifyGenerator<T>
             content = Wrap(content);
         }
 
-        var text = SourceText.From(content, Encoding.UTF8);
+        string hint = string.Join(".", names);
+        var text = SourceText.From(content.ToString().Replace("Attribute/**/", "Attribute"), Encoding.UTF8);
 
-        context.AddSource(hint, text);
+        context.AddSource($"{hint}.g.cs", text);
     }
 
     private static bool IsMatch(SyntaxNode node, CancellationToken cancellationToken)
@@ -171,29 +81,26 @@ public abstract partial class FluentifyGenerator<T>
         return syntax.Options is CSharpParseOptions options && options.LanguageVersion >= LanguageVersion.CSharp8;
     }
 
-    private static string Wrap(string content)
+    private static Snippet Wrap(Snippet content)
     {
-        return $"""
-            #nullable enable
-            #pragma warning disable CS8625
+        Snippet start = Snippet.From(Configuration.Options, "#nullable enable", "#pragma warning disable CS8625");
+        Snippet end = Snippet.From(Configuration.Options, "#pragma warning restore CS8625", "#nullable restore");
 
-            {content}
-
-            #pragma warning restore CS8625
-            #nullable restore
-            """;
+        return Snippet.Blank.Combine(Configuration.Options, start, content, end);
     }
 
-    private void Generate(SourceProductionContext context, Subject? subject)
+    private static void Generate(SourceProductionContext context, Subject? subject)
     {
-        if (subject is not null)
+        if (subject is null)
         {
-            IEnumerable<Source> source = GetSource(subject);
+            return;
+        }
 
-            foreach (Source element in source)
-            {
-                AddSource(element.Content, context, element.Hint, subject.Namespace, subject);
-            }
+        var navigator = new SubjectNavigator(GenerationServices.Instance);
+
+        foreach (Source source in navigator.Navigate<Source>(subject))
+        {
+            AddSource(context, source, subject);
         }
     }
 }

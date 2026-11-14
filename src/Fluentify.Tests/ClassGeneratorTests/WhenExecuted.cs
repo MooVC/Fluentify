@@ -1,4 +1,4 @@
-﻿namespace Fluentify.ClassGeneratorTests;
+namespace Fluentify.ClassGeneratorTests;
 
 using Fluentify.Snippets;
 using Microsoft.CodeAnalysis.CSharp;
@@ -69,6 +69,33 @@ public sealed class WhenExecuted
         Attributes.Ignore.IsExpectedIn(TestState);
         Extensions.Internal.IsExpectedIn(TestState);
         Attributes.SkipAutoInitialization.IsExpectedIn(TestState);
+
+        // Act & Assert
+        await ActAndAssertAsync();
+    }
+
+    [Test]
+    public async Task GivenPropertyTypeEndingInAttributeThenItsFullNameIsUsed()
+    {
+        // Arrange
+        TestBehaviors = TestBehaviors.SkipGeneratedSourcesCheck;
+
+        TestCode = """
+            namespace Demo
+            {
+                using Fluentify;
+
+                public sealed class CustomAttribute : System.Attribute
+                {
+                }
+
+                [Fluentify]
+                public sealed class Sample
+                {
+                    public CustomAttribute Value { get; set; }
+                }
+            }
+            """;
 
         // Act & Assert
         await ActAndAssertAsync();

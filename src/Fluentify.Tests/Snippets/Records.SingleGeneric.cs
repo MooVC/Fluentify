@@ -41,14 +41,12 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System.Diagnostics.CodeAnalysis;
-
             partial record SingleGeneric<T>
             {
                 #pragma warning disable CS8604
 
                 #if NET7_0_OR_GREATER
-                [SetsRequiredMembers]
+                [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute]
                 #endif
                 public SingleGeneric()
                     : this(default(int), default(string), default(T?))
@@ -69,19 +67,12 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SingleGenericExtensions
             {
-                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAge<T>(
-                    this global::Fluentify.Records.Testing.SingleGeneric<T> subject,
-                    int value)
+                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAge<T>(this global::Fluentify.Records.Testing.SingleGeneric<T> subject, int value)
                     where T : global::System.Collections.IEnumerable
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return subject with
                     {
@@ -101,40 +92,30 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SingleGenericExtensions
             {
-                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAttributes<T>(
-                    this global::Fluentify.Records.Testing.SingleGeneric<T> subject,
-                    T? instance,
-                    Func<T?, T?> builder)
+                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAttributes<T>(this global::Fluentify.Records.Testing.SingleGeneric<T> subject, T? instance, global::System.Func<T?, T?> builder)
                     where T : global::System.Collections.IEnumerable
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     instance = builder(instance);
 
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAttributes<T>(
-                    this global::Fluentify.Records.Testing.SingleGeneric<T> subject,
-                    Func<T?, T?> builder)
+                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAttributes<T>(this global::Fluentify.Records.Testing.SingleGeneric<T> subject, global::System.Func<T?, T?> builder)
                     where T : global::System.Collections.IEnumerable
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     var instance = subject.Attributes;
 
-                    if (ReferenceEquals(instance, null))
+                    if (global::System.Object.ReferenceEquals(instance, null))
                     {
-                        throw new NotSupportedException();
+                        throw new global::System.NotSupportedException();
                     }
 
                     instance = builder(instance);
@@ -142,12 +123,10 @@ public static partial class Records
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAttributes<T>(
-                    this global::Fluentify.Records.Testing.SingleGeneric<T> subject,
-                    T? value)
+                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithAttributes<T>(this global::Fluentify.Records.Testing.SingleGeneric<T> subject, T? value)
                     where T : global::System.Collections.IEnumerable
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return subject with
                     {
@@ -167,21 +146,14 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SingleGenericExtensions
             {
-                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithName<T>(
-                    this global::Fluentify.Records.Testing.SingleGeneric<T> subject,
-                    string value)
+                public static global::Fluentify.Records.Testing.SingleGeneric<T> WithName<T>(this global::Fluentify.Records.Testing.SingleGeneric<T> subject, string value)
                     where T : global::System.Collections.IEnumerable
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return subject with
                     {

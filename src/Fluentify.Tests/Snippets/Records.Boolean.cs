@@ -38,14 +38,12 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System.Diagnostics.CodeAnalysis;
-
             partial record Boolean
             {
                 #pragma warning disable CS8604
 
                 #if NET7_0_OR_GREATER
-                [SetsRequiredMembers]
+                [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute]
                 #endif
                 public Boolean()
                     : this(default(int), default(bool), default(string))
@@ -66,18 +64,11 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class BooleanExtensions
             {
-                public static global::Fluentify.Records.Testing.Boolean WithAge(
-                    this global::Fluentify.Records.Testing.Boolean subject,
-                    int value)
+                public static global::Fluentify.Records.Testing.Boolean WithAge(this global::Fluentify.Records.Testing.Boolean subject, int value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return subject with
                     {
@@ -97,20 +88,13 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class BooleanExtensions
             {
-                public static global::Fluentify.Records.Testing.Boolean WithName(
-                    this global::Fluentify.Records.Testing.Boolean subject,
-                    string value)
+                public static global::Fluentify.Records.Testing.Boolean WithName(this global::Fluentify.Records.Testing.Boolean subject, string value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return subject with
                     {
@@ -130,18 +114,11 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class BooleanExtensions
             {
-                public static global::Fluentify.Records.Testing.Boolean IsRetired(
-                    this global::Fluentify.Records.Testing.Boolean subject,
-                    bool value)
+                public static global::Fluentify.Records.Testing.Boolean IsRetired(this global::Fluentify.Records.Testing.Boolean subject, bool value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return subject with
                     {

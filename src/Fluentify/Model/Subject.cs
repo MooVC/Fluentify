@@ -1,6 +1,7 @@
 ﻿namespace Fluentify.Model;
 
-using Fluentify.Source;
+using Fluentify.Syntax;
+using Graphify;
 using Microsoft.CodeAnalysis;
 using Valuify;
 
@@ -9,6 +10,7 @@ using Valuify;
 /// upon which the Fluentify attribute has been placed.
 /// </summary>
 [Valuify]
+[Graphify(Mode = Modes.Synchronous, PropertyPrefix = "_")]
 internal sealed partial class Subject
 {
     /// <summary>
@@ -17,6 +19,7 @@ internal sealed partial class Subject
     /// <value>
     /// The declared accessibility modifier for the subject.
     /// </value>
+    [Traverse(Scope = TraverseScope.None)]
     public Accessibility Accessibility { get; set; }
 
     /// <summary>
@@ -25,6 +28,7 @@ internal sealed partial class Subject
     /// <value>
     /// The generic parameters associated with the subject.
     /// </value>
+    [Traverse(Scope = TraverseScope.None)]
     public IReadOnlyList<Generic> Generics { get; set; } = [];
 
     /// <summary>
@@ -33,6 +37,7 @@ internal sealed partial class Subject
     /// <value>
     /// A value indicating whether or not the type upon which the Fluentify attribute has been placed has a default constructor.
     /// </value>
+    [Traverse(Scope = TraverseScope.None)]
     public bool HasDefaultConstructor => Type.IsBuildable;
 
     /// <summary>
@@ -43,7 +48,14 @@ internal sealed partial class Subject
     /// A value indicating whether or not the type upon which the Fluentify attribute has been placed is considered a candidate
     /// for partial content.
     /// </value>
+    [Traverse(Scope = TraverseScope.None)]
     public bool IsPartial { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the subject is a record.
+    /// </summary>
+    [Traverse(Scope = TraverseScope.None)]
+    public bool IsRecord { get; set; }
 
     /// <summary>
     /// Gets or sets the name of the type upon which the Fluentify attribute has been placed.
@@ -51,6 +63,7 @@ internal sealed partial class Subject
     /// <value>
     /// The name of the type upon which the Fluentify attribute has been placed.
     /// </value>
+    [Traverse(Scope = TraverseScope.None)]
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
@@ -59,6 +72,7 @@ internal sealed partial class Subject
     /// <value>
     /// The namespace for the type upon which the Fluentify attribute has been placed.
     /// </value>
+    [Traverse(Scope = TraverseScope.None)]
     public string Namespace { get; set; } = string.Empty;
 
     /// <summary>
@@ -67,6 +81,7 @@ internal sealed partial class Subject
     /// <value>
     /// The declarations associated with the parent types in order of declaration.
     /// </value>
+    [Traverse(Scope = TraverseScope.None)]
     public IReadOnlyList<Nesting> Nesting { get; set; } = [];
 
     /// <summary>
@@ -75,6 +90,7 @@ internal sealed partial class Subject
     /// <value>
     /// The properties associated with the subject.
     /// </value>
+    [Traverse(Scope = TraverseScope.Property)]
     public IReadOnlyList<Property> Properties { get; set; } = [];
 
     /// <summary>
@@ -83,6 +99,7 @@ internal sealed partial class Subject
     /// <value>
     /// A value indicating whether nullable reference type annotations are supported for generated code.
     /// </value>
+    [Traverse(Scope = TraverseScope.None)]
     public bool SupportsNullableReferenceTypes { get; set; }
 
     /// <summary>
@@ -91,6 +108,7 @@ internal sealed partial class Subject
     /// <value>
     /// The data type of the Subject.
     /// </value>
+    [Traverse(Scope = TraverseScope.None)]
     public Type Type { get; set; } = Type.Unspecified;
 
     /// <inheritdoc/>

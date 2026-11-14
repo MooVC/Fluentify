@@ -12,4 +12,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+  <Target Name="ResolveAnalyzerProjectDependencies" AfterTargets="ResolveProjectReferences">
+    <ItemGroup>
+      <_AnalyzerProjectReference Include="@(_MSBuildProjectReferenceExistent->WithMetadataValue('OutputItemType', 'Analyzer')->WithMetadataValue('BuildReference', 'true'))" />
+    </ItemGroup>
+    <MSBuild Projects="@(_AnalyzerProjectReference)"
+             Targets="GetAnalyzerDependencyTargetPaths"
+             Properties="%(_AnalyzerProjectReference.SetConfiguration);%(_AnalyzerProjectReference.SetPlatform);%(_AnalyzerProjectReference.SetTargetFramework)"
+             RemoveProperties="%(_AnalyzerProjectReference.GlobalPropertiesToRemove)$(_GlobalPropertiesToRemoveFromProjectReferences)"
+             ContinueOnError="!$(BuildingProject)"
+             Condition="'@(_AnalyzerProjectReference)' != ''">
+      <Output TaskParameter="TargetOutputs" ItemName="Analyzer" />
+    </MSBuild>
+  </Target>
 </Project>

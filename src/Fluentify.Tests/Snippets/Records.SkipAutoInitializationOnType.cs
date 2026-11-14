@@ -44,14 +44,12 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System.Diagnostics.CodeAnalysis;
-
             partial record SkipAutoInitializationOnType
             {
                 #pragma warning disable CS8604
 
                 #if NET7_0_OR_GREATER
-                [SetsRequiredMembers]
+                [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute]
                 #endif
                 public SkipAutoInitializationOnType()
                     : this(default(int), default(global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent))
@@ -72,18 +70,11 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SkipAutoInitializationOnTypeExtensions
             {
-                public static global::Fluentify.Records.Testing.SkipAutoInitializationOnType WithAge(
-                    this global::Fluentify.Records.Testing.SkipAutoInitializationOnType subject,
-                    int value)
+                public static global::Fluentify.Records.Testing.SkipAutoInitializationOnType WithAge(this global::Fluentify.Records.Testing.SkipAutoInitializationOnType subject, int value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return subject with
                     {
@@ -103,38 +94,28 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SkipAutoInitializationOnTypeExtensions
             {
-                public static global::Fluentify.Records.Testing.SkipAutoInitializationOnType WithDependency(
-                    this global::Fluentify.Records.Testing.SkipAutoInitializationOnType subject,
-                    global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent instance,
-                    Func<global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent, global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent> builder)
+                public static global::Fluentify.Records.Testing.SkipAutoInitializationOnType WithDependency(this global::Fluentify.Records.Testing.SkipAutoInitializationOnType subject, global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent instance, global::System.Func<global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent, global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent> builder)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     instance = builder(instance);
 
                     return subject.WithDependency(instance);
                 }
 
-                public static global::Fluentify.Records.Testing.SkipAutoInitializationOnType WithDependency(
-                    this global::Fluentify.Records.Testing.SkipAutoInitializationOnType subject,
-                    Func<global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent, global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent> builder)
+                public static global::Fluentify.Records.Testing.SkipAutoInitializationOnType WithDependency(this global::Fluentify.Records.Testing.SkipAutoInitializationOnType subject, global::System.Func<global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent, global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent> builder)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     var instance = subject.Dependency;
 
-                    if (ReferenceEquals(instance, null))
+                    if (global::System.Object.ReferenceEquals(instance, null))
                     {
-                        throw new NotSupportedException();
+                        throw new global::System.NotSupportedException();
                     }
 
                     instance = builder(instance);
@@ -142,13 +123,11 @@ public static partial class Records
                     return subject.WithDependency(instance);
                 }
 
-                public static global::Fluentify.Records.Testing.SkipAutoInitializationOnType WithDependency(
-                    this global::Fluentify.Records.Testing.SkipAutoInitializationOnType subject,
-                    global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent value)
+                public static global::Fluentify.Records.Testing.SkipAutoInitializationOnType WithDependency(this global::Fluentify.Records.Testing.SkipAutoInitializationOnType subject, global::Fluentify.Records.Testing.SkipAutoInitializationOnType.Dependent value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return subject with
                     {

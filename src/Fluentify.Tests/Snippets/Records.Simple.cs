@@ -40,14 +40,12 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System.Diagnostics.CodeAnalysis;
-
             partial record Simple
             {
                 #pragma warning disable CS8604
 
                 #if NET7_0_OR_GREATER
-                [SetsRequiredMembers]
+                [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute]
                 #endif
                 public Simple()
                     : this(default(int), default(string), default(global::System.Collections.Generic.IReadOnlyList<object>?))
@@ -68,18 +66,11 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SimpleExtensions
             {
-                public static global::Fluentify.Records.Testing.Simple WithAge(
-                    this global::Fluentify.Records.Testing.Simple subject,
-                    int value)
+                public static global::Fluentify.Records.Testing.Simple WithAge(this global::Fluentify.Records.Testing.Simple subject, int value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return subject with
                     {
@@ -99,21 +90,13 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SimpleExtensions
             {
-                public static global::Fluentify.Records.Testing.Simple WithAttributes(
-                    this global::Fluentify.Records.Testing.Simple subject,
-                    Func<object, object> builder,
-                    params object[] values)
+                public static global::Fluentify.Records.Testing.Simple WithAttributes(this global::Fluentify.Records.Testing.Simple subject, global::System.Func<object, object> builder, params object[] values)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
-                    values.ThrowIfNull("values");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(values, "values");
 
                     foreach (var value in values)
                     {
@@ -123,25 +106,20 @@ public static partial class Records
                     return subject;
                 }
 
-                public static global::Fluentify.Records.Testing.Simple WithAttributes(
-                    this global::Fluentify.Records.Testing.Simple subject,
-                    object instance,
-                    Func<object, object> builder)
+                public static global::Fluentify.Records.Testing.Simple WithAttributes(this global::Fluentify.Records.Testing.Simple subject, object instance, global::System.Func<object, object> builder)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     instance = builder(instance);
 
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Records.Testing.Simple WithAttributes(
-                    this global::Fluentify.Records.Testing.Simple subject,
-                    Func<object, object> builder)
+                public static global::Fluentify.Records.Testing.Simple WithAttributes(this global::Fluentify.Records.Testing.Simple subject, global::System.Func<object, object> builder)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     var instance = new object();
 
@@ -150,20 +128,16 @@ public static partial class Records
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Records.Testing.Simple WithAttributes(
-                    this global::Fluentify.Records.Testing.Simple subject,
-                    params object[] values)
+                public static global::Fluentify.Records.Testing.Simple WithAttributes(this global::Fluentify.Records.Testing.Simple subject, params object[] values)
                 {
-                    subject.ThrowIfNull("subject");
-                    values.ThrowIfNull("values");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(values, "values");
 
                     global::System.Collections.Generic.IReadOnlyList<object>? value = values;
 
                     if (subject.Attributes != null)
                     {
-                        value = subject.Attributes
-                            .Union(values)
-                            .ToArray();
+                        value = global::System.Linq.Enumerable.ToArray(global::System.Linq.Enumerable.Union(subject.Attributes, values));
                     }
 
                     return subject with
@@ -184,20 +158,13 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SimpleExtensions
             {
-                public static global::Fluentify.Records.Testing.Simple WithName(
-                    this global::Fluentify.Records.Testing.Simple subject,
-                    string value)
+                public static global::Fluentify.Records.Testing.Simple WithName(this global::Fluentify.Records.Testing.Simple subject, string value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return subject with
                     {

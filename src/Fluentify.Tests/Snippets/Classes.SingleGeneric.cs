@@ -45,19 +45,12 @@ public static partial class Classes
     private const string SingleGenericWithAgeExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SingleGenericExtensions
             {
-                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAge<T>(
-                    this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
-                    int value)
+                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAge<T>(this global::Fluentify.Classes.Testing.SingleGeneric<T> subject, int value)
                     where T : global::System.Collections.IEnumerable
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {
@@ -73,40 +66,30 @@ public static partial class Classes
     private const string SingleGenericWithAttributesExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SingleGenericExtensions
             {
-                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAttributes<T>(
-                    this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
-                    T instance,
-                    Func<T, T> builder)
+                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAttributes<T>(this global::Fluentify.Classes.Testing.SingleGeneric<T> subject, T instance, global::System.Func<T, T> builder)
                     where T : global::System.Collections.IEnumerable
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     instance = builder(instance);
 
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAttributes<T>(
-                    this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
-                    Func<T, T> builder)
+                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAttributes<T>(this global::Fluentify.Classes.Testing.SingleGeneric<T> subject, global::System.Func<T, T> builder)
                     where T : global::System.Collections.IEnumerable
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     var instance = subject.Attributes;
 
-                    if (ReferenceEquals(instance, null))
+                    if (global::System.Object.ReferenceEquals(instance, null))
                     {
-                        throw new NotSupportedException();
+                        throw new global::System.NotSupportedException();
                     }
 
                     instance = builder(instance);
@@ -114,14 +97,12 @@ public static partial class Classes
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAttributes<T>(
-                    this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
-                    T value)
+                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithAttributes<T>(this global::Fluentify.Classes.Testing.SingleGeneric<T> subject, T value)
                     where T : global::System.Collections.IEnumerable
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {
@@ -137,21 +118,14 @@ public static partial class Classes
     private const string SingleGenericWithNameExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SingleGenericExtensions
             {
-                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithName<T>(
-                    this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
-                    string value)
+                public static global::Fluentify.Classes.Testing.SingleGeneric<T> WithName<T>(this global::Fluentify.Classes.Testing.SingleGeneric<T> subject, string value)
                     where T : global::System.Collections.IEnumerable
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {
@@ -167,26 +141,19 @@ public static partial class Classes
     private const string SingleGenericWithExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using Fluentify.Internal;
-
             public static partial class SingleGenericExtensions
             {
-                internal static global::Fluentify.Classes.Testing.SingleGeneric<T> With<T>(
-                    this global::Fluentify.Classes.Testing.SingleGeneric<T> subject,
-                    Func<int> age = default,
-                    Func<T> attributes = default,
-                    Func<string> name = default)
+                internal static global::Fluentify.Classes.Testing.SingleGeneric<T> With<T>(this global::Fluentify.Classes.Testing.SingleGeneric<T> subject, global::System.Func<int> age = default, global::System.Func<T> attributes = default, global::System.Func<string> name = default)
                     where T : global::System.Collections.IEnumerable
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
-                    var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
-                    var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+                    var ageValue = global::System.Object.ReferenceEquals(age, null) ? subject.Age : age();
+                    var attributesValue = global::System.Object.ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
+                    var nameValue = global::System.Object.ReferenceEquals(name, null) ? subject.Name : name();
 
-                    attributesValue.ThrowIfNull("attributes");
-                    nameValue.ThrowIfNull("name");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(attributesValue, "attributes");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(nameValue, "name");
 
                     return new global::Fluentify.Classes.Testing.SingleGeneric<T>
                     {

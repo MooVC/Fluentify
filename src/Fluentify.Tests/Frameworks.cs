@@ -14,6 +14,10 @@ internal static class Frameworks
         (ReferenceAssemblies.Net.Net80, LanguageVersion.CSharp12, new DateOnly(2026, 11, 10)),
         (ReferenceAssemblies.Net.Net90, LanguageVersion.CSharp13, new DateOnly(2026, 11, 10)),
         (ReferenceAssemblies.Net.Net100, LanguageVersion.CSharp14, new DateOnly(2028, 11, 14)),
+        (
+            new ReferenceAssemblies("net11.0", new PackageIdentity("Microsoft.NETCore.App.Ref", "11.0.0"), Path.Combine("ref", "net11.0")),
+            LanguageVersion.CSharp15,
+            new DateOnly(2028, 11, 14)),
         (ReferenceAssemblies.NetCore.NetCoreApp20, LanguageVersion.CSharp7_3, new DateOnly(2018, 10, 1)),
         (ReferenceAssemblies.NetCore.NetCoreApp21, LanguageVersion.CSharp7_3, new DateOnly(2021, 8, 21)),
         (ReferenceAssemblies.NetCore.NetCoreApp30, LanguageVersion.CSharp8, new DateOnly(2020, 3, 3)),

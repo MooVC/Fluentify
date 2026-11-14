@@ -18,7 +18,7 @@ public sealed class FluentifyAttributeGenerator
     /// Creates an instance of the <see cref="FluentifyAttributeGenerator"/>.
     /// </summary>
     public FluentifyAttributeGenerator()
-        : base(Name, "Class")
+        : base(Name, AttributeTargets.Class)
     {
     }
 }

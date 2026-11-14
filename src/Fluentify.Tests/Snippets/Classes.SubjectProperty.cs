@@ -28,20 +28,15 @@ public static partial class Classes
     private const string SubjectPropertyWithExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using Fluentify.Internal;
-
             public static partial class SubjectPropertyExtensions
             {
-                internal static global::Fluentify.Classes.Testing.SubjectProperty With(
-                    this global::Fluentify.Classes.Testing.SubjectProperty subject,
-                    Func<string> subject1 = default)
+                internal static global::Fluentify.Classes.Testing.SubjectProperty With(this global::Fluentify.Classes.Testing.SubjectProperty subject, global::System.Func<string> subject1 = default)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    var subject1Value = ReferenceEquals(subject1, null) ? subject.Subject : subject1();
+                    var subject1Value = global::System.Object.ReferenceEquals(subject1, null) ? subject.Subject : subject1();
 
-                    subject1Value.ThrowIfNull("subject1");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject1Value, "subject1");
 
                     return new global::Fluentify.Classes.Testing.SubjectProperty
                     {
@@ -55,20 +50,13 @@ public static partial class Classes
     private const string SubjectPropertyWithSubjectExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SubjectPropertyExtensions
             {
-                public static global::Fluentify.Classes.Testing.SubjectProperty WithSubject(
-                    this global::Fluentify.Classes.Testing.SubjectProperty subject,
-                    string value)
+                public static global::Fluentify.Classes.Testing.SubjectProperty WithSubject(this global::Fluentify.Classes.Testing.SubjectProperty subject, string value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return new global::Fluentify.Classes.Testing.SubjectProperty
                     {

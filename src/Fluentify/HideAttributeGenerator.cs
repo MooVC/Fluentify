@@ -18,7 +18,7 @@ public sealed class HideAttributeGenerator
     /// Creates an instance of the <see cref="HideAttributeGenerator"/>.
     /// </summary>
     public HideAttributeGenerator()
-        : base(Name, "Parameter", "Property")
+        : base(Name, AttributeTargets.Parameter, AttributeTargets.Property)
     {
     }
 }
