@@ -60,7 +60,7 @@ Add another property and its fluent method is generated on the next build. There
 dotnet add package Fluentify
 ```
 
-Fluentify runs in the .NET 10 SDK or later. The generated code can target earlier frameworks and uses the language version selected by your project. Individual examples use collection expressions, which require C# 12.
+Fluentify runs in the .NET 11 SDK or later. The generated code can target earlier frameworks and uses the language version selected by your project. Individual examples use collection expressions, which require C# 12.
 
 ## Where Fluentify fits
 

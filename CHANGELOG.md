@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Changed
 
 - Generated source now uses fully qualified types to avoid build failures when consumers declare types that can potentially be ambiguous.
+- Updated `System.Collections.Immutable` from `10.0.15` to `11.0.0`.
 
 # [3.0.0] - [2026-06-17]
 

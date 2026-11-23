@@ -14,7 +14,7 @@
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.37.0.15768" />
     <PackageVersion Include="Shouldly" Version="4.3.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.3.180" />
-    <PackageVersion Include="System.Collections.Immutable" Version="[10.0.15,11.0.0)" />
+    <PackageVersion Include="System.Collections.Immutable" Version="[11.0.0,12.0.0)" />
     <PackageVersion Include="TUnit" Version="1.87.12" />
     <PackageVersion Include="Valuify" Version="1.10.0" />
   </ItemGroup>
