@@ -18,7 +18,7 @@ public sealed class IgnoreAttributeGenerator
     /// Creates an instance of the <see cref="IgnoreAttributeGenerator"/>.
     /// </summary>
     public IgnoreAttributeGenerator()
-        : base(Name, "Parameter", "Property")
+        : base(Name, AttributeTargets.Parameter, AttributeTargets.Property)
     {
     }
 }

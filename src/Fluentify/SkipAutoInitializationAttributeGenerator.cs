@@ -18,7 +18,7 @@ public sealed class SkipAutoInitializationAttributeGenerator
     /// Creates an instance of the <see cref="SkipAutoInitializationAttributeGenerator"/>.
     /// </summary>
     public SkipAutoInitializationAttributeGenerator()
-        : base(Name, "Class", "Parameter", "Property", "Struct")
+        : base(Name, AttributeTargets.Class, AttributeTargets.Parameter, AttributeTargets.Property, AttributeTargets.Struct)
     {
     }
 }

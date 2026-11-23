@@ -19,29 +19,13 @@ public sealed class AutoInitializeWithAttributeGenerator
     /// <summary>
     /// The source code that will be output by the generator.
     /// </summary>
-    internal const string Source = $$"""
-        namespace Fluentify
-        {
-            using System;
-            using System.Diagnostics.CodeAnalysis;
-
-            [AttributeUsage(AttributeTargets.Class | AttributeTargets.Parameter | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
-            internal sealed class {{Name}}Attribute
-                : Attribute
-            {
-                public {{Name}}Attribute()
-                {
-                }
-
-                public {{Name}}Attribute(string factory)
-                {
-                    Factory = factory;
-                }
-
-                public string Factory { get; } = string.Empty;
-            }
-        }
-        """;
+    internal static readonly string Source = AttributeGenerator.CreateStringAttributeSource(
+        Name,
+        "Factory",
+        "factory",
+        AttributeTargets.Class,
+        AttributeTargets.Parameter,
+        AttributeTargets.Property);
 
     /// <inheritdoc/>
     public void Initialize(IncrementalGeneratorInitializationContext context)

@@ -25,14 +25,12 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System.Diagnostics.CodeAnalysis;
-
             partial record AllThreeIgnored
             {
                 #pragma warning disable CS8604
 
                 #if NET7_0_OR_GREATER
-                [SetsRequiredMembers]
+                [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute]
                 #endif
                 public AllThreeIgnored()
                     : this(default(int), default(string), default(global::System.Collections.Generic.IReadOnlyList<object>?))

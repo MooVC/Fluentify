@@ -1,10 +1,5 @@
-﻿namespace Fluentify;
+namespace Fluentify;
 
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Fluentify.Model;
-using Fluentify.Source;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -15,52 +10,4 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 public sealed class ClassGenerator
     : FluentifyGenerator<ClassDeclarationSyntax>
 {
-    /// <inheritdoc/>
-    private protected override IEnumerable<Source> GetSource(Subject subject)
-    {
-        if (!subject.HasDefaultConstructor)
-        {
-            yield break;
-        }
-
-        foreach (Source source in base.GetSource(subject))
-        {
-            yield return source;
-        }
-
-        yield return new Source
-        {
-            Content = subject.GetWithExtensions(),
-            Hint = GetHint(subject, name: $"{subject.Name}Extensions.With"),
-        };
-    }
-
-    /// <inheritdoc/>
-    private protected override string? GetScalarExtensionMethodBody(Property property, Subject subject)
-    {
-        string initializers = GetInitializers(property, subject);
-
-        return $$"""
-            return new {{subject.Type}}
-            {
-                {{initializers.Indent()}}
-            };
-            """;
-    }
-
-    private static string GetInitializers(Property property, Subject subject)
-    {
-        var initializers = new StringBuilder();
-
-        foreach (Property member in subject.Properties.OrderBy(property => property.Name))
-        {
-            string initializer = member == property
-                ? $"{member.Name} = value"
-                : $"{member.Name} = subject.{member.Name}";
-
-            initializers = initializers.AppendLine($"{initializer},");
-        }
-
-        return initializers.ToString();
-    }
 }

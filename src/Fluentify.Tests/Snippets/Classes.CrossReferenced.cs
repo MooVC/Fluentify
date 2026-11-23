@@ -35,20 +35,13 @@ public static partial class Classes
     private const string CrossReferencedWithDescriptionExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class CrossReferencedExtensions
             {
-                public static global::Fluentify.Classes.Testing.CrossReferenced WithDescription(
-                    this global::Fluentify.Classes.Testing.CrossReferenced subject,
-                    string value)
+                public static global::Fluentify.Classes.Testing.CrossReferenced WithDescription(this global::Fluentify.Classes.Testing.CrossReferenced subject, string value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return new global::Fluentify.Classes.Testing.CrossReferenced
                     {
@@ -63,36 +56,26 @@ public static partial class Classes
     private const string CrossReferencedWithSimpleExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class CrossReferencedExtensions
             {
-                public static global::Fluentify.Classes.Testing.CrossReferenced WithSimple(
-                    this global::Fluentify.Classes.Testing.CrossReferenced subject,
-                    global::Fluentify.Classes.Testing.Simple instance,
-                    Func<global::Fluentify.Classes.Testing.Simple, global::Fluentify.Classes.Testing.Simple> builder)
+                public static global::Fluentify.Classes.Testing.CrossReferenced WithSimple(this global::Fluentify.Classes.Testing.CrossReferenced subject, global::Fluentify.Classes.Testing.Simple instance, global::System.Func<global::Fluentify.Classes.Testing.Simple, global::Fluentify.Classes.Testing.Simple> builder)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     instance = builder(instance);
 
                     return subject.WithSimple(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.CrossReferenced WithSimple(
-                    this global::Fluentify.Classes.Testing.CrossReferenced subject,
-                    Func<global::Fluentify.Classes.Testing.Simple, global::Fluentify.Classes.Testing.Simple> builder)
+                public static global::Fluentify.Classes.Testing.CrossReferenced WithSimple(this global::Fluentify.Classes.Testing.CrossReferenced subject, global::System.Func<global::Fluentify.Classes.Testing.Simple, global::Fluentify.Classes.Testing.Simple> builder)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     var instance = subject.Simple;
 
-                    if (ReferenceEquals(instance, null))
+                    if (global::System.Object.ReferenceEquals(instance, null))
                     {
                         instance = new global::Fluentify.Classes.Testing.Simple();
                     }
@@ -102,13 +85,11 @@ public static partial class Classes
                     return subject.WithSimple(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.CrossReferenced WithSimple(
-                    this global::Fluentify.Classes.Testing.CrossReferenced subject,
-                    global::Fluentify.Classes.Testing.Simple value)
+                public static global::Fluentify.Classes.Testing.CrossReferenced WithSimple(this global::Fluentify.Classes.Testing.CrossReferenced subject, global::Fluentify.Classes.Testing.Simple value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return new global::Fluentify.Classes.Testing.CrossReferenced
                     {
@@ -123,23 +104,17 @@ public static partial class Classes
     private const string CrossReferencedWithExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using Fluentify.Internal;
-
             public static partial class CrossReferencedExtensions
             {
-                internal static global::Fluentify.Classes.Testing.CrossReferenced With(
-                    this global::Fluentify.Classes.Testing.CrossReferenced subject,
-                    Func<string> description = default,
-                    Func<global::Fluentify.Classes.Testing.Simple> simple = default)
+                internal static global::Fluentify.Classes.Testing.CrossReferenced With(this global::Fluentify.Classes.Testing.CrossReferenced subject, global::System.Func<string> description = default, global::System.Func<global::Fluentify.Classes.Testing.Simple> simple = default)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    var descriptionValue = ReferenceEquals(description, null) ? subject.Description : description();
-                    var simpleValue = ReferenceEquals(simple, null) ? subject.Simple : simple();
+                    var descriptionValue = global::System.Object.ReferenceEquals(description, null) ? subject.Description : description();
+                    var simpleValue = global::System.Object.ReferenceEquals(simple, null) ? subject.Simple : simple();
 
-                    descriptionValue.ThrowIfNull("description");
-                    simpleValue.ThrowIfNull("simple");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(descriptionValue, "description");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(simpleValue, "simple");
 
                     return new global::Fluentify.Classes.Testing.CrossReferenced
                     {

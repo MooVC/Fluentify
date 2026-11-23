@@ -33,14 +33,12 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System.Diagnostics.CodeAnalysis;
-
             partial record CrossReferenced
             {
                 #pragma warning disable CS8604
 
                 #if NET7_0_OR_GREATER
-                [SetsRequiredMembers]
+                [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute]
                 #endif
                 public CrossReferenced()
                     : this(default(string), default(global::Fluentify.Records.Testing.Simple))
@@ -61,20 +59,13 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class CrossReferencedExtensions
             {
-                public static global::Fluentify.Records.Testing.CrossReferenced WithDescription(
-                    this global::Fluentify.Records.Testing.CrossReferenced subject,
-                    string value)
+                public static global::Fluentify.Records.Testing.CrossReferenced WithDescription(this global::Fluentify.Records.Testing.CrossReferenced subject, string value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return subject with
                     {
@@ -94,36 +85,26 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class CrossReferencedExtensions
             {
-                public static global::Fluentify.Records.Testing.CrossReferenced WithSimple(
-                    this global::Fluentify.Records.Testing.CrossReferenced subject,
-                    global::Fluentify.Records.Testing.Simple instance,
-                    Func<global::Fluentify.Records.Testing.Simple, global::Fluentify.Records.Testing.Simple> builder)
+                public static global::Fluentify.Records.Testing.CrossReferenced WithSimple(this global::Fluentify.Records.Testing.CrossReferenced subject, global::Fluentify.Records.Testing.Simple instance, global::System.Func<global::Fluentify.Records.Testing.Simple, global::Fluentify.Records.Testing.Simple> builder)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     instance = builder(instance);
 
                     return subject.WithSimple(instance);
                 }
 
-                public static global::Fluentify.Records.Testing.CrossReferenced WithSimple(
-                    this global::Fluentify.Records.Testing.CrossReferenced subject,
-                    Func<global::Fluentify.Records.Testing.Simple, global::Fluentify.Records.Testing.Simple> builder)
+                public static global::Fluentify.Records.Testing.CrossReferenced WithSimple(this global::Fluentify.Records.Testing.CrossReferenced subject, global::System.Func<global::Fluentify.Records.Testing.Simple, global::Fluentify.Records.Testing.Simple> builder)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     var instance = subject.Simple;
 
-                    if (ReferenceEquals(instance, null))
+                    if (global::System.Object.ReferenceEquals(instance, null))
                     {
                         instance = new global::Fluentify.Records.Testing.Simple();
                     }
@@ -133,13 +114,11 @@ public static partial class Records
                     return subject.WithSimple(instance);
                 }
 
-                public static global::Fluentify.Records.Testing.CrossReferenced WithSimple(
-                    this global::Fluentify.Records.Testing.CrossReferenced subject,
-                    global::Fluentify.Records.Testing.Simple value)
+                public static global::Fluentify.Records.Testing.CrossReferenced WithSimple(this global::Fluentify.Records.Testing.CrossReferenced subject, global::Fluentify.Records.Testing.Simple value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return subject with
                     {

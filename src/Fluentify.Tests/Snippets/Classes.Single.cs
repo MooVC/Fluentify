@@ -33,18 +33,11 @@ public static partial class Classes
     private const string SingleWithAgeExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SingleExtensions
             {
-                public static global::Fluentify.Classes.Testing.Single WithAge(
-                    this global::Fluentify.Classes.Testing.Single subject,
-                    int value)
+                public static global::Fluentify.Classes.Testing.Single WithAge(this global::Fluentify.Classes.Testing.Single subject, int value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return new global::Fluentify.Classes.Testing.Single
                     {
@@ -58,18 +51,13 @@ public static partial class Classes
     private const string SingleWithExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using Fluentify.Internal;
-
             public static partial class SingleExtensions
             {
-                internal static global::Fluentify.Classes.Testing.Single With(
-                    this global::Fluentify.Classes.Testing.Single subject,
-                    Func<int> age = default)
+                internal static global::Fluentify.Classes.Testing.Single With(this global::Fluentify.Classes.Testing.Single subject, global::System.Func<int> age = default)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
+                    var ageValue = global::System.Object.ReferenceEquals(age, null) ? subject.Age : age();
 
                     return new global::Fluentify.Classes.Testing.Single
                     {

@@ -42,18 +42,11 @@ public static partial class Classes
     private const string BooleanWithAgeExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class BooleanExtensions
             {
-                public static global::Fluentify.Classes.Testing.Boolean WithAge(
-                    this global::Fluentify.Classes.Testing.Boolean subject,
-                    int value)
+                public static global::Fluentify.Classes.Testing.Boolean WithAge(this global::Fluentify.Classes.Testing.Boolean subject, int value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return new global::Fluentify.Classes.Testing.Boolean
                     {
@@ -69,20 +62,13 @@ public static partial class Classes
     private const string BooleanWithNameExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class BooleanExtensions
             {
-                public static global::Fluentify.Classes.Testing.Boolean WithName(
-                    this global::Fluentify.Classes.Testing.Boolean subject,
-                    string value)
+                public static global::Fluentify.Classes.Testing.Boolean WithName(this global::Fluentify.Classes.Testing.Boolean subject, string value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return new global::Fluentify.Classes.Testing.Boolean
                     {
@@ -98,18 +84,11 @@ public static partial class Classes
     private const string BooleanIsRetiredExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class BooleanExtensions
             {
-                public static global::Fluentify.Classes.Testing.Boolean IsRetired(
-                    this global::Fluentify.Classes.Testing.Boolean subject,
-                    bool value)
+                public static global::Fluentify.Classes.Testing.Boolean IsRetired(this global::Fluentify.Classes.Testing.Boolean subject, bool value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return new global::Fluentify.Classes.Testing.Boolean
                     {
@@ -125,24 +104,17 @@ public static partial class Classes
     private const string BooleanWithExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using Fluentify.Internal;
-
             public static partial class BooleanExtensions
             {
-                internal static global::Fluentify.Classes.Testing.Boolean With(
-                    this global::Fluentify.Classes.Testing.Boolean subject,
-                    Func<int> age = default,
-                    Func<bool> isRetired = default,
-                    Func<string> name = default)
+                internal static global::Fluentify.Classes.Testing.Boolean With(this global::Fluentify.Classes.Testing.Boolean subject, global::System.Func<int> age = default, global::System.Func<bool> isRetired = default, global::System.Func<string> name = default)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
-                    var isRetiredValue = ReferenceEquals(isRetired, null) ? subject.IsRetired : isRetired();
-                    var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+                    var ageValue = global::System.Object.ReferenceEquals(age, null) ? subject.Age : age();
+                    var isRetiredValue = global::System.Object.ReferenceEquals(isRetired, null) ? subject.IsRetired : isRetired();
+                    var nameValue = global::System.Object.ReferenceEquals(name, null) ? subject.Name : name();
 
-                    nameValue.ThrowIfNull("name");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(nameValue, "name");
 
                     return new global::Fluentify.Classes.Testing.Boolean
                     {

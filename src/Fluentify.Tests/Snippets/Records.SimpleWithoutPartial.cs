@@ -35,18 +35,11 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SimpleWithoutPartialExtensions
             {
-                public static global::Fluentify.Records.Testing.SimpleWithoutPartial WithAge(
-                    this global::Fluentify.Records.Testing.SimpleWithoutPartial subject,
-                    int value)
+                public static global::Fluentify.Records.Testing.SimpleWithoutPartial WithAge(this global::Fluentify.Records.Testing.SimpleWithoutPartial subject, int value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return subject with
                     {
@@ -66,21 +59,13 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SimpleWithoutPartialExtensions
             {
-                public static global::Fluentify.Records.Testing.SimpleWithoutPartial WithAttributes(
-                    this global::Fluentify.Records.Testing.SimpleWithoutPartial subject,
-                    Func<object, object> builder,
-                    params object[] values)
+                public static global::Fluentify.Records.Testing.SimpleWithoutPartial WithAttributes(this global::Fluentify.Records.Testing.SimpleWithoutPartial subject, global::System.Func<object, object> builder, params object[] values)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
-                    values.ThrowIfNull("values");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(values, "values");
 
                     foreach (var value in values)
                     {
@@ -90,25 +75,20 @@ public static partial class Records
                     return subject;
                 }
 
-                public static global::Fluentify.Records.Testing.SimpleWithoutPartial WithAttributes(
-                    this global::Fluentify.Records.Testing.SimpleWithoutPartial subject,
-                    object instance,
-                    Func<object, object> builder)
+                public static global::Fluentify.Records.Testing.SimpleWithoutPartial WithAttributes(this global::Fluentify.Records.Testing.SimpleWithoutPartial subject, object instance, global::System.Func<object, object> builder)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     instance = builder(instance);
 
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Records.Testing.SimpleWithoutPartial WithAttributes(
-                    this global::Fluentify.Records.Testing.SimpleWithoutPartial subject,
-                    Func<object, object> builder)
+                public static global::Fluentify.Records.Testing.SimpleWithoutPartial WithAttributes(this global::Fluentify.Records.Testing.SimpleWithoutPartial subject, global::System.Func<object, object> builder)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     var instance = new object();
 
@@ -117,20 +97,16 @@ public static partial class Records
                     return subject.WithAttributes(instance);
                 }
 
-                public static global::Fluentify.Records.Testing.SimpleWithoutPartial WithAttributes(
-                    this global::Fluentify.Records.Testing.SimpleWithoutPartial subject,
-                    params object[] values)
+                public static global::Fluentify.Records.Testing.SimpleWithoutPartial WithAttributes(this global::Fluentify.Records.Testing.SimpleWithoutPartial subject, params object[] values)
                 {
-                    subject.ThrowIfNull("subject");
-                    values.ThrowIfNull("values");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(values, "values");
 
                     global::System.Collections.Generic.IReadOnlyList<object>? value = values;
 
                     if (subject.Attributes != null)
                     {
-                        value = subject.Attributes
-                            .Union(values)
-                            .ToArray();
+                        value = global::System.Linq.Enumerable.ToArray(global::System.Linq.Enumerable.Union(subject.Attributes, values));
                     }
 
                     return subject with
@@ -151,20 +127,13 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SimpleWithoutPartialExtensions
             {
-                public static global::Fluentify.Records.Testing.SimpleWithoutPartial WithName(
-                    this global::Fluentify.Records.Testing.SimpleWithoutPartial subject,
-                    string value)
+                public static global::Fluentify.Records.Testing.SimpleWithoutPartial WithName(this global::Fluentify.Records.Testing.SimpleWithoutPartial subject, string value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return subject with
                     {

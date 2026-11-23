@@ -33,14 +33,12 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System.Diagnostics.CodeAnalysis;
-
             partial record Single
             {
                 #pragma warning disable CS8604
 
                 #if NET7_0_OR_GREATER
-                [SetsRequiredMembers]
+                [global::System.Diagnostics.CodeAnalysis.SetsRequiredMembersAttribute]
                 #endif
                 public Single()
                     : this(default(int))
@@ -61,18 +59,11 @@ public static partial class Records
 
         namespace Fluentify.Records.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SingleExtensions
             {
-                public static global::Fluentify.Records.Testing.Single WithAge(
-                    this global::Fluentify.Records.Testing.Single subject,
-                    int value)
+                public static global::Fluentify.Records.Testing.Single WithAge(this global::Fluentify.Records.Testing.Single subject, int value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return subject with
                     {

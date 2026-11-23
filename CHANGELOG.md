@@ -4,6 +4,13 @@ All notable changes to Fluentify will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [3.1.0] - 2026-11-23
+
+## Changed
+
+- Generated source now uses fully qualified types to avoid build failures when consumers declare types that can potentially be ambiguous.
+- Updated `System.Collections.Immutable` from `10.0.15` to `11.0.0`.
+
 # [3.0.0] - [2026-06-17]
 
 ## Added

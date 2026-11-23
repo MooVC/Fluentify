@@ -64,6 +64,7 @@ internal static partial class TypeDeclarationSyntaxExtensions
             Accessibility = type.DeclaredAccessibility,
             Generics = generics,
             IsPartial = isPartial,
+            IsRecord = type.IsRecord,
             Name = type.Name,
             Namespace = @namespace,
             Nesting = [.. nesting],

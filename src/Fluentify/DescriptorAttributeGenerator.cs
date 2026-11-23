@@ -21,29 +21,12 @@ public sealed class DescriptorAttributeGenerator
     /// <summary>
     /// The source code that will be output by the generator.
     /// </summary>
-    internal const string Source = $$"""
-        namespace Fluentify
-        {
-            using System;
-            using System.Diagnostics.CodeAnalysis;
-
-            [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
-            internal sealed class {{Name}}Attribute
-                : Attribute
-            {
-                public {{Name}}Attribute()
-                {
-                }
-
-                public {{Name}}Attribute(string value)
-                {
-                    Value = value;
-                }
-
-                public string Value { get; } = string.Empty;
-            }
-        }
-        """;
+    internal static readonly string Source = AttributeGenerator.CreateStringAttributeSource(
+        Name,
+        "Value",
+        "value",
+        AttributeTargets.Parameter,
+        AttributeTargets.Property);
 
     /// <summary>
     /// The pattern applied to the value supplied to the Descriptor, ensuring the value specified is suitable for use as an extension method name.

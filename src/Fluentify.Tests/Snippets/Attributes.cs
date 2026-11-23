@@ -2,20 +2,69 @@
 
 public static class Attributes
 {
+    public static readonly Generated AutoInitializeWith = new(
+        """
+            namespace Fluentify
+            {
+                [global::System.AttributeUsageAttribute(
+                    global::System.AttributeTargets.Class | global::System.AttributeTargets.Parameter | global::System.AttributeTargets.Property,
+                    Inherited = false,
+                    AllowMultiple = false)]
+                internal sealed class AutoInitializeWithAttribute
+                    : global::System.Attribute
+                {
+                    public AutoInitializeWithAttribute()
+                    {
+                        Factory = string.Empty;
+                    }
+
+                    public AutoInitializeWithAttribute(string factory)
+                    {
+                        Factory = factory;
+                    }
+
+                    public string Factory { get; }
+                }
+            }
+            """,
+        typeof(AutoInitializeWithAttributeGenerator),
+        "AutoInitializeWithAttribute");
+
     public static readonly Generated Descriptor = new(
-        DescriptorAttributeGenerator.Source,
+        """
+            namespace Fluentify
+            {
+                [global::System.AttributeUsageAttribute(
+                    global::System.AttributeTargets.Parameter | global::System.AttributeTargets.Property,
+                    Inherited = false,
+                    AllowMultiple = false)]
+                internal sealed class DescriptorAttribute
+                    : global::System.Attribute
+                {
+                    public DescriptorAttribute()
+                    {
+                        Value = string.Empty;
+                    }
+
+                    public DescriptorAttribute(string value)
+                    {
+                        Value = value;
+                    }
+
+                    public string Value { get; }
+                }
+            }
+            """,
         typeof(DescriptorAttributeGenerator),
         "DescriptorAttribute");
 
     public static readonly Generated Fluentify = new(
-        $$"""
+        """
             namespace Fluentify
             {
-                using System;
-
-                [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+                [global::System.AttributeUsageAttribute(global::System.AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
                 internal sealed class FluentifyAttribute
-                    : Attribute
+                    : global::System.Attribute
                 {
                 }
             }
@@ -24,14 +73,15 @@ public static class Attributes
         "FluentifyAttribute");
 
     public static readonly Generated Hide = new(
-        $$"""
+        """
             namespace Fluentify
             {
-                using System;
-
-                [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
+                [global::System.AttributeUsageAttribute(
+                    global::System.AttributeTargets.Parameter | global::System.AttributeTargets.Property,
+                    Inherited = false,
+                    AllowMultiple = false)]
                 internal sealed class HideAttribute
-                    : Attribute
+                    : global::System.Attribute
                 {
                 }
             }
@@ -40,14 +90,15 @@ public static class Attributes
         "HideAttribute");
 
     public static readonly Generated Ignore = new(
-        $$"""
+        """
             namespace Fluentify
             {
-                using System;
-
-                [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
+                [global::System.AttributeUsageAttribute(
+                    global::System.AttributeTargets.Parameter | global::System.AttributeTargets.Property,
+                    Inherited = false,
+                    AllowMultiple = false)]
                 internal sealed class IgnoreAttribute
-                    : Attribute
+                    : global::System.Attribute
                 {
                 }
             }
@@ -56,14 +107,15 @@ public static class Attributes
         "IgnoreAttribute");
 
     public static readonly Generated SkipAutoInitialization = new(
-        $$"""
+        """
             namespace Fluentify
             {
-                using System;
-
-                [AttributeUsage(AttributeTargets.Class | AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Struct, Inherited = false, AllowMultiple = false)]
+                [global::System.AttributeUsageAttribute(
+                    global::System.AttributeTargets.Class | global::System.AttributeTargets.Parameter | global::System.AttributeTargets.Property | global::System.AttributeTargets.Struct,
+                    Inherited = false,
+                    AllowMultiple = false)]
                 internal sealed class SkipAutoInitializationAttribute
-                    : Attribute
+                    : global::System.Attribute
                 {
                 }
             }

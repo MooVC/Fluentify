@@ -41,18 +41,11 @@ public static partial class Classes
     private const string SkipAutoInitializationOnTypeWithAgeExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SkipAutoInitializationOnTypeExtensions
             {
-                public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType WithAge(
-                    this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject,
-                    int value)
+                public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType WithAge(this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject, int value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
                     return new global::Fluentify.Classes.Testing.SkipAutoInitializationOnType
                     {
@@ -67,38 +60,28 @@ public static partial class Classes
     private const string SkipAutoInitializationOnTypeWithDependencyExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using System.Collections.Generic;
-            using System.Linq;
-            using Fluentify.Internal;
-
             public static partial class SkipAutoInitializationOnTypeExtensions
             {
-                public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType WithDependency(
-                    this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject,
-                    global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent instance,
-                    Func<global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent, global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent> builder)
+                public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType WithDependency(this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject, global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent instance, global::System.Func<global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent, global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent> builder)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     instance = builder(instance);
 
                     return subject.WithDependency(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType WithDependency(
-                    this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject,
-                    Func<global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent, global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent> builder)
+                public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType WithDependency(this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject, global::System.Func<global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent, global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent> builder)
                 {
-                    subject.ThrowIfNull("subject");
-                    builder.ThrowIfNull("builder");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(builder, "builder");
 
                     var instance = subject.Dependency;
 
-                    if (ReferenceEquals(instance, null))
+                    if (global::System.Object.ReferenceEquals(instance, null))
                     {
-                        throw new NotSupportedException();
+                        throw new global::System.NotSupportedException();
                     }
 
                     instance = builder(instance);
@@ -106,13 +89,11 @@ public static partial class Classes
                     return subject.WithDependency(instance);
                 }
 
-                public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType WithDependency(
-                    this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject,
-                    global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent value)
+                public static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType WithDependency(this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject, global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent value)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    value.ThrowIfNull("value");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(value, "value");
 
                     return new global::Fluentify.Classes.Testing.SkipAutoInitializationOnType
                     {
@@ -127,22 +108,16 @@ public static partial class Classes
     private const string SkipAutoInitializationOnTypeWithExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using Fluentify.Internal;
-
             public static partial class SkipAutoInitializationOnTypeExtensions
             {
-                internal static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType With(
-                    this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject,
-                    Func<int> age = default,
-                    Func<global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent> dependency = default)
+                internal static global::Fluentify.Classes.Testing.SkipAutoInitializationOnType With(this global::Fluentify.Classes.Testing.SkipAutoInitializationOnType subject, global::System.Func<int> age = default, global::System.Func<global::Fluentify.Classes.Testing.SkipAutoInitializationOnType.Dependent> dependency = default)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
-                    var dependencyValue = ReferenceEquals(dependency, null) ? subject.Dependency : dependency();
+                    var ageValue = global::System.Object.ReferenceEquals(age, null) ? subject.Age : age();
+                    var dependencyValue = global::System.Object.ReferenceEquals(dependency, null) ? subject.Dependency : dependency();
 
-                    dependencyValue.ThrowIfNull("dependency");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(dependencyValue, "dependency");
 
                     return new global::Fluentify.Classes.Testing.SkipAutoInitializationOnType
                     {

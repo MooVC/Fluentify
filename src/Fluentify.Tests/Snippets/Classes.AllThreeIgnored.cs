@@ -32,25 +32,18 @@ public static partial class Classes
     private const string AllThreeIgnoredWithExtensionsContent = """
         namespace Fluentify.Classes.Testing
         {
-            using System;
-            using Fluentify.Internal;
-
             public static partial class AllThreeIgnoredExtensions
             {
-                internal static global::Fluentify.Classes.Testing.AllThreeIgnored With(
-                    this global::Fluentify.Classes.Testing.AllThreeIgnored subject,
-                    Func<int> age = default,
-                    Func<global::System.Collections.Generic.IReadOnlyList<object>> attributes = default,
-                    Func<string> name = default)
+                internal static global::Fluentify.Classes.Testing.AllThreeIgnored With(this global::Fluentify.Classes.Testing.AllThreeIgnored subject, global::System.Func<int> age = default, global::System.Func<global::System.Collections.Generic.IReadOnlyList<object>> attributes = default, global::System.Func<string> name = default)
                 {
-                    subject.ThrowIfNull("subject");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(subject, "subject");
 
-                    var ageValue = ReferenceEquals(age, null) ? subject.Age : age();
-                    var attributesValue = ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
-                    var nameValue = ReferenceEquals(name, null) ? subject.Name : name();
+                    var ageValue = global::System.Object.ReferenceEquals(age, null) ? subject.Age : age();
+                    var attributesValue = global::System.Object.ReferenceEquals(attributes, null) ? subject.Attributes : attributes();
+                    var nameValue = global::System.Object.ReferenceEquals(name, null) ? subject.Name : name();
 
-                    attributesValue.ThrowIfNull("attributes");
-                    nameValue.ThrowIfNull("name");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(attributesValue, "attributes");
+                    global::Fluentify.Internal.Extensions.ThrowIfNull(nameValue, "name");
 
                     return new global::Fluentify.Classes.Testing.AllThreeIgnored
                     {
